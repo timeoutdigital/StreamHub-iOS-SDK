@@ -39,13 +39,13 @@
                WithPath:(NSString *)path
             WithPayload:(NSString *)payload
              WithMethod:(NSString *)httpMethod
-            WithSuccess:(void (^)(NSDictionary *res))success
-            WithFailure:(void (^)(NSError *))failure;
+              OnSuccess:(void (^)(NSDictionary *res))success
+              OnFailure:(void (^)(NSError *))failure;
 
 // Generic handling of HTTP responses, 
 // handling error reporting and JSON parsing.
 + (NSDictionary *)handleResponse:(NSURLResponse *)resp
                        WithError:(NSError *)err
                         WithData:(NSData *)data
-                     WithFailure:(void (^)(NSError *))failure;
+                       OnFailure:(void (^)(NSError *))failure;
 @end

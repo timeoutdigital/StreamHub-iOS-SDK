@@ -50,10 +50,10 @@
  * @return void
  */
 + (void)authenticateUserWithToken:(NSString *)userToken
-                    forCollection:(NSString *)collectionId
-                       forArticle:(NSString *)articleId
-                          forSite:(NSString *)siteId
-                        onNetwork:(NSString *)networkDomain
-                          success:(void (^)(NSDictionary *userData))success
-                          failure:(void (^)(NSError *error))failure;
+                    ForCollection:(NSString *)collectionId
+                       ForArticle:(NSString *)articleId
+                          ForSite:(NSString *)siteId
+                       ForNetwork:(NSString *)networkDomain
+                        OnSuccess:(void (^)(NSDictionary *userData))success
+                        OnFailure:(void (^)(NSError *error))failure;
 @end

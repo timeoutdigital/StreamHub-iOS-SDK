@@ -30,36 +30,34 @@
 #import "LFWriteClient.h"
 #import "NSString+QueryString.h"
 
-static NSString *_quill = @"quill";
-
 @implementation LFWriteClient
 + (void)likeContent:(NSString *)contentId
-            forUser:(NSString *)userToken
-       inCollection:(NSString *)collectionId
-          onNetwork:(NSString *)networkDomain
-            success:(void (^)(NSDictionary *))success
-            failure:(void (^)(NSError *))failure
+            ForUser:(NSString *)userToken
+      ForCollection:(NSString *)collectionId
+         ForNetwork:(NSString *)networkDomain
+          OnSuccess:(void (^)(NSDictionary *))success
+          OnFailure:(void (^)(NSError *))failure
 {
-    [self likeOrUnlikeContent:contentId forUser:userToken inCollection:collectionId onNetwork:networkDomain withAction:@"like" success:success failure:failure];
+    [self likeOrUnlikeContent:contentId ForUser:userToken ForCollection:collectionId ForNetwork:networkDomain Action:@"like" OnSuccess:success OnFailure:failure];
 }
 
 + (void)unlikeContent:(NSString *)contentId
-              forUser:(NSString *)userToken
-         inCollection:(NSString *)collectionId
-            onNetwork:(NSString *)networkDomain
-              success:(void (^)(NSDictionary *))success
-              failure:(void (^)(NSError *))failure
+              ForUser:(NSString *)userToken
+        ForCollection:(NSString *)collectionId
+           ForNetwork:(NSString *)networkDomain
+            OnSuccess:(void (^)(NSDictionary *))success
+            OnFailure:(void (^)(NSError *))failure
 {
-    [self likeOrUnlikeContent:contentId forUser:userToken inCollection:collectionId onNetwork:networkDomain withAction:@"unlike" success:success failure:failure];
+    [self likeOrUnlikeContent:contentId ForUser:userToken ForCollection:collectionId ForNetwork:networkDomain Action:@"unlike" OnSuccess:success OnFailure:failure];
 }
 
 + (void)likeOrUnlikeContent:(NSString *)contentId
-                    forUser:(NSString *)userToken
-               inCollection:(NSString *)collectionId
-                  onNetwork:(NSString *)networkDomain
-                 withAction:(NSString *)actionEndpoint
-                    success:(void (^)(NSDictionary *))success
-                    failure:(void (^)(NSError *))failure
+                    ForUser:(NSString *)userToken
+              ForCollection:(NSString *)collectionId
+                 ForNetwork:(NSString *)networkDomain
+                     Action:(NSString *)actionEndpoint
+                  OnSuccess:(void (^)(NSDictionary *))success
+                  OnFailure:(void (^)(NSError *))failure
 {
     if (!networkDomain || !userToken || !collectionId || !contentId) {
         failure([NSError errorWithDomain:kLFError code:400u userInfo:[NSDictionary dictionaryWithObject:@"Lacking necessary parameters to like content."
@@ -71,24 +69,24 @@ static NSString *_quill = @"quill";
     NSString *queryString = [[NSString alloc] initWithParams:paramsDict];
     
     contentId = [contentId stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString *host = [NSString stringWithFormat:@"%@.%@", _quill, networkDomain];
+    NSString *host = [NSString stringWithFormat:@"%@.%@", kQuillDomain, networkDomain];
     NSString *path = [NSString stringWithFormat:@"/api/v3.0/message/%@/%@/", contentId, actionEndpoint];
 
     [self requestWithHost:host
                  WithPath:path
               WithPayload:queryString
                WithMethod:@"POST"
-              WithSuccess:success
-              WithFailure:failure];
+                OnSuccess:success
+                OnFailure:failure];
 }
 
 + (void)postContent:(NSString *)body
-            forUser:(NSString *)userToken
-          inReplyTo:(NSString *)parentId
-       inCollection:(NSString *)collectionId
-          onNetwork:(NSString *)networkDomain
-            success:(void (^)(NSDictionary *))success
-            failure:(void (^)(NSError *))failure
+            ForUser:(NSString *)userToken
+          InReplyTo:(NSString *)parentId
+      ForCollection:(NSString *)collectionId
+         ForNetwork:(NSString *)networkDomain
+          OnSuccess:(void (^)(NSDictionary *))success
+          OnFailure:(void (^)(NSError *))failure
 {
     if (!body || !userToken || !collectionId || !networkDomain) {
         failure([NSError errorWithDomain:kLFError code:400u userInfo:[NSDictionary dictionaryWithObject:@"Lacking necessary parameters to post content."
@@ -101,14 +99,14 @@ static NSString *_quill = @"quill";
         [paramsDict setObject:parentId forKey:@"parent_id"];
     
     NSString *queryString = [[NSString alloc] initWithParams:paramsDict];
-    NSString *host = [NSString stringWithFormat:@"%@.%@", _quill, networkDomain];
+    NSString *host = [NSString stringWithFormat:@"%@.%@", kQuillDomain, networkDomain];
     NSString *path = [NSString stringWithFormat:@"/api/v3.0/collection/%@/post/", collectionId];
     
     [self requestWithHost:host
                  WithPath:path
               WithPayload:queryString
                WithMethod:@"POST"
-              WithSuccess:success
-              WithFailure:failure];
+                OnSuccess:success
+                OnFailure:failure];
 }
 @end

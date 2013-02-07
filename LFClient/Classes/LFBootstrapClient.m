@@ -30,15 +30,13 @@
 #import "LFBootstrapClient.h"
 #import "NSString+Base64Encoding.h"
 
-static NSString *_bootstrap = @"bootstrap";
-
 @implementation LFBootstrapClient
 + (void)getInitForArticle:(NSString *)articleId
-                  forSite:(NSString *)siteId
-                onNetwork:(NSString *)networkDomain
-          withEnvironment:(NSString *)environment
-                  success:(void (^)(NSDictionary *))success
-                  failure:(void (^)(NSError *))failure
+                  ForSite:(NSString *)siteId
+               ForNetwork:(NSString *)networkDomain
+           ForEnvironment:(NSString *)environment
+                OnSuccess:(void (^)(NSDictionary *))success
+                OnFailure:(void (^)(NSError *))failure
 {
     if (!networkDomain || !siteId || !articleId) {
         failure([NSError errorWithDomain:kLFError code:400u userInfo:[NSDictionary dictionaryWithObject:@"Lacking necessary parameters to call bootstrap init."
@@ -46,7 +44,7 @@ static NSString *_bootstrap = @"bootstrap";
         return;
     }
     
-    NSString *host = [NSString stringWithFormat:@"%@.%@", _bootstrap, networkDomain];
+    NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, networkDomain];
     NSString *path;
     if (environment) {
         path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/%@/init", environment, networkDomain, siteId, [articleId base64EncodedString]];
@@ -58,14 +56,14 @@ static NSString *_bootstrap = @"bootstrap";
                  WithPath:path
               WithPayload:nil
                WithMethod:@"GET"
-              WithSuccess:success
-              WithFailure:failure];
+                OnSuccess:success
+                OnFailure:failure];
 }
 
 + (void)getContentForPage:(NSUInteger)pageIndex
-             withInitInfo:(NSDictionary *)initInfo
-                  success:(void (^)(NSDictionary *))success
-                  failure:(void (^)(NSError *))failure
+             WithInitInfo:(NSDictionary *)initInfo
+                OnSuccess:(void (^)(NSDictionary *))success
+                OnFailure:(void (^)(NSError *))failure
 {
     if (!initInfo) {
         failure([NSError errorWithDomain:kLFError code:400u userInfo:[NSDictionary dictionaryWithObject:@"Lacking necessary parameters to call get content."
@@ -89,14 +87,14 @@ static NSString *_bootstrap = @"bootstrap";
     
     NSString *networkDomain = [initInfo valueForKeyPath:@"collectionSettings.networkId"];
     NSString *pageUrlKeyPath = [NSString stringWithFormat:@"collectionSettings.archiveInfo.pageInfo.%lu.url", (unsigned long)pageIndex];
-    NSString *host = [NSString stringWithFormat:@"%@.%@", _bootstrap, networkDomain];
+    NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, networkDomain];
     NSString *path = [NSString stringWithFormat:@"/bs3/%@", [initInfo valueForKeyPath:pageUrlKeyPath]];
     
     [self requestWithHost:host
                  WithPath:path
               WithPayload:nil
                WithMethod:@"GET"
-              WithSuccess:success
-              WithFailure:failure];
+                OnSuccess:success
+                OnFailure:failure];
 }
 @end

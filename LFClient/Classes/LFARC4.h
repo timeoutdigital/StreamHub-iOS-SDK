@@ -47,5 +47,5 @@
  * @param key The secret key.
  * @return NSString
  */
-+ (NSString *)decrypt:(NSString *)string withKey:(NSString *)key;
++ (NSString *)decrypt:(NSString *)string WithKey:(NSString *)key;
 @end

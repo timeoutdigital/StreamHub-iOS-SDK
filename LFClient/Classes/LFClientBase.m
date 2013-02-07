@@ -50,8 +50,8 @@ static NSOperationQueue *_LFQueue;
                WithPath:(NSString *)path
             WithPayload:(NSString *)payload
              WithMethod:(NSString *)httpMethod
-            WithSuccess:(void (^)(NSDictionary *res))success
-            WithFailure:(void (^)(NSError *))failure
+              OnSuccess:(void (^)(NSDictionary *res))success
+              OnFailure:(void (^)(NSError *))failure
 {
     NSURL *connectionURL = [[NSURL alloc] initWithScheme:kLFSDKScheme host:host path:path];
     NSMutableURLRequest *connectionReq = [[NSMutableURLRequest alloc] initWithURL:connectionURL];
@@ -66,7 +66,7 @@ static NSOperationQueue *_LFQueue;
     
     [NSURLConnection sendAsynchronousRequest:connectionReq queue:[self LFQueue] completionHandler:^(NSURLResponse *resp, NSData *data, NSError *err) {
         
-        NSDictionary *payload = [self handleResponse:resp WithError:err WithData:data WithFailure:failure];
+        NSDictionary *payload = [self handleResponse:resp WithError:err WithData:data OnFailure:failure];
         if (payload)
             success(payload);
         
@@ -77,7 +77,7 @@ static NSOperationQueue *_LFQueue;
 + (NSDictionary *)handleResponse:(NSURLResponse *)resp
                        WithError:(NSError *)err
                         WithData:(NSData *)data
-                     WithFailure:(void (^)(NSError *))failure
+                       OnFailure:(void (^)(NSError *))failure
 {
     if (err) {
         failure(err);
