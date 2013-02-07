@@ -61,4 +61,42 @@ static NSString *_bootstrap = @"bootstrap";
               WithSuccess:success
               WithFailure:failure];
 }
+
++ (void)getContentForPage:(NSUInteger)pageIndex
+             withInitInfo:(NSDictionary *)initInfo
+                  success:(void (^)(NSDictionary *))success
+                  failure:(void (^)(NSError *))failure
+{
+    if (!initInfo) {
+        failure([NSError errorWithDomain:kLFError code:400u userInfo:[NSDictionary dictionaryWithObject:@"Lacking necessary parameters to call get content."
+                                                                                                 forKey:NSLocalizedDescriptionKey]]);
+        return;
+    }
+    
+    // If page index is zero we already have the content as part of the init data.
+    if (!pageIndex) {
+        success([initInfo objectForKey:@"headDocument"]);
+        return;
+    }
+    
+    NSUInteger nPages = [[initInfo valueForKeyPath:@"collectionSettings.archiveInfo.nPages"] integerValue];
+    
+    if (pageIndex >= nPages) {
+        failure([NSError errorWithDomain:kLFError code:400u userInfo:[NSDictionary dictionaryWithObject:@"Page index outside of collection page bounds."
+                                                                                                 forKey:NSLocalizedDescriptionKey]]);
+        return;
+    }
+    
+    NSString *networkDomain = [initInfo valueForKeyPath:@"collectionSettings.networkId"];
+    NSString *pageUrlKeyPath = [NSString stringWithFormat:@"collectionSettings.archiveInfo.pageInfo.%lu.url", (unsigned long)pageIndex];
+    NSString *host = [NSString stringWithFormat:@"%@.%@", _bootstrap, networkDomain];
+    NSString *path = [NSString stringWithFormat:@"/bs3/%@", [initInfo valueForKeyPath:pageUrlKeyPath]];
+    
+    [self requestWithHost:host
+                 WithPath:path
+              WithPayload:nil
+               WithMethod:@"GET"
+              WithSuccess:success
+              WithFailure:failure];
+}
 @end

@@ -34,7 +34,7 @@ static NSString *_bootstrap = @"bootstrap";
 
 @implementation LFPublicAPIClient
 + (void)getTrendingCollectionsForTag:(NSString *)tag
-                              forSite:(NSString *)siteId
+                             forSite:(NSString *)siteId
                            onNetwork:(NSString *)networkDomain
                       desiredResults:(NSUInteger)number
                              success:(void (^)(NSArray *))success
@@ -69,7 +69,7 @@ static NSString *_bootstrap = @"bootstrap";
               }
               WithFailure:failure];
 }
-
+ 
 + (void)getUserContentForUser:(NSString *)userId
                     withToken:(NSString *)userToken
                     onNetwork:(NSString *)networkDomain

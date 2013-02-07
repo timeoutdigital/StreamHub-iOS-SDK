@@ -37,7 +37,6 @@
 #import "Config.h"
 
 @interface LFClientUnitTests()
-@property (nonatomic) NSString *event;
 @end
 
 @implementation LFClientUnitTests
@@ -56,8 +55,9 @@
     [super tearDown];
 }
 
-- (void)testBootstrapGetInit {
-    __block NSDictionary *coll;
+- (void)testBootstrapClient {
+    // Get Init
+    __block NSDictionary *bootstrapInitInfo;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
     [LFBootstrapClient getInitForArticle:@"fakeArticle"
@@ -65,7 +65,7 @@
                                onNetwork:@"init-sample"
                          withEnvironment:nil
                                  success:^(NSDictionary *collection) {
-                                     coll = collection;
+                                     bootstrapInitInfo = collection;
                                      dispatch_semaphore_signal(sema);
                                  }
                                  failure:^(NSError *error) {
@@ -75,9 +75,45 @@
                                  }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertEquals([coll count], 4u, @"Collection dictionary should have 4 keys");
-    self.event = [[coll objectForKey:@"collectionSettings"] objectForKey:@"event"];
+    STAssertEquals([bootstrapInitInfo count], 4u, @"Collection dictionary should have 4 keys");
+
+    // Get Content
+    __block NSDictionary *contentInfo;
+    sema = dispatch_semaphore_create(0);
+    
+    [LFBootstrapClient getContentForPage:0
+                            withInitInfo:bootstrapInitInfo
+                                 success:^(NSDictionary *content) {
+                                     contentInfo = content;
+                                     dispatch_semaphore_signal(sema);
+                                 }
+                                 failure:^(NSError *error) {
+                                     if (error)
+                                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                                     dispatch_semaphore_signal(sema);
+                                 }];
+    
+    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
+    STAssertNotNil(contentInfo, @"Content head document fail");
+    
+    sema = dispatch_semaphore_create(0);
+    
+    [LFBootstrapClient getContentForPage:1
+                            withInitInfo:bootstrapInitInfo
+                                 success:^(NSDictionary *content) {
+                                     contentInfo = content;
+                                     dispatch_semaphore_signal(sema);
+                                 }
+                                 failure:^(NSError *error) {
+                                     if (error)
+                                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                                     dispatch_semaphore_signal(sema);
+                                 }];
+    
+    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
+    STAssertNotNil(contentInfo, @"Content fetch fail");
 }
+
 
 - (void)testPublicAPIGetTrending {
     __block NSArray *res;
