@@ -271,25 +271,25 @@
 //    NSLog(@"Successfully posted w/ shareTo");
 }
 
-- (void)testStream {
-    __block NSDictionary *res;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    LFStreamClient *streamer = [LFStreamClient new];
-    [streamer startStreamForCollection:[Config objectForKey:@"collection"]
-                             fromEvent:@"2648462675" //the past
-                             onNetwork:[Config objectForKey:@"domain"]
-                               success:^(NSDictionary *updates) {
-                                   res = updates;
-                                   dispatch_semaphore_signal(sema);
-                               } failure:^(NSError *error) {
-                                   NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                   dispatch_semaphore_signal(sema);
-                               }];
-    
-    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-    NSLog(@"Successfully streamed");
-    
-    [streamer stopStreamForCollection:[Config objectForKey:@"collection"]];
-}
+//- (void)testStream {
+//    __block NSDictionary *res;
+//    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+//    
+//    LFStreamClient *streamer = [LFStreamClient new];
+//    [streamer startStreamForCollection:[Config objectForKey:@"collection"]
+//                             fromEvent:@"2648462675" //the past
+//                             onNetwork:[Config objectForKey:@"domain"]
+//                               success:^(NSDictionary *updates) {
+//                                   res = updates;
+//                                   dispatch_semaphore_signal(sema);
+//                               } failure:^(NSError *error) {
+//                                   NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+//                                   dispatch_semaphore_signal(sema);
+//                               }];
+//    
+//    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+//    NSLog(@"Successfully streamed");
+//    
+//    [streamer stopStreamForCollection:[Config objectForKey:@"collection"]];
+//}
 @end
