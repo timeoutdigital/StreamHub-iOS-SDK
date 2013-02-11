@@ -51,11 +51,11 @@
  * @return void
  */
 + (void)getTrendingCollectionsForTag:(NSString *)tag
-                             ForSite:(NSString *)siteId
-                          ForNetwork:(NSString *)networkDomain
-                      DesiredResults:(NSUInteger)numberOfResults
-                           OnSuccess:(void (^)(NSArray *results))success
-                           OnFailure:(void (^)(NSError *error))failure;
+                                site:(NSString *)siteId
+                             network:(NSString *)networkDomain
+                      desiredResults:(NSUInteger)numberOfResults
+                           onSuccess:(void (^)(NSArray *results))success
+                           onFailure:(void (^)(NSError *error))failure;
                              
 /** @name User Information */
 
@@ -76,10 +76,10 @@
  * @return void
  */
 + (void)getUserContentForUser:(NSString *)userId
-                    WithToken:(NSString *)userToken
-                   ForNetwork:(NSString *)networkDomain
-                  forStatuses:(NSArray *)statuses
-                       Offset:(NSNumber *)offset
-                    OnSuccess:(void (^)(NSArray *results))success
-                    OnFailure:(void (^)(NSError *error))failure;
+                    withToken:(NSString *)userToken
+                   forNetwork:(NSString *)networkDomain
+                     statuses:(NSArray *)statuses
+                       offset:(NSNumber *)offset
+                    onSuccess:(void (^)(NSArray *results))success
+                    onFailure:(void (^)(NSError *error))failure;
 @end

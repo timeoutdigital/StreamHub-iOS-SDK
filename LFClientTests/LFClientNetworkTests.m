@@ -63,14 +63,14 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
     [LFBootstrapClient getInitForArticle:[Config objectForKey:@"article"]
-                                 ForSite:[Config objectForKey:@"site"]
-                               ForNetwork:[Config objectForKey:@"domain"]
-                         ForEnvironment:[Config objectForKey:@"environment"]
-                                 OnSuccess:^(NSDictionary *collection) {
+                                 site:[Config objectForKey:@"site"]
+                               network:[Config objectForKey:@"domain"]
+                         environment:[Config objectForKey:@"environment"]
+                                 onSuccess:^(NSDictionary *collection) {
                                      coll = collection;
                                      dispatch_semaphore_signal(sema);
                                  }
-                                 OnFailure:^(NSError *error) {
+                                 onFailure:^(NSError *error) {
                                      if (error)
                                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                      dispatch_semaphore_signal(sema);
@@ -88,13 +88,13 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
 
     [LFPublicAPIClient getTrendingCollectionsForTag:@"tag"
-                                             ForSite:[Config objectForKey:@"site"]
-                                          ForNetwork:[Config objectForKey:@"domain"]
-                                     DesiredResults:10
-                                            OnSuccess:^(NSArray *results) {
+                                             site:[Config objectForKey:@"site"]
+                                          network:[Config objectForKey:@"domain"]
+                                     desiredResults:10
+                                            onSuccess:^(NSArray *results) {
                                                 res = results;
                                                 dispatch_semaphore_signal(sema);
-                                            } OnFailure:^(NSError *error) {
+                                            } onFailure:^(NSError *error) {
                                                 NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                                 dispatch_semaphore_signal(sema);
                                             }];
@@ -108,14 +108,14 @@
     __block NSArray *res;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     [LFPublicAPIClient getUserContentForUser:[Config objectForKey:@"system user"]
-                                   WithToken:nil
-                                   ForNetwork:[Config objectForKey:@"labs network"]
-                                 forStatuses:nil
-                                  Offset:nil
-                                     OnSuccess:^(NSArray *results) {
+                                   withToken:nil
+                                   forNetwork:[Config objectForKey:@"labs network"]
+                                 statuses:nil
+                                  offset:nil
+                                     onSuccess:^(NSArray *results) {
                                          res = results;
                                          dispatch_semaphore_signal(sema);
-                                   } OnFailure:^(NSError *error) {
+                                   } onFailure:^(NSError *error) {
                                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                         dispatch_semaphore_signal(sema);
                                    }];
@@ -132,14 +132,14 @@
     NSString *userToken = [Config objectForKey:@"moderator user auth token"];
     
     [LFAdminClient authenticateUserWithToken:userToken
-                               ForCollection:nil
-                                  ForArticle:[Config objectForKey:@"article"]
-                                     ForSite:[Config objectForKey:@"site"]
-                                   ForNetwork:[Config objectForKey:@"domain"]
-                                     OnSuccess:^(NSDictionary *gotUserData) {
+                               forCollection:nil
+                                  article:[Config objectForKey:@"article"]
+                                     site:[Config objectForKey:@"site"]
+                                   network:[Config objectForKey:@"domain"]
+                                     onSuccess:^(NSDictionary *gotUserData) {
                                          res = gotUserData;
                                          dispatch_semaphore_signal(sema);
-                                     } OnFailure:^(NSError *error) {
+                                     } onFailure:^(NSError *error) {
                                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                          dispatch_semaphore_signal(sema);
                                      }];
@@ -151,14 +151,14 @@
     //with collection id
     res = nil;    
     [LFAdminClient authenticateUserWithToken:userToken
-                               ForCollection:[Config objectForKey:@"collection"]
-                                  ForArticle:nil
-                                     ForSite:nil
-                                   ForNetwork:[Config objectForKey:@"domain"]
-                                     OnSuccess:^(NSDictionary *gotUserData) {
+                               forCollection:[Config objectForKey:@"collection"]
+                                  article:nil
+                                     site:nil
+                                   network:[Config objectForKey:@"domain"]
+                                     onSuccess:^(NSDictionary *gotUserData) {
                                          res = gotUserData;
                                          dispatch_semaphore_signal(sema);
-                                     } OnFailure:^(NSError *error) {
+                                     } onFailure:^(NSError *error) {
                                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                          dispatch_semaphore_signal(sema);
                                      }];
@@ -174,13 +174,13 @@
     NSString *userToken = [Config objectForKey:@"moderator user auth token"];
 
     [LFWriteClient likeContent:[Config objectForKey:@"content"]
-                       ForUser:userToken
-                  ForCollection:[Config objectForKey:@"collection"]
-                     ForNetwork:[Config objectForKey:@"domain"]
-                       OnSuccess:^(NSDictionary *content) {
+                       forUser:userToken
+                  collection:[Config objectForKey:@"collection"]
+                     network:[Config objectForKey:@"domain"]
+                       onSuccess:^(NSDictionary *content) {
                            res = content;
                            dispatch_semaphore_signal(sema);
-                       } OnFailure:^(NSError *error) {
+                       } onFailure:^(NSError *error) {
                            NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                            dispatch_semaphore_signal(sema);
                        }];
@@ -191,13 +191,13 @@
     
     res = nil;
     [LFWriteClient unlikeContent:[Config objectForKey:@"content"]
-                       ForUser:userToken
-                  ForCollection:[Config objectForKey:@"collection"]
-                     ForNetwork:[Config objectForKey:@"domain"]
-                       OnSuccess:^(NSDictionary *content) {
+                       forUser:userToken
+                  collection:[Config objectForKey:@"collection"]
+                     network:[Config objectForKey:@"domain"]
+                       onSuccess:^(NSDictionary *content) {
                            res = content;
                            dispatch_semaphore_signal(sema);
-                       } OnFailure:^(NSError *error) {
+                       } onFailure:^(NSError *error) {
                            NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                            dispatch_semaphore_signal(sema);
                        }];
@@ -214,14 +214,14 @@
     NSUInteger ran = arc4random();
     
     [LFWriteClient postContent:[NSString stringWithFormat:@"test post, %d", ran]
-                       ForUser:userToken
-                     InReplyTo:nil
-                  ForCollection:[Config objectForKey:@"collection"]
-                     ForNetwork:[Config objectForKey:@"domain"]
-                       OnSuccess:^(NSDictionary *content) {
+                       forUser:userToken
+                     inReplyTo:nil
+                  forCollection:[Config objectForKey:@"collection"]
+                     network:[Config objectForKey:@"domain"]
+                       onSuccess:^(NSDictionary *content) {
                            res = content;
                            dispatch_semaphore_signal(sema);
-                       } OnFailure:^(NSError *error) {
+                       } onFailure:^(NSError *error) {
                            NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                            dispatch_semaphore_signal(sema);
                        }];
@@ -234,14 +234,14 @@
     NSString *parent = [Config objectForKey:@"content"];
     ran = arc4random();
     [LFWriteClient postContent:[NSString stringWithFormat:@"test reply, %d", ran]
-                       ForUser:userToken
-                     InReplyTo:parent
-                  ForCollection:[Config objectForKey:@"collection"]
-                     ForNetwork:[Config objectForKey:@"domain"]
-                       OnSuccess:^(NSDictionary *content) {
+                       forUser:userToken
+                     inReplyTo:parent
+                  forCollection:[Config objectForKey:@"collection"]
+                     network:[Config objectForKey:@"domain"]
+                       onSuccess:^(NSDictionary *content) {
                            res = content;
                            dispatch_semaphore_signal(sema);
-                       } OnFailure:^(NSError *error) {
+                       } onFailure:^(NSError *error) {
                            NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                            dispatch_semaphore_signal(sema);
                        }];

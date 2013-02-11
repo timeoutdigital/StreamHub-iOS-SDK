@@ -32,17 +32,13 @@
 
 @implementation LFPublicAPIClient
 + (void)getTrendingCollectionsForTag:(NSString *)tag
-                             ForSite:(NSString *)siteId
-                          ForNetwork:(NSString *)networkDomain
-                      DesiredResults:(NSUInteger)number
-                           OnSuccess:(void (^)(NSArray *))success
-                           OnFailure:(void (^)(NSError *))failure
+                                site:(NSString *)siteId
+                             network:(NSString *)networkDomain
+                      desiredResults:(NSUInteger)number
+                           onSuccess:(void (^)(NSArray *))success
+                           onFailure:(void (^)(NSError *))failure
 {
-    if (!networkDomain) {
-        failure([NSError errorWithDomain:kLFError code:400u userInfo:[NSDictionary dictionaryWithObject:@"Lacking necessary parameters to get trending collections."
-                                                                                                 forKey:NSLocalizedDescriptionKey]]);
-        return;
-    }
+    NSParameterAssert(networkDomain != nil);
     
     NSMutableDictionary *paramsDict = [[NSMutableDictionary alloc] init];
     if (tag)
@@ -57,30 +53,27 @@
     NSString *path = [NSString stringWithFormat:@"/api/v3.0/hottest/%@", queryString];
     
     [self requestWithHost:host
-                 WithPath:path
-              WithPayload:nil
-               WithMethod:@"GET"
-                OnSuccess:^(NSDictionary *res) {
+                 path:path
+              payload:nil
+               method:@"GET"
+            onSuccess:^(NSDictionary *res) {
                   NSArray *results = [res objectForKey:@"data"];
                   if (results)
                       success(results);
               }
-                OnFailure:failure];
+            onFailure:failure];
 }
  
 + (void)getUserContentForUser:(NSString *)userId
-                    WithToken:(NSString *)userToken
-                   ForNetwork:(NSString *)networkDomain
-                  forStatuses:(NSArray *)statuses
-                       Offset:(NSNumber *)offset
-                    OnSuccess:(void (^)(NSArray *))success
-                    OnFailure:(void (^)(NSError *))failure
+                    withToken:(NSString *)userToken
+                   forNetwork:(NSString *)networkDomain
+                     statuses:(NSArray *)statuses
+                       offset:(NSNumber *)offset
+                    onSuccess:(void (^)(NSArray *))success
+                    onFailure:(void (^)(NSError *))failure
 {
-    if (!networkDomain || !userId) {
-        failure([NSError errorWithDomain:kLFError code:400u userInfo:[NSDictionary dictionaryWithObject:@"Lacking necessary parameters to get user content."
-                                                                                                 forKey:NSLocalizedDescriptionKey]]);
-        return;
-    }
+    NSParameterAssert(networkDomain != nil);
+    NSParameterAssert(userId != nil);
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     if (userToken)
@@ -95,14 +88,14 @@
     NSString *path = [NSString stringWithFormat:@"/api/v3.0/author/%@/comments/%@", userId, queryString];
     
     [self requestWithHost:host
-                 WithPath:path
-              WithPayload:nil
-               WithMethod:@"GET"
-                OnSuccess:^(NSDictionary *res) {
+                 path:path
+              payload:nil
+               method:@"GET"
+            onSuccess:^(NSDictionary *res) {
                   NSArray *results = [res objectForKey:@"data"];
                   if (results)
                       success(results);
               }
-                OnFailure:failure];
+            onFailure:failure];
 }
 @end

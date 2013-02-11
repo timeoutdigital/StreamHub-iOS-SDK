@@ -40,7 +40,7 @@
  * @return NSString The endpoint to poll for stream data.
  */
 + (NSString *)buildStreamEndpointForCollection:(NSString *)collectionId
-                                    ForNetwork:(NSString *)networkDomain;
+                                       network:(NSString *)networkDomain;
 
 /**
  * Long poll for updates made to the contents of a collection.
@@ -51,7 +51,7 @@
  * @return NSDictionary The updated eventId of the stream.
  */
 + (NSDictionary *)pollStreamEndpoint:(NSString *)endpoint
-                               Event:(NSString *)eventId
-                             Timeout:(NSError **)timeout
-                               Error:(NSError **) error;
+                               event:(NSString *)eventId
+                             timeout:(NSError **)timeout
+                               error:(NSError **) error;
 @end

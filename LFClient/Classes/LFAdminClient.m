@@ -33,18 +33,15 @@
 
 @implementation LFAdminClient
 + (void)authenticateUserWithToken:(NSString *)userToken
-                    ForCollection:(NSString *)collectionId
-                       ForArticle:(NSString *)articleId
-                          ForSite:(NSString *)siteId
-                       ForNetwork:(NSString *)networkDomain
-                        OnSuccess:(void (^)(NSDictionary *))success
-                        OnFailure:(void (^)(NSError *))failure
+                    forCollection:(NSString *)collectionId
+                          article:(NSString *)articleId
+                             site:(NSString *)siteId
+                          network:(NSString *)networkDomain
+                        onSuccess:(void (^)(NSDictionary *))success
+                        onFailure:(void (^)(NSError *))failure
 {
-    if (!networkDomain || !userToken) {
-        failure([NSError errorWithDomain:kLFError code:400u userInfo:[NSDictionary dictionaryWithObject:@"Lacking necessary parameters to check user auth."
-                                                                                                 forKey:NSLocalizedDescriptionKey]]);
-        return;
-    }
+    NSParameterAssert(networkDomain != nil);
+    NSParameterAssert(userToken != nil);
     
     NSDictionary *paramsDict;
     if (collectionId) {
@@ -60,10 +57,10 @@
     NSString *path = [NSString stringWithFormat:@"/api/v3.0/auth/%@", queryString];
     
     [self requestWithHost:host
-                 WithPath:path
-              WithPayload:nil
-               WithMethod:@"GET"
-                OnSuccess:success
-                OnFailure:failure];
+                 path:path
+              payload:nil
+               method:@"GET"
+            onSuccess:success
+            onFailure:failure];
 }
 @end

@@ -50,11 +50,11 @@
  * @return void
  */
 + (void)getInitForArticle:(NSString *)articleId
-                  ForSite:(NSString *)siteId
-               ForNetwork:(NSString *)networkDomain
-           ForEnvironment:(NSString *)environment
-                OnSuccess:(void (^)(NSDictionary *initInfo))success
-                OnFailure:(void (^)(NSError *error))failure;
+                     site:(NSString *)siteId
+                  network:(NSString *)networkDomain
+              environment:(NSString *)environment
+                onSuccess:(void (^)(NSDictionary *initInfo))success
+                onFailure:(void (^)(NSError *error))failure;
 
 /** @name Content Retrieval */
 
@@ -68,7 +68,7 @@
  * @return void
  */
 + (void)getContentForPage:(NSUInteger) pageIndex
-             WithInitInfo:(NSDictionary *)initInfo
-                OnSuccess:(void (^)(NSDictionary *contentInfo))success
-                OnFailure:(void (^)(NSError *error))failure;
+             withInitInfo:(NSDictionary *)initInfo
+                onSuccess:(void (^)(NSDictionary *contentInfo))success
+                onFailure:(void (^)(NSError *error))failure;
 @end

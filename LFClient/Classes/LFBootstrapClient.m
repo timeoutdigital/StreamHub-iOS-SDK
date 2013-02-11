@@ -32,17 +32,15 @@
 
 @implementation LFBootstrapClient
 + (void)getInitForArticle:(NSString *)articleId
-                  ForSite:(NSString *)siteId
-               ForNetwork:(NSString *)networkDomain
-           ForEnvironment:(NSString *)environment
-                OnSuccess:(void (^)(NSDictionary *))success
-                OnFailure:(void (^)(NSError *))failure
+                     site:(NSString *)siteId
+                  network:(NSString *)networkDomain
+              environment:(NSString *)environment
+                onSuccess:(void (^)(NSDictionary *))success
+                onFailure:(void (^)(NSError *))failure
 {
-    if (!networkDomain || !siteId || !articleId) {
-        failure([NSError errorWithDomain:kLFError code:400u userInfo:[NSDictionary dictionaryWithObject:@"Lacking necessary parameters to call bootstrap init."
-                                                                                                 forKey:NSLocalizedDescriptionKey]]);
-        return;
-    }
+    NSParameterAssert(networkDomain != nil);
+    NSParameterAssert(siteId != nil);
+    NSParameterAssert(articleId != nil);
     
     NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, networkDomain];
     NSString *path;
@@ -53,23 +51,20 @@
     }
     
     [self requestWithHost:host
-                 WithPath:path
-              WithPayload:nil
-               WithMethod:@"GET"
-                OnSuccess:success
-                OnFailure:failure];
+                 path:path
+              payload:nil
+               method:@"GET"
+            onSuccess:success
+            onFailure:failure];
 }
 
 + (void)getContentForPage:(NSUInteger)pageIndex
-             WithInitInfo:(NSDictionary *)initInfo
-                OnSuccess:(void (^)(NSDictionary *))success
-                OnFailure:(void (^)(NSError *))failure
+             withInitInfo:(NSDictionary *)initInfo
+                onSuccess:(void (^)(NSDictionary *))success
+                onFailure:(void (^)(NSError *))failure
 {
-    if (!initInfo) {
-        failure([NSError errorWithDomain:kLFError code:400u userInfo:[NSDictionary dictionaryWithObject:@"Lacking necessary parameters to call get content."
-                                                                                                 forKey:NSLocalizedDescriptionKey]]);
-        return;
-    }
+    NSParameterAssert(pageIndex != NSNotFound);
+    NSParameterAssert(initInfo != nil);
     
     // If page index is zero we already have the content as part of the init data.
     if (!pageIndex) {
@@ -91,10 +86,10 @@
     NSString *path = [NSString stringWithFormat:@"/bs3/%@", [initInfo valueForKeyPath:pageUrlKeyPath]];
     
     [self requestWithHost:host
-                 WithPath:path
-              WithPayload:nil
-               WithMethod:@"GET"
-                OnSuccess:success
-                OnFailure:failure];
+                 path:path
+              payload:nil
+               method:@"GET"
+            onSuccess:success
+            onFailure:failure];
 }
 @end

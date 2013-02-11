@@ -31,23 +31,23 @@
 
 @implementation LFStreamClient
 + (NSString *)buildStreamEndpointForCollection:(NSString *)collectionId
-                                    ForNetwork:(NSString *)networkDomain
+                                       network:(NSString *)networkDomain
 {
+    NSParameterAssert(collectionId != nil);
+    NSParameterAssert(networkDomain != nil);
+    
     NSString *host = [NSString stringWithFormat:@"%@.%@", kStreamDomain, networkDomain];
     NSString *eventlessPath = [NSString stringWithFormat:@"/v3.0/collection/%@/", collectionId];
     return [host stringByAppendingString:eventlessPath];
 }
 
 + (NSDictionary *)pollStreamEndpoint:(NSString *)endpoint
-                               Event:(NSString *)eventId
-                             Timeout:(NSError *__autoreleasing *)timeout
-                               Error:(NSError *__autoreleasing *)error
+                               event:(NSString *)eventId
+                             timeout:(NSError *__autoreleasing *)timeout
+                               error:(NSError *__autoreleasing *)error
 {
-    if ((!eventId || !endpoint) && error) {
-        *error = [NSError errorWithDomain:kLFError code:400u userInfo:[NSDictionary dictionaryWithObject:@"Lacking necessary parameters to poll stream."
-                                                                                                 forKey:NSLocalizedDescriptionKey]];
-        return nil;
-    }
+    NSParameterAssert(eventId != nil);
+    NSParameterAssert(endpoint != nil);
     
     NSString *eventedEndpoint = [endpoint stringByAppendingString:eventId];
     NSURL *connectionURL = [[NSURL alloc] initWithString:eventedEndpoint];
@@ -57,7 +57,7 @@
     
     NSData *data = [NSURLConnection sendSynchronousRequest:streamReq returningResponse:&resp error:&requestError];
     //wait
-    NSDictionary *payload = [LFClientBase handleResponse:resp WithError:requestError WithData:data OnFailure:^(NSError *failError) {
+    NSDictionary *payload = [LFClientBase handleResponse:resp error:requestError data:data onFailure:^(NSError *failError) {
         if (failError)
             // Lots of errors being juggled, the flow is this: requestError-> failError -> paramError.
             *error = failError;

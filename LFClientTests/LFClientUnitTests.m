@@ -61,14 +61,14 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
     [LFBootstrapClient getInitForArticle:@"fakeArticle"
-                                 ForSite:@"fakeSite"
-                               ForNetwork:@"init-sample"
-                         ForEnvironment:nil
-                                 OnSuccess:^(NSDictionary *collection) {
+                                    site:@"fakeSite"
+                                 network:@"init-sample"
+                             environment:nil
+                               onSuccess:^(NSDictionary *collection) {
                                      bootstrapInitInfo = collection;
                                      dispatch_semaphore_signal(sema);
                                  }
-                                 OnFailure:^(NSError *error) {
+                               onFailure:^(NSError *error) {
                                      if (error)
                                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                      dispatch_semaphore_signal(sema);
@@ -82,12 +82,12 @@
     sema = dispatch_semaphore_create(0);
     
     [LFBootstrapClient getContentForPage:0
-                            WithInitInfo:bootstrapInitInfo
-                                 OnSuccess:^(NSDictionary *content) {
+                            withInitInfo:bootstrapInitInfo
+                               onSuccess:^(NSDictionary *content) {
                                      contentInfo = content;
                                      dispatch_semaphore_signal(sema);
                                  }
-                                 OnFailure:^(NSError *error) {
+                               onFailure:^(NSError *error) {
                                      if (error)
                                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                      dispatch_semaphore_signal(sema);
@@ -99,12 +99,12 @@
     sema = dispatch_semaphore_create(0);
     
     [LFBootstrapClient getContentForPage:1
-                            WithInitInfo:bootstrapInitInfo
-                                 OnSuccess:^(NSDictionary *content) {
+                            withInitInfo:bootstrapInitInfo
+                               onSuccess:^(NSDictionary *content) {
                                      contentInfo = content;
                                      dispatch_semaphore_signal(sema);
                                  }
-                                 OnFailure:^(NSError *error) {
+                               onFailure:^(NSError *error) {
                                      if (error)
                                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                      dispatch_semaphore_signal(sema);
@@ -119,14 +119,14 @@
     __block NSArray *res;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    [LFPublicAPIClient getTrendingCollectionsForTag:nil
-                                            ForSite:nil
-                                          ForNetwork:@"hottest-sample"
-                                     DesiredResults:10
-                                            OnSuccess:^(NSArray *results) {
+    [LFPublicAPIClient getTrendingCollectionsForTag:@"taggy"
+                                               site:@"site"
+                                            network:@"hottest-sample"
+                                     desiredResults:10
+                                          onSuccess:^(NSArray *results) {
                                                 res = results;
                                                 dispatch_semaphore_signal(sema);
-                                            } OnFailure:^(NSError *error) {
+                                        } onFailure:^(NSError *error) {
                                                 NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                                 dispatch_semaphore_signal(sema);
                                             }];
@@ -140,14 +140,14 @@
     __block NSArray *res;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     [LFPublicAPIClient getUserContentForUser:@"fakeUser"
-                                   WithToken:nil
-                                   ForNetwork:@"usercontent-sample"
-                                 forStatuses:nil
-                                  Offset:nil
-                                     OnSuccess:^(NSArray *results) {
+                                   withToken:nil
+                                   forNetwork:@"usercontent-sample"
+                                    statuses:nil
+                                      offset:nil
+                                   onSuccess:^(NSArray *results) {
                                          res = results;
                                          dispatch_semaphore_signal(sema);
-                                     } OnFailure:^(NSError *error) {
+                                } onFailure:^(NSError *error) {
                                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                          dispatch_semaphore_signal(sema);
                                      }];
@@ -163,14 +163,14 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
     [LFAdminClient authenticateUserWithToken:@"fakeToken"
-                               ForCollection:@"fakeColl"
-                                  ForArticle:nil
-                                     ForSite:nil
-                                   ForNetwork:@"auth-sample"
-                                     OnSuccess:^(NSDictionary *gotUserData) {
+                               forCollection:@"fakeColl"
+                                     article:nil
+                                        site:nil
+                                     network:@"auth-sample"
+                                   onSuccess:^(NSDictionary *gotUserData) {
                                          res = gotUserData;
                                          dispatch_semaphore_signal(sema);
-                                     } OnFailure:^(NSError *error) {
+                                } onFailure:^(NSError *error) {
                                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                          dispatch_semaphore_signal(sema);
                                      }];
@@ -185,13 +185,13 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
     [LFWriteClient likeContent:@"fakeContent"
-                       ForUser:@"fakeUserToken"
-                  ForCollection:@"fakeColl"
-                     ForNetwork:@"like-sample"
-                       OnSuccess:^(NSDictionary *content) {
+                       forUser:@"fakeUserToken"
+                    collection:@"fakeColl"
+                       network:@"like-sample"
+                     onSuccess:^(NSDictionary *content) {
                            res = content;
                            dispatch_semaphore_signal(sema);
-                       } OnFailure:^(NSError *error) {
+                   } onFailure:^(NSError *error) {
                            NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                            dispatch_semaphore_signal(sema);
                        }];
@@ -207,14 +207,14 @@
     NSUInteger ran = arc4random();
     
     [LFWriteClient postContent:[NSString stringWithFormat:@"test post, %d", ran]
-                       ForUser:@"fakeUser"
-                     InReplyTo:nil
-                  ForCollection:@"fakeColl"
-                     ForNetwork:@"post-sample"
-                       OnSuccess:^(NSDictionary *content) {
+                       forUser:@"fakeUser"
+                     inReplyTo:nil
+                 forCollection:@"fakeColl"
+                       network:@"post-sample"
+                     onSuccess:^(NSDictionary *content) {
                            res = content;
                            dispatch_semaphore_signal(sema);
-                       } OnFailure:^(NSError *error) {
+                   } onFailure:^(NSError *error) {
                            NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                            dispatch_semaphore_signal(sema);
                        }];

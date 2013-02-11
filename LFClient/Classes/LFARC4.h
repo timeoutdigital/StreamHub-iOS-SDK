@@ -39,7 +39,7 @@
  * @param keys The keys to apply to the encoded content.
  * @return NSString
  */
-+ (NSString *)tryToDecodeEref:(NSString *)eref WithKeys:(NSArray *)keys;
++ (NSString *)tryToDecodeEref:(NSString *)eref withKeys:(NSArray *)keys;
 
 /**
  * A method to assist with decoding Livefyre content ciphers.
@@ -47,5 +47,5 @@
  * @param key The secret key.
  * @return NSString
  */
-+ (NSString *)decrypt:(NSString *)string WithKey:(NSString *)key;
++ (NSString *)decrypt:(NSString *)string withKey:(NSString *)key;
 @end

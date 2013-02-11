@@ -42,7 +42,7 @@
         [key appendFormat:@"%02X", (unsigned char)rawKey[i]];
     }
 
-    NSString *decrypted = [LFARC4 decrypt:cipherText WithKey:key];
+    NSString *decrypted = [LFARC4 decrypt:cipherText withKey:key];
     STAssertEqualObjects(decrypted, plainText, nil);
 }
 @end

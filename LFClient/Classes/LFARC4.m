@@ -41,7 +41,7 @@ static NSData *hexStringToBytes(NSString *string) {
 
 @implementation LFARC4
 
-+ (NSString *)decrypt:(NSString *)string WithKey:(NSString *)key {
++ (NSString *)decrypt:(NSString *)string withKey:(NSString *)key {
     NSData *inBytes = hexStringToBytes(string);
     NSData *keyBytes = hexStringToBytes(key);
 
@@ -69,9 +69,9 @@ static NSData *hexStringToBytes(NSString *string) {
     return string;
 }
 
-+ (NSString *)tryToDecodeEref:(NSString *)eref WithKeys:(NSArray *)keys {
++ (NSString *)tryToDecodeEref:(NSString *)eref withKeys:(NSArray *)keys {
     for (NSString *key in keys) {
-        NSString *decryptedPath = [self decrypt:eref WithKey:key];
+        NSString *decryptedPath = [self decrypt:eref withKey:key];
         if ([decryptedPath hasPrefix:@"eref://"])
             return decryptedPath;
     }
