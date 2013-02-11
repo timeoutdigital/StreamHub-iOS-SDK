@@ -60,7 +60,7 @@ static NSOperationQueue *_LFQueue;
     NSURL *connectionURL = [[NSURL alloc] initWithScheme:kLFSDKScheme host:host path:path];
     NSMutableURLRequest *connectionReq = [[NSMutableURLRequest alloc] initWithURL:connectionURL];
     [connectionReq setHTTPMethod:httpMethod];
-    [connectionReq setCachePolicy:NSURLRequestReloadRevalidatingCacheData];
+    [connectionReq setCachePolicy:NSURLRequestUseProtocolCachePolicy];
     
     if (payload && [httpMethod isEqualToString:@"POST"]) {
         //strip off our beloved question mark
