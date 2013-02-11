@@ -40,7 +40,9 @@
 	
 	<option value="class_methods">Class Methods</option>
 	
-	<option value="//api/name/getInitForArticle:forSite:onNetwork:withEnvironment:success:failure:">&nbsp;&nbsp;&nbsp;&nbsp;+ getInitForArticle:forSite:onNetwork:withEnvironment:success:failure:</option>
+	<option value="//api/name/getContentForPage:withInitInfo:onSuccess:onFailure:">&nbsp;&nbsp;&nbsp;&nbsp;+ getContentForPage:withInitInfo:onSuccess:onFailure:</option>
+	
+	<option value="//api/name/getInitForArticle:site:network:environment:onSuccess:onFailure:">&nbsp;&nbsp;&nbsp;&nbsp;+ getInitForArticle:site:network:environment:onSuccess:onFailure:</option>
 	
 	
 	
@@ -60,6 +62,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Collection Initialization">Collection Initialization</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Content Retrieval">Content Retrieval</a></span></li>
+	
 </ul></li>
 
 
@@ -70,7 +74,9 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getInitForArticle:forSite:onNetwork:withEnvironment:success:failure:">getInitForArticle:forSite:onNetwork:withEnvironment:success:failure:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getContentForPage:withInitInfo:onSuccess:onFailure:">getContentForPage:withInitInfo:onSuccess:onFailure:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getInitForArticle:site:network:environment:onSuccess:onFailure:">getInitForArticle:site:network:environment:onSuccess:onFailure:</a></span></li>
 	
 </ul></li>
 
@@ -116,13 +122,28 @@
 						
 						
 						<a title="Collection Initialization" name="task_Collection Initialization"></a>
-						
-<h3 class="subsubtitle task-title">Collection Initialization</h3>
+						<h3 class="subsubtitle task-title">Collection Initialization</h3>
+
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/getInitForArticle:forSite:onNetwork:withEnvironment:success:failure:">+&nbsp;getInitForArticle:forSite:onNetwork:withEnvironment:success:failure:</a></code>
+		<code><a href="#//api/name/getInitForArticle:site:network:environment:onSuccess:onFailure:">+&nbsp;getInitForArticle:site:network:environment:onSuccess:onFailure:</a></code>
 		<span class="tooltip"><p>Get the initial bootstrap data for a collection.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Content Retrieval" name="task_Content Retrieval"></a>
+						<h3 class="subsubtitle task-title">Content Retrieval</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/getContentForPage:withInitInfo:onSuccess:onFailure:">+&nbsp;getContentForPage:withInitInfo:onSuccess:onFailure:</a></code>
+		<span class="tooltip"><p>The init data for a collection contains information about that collection&rsquo;s number of pages and where to fetch the content for those pages.</p></span>
 	</span>
 	
 	
@@ -142,8 +163,74 @@
 						<h2 class="subtitle subtitle-methods">Class Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/getInitForArticle:forSite:onNetwork:withEnvironment:success:failure:" title="getInitForArticle:forSite:onNetwork:withEnvironment:success:failure:"></a>
-	<h3 class="subsubtitle method-title">getInitForArticle:forSite:onNetwork:withEnvironment:success:failure:</h3>
+	<a name="//api/name/getContentForPage:withInitInfo:onSuccess:onFailure:" title="getContentForPage:withInitInfo:onSuccess:onFailure:"></a>
+	<h3 class="subsubtitle method-title">getContentForPage:withInitInfo:onSuccess:onFailure:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The init data for a collection contains information about that collection&rsquo;s number of pages and where to fetch the content for those pages.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)getContentForPage:(NSUInteger)<em>pageIndex</em> withInitInfo:(NSDictionary *)<em>initInfo</em> onSuccess:(void ( ^ ) ( NSDictionary *contentInfo ))<em>success</em> onFailure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>pageIndex</em></dt>
+			<dd><p>The page to fetch content for. The pages are numbered from zero. If the page index provided is outside the bounds of what the init data knows about the error callback will convey that failure.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>initInfo</em></dt>
+			<dd><p>A pointer to a bootstrap&rsquo;s init data as returned by the bootstrap init endpoint and parsed from JSON into a dictionary.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>success</em></dt>
+			<dd><p>Callback called with a dictionary represting the pages content.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>failure</em></dt>
+			<dd><p>Callback called with an error after a failure to retrieve data.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>void</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LFBootstrapClient.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/getInitForArticle:site:network:environment:onSuccess:onFailure:" title="getInitForArticle:site:network:environment:onSuccess:onFailure:"></a>
+	<h3 class="subsubtitle method-title">getInitForArticle:site:network:environment:onSuccess:onFailure:</h3>
 	
 	
 	
@@ -153,7 +240,7 @@
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (void)getInitForArticle:(NSString *)<em>articleId</em> forSite:(NSString *)<em>siteId</em> onNetwork:(NSString *)<em>networkDomain</em> withEnvironment:(NSString *)<em>environment</em> success:(void ( ^ ) ( NSDictionary *initData ))<em>success</em> failure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (void)getInitForArticle:(NSString *)<em>articleId</em> site:(NSString *)<em>siteId</em> network:(NSString *)<em>networkDomain</em> environment:(NSString *)<em>environment</em> onSuccess:(void ( ^ ) ( NSDictionary *initInfo ))<em>success</em> onFailure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
 
     
 	
@@ -182,13 +269,13 @@
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>success</em></dt>
-			<dd><p>(optional) Callback called with a dictionary after the init data has
+			<dd><p>Callback called with a dictionary after the init data has
 been retrieved.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>failure</em></dt>
-			<dd><p>(optional) Callback called with an error after a failure to retrieve data.</p></dd>
+			<dd><p>Callback called with an error after a failure to retrieve data.</p></dd>
 		</dl>
 		
 	</div>
@@ -239,7 +326,7 @@ been retrieved.</p></dd>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Livefyre, Inc. All rights reserved. (Last updated: 2013-01-25)</span><br />
+						<p><span class="copyright">&copy; 2013 Livefyre, Inc. All rights reserved. (Last updated: 2013-02-11)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
 						

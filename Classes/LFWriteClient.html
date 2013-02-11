@@ -40,11 +40,11 @@
 	
 	<option value="class_methods">Class Methods</option>
 	
-	<option value="//api/name/likeContent:forUser:inCollection:onNetwork:success:failure:">&nbsp;&nbsp;&nbsp;&nbsp;+ likeContent:forUser:inCollection:onNetwork:success:failure:</option>
+	<option value="//api/name/likeContent:forUser:collection:network:onSuccess:onFailure:">&nbsp;&nbsp;&nbsp;&nbsp;+ likeContent:forUser:collection:network:onSuccess:onFailure:</option>
 	
-	<option value="//api/name/postContent:forUser:inReplyTo:inCollection:onNetwork:success:failure:">&nbsp;&nbsp;&nbsp;&nbsp;+ postContent:forUser:inReplyTo:inCollection:onNetwork:success:failure:</option>
+	<option value="//api/name/postContent:forUser:inReplyTo:forCollection:network:onSuccess:onFailure:">&nbsp;&nbsp;&nbsp;&nbsp;+ postContent:forUser:inReplyTo:forCollection:network:onSuccess:onFailure:</option>
 	
-	<option value="//api/name/unlikeContent:forUser:inCollection:onNetwork:success:failure:">&nbsp;&nbsp;&nbsp;&nbsp;+ unlikeContent:forUser:inCollection:onNetwork:success:failure:</option>
+	<option value="//api/name/unlikeContent:forUser:collection:network:onSuccess:onFailure:">&nbsp;&nbsp;&nbsp;&nbsp;+ unlikeContent:forUser:collection:network:onSuccess:onFailure:</option>
 	
 	
 	
@@ -74,11 +74,11 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/likeContent:forUser:inCollection:onNetwork:success:failure:">likeContent:forUser:inCollection:onNetwork:success:failure:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/likeContent:forUser:collection:network:onSuccess:onFailure:">likeContent:forUser:collection:network:onSuccess:onFailure:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/postContent:forUser:inReplyTo:inCollection:onNetwork:success:failure:">postContent:forUser:inReplyTo:inCollection:onNetwork:success:failure:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/postContent:forUser:inReplyTo:forCollection:network:onSuccess:onFailure:">postContent:forUser:inReplyTo:forCollection:network:onSuccess:onFailure:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/unlikeContent:forUser:inCollection:onNetwork:success:failure:">unlikeContent:forUser:inCollection:onNetwork:success:failure:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/unlikeContent:forUser:collection:network:onSuccess:onFailure:">unlikeContent:forUser:collection:network:onSuccess:onFailure:</a></span></li>
 	
 </ul></li>
 
@@ -129,21 +129,21 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/likeContent:forUser:inCollection:onNetwork:success:failure:">+&nbsp;likeContent:forUser:inCollection:onNetwork:success:failure:</a></code>
+		<code><a href="#//api/name/likeContent:forUser:collection:network:onSuccess:onFailure:">+&nbsp;likeContent:forUser:collection:network:onSuccess:onFailure:</a></code>
 		<span class="tooltip"><p>Like a comment in a collection.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/unlikeContent:forUser:inCollection:onNetwork:success:failure:">+&nbsp;unlikeContent:forUser:inCollection:onNetwork:success:failure:</a></code>
+		<code><a href="#//api/name/unlikeContent:forUser:collection:network:onSuccess:onFailure:">+&nbsp;unlikeContent:forUser:collection:network:onSuccess:onFailure:</a></code>
 		<span class="tooltip"><p>Unlike a comment in a collection.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/postContent:forUser:inReplyTo:inCollection:onNetwork:success:failure:">+&nbsp;postContent:forUser:inReplyTo:inCollection:onNetwork:success:failure:</a></code>
+		<code><a href="#//api/name/postContent:forUser:inReplyTo:forCollection:network:onSuccess:onFailure:">+&nbsp;postContent:forUser:inReplyTo:forCollection:network:onSuccess:onFailure:</a></code>
 		<span class="tooltip"><p>Create a new comment in a collection.</p></span>
 	</span>
 	
@@ -164,8 +164,8 @@
 						<h2 class="subtitle subtitle-methods">Class Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/likeContent:forUser:inCollection:onNetwork:success:failure:" title="likeContent:forUser:inCollection:onNetwork:success:failure:"></a>
-	<h3 class="subsubtitle method-title">likeContent:forUser:inCollection:onNetwork:success:failure:</h3>
+	<a name="//api/name/likeContent:forUser:collection:network:onSuccess:onFailure:" title="likeContent:forUser:collection:network:onSuccess:onFailure:"></a>
+	<h3 class="subsubtitle method-title">likeContent:forUser:collection:network:onSuccess:onFailure:</h3>
 	
 	
 	
@@ -175,7 +175,7 @@
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (void)likeContent:(NSString *)<em>contentId</em> forUser:(NSString *)<em>userToken</em> inCollection:(NSString *)<em>collectionId</em> onNetwork:(NSString *)<em>networkDomain</em> success:(void ( ^ ) ( NSDictionary *content ))<em>success</em> failure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (void)likeContent:(NSString *)<em>contentId</em> forUser:(NSString *)<em>userToken</em> collection:(NSString *)<em>collectionId</em> network:(NSString *)<em>networkDomain</em> onSuccess:(void ( ^ ) ( NSDictionary *content ))<em>success</em> onFailure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
 
     
 	
@@ -247,8 +247,8 @@ different user. Trying to like things other than comments may have odd results.<
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/postContent:forUser:inReplyTo:inCollection:onNetwork:success:failure:" title="postContent:forUser:inReplyTo:inCollection:onNetwork:success:failure:"></a>
-	<h3 class="subsubtitle method-title">postContent:forUser:inReplyTo:inCollection:onNetwork:success:failure:</h3>
+	<a name="//api/name/postContent:forUser:inReplyTo:forCollection:network:onSuccess:onFailure:" title="postContent:forUser:inReplyTo:forCollection:network:onSuccess:onFailure:"></a>
+	<h3 class="subsubtitle method-title">postContent:forUser:inReplyTo:forCollection:network:onSuccess:onFailure:</h3>
 	
 	
 	
@@ -258,7 +258,7 @@ different user. Trying to like things other than comments may have odd results.<
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (void)postContent:(NSString *)<em>body</em> forUser:(NSString *)<em>userToken</em> inReplyTo:(NSString *)<em>parentId</em> inCollection:(NSString *)<em>collectionId</em> onNetwork:(NSString *)<em>networkDomain</em> success:(void ( ^ ) ( NSDictionary *content ))<em>success</em> failure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (void)postContent:(NSString *)<em>body</em> forUser:(NSString *)<em>userToken</em> inReplyTo:(NSString *)<em>parentId</em> forCollection:(NSString *)<em>collectionId</em> network:(NSString *)<em>networkDomain</em> onSuccess:(void ( ^ ) ( NSDictionary *content ))<em>success</em> onFailure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
 
     
 	
@@ -334,8 +334,8 @@ been interacted.</p></dd>
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/unlikeContent:forUser:inCollection:onNetwork:success:failure:" title="unlikeContent:forUser:inCollection:onNetwork:success:failure:"></a>
-	<h3 class="subsubtitle method-title">unlikeContent:forUser:inCollection:onNetwork:success:failure:</h3>
+	<a name="//api/name/unlikeContent:forUser:collection:network:onSuccess:onFailure:" title="unlikeContent:forUser:collection:network:onSuccess:onFailure:"></a>
+	<h3 class="subsubtitle method-title">unlikeContent:forUser:collection:network:onSuccess:onFailure:</h3>
 	
 	
 	
@@ -345,7 +345,7 @@ been interacted.</p></dd>
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (void)unlikeContent:(NSString *)<em>contentId</em> forUser:(NSString *)<em>userToken</em> inCollection:(NSString *)<em>collectionId</em> onNetwork:(NSString *)<em>networkDomain</em> success:(void ( ^ ) ( NSDictionary *content ))<em>success</em> failure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (void)unlikeContent:(NSString *)<em>contentId</em> forUser:(NSString *)<em>userToken</em> collection:(NSString *)<em>collectionId</em> network:(NSString *)<em>networkDomain</em> onSuccess:(void ( ^ ) ( NSDictionary *content ))<em>success</em> onFailure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
 
     
 	
@@ -431,7 +431,7 @@ different user. Trying to unlike things other than comments may have odd results
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Livefyre, Inc. All rights reserved. (Last updated: 2013-01-25)</span><br />
+						<p><span class="copyright">&copy; 2013 Livefyre, Inc. All rights reserved. (Last updated: 2013-02-11)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
 						

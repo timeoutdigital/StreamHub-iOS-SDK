@@ -38,15 +38,13 @@
 	
 	
 	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/buildStreamEndpointForCollection:network:">&nbsp;&nbsp;&nbsp;&nbsp;+ buildStreamEndpointForCollection:network:</option>
+	
+	<option value="//api/name/pollStreamEndpoint:event:timeout:error:">&nbsp;&nbsp;&nbsp;&nbsp;+ pollStreamEndpoint:event:timeout:error:</option>
 	
 	
-	<option value="instance_methods">Instance Methods</option>
-	
-	<option value="//api/name/getStreamingCollections">&nbsp;&nbsp;&nbsp;&nbsp;- getStreamingCollections</option>
-	
-	<option value="//api/name/startStreamForCollection:fromEvent:onNetwork:success:failure:">&nbsp;&nbsp;&nbsp;&nbsp;- startStreamForCollection:fromEvent:onNetwork:success:failure:</option>
-	
-	<option value="//api/name/stopStreamForCollection:">&nbsp;&nbsp;&nbsp;&nbsp;- stopStreamForCollection:</option>
 	
 	
 	
@@ -70,17 +68,15 @@
 
 
 
-
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getStreamingCollections">getStreamingCollections</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/buildStreamEndpointForCollection:network:">buildStreamEndpointForCollection:network:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/startStreamForCollection:fromEvent:onNetwork:success:failure:">startStreamForCollection:fromEvent:onNetwork:success:failure:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/stopStreamForCollection:">stopStreamForCollection:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/pollStreamEndpoint:event:timeout:error:">pollStreamEndpoint:event:timeout:error:</a></span></li>
 	
 </ul></li>
+
+
 
 
 			</ul>
@@ -127,22 +123,15 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/startStreamForCollection:fromEvent:onNetwork:success:failure:">&ndash;&nbsp;startStreamForCollection:fromEvent:onNetwork:success:failure:</a></code>
-		<span class="tooltip"><p>Start polling for updates made to the contents of a collection.</p></span>
+		<code><a href="#//api/name/buildStreamEndpointForCollection:network:">+&nbsp;buildStreamEndpointForCollection:network:</a></code>
+		<span class="tooltip"><p>For successive polls, we want to build the stream endpoint once and only update the eventId going forward.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/stopStreamForCollection:">&ndash;&nbsp;stopStreamForCollection:</a></code>
-		<span class="tooltip"><p>Stop polling for updates made to the contents of a collection.</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/getStreamingCollections">&ndash;&nbsp;getStreamingCollections</a></code>
-		<span class="tooltip"><p>Get the currently streaming collections on this StreamClient</p></span>
+		<code><a href="#//api/name/pollStreamEndpoint:event:timeout:error:">+&nbsp;pollStreamEndpoint:event:timeout:error:</a></code>
+		<span class="tooltip"><p>Long poll for updates made to the contents of a collection.</p></span>
 	</span>
 	
 	
@@ -157,66 +146,23 @@
 					
 					
 					
-					
-					
 					<div class="section section-methods">
-						<a title="Instance Methods" name="instance_methods"></a>
-						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/getStreamingCollections" title="getStreamingCollections"></a>
-	<h3 class="subsubtitle method-title">getStreamingCollections</h3>
+	<a name="//api/name/buildStreamEndpointForCollection:network:" title="buildStreamEndpointForCollection:network:"></a>
+	<h3 class="subsubtitle method-title">buildStreamEndpointForCollection:network:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Get the currently streaming collections on this StreamClient</p>
+		<p>For successive polls, we want to build the stream endpoint once and only update the eventId going forward.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (NSArray *)getStreamingCollections</code></div>
-
-    
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>NSArray</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">LFStreamClient.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/startStreamForCollection:fromEvent:onNetwork:success:failure:" title="startStreamForCollection:fromEvent:onNetwork:success:failure:"></a>
-	<h3 class="subsubtitle method-title">startStreamForCollection:fromEvent:onNetwork:success:failure:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Start polling for updates made to the contents of a collection.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)startStreamForCollection:(NSString *)<em>collectionId</em> fromEvent:(NSString *)<em>eventId</em> onNetwork:(NSString *)<em>networkDomain</em> success:(void ( ^ ) ( NSDictionary *updates ))<em>success</em> failure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (NSString *)buildStreamEndpointForCollection:(NSString *)<em>collectionId</em> network:(NSString *)<em>networkDomain</em></code></div>
 
     
 	
@@ -225,12 +171,7 @@
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>collectionId</em></dt>
-			<dd><p>The collection to start polling for updates.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>eventId</em></dt>
-			<dd><p>The event identifier of the most recent content that is represented locally.</p></dd>
+			<dd><p>The collection to stream for.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -238,23 +179,13 @@
 			<dd><p>The collection&rsquo;s network as identified by domain, i.e. livefyre.com.</p></dd>
 		</dl>
 		
-		<dl class="argument-def parameter-def">
-			<dt><em>success</em></dt>
-			<dd><p>Callback called with a dictionary after new content has been recieved.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>failure</em></dt>
-			<dd><p>Callback called with an error after a failure to retrieve data.</p></dd>
-		</dl>
-		
 	</div>
 	
 	
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>void</p>
+		<p>NSString The endpoint to poll for stream data.</p>
 	</div>
 	
 	
@@ -276,18 +207,18 @@
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/stopStreamForCollection:" title="stopStreamForCollection:"></a>
-	<h3 class="subsubtitle method-title">stopStreamForCollection:</h3>
+	<a name="//api/name/pollStreamEndpoint:event:timeout:error:" title="pollStreamEndpoint:event:timeout:error:"></a>
+	<h3 class="subsubtitle method-title">pollStreamEndpoint:event:timeout:error:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Stop polling for updates made to the contents of a collection.</p>
+		<p>Long poll for updates made to the contents of a collection.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)stopStreamForCollection:(NSString *)<em>collectionId</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (NSDictionary *)pollStreamEndpoint:(NSString *)<em>endpoint</em> event:(NSString *)<em>eventId</em> timeout:(NSError **)<em>timeout</em> error:(NSError **)<em>error</em></code></div>
 
     
 	
@@ -295,8 +226,23 @@
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>collectionId</em></dt>
-			<dd><p>The collection to stop polling for updates.</p></dd>
+			<dt><em>endpoint</em></dt>
+			<dd><p>The streaming HTTP resource.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>eventId</em></dt>
+			<dd><p>The most recently recieved event head for this stream.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>timeout</em></dt>
+			<dd><p>Timeout passed by reference.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>error</em></dt>
+			<dd><p>Error passed by reference.</p></dd>
 		</dl>
 		
 	</div>
@@ -305,7 +251,7 @@
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>void</p>
+		<p>NSDictionary The updated eventId of the stream.</p>
 	</div>
 	
 	
@@ -314,8 +260,7 @@
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Stopping the stream happens asynchronously and so there is no gaurantee when it will stop,
-only that it will stop before the next server call.</p>
+		<p>Executed synchronously, do not call directly! Also note that a general error is differentiated from a timeout, though both set an error flag. Requests will keep the connection open for about a minute before giving up and setting a timeout.</p>
 	</div>
 	
 	
@@ -335,6 +280,8 @@ only that it will stop before the next server call.</p>
 					</div>
 					
 					
+					
+					
 				</div>
 				<div class="main-navigation navigation-bottom">
 					<ul>
@@ -345,7 +292,7 @@ only that it will stop before the next server call.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Livefyre, Inc. All rights reserved. (Last updated: 2013-01-25)</span><br />
+						<p><span class="copyright">&copy; 2013 Livefyre, Inc. All rights reserved. (Last updated: 2013-02-11)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
 						

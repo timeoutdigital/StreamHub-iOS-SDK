@@ -40,9 +40,9 @@
 	
 	<option value="class_methods">Class Methods</option>
 	
-	<option value="//api/name/getTrendingCollectionsForTag:forSite:onNetwork:desiredResults:success:failure:">&nbsp;&nbsp;&nbsp;&nbsp;+ getTrendingCollectionsForTag:forSite:onNetwork:desiredResults:success:failure:</option>
+	<option value="//api/name/getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:">&nbsp;&nbsp;&nbsp;&nbsp;+ getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:</option>
 	
-	<option value="//api/name/getUserContentForUser:withToken:onNetwork:forStatuses:withOffset:success:failure:">&nbsp;&nbsp;&nbsp;&nbsp;+ getUserContentForUser:withToken:onNetwork:forStatuses:withOffset:success:failure:</option>
+	<option value="//api/name/getUserContentForUser:withToken:forNetwork:statuses:offset:onSuccess:onFailure:">&nbsp;&nbsp;&nbsp;&nbsp;+ getUserContentForUser:withToken:forNetwork:statuses:offset:onSuccess:onFailure:</option>
 	
 	
 	
@@ -74,9 +74,9 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getTrendingCollectionsForTag:forSite:onNetwork:desiredResults:success:failure:">getTrendingCollectionsForTag:forSite:onNetwork:desiredResults:success:failure:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:">getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getUserContentForUser:withToken:onNetwork:forStatuses:withOffset:success:failure:">getUserContentForUser:withToken:onNetwork:forStatuses:withOffset:success:failure:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getUserContentForUser:withToken:forNetwork:statuses:offset:onSuccess:onFailure:">getUserContentForUser:withToken:forNetwork:statuses:offset:onSuccess:onFailure:</a></span></li>
 	
 </ul></li>
 
@@ -127,7 +127,7 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/getTrendingCollectionsForTag:forSite:onNetwork:desiredResults:success:failure:">+&nbsp;getTrendingCollectionsForTag:forSite:onNetwork:desiredResults:success:failure:</a></code>
+		<code><a href="#//api/name/getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:">+&nbsp;getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:</a></code>
 		<span class="tooltip"><p>Polls for trending Collections</p></span>
 	</span>
 	
@@ -142,7 +142,7 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/getUserContentForUser:withToken:onNetwork:forStatuses:withOffset:success:failure:">+&nbsp;getUserContentForUser:withToken:onNetwork:forStatuses:withOffset:success:failure:</a></code>
+		<code><a href="#//api/name/getUserContentForUser:withToken:forNetwork:statuses:offset:onSuccess:onFailure:">+&nbsp;getUserContentForUser:withToken:forNetwork:statuses:offset:onSuccess:onFailure:</a></code>
 		<span class="tooltip"><p>Fetches the user&rsquo;s content history</p></span>
 	</span>
 	
@@ -163,8 +163,8 @@
 						<h2 class="subtitle subtitle-methods">Class Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/getTrendingCollectionsForTag:forSite:onNetwork:desiredResults:success:failure:" title="getTrendingCollectionsForTag:forSite:onNetwork:desiredResults:success:failure:"></a>
-	<h3 class="subsubtitle method-title">getTrendingCollectionsForTag:forSite:onNetwork:desiredResults:success:failure:</h3>
+	<a name="//api/name/getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:" title="getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:"></a>
+	<h3 class="subsubtitle method-title">getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:</h3>
 	
 	
 	
@@ -174,7 +174,7 @@
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (void)getTrendingCollectionsForTag:(NSString *)<em>tag</em> forSite:(NSString *)<em>siteId</em> onNetwork:(NSString *)<em>networkDomain</em> desiredResults:(NSUInteger)<em>numberOfResults</em> success:(void ( ^ ) ( NSArray *results ))<em>success</em> failure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (void)getTrendingCollectionsForTag:(NSString *)<em>tag</em> site:(NSString *)<em>siteId</em> network:(NSString *)<em>networkDomain</em> desiredResults:(NSUInteger)<em>numberOfResults</em> onSuccess:(void ( ^ ) ( NSArray *results ))<em>success</em> onFailure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
 
     
 	
@@ -246,8 +246,8 @@ been retrieved.</p></dd>
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/getUserContentForUser:withToken:onNetwork:forStatuses:withOffset:success:failure:" title="getUserContentForUser:withToken:onNetwork:forStatuses:withOffset:success:failure:"></a>
-	<h3 class="subsubtitle method-title">getUserContentForUser:withToken:onNetwork:forStatuses:withOffset:success:failure:</h3>
+	<a name="//api/name/getUserContentForUser:withToken:forNetwork:statuses:offset:onSuccess:onFailure:" title="getUserContentForUser:withToken:forNetwork:statuses:offset:onSuccess:onFailure:"></a>
+	<h3 class="subsubtitle method-title">getUserContentForUser:withToken:forNetwork:statuses:offset:onSuccess:onFailure:</h3>
 	
 	
 	
@@ -257,7 +257,7 @@ been retrieved.</p></dd>
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (void)getUserContentForUser:(NSString *)<em>userId</em> withToken:(NSString *)<em>userToken</em> onNetwork:(NSString *)<em>networkDomain</em> forStatuses:(NSArray *)<em>statuses</em> withOffset:(NSNumber *)<em>offset</em> success:(void ( ^ ) ( NSArray *results ))<em>success</em> failure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (void)getUserContentForUser:(NSString *)<em>userId</em> withToken:(NSString *)<em>userToken</em> forNetwork:(NSString *)<em>networkDomain</em> statuses:(NSArray *)<em>statuses</em> offset:(NSNumber *)<em>offset</em> onSuccess:(void ( ^ ) ( NSArray *results ))<em>success</em> onFailure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
 
     
 	
@@ -348,7 +348,7 @@ been retrieved.</p></dd>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Livefyre, Inc. All rights reserved. (Last updated: 2013-01-25)</span><br />
+						<p><span class="copyright">&copy; 2013 Livefyre, Inc. All rights reserved. (Last updated: 2013-02-11)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
 						
