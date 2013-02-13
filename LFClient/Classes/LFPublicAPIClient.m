@@ -31,12 +31,12 @@
 #import "NSString+QueryString.h"
 
 @implementation LFPublicAPIClient
-+ (void)getTrendingCollectionsForTag:(NSString *)tag
-                                site:(NSString *)siteId
-                             network:(NSString *)networkDomain
-                      desiredResults:(NSUInteger)number
-                           onSuccess:(void (^)(NSArray *))success
-                           onFailure:(void (^)(NSError *))failure
++ (void)getHottestCollectionsForTag:(NSString *)tag
+                               site:(NSString *)siteId
+                            network:(NSString *)networkDomain
+                     desiredResults:(NSUInteger)number
+                          onSuccess:(void (^)(NSArray *))success
+                          onFailure:(void (^)(NSError *))failure
 {
     NSParameterAssert(networkDomain != nil);
     
