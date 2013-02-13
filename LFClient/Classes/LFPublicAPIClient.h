@@ -36,7 +36,7 @@
 /** @name Heat Index Trends */
 
 /**
- * Polls for trending Collections
+ * Polls for hottest Collections
  *
  * For more information see:
  * https://github.com/Livefyre/livefyre-docs/wiki/Trending-Collection-API
@@ -50,12 +50,12 @@
  * @param failure Callback called with an error after a failure to retrieve data.
  * @return void
  */
-+ (void)getTrendingCollectionsForTag:(NSString *)tag
-                                site:(NSString *)siteId
-                             network:(NSString *)networkDomain
-                      desiredResults:(NSUInteger)numberOfResults
-                           onSuccess:(void (^)(NSArray *results))success
-                           onFailure:(void (^)(NSError *error))failure;
++ (void)getHottestCollectionsForTag:(NSString *)tag
+                               site:(NSString *)siteId
+                            network:(NSString *)networkDomain
+                     desiredResults:(NSUInteger)numberOfResults
+                          onSuccess:(void (^)(NSArray *results))success
+                          onFailure:(void (^)(NSError *error))failure;
                              
 /** @name User Information */
 
@@ -67,7 +67,7 @@
  *
  * @param userId The Id of the user whose content is to be fetched.
  * @param userToken (optional) The lftoken of the user whose content is to be fetched. This parameter is required by default unless the network specifies otherwise.
- * @param networkDomain The network to query agianst as identified by domain, i.e. livefyre.com.
+ * @param networkDomain The network to query against as identified by domain, i.e. livefyre.com.
  * @param statuses (optional) CSV of comment states to return.
  * @param offset (optional) Number of results to skip, defaults to 0. 25 items are returned at a time.
  * @param success Callback called with a dictionary after the results data has

@@ -119,14 +119,14 @@
     __block NSArray *res;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    [LFPublicAPIClient getTrendingCollectionsForTag:@"taggy"
-                                               site:@"site"
-                                            network:@"hottest-sample"
-                                     desiredResults:10
-                                          onSuccess:^(NSArray *results) {
+    [LFPublicAPIClient getHottestCollectionsForTag:@"taggy"
+                                              site:@"site"
+                                           network:@"hottest-sample"
+                                    desiredResults:10
+                                         onSuccess:^(NSArray *results) {
                                                 res = results;
                                                 dispatch_semaphore_signal(sema);
-                                        } onFailure:^(NSError *error) {
+                                         } onFailure:^(NSError *error) {
                                                 NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                                 dispatch_semaphore_signal(sema);
                                             }];

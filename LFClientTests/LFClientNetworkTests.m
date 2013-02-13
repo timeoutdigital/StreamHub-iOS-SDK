@@ -87,7 +87,7 @@
     __block NSArray *res;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
 
-    [LFPublicAPIClient getTrendingCollectionsForTag:@"tag"
+    [LFPublicAPIClient getHottestCollectionsForTag:@"tag"
                                              site:[Config objectForKey:@"site"]
                                           network:[Config objectForKey:@"domain"]
                                      desiredResults:10
