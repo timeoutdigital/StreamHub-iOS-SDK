@@ -40,7 +40,7 @@
 	
 	<option value="class_methods">Class Methods</option>
 	
-	<option value="//api/name/getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:">&nbsp;&nbsp;&nbsp;&nbsp;+ getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:</option>
+	<option value="//api/name/getHottestCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:">&nbsp;&nbsp;&nbsp;&nbsp;+ getHottestCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:</option>
 	
 	<option value="//api/name/getUserContentForUser:withToken:forNetwork:statuses:offset:onSuccess:onFailure:">&nbsp;&nbsp;&nbsp;&nbsp;+ getUserContentForUser:withToken:forNetwork:statuses:offset:onSuccess:onFailure:</option>
 	
@@ -74,7 +74,7 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:">getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getHottestCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:">getHottestCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getUserContentForUser:withToken:forNetwork:statuses:offset:onSuccess:onFailure:">getUserContentForUser:withToken:forNetwork:statuses:offset:onSuccess:onFailure:</a></span></li>
 	
@@ -127,8 +127,8 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:">+&nbsp;getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:</a></code>
-		<span class="tooltip"><p>Polls for trending Collections</p></span>
+		<code><a href="#//api/name/getHottestCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:">+&nbsp;getHottestCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:</a></code>
+		<span class="tooltip"><p>Polls for hottest Collections</p></span>
 	</span>
 	
 	
@@ -163,18 +163,18 @@
 						<h2 class="subtitle subtitle-methods">Class Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:" title="getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:"></a>
-	<h3 class="subsubtitle method-title">getTrendingCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:</h3>
+	<a name="//api/name/getHottestCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:" title="getHottestCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:"></a>
+	<h3 class="subsubtitle method-title">getHottestCollectionsForTag:site:network:desiredResults:onSuccess:onFailure:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Polls for trending Collections</p>
+		<p>Polls for hottest Collections</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (void)getTrendingCollectionsForTag:(NSString *)<em>tag</em> site:(NSString *)<em>siteId</em> network:(NSString *)<em>networkDomain</em> desiredResults:(NSUInteger)<em>numberOfResults</em> onSuccess:(void ( ^ ) ( NSArray *results ))<em>success</em> onFailure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (void)getHottestCollectionsForTag:(NSString *)<em>tag</em> site:(NSString *)<em>siteId</em> network:(NSString *)<em>networkDomain</em> desiredResults:(NSUInteger)<em>numberOfResults</em> onSuccess:(void ( ^ ) ( NSArray *results ))<em>success</em> onFailure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
 
     
 	
@@ -228,7 +228,7 @@ been retrieved.</p></dd>
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
 		<p>For more information see:
-<a href="https://github.com/Livefyre/livefyre-docs/wiki/Trending-Collection-API">https://github.com/Livefyre/livefyre-docs/wiki/Trending-Collection-API</a></p>
+<a href="https://github.com/Livefyre/livefyre-docs/wiki/Hottest-Collection-API">https://github.com/Livefyre/livefyre-docs/wiki/Hottest-Collection-API</a></p>
 	</div>
 	
 	
@@ -276,7 +276,7 @@ been retrieved.</p></dd>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>networkDomain</em></dt>
-			<dd><p>The network to query agianst as identified by domain, i.e. livefyre.com.</p></dd>
+			<dd><p>The network to query against as identified by domain, i.e. livefyre.com.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -348,7 +348,7 @@ been retrieved.</p></dd>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Livefyre, Inc. All rights reserved. (Last updated: 2013-02-11)</span><br />
+						<p><span class="copyright">&copy; 2013 Livefyre, Inc. All rights reserved. (Last updated: 2013-02-13)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
 						
