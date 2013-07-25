@@ -40,6 +40,8 @@
 	
 	<option value="class_methods">Class Methods</option>
 	
+	<option value="//api/name/flagContent:forCollection:network:withFlag:user:notes:email:onSuccess:onFailure:">&nbsp;&nbsp;&nbsp;&nbsp;+ flagContent:forCollection:network:withFlag:user:notes:email:onSuccess:onFailure:</option>
+	
 	<option value="//api/name/likeContent:forUser:collection:network:onSuccess:onFailure:">&nbsp;&nbsp;&nbsp;&nbsp;+ likeContent:forUser:collection:network:onSuccess:onFailure:</option>
 	
 	<option value="//api/name/postContent:forUser:inReplyTo:forCollection:network:onSuccess:onFailure:">&nbsp;&nbsp;&nbsp;&nbsp;+ postContent:forUser:inReplyTo:forCollection:network:onSuccess:onFailure:</option>
@@ -73,6 +75,8 @@
 
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/flagContent:forCollection:network:withFlag:user:notes:email:onSuccess:onFailure:">flagContent:forCollection:network:withFlag:user:notes:email:onSuccess:onFailure:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/likeContent:forUser:collection:network:onSuccess:onFailure:">likeContent:forUser:collection:network:onSuccess:onFailure:</a></span></li>
 	
@@ -148,6 +152,13 @@
 	</span>
 	
 	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/flagContent:forCollection:network:withFlag:user:notes:email:onSuccess:onFailure:">+&nbsp;flagContent:forCollection:network:withFlag:user:notes:email:onSuccess:onFailure:</a></code>
+		<span class="tooltip"><p>Flag content with one of the flag types.</p></span>
+	</span>
+	
+	
 </li>
 						</ul>
 						
@@ -162,6 +173,97 @@
 					<div class="section section-methods">
 						<a title="Class Methods" name="class_methods"></a>
 						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/flagContent:forCollection:network:withFlag:user:notes:email:onSuccess:onFailure:" title="flagContent:forCollection:network:withFlag:user:notes:email:onSuccess:onFailure:"></a>
+	<h3 class="subsubtitle method-title">flagContent:forCollection:network:withFlag:user:notes:email:onSuccess:onFailure:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Flag content with one of the flag types.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)flagContent:(NSString *)<em>contentId</em> forCollection:(NSString *)<em>collectionId</em> network:(NSString *)<em>networkDomain</em> withFlag:(FlagType)<em>flagType</em> user:(NSString *)<em>userToken</em> notes:(NSString *)<em>notes</em> email:(NSString *)<em>email</em> onSuccess:(void ( ^ ) ( NSDictionary *opineData ))<em>success</em> onFailure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>contentId</em></dt>
+			<dd><p>The is of the content to flag.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>collectionId</em></dt>
+			<dd><p>The Id of the collection where the content appears.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>networkDomain</em></dt>
+			<dd><p>The collection&rsquo;s network as identified by domain, i.e. livefyre.com.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>flagType</em></dt>
+			<dd><p>The flagging action.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>userToken</em></dt>
+			<dd><p>The user that is taking the flagging action.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>notes</em></dt>
+			<dd><p>(optional) Any additional comment the user provided.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>email</em></dt>
+			<dd><p>(optional) The email of the user.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>success</em></dt>
+			<dd><p>Callback called with a dictionary after the flag was successfully acknowledged.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>failure</em></dt>
+			<dd><p>Callback called with an error after a failure to post data.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>void</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">LFWriteClient.h</code><br />
+	</div>				
+	
+	
+</div>
 						
 						<div class="section-method">
 	<a name="//api/name/likeContent:forUser:collection:network:onSuccess:onFailure:" title="likeContent:forUser:collection:network:onSuccess:onFailure:"></a>
@@ -431,7 +533,7 @@ different user. Trying to unlike things other than comments may have odd results
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Livefyre, Inc. All rights reserved. (Last updated: 2013-02-13)</span><br />
+						<p><span class="copyright">&copy; 2013 Livefyre, Inc. All rights reserved. (Last updated: 2013-07-24)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
 						
