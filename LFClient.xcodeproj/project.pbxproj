@@ -53,6 +53,7 @@
 		1CF0625E16B1C5E700CFA905 /* auth-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0625D16B1C5E700CFA905 /* auth-sample.json */; };
 		1CF0626916B323D700CFA905 /* float-test.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0626816B323D700CFA905 /* float-test.json */; };
 		1CF7064216C32D5D009BD41D /* content-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF7064116C32D5D009BD41D /* content-sample.json */; };
+		EF7BB71117B2B7D0009E2E70 /* TestConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF7BB71017B2B7D0009E2E70 /* TestConfig.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +132,7 @@
 		1CF0625D16B1C5E700CFA905 /* auth-sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "auth-sample.json"; sourceTree = "<group>"; };
 		1CF0626816B323D700CFA905 /* float-test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "float-test.json"; sourceTree = "<group>"; };
 		1CF7064116C32D5D009BD41D /* content-sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "content-sample.json"; sourceTree = "<group>"; };
+		EF7BB71017B2B7D0009E2E70 /* TestConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TestConfig.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +208,7 @@
 		1C4CC89B16A48B3800C33DEC /* LFClientTests */ = {
 			isa = PBXGroup;
 			children = (
+				EF7BB71017B2B7D0009E2E70 /* TestConfig.plist */,
 				1C0ADC3016A5DBF000ACC0EA /* Config.h */,
 				1C0ADC3116A5DBF000ACC0EA /* Config.m */,
 				1CF061FA16B098C500CFA905 /* LFARC4Tests.h */,
@@ -349,6 +352,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF7BB71117B2B7D0009E2E70 /* TestConfig.plist in Resources */,
 				1C4CC8A016A48B3800C33DEC /* InfoPlist.strings in Resources */,
 				1C0ADC3916A6238900ACC0EA /* init-sample.json in Resources */,
 				1CF0625616B1BD5B00CFA905 /* like-sample.json in Resources */,
