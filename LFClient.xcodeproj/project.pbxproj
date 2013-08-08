@@ -33,8 +33,6 @@
 		1CF0624316B0A3A900CFA905 /* LFARC4.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623016B0A3A900CFA905 /* LFARC4.m */; };
 		1CF0624416B0A3A900CFA905 /* LFBootstrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623216B0A3A900CFA905 /* LFBootstrapClient.m */; };
 		1CF0624516B0A3A900CFA905 /* LFBootstrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623216B0A3A900CFA905 /* LFBootstrapClient.m */; };
-		1CF0624616B0A3A900CFA905 /* LFClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623516B0A3A900CFA905 /* LFClient.m */; };
-		1CF0624716B0A3A900CFA905 /* LFClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623516B0A3A900CFA905 /* LFClient.m */; };
 		1CF0624816B0A3A900CFA905 /* LFClientBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623716B0A3A900CFA905 /* LFClientBase.m */; };
 		1CF0624916B0A3A900CFA905 /* LFClientBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623716B0A3A900CFA905 /* LFClientBase.m */; };
 		1CF0624A16B0A3A900CFA905 /* LFConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623916B0A3A900CFA905 /* LFConstants.m */; };
@@ -54,6 +52,15 @@
 		1CF7064216C32D5D009BD41D /* content-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF7064116C32D5D009BD41D /* content-sample.json */; };
 		EF7BB71117B2B7D0009E2E70 /* TestConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF7BB71017B2B7D0009E2E70 /* TestConfig.plist */; };
 		EF9FD3CC17B40897009FE59D /* LFStreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623D16B0A3A900CFA905 /* LFStreamClient.m */; };
+		EF9FD45217B4476B009FE59D /* LFClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623416B0A3A900CFA905 /* LFClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF9FD45317B4476B009FE59D /* LFARC4.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0622F16B0A3A900CFA905 /* LFARC4.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF9FD45417B4476B009FE59D /* LFConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623816B0A3A900CFA905 /* LFConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF9FD45517B4476B009FE59D /* LFClientBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623616B0A3A900CFA905 /* LFClientBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF9FD45617B4476B009FE59D /* LFAdminClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0622D16B0A3A900CFA905 /* LFAdminClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF9FD45717B4476B009FE59D /* LFBootstrapClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623116B0A3A900CFA905 /* LFBootstrapClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF9FD45817B4476B009FE59D /* LFPublicAPIClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623A16B0A3A900CFA905 /* LFPublicAPIClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF9FD45917B4476B009FE59D /* LFStreamClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623C16B0A3A900CFA905 /* LFStreamClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF9FD45A17B4476B009FE59D /* LFWriteClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623E16B0A3A900CFA905 /* LFWriteClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,7 +119,6 @@
 		1CF0623116B0A3A900CFA905 /* LFBootstrapClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFBootstrapClient.h; sourceTree = "<group>"; };
 		1CF0623216B0A3A900CFA905 /* LFBootstrapClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFBootstrapClient.m; sourceTree = "<group>"; };
 		1CF0623416B0A3A900CFA905 /* LFClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFClient.h; sourceTree = "<group>"; };
-		1CF0623516B0A3A900CFA905 /* LFClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFClient.m; sourceTree = "<group>"; };
 		1CF0623616B0A3A900CFA905 /* LFClientBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFClientBase.h; sourceTree = "<group>"; };
 		1CF0623716B0A3A900CFA905 /* LFClientBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFClientBase.m; sourceTree = "<group>"; };
 		1CF0623816B0A3A900CFA905 /* LFConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFConstants.h; sourceTree = "<group>"; };
@@ -259,18 +265,17 @@
 		1CF0622C16B0A3A900CFA905 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				1CF0622D16B0A3A900CFA905 /* LFAdminClient.h */,
-				1CF0622E16B0A3A900CFA905 /* LFAdminClient.m */,
+				1CF0623416B0A3A900CFA905 /* LFClient.h */,
 				1CF0622F16B0A3A900CFA905 /* LFARC4.h */,
 				1CF0623016B0A3A900CFA905 /* LFARC4.m */,
-				1CF0623116B0A3A900CFA905 /* LFBootstrapClient.h */,
-				1CF0623216B0A3A900CFA905 /* LFBootstrapClient.m */,
-				1CF0623416B0A3A900CFA905 /* LFClient.h */,
-				1CF0623516B0A3A900CFA905 /* LFClient.m */,
-				1CF0623616B0A3A900CFA905 /* LFClientBase.h */,
-				1CF0623716B0A3A900CFA905 /* LFClientBase.m */,
 				1CF0623816B0A3A900CFA905 /* LFConstants.h */,
 				1CF0623916B0A3A900CFA905 /* LFConstants.m */,
+				1CF0623616B0A3A900CFA905 /* LFClientBase.h */,
+				1CF0623716B0A3A900CFA905 /* LFClientBase.m */,
+				1CF0622D16B0A3A900CFA905 /* LFAdminClient.h */,
+				1CF0622E16B0A3A900CFA905 /* LFAdminClient.m */,
+				1CF0623116B0A3A900CFA905 /* LFBootstrapClient.h */,
+				1CF0623216B0A3A900CFA905 /* LFBootstrapClient.m */,
 				1CF0623A16B0A3A900CFA905 /* LFPublicAPIClient.h */,
 				1CF0623B16B0A3A900CFA905 /* LFPublicAPIClient.m */,
 				1CF0623C16B0A3A900CFA905 /* LFStreamClient.h */,
@@ -283,6 +288,25 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		EF9FD45117B44758009FE59D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF9FD45217B4476B009FE59D /* LFClient.h in Headers */,
+				EF9FD45317B4476B009FE59D /* LFARC4.h in Headers */,
+				EF9FD45417B4476B009FE59D /* LFConstants.h in Headers */,
+				EF9FD45517B4476B009FE59D /* LFClientBase.h in Headers */,
+				EF9FD45617B4476B009FE59D /* LFAdminClient.h in Headers */,
+				EF9FD45717B4476B009FE59D /* LFBootstrapClient.h in Headers */,
+				EF9FD45817B4476B009FE59D /* LFPublicAPIClient.h in Headers */,
+				EF9FD45917B4476B009FE59D /* LFStreamClient.h in Headers */,
+				EF9FD45A17B4476B009FE59D /* LFWriteClient.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		1C4CC88016A48B3800C33DEC /* LFClient */ = {
 			isa = PBXNativeTarget;
@@ -291,6 +315,7 @@
 				1C4CC87D16A48B3800C33DEC /* Sources */,
 				1C4CC87E16A48B3800C33DEC /* Frameworks */,
 				1C4CC87F16A48B3800C33DEC /* CopyFiles */,
+				EF9FD45117B44758009FE59D /* Headers */,
 			);
 			buildRules = (
 			);
@@ -400,7 +425,6 @@
 				EF9FD3CC17B40897009FE59D /* LFStreamClient.m in Sources */,
 				1CF0624216B0A3A900CFA905 /* LFARC4.m in Sources */,
 				1CF0624416B0A3A900CFA905 /* LFBootstrapClient.m in Sources */,
-				1CF0624616B0A3A900CFA905 /* LFClient.m in Sources */,
 				1CF0624816B0A3A900CFA905 /* LFClientBase.m in Sources */,
 				1CF0624A16B0A3A900CFA905 /* LFConstants.m in Sources */,
 				1CF0624C16B0A3A900CFA905 /* LFPublicAPIClient.m in Sources */,
@@ -423,7 +447,6 @@
 				1CF0624116B0A3A900CFA905 /* LFAdminClient.m in Sources */,
 				1CF0624316B0A3A900CFA905 /* LFARC4.m in Sources */,
 				1CF0624516B0A3A900CFA905 /* LFBootstrapClient.m in Sources */,
-				1CF0624716B0A3A900CFA905 /* LFClient.m in Sources */,
 				1CF0624916B0A3A900CFA905 /* LFClientBase.m in Sources */,
 				1CF0624B16B0A3A900CFA905 /* LFConstants.m in Sources */,
 				1CF0624D16B0A3A900CFA905 /* LFPublicAPIClient.m in Sources */,

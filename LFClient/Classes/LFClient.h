@@ -29,6 +29,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LFClient : NSObject
-// TODO, one client to rule them all.
-@end
+// one header to rule them all
+
+#import "LFARC4.h"
+#import "LFConstants.h"
+
+#import "LFClientBase.h"
+#import "LFAdminClient.h"
+#import "LFBootstrapClient.h"
+#import "LFPublicAPIClient.h"
+#import "LFStreamClient.h"
+#import "LFWriteClient.h"
