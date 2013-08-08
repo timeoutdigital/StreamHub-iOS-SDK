@@ -41,7 +41,6 @@
 		1CF0624B16B0A3A900CFA905 /* LFConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623916B0A3A900CFA905 /* LFConstants.m */; };
 		1CF0624C16B0A3A900CFA905 /* LFPublicAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623B16B0A3A900CFA905 /* LFPublicAPIClient.m */; };
 		1CF0624D16B0A3A900CFA905 /* LFPublicAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623B16B0A3A900CFA905 /* LFPublicAPIClient.m */; };
-		1CF0624E16B0A3A900CFA905 /* LFStreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623D16B0A3A900CFA905 /* LFStreamClient.m */; };
 		1CF0624F16B0A3A900CFA905 /* LFStreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623D16B0A3A900CFA905 /* LFStreamClient.m */; };
 		1CF0625016B0A3A900CFA905 /* LFWriteClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623F16B0A3A900CFA905 /* LFWriteClient.m */; };
 		1CF0625116B0A3A900CFA905 /* LFWriteClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623F16B0A3A900CFA905 /* LFWriteClient.m */; };
@@ -54,6 +53,7 @@
 		1CF0626916B323D700CFA905 /* float-test.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0626816B323D700CFA905 /* float-test.json */; };
 		1CF7064216C32D5D009BD41D /* content-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF7064116C32D5D009BD41D /* content-sample.json */; };
 		EF7BB71117B2B7D0009E2E70 /* TestConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF7BB71017B2B7D0009E2E70 /* TestConfig.plist */; };
+		EF9FD3CC17B40897009FE59D /* LFStreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623D16B0A3A900CFA905 /* LFStreamClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -397,13 +397,13 @@
 				1CF0622816B0A39800CFA905 /* NSString+Base64Encoding.m in Sources */,
 				1CF0622A16B0A39800CFA905 /* NSString+QueryString.m in Sources */,
 				1CF0624016B0A3A900CFA905 /* LFAdminClient.m in Sources */,
+				EF9FD3CC17B40897009FE59D /* LFStreamClient.m in Sources */,
 				1CF0624216B0A3A900CFA905 /* LFARC4.m in Sources */,
 				1CF0624416B0A3A900CFA905 /* LFBootstrapClient.m in Sources */,
 				1CF0624616B0A3A900CFA905 /* LFClient.m in Sources */,
 				1CF0624816B0A3A900CFA905 /* LFClientBase.m in Sources */,
 				1CF0624A16B0A3A900CFA905 /* LFConstants.m in Sources */,
 				1CF0624C16B0A3A900CFA905 /* LFPublicAPIClient.m in Sources */,
-				1CF0624E16B0A3A900CFA905 /* LFStreamClient.m in Sources */,
 				1CF0625016B0A3A900CFA905 /* LFWriteClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -509,6 +509,7 @@
 				GCC_PREFIX_HEADER = "LFClient/LFClient-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -521,6 +522,7 @@
 				GCC_PREFIX_HEADER = "LFClient/LFClient-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
