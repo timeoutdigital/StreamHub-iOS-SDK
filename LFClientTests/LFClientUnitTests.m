@@ -57,7 +57,7 @@
 
 - (void)testBootstrapClient {
     // Get Init
-    __block NSDictionary *bootstrapInitInfo;
+    __block NSDictionary *bootstrapInitInfo = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
     [LFBootstrapClient getInitForArticle:@"fakeArticle"
@@ -78,7 +78,7 @@
     STAssertEquals([bootstrapInitInfo count], 4u, @"Collection dictionary should have 4 keys");
 
     // Get Content
-    __block NSDictionary *contentInfo;
+    __block NSDictionary *contentInfo = nil;
     sema = dispatch_semaphore_create(0);
     
     [LFBootstrapClient getContentForPage:0
@@ -116,7 +116,7 @@
 
 
 - (void)testPublicAPIGetTrending {
-    __block NSArray *res;
+    __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
     [LFPublicAPIClient getHottestCollectionsForTag:@"taggy"
@@ -137,7 +137,7 @@
 }
 
 - (void)testUserDataRetrieval {
-    __block NSArray *res;
+    __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     [LFPublicAPIClient getUserContentForUser:@"fakeUser"
                                    withToken:nil
@@ -159,7 +159,7 @@
 
 - (void)testUserAuthentication {
     //with article and site ids
-    __block NSDictionary *res;
+    __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
     [LFAdminClient authenticateUserWithToken:@"fakeToken"
@@ -181,7 +181,7 @@
 }
 
 - (void)testLikes {
-    __block NSDictionary *res;
+    __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
     [LFWriteClient likeContent:@"fakeContent"
@@ -202,7 +202,7 @@
 }
 
 - (void)testPost {
-    __block NSDictionary *res;
+    __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     NSUInteger ran = arc4random();
     
@@ -225,7 +225,7 @@
 }
 
 - (void)testFlag {
-    __block NSDictionary *res;
+    __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
 
     [LFWriteClient flagContent:@"fakeContent"
@@ -249,7 +249,7 @@
 }
 
 //- (void)testStream {
-//    __block NSDictionary *res;
+//    __block NSDictionary *res = nil;
 //    __block NSUInteger trips = 2;
 //    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
 //     

@@ -17,7 +17,11 @@ Clone the repo:
 
     git clone git@github.com:Livefyre/StreamHub-iOS-SDK.git
 
-Open in the project in Xcode
+Setup test config:
+    
+    mv LFClientTests/TestConfig.plist.sample LFClientTests/TestConfig.plist
+
+Then edit `TestConfig.plist' to include your network info. When done, open the project in Xcode:
 
     open LFClient/LFClient.xcodeproj/
 

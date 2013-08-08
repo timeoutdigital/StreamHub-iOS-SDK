@@ -59,7 +59,7 @@
 }
 
 - (void)testCollectionRetrieval {
-    __block NSDictionary *coll;
+    __block NSDictionary *coll = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
     [LFBootstrapClient getInitForArticle:[Config objectForKey:@"article"]
@@ -84,7 +84,7 @@
 }
 
 - (void)testHeatAPIResultRetrieval {
-    __block NSArray *res;
+    __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
 
     [LFPublicAPIClient getHottestCollectionsForTag:@"tag"
@@ -105,7 +105,7 @@
 }
 
 - (void)testUserDataRetrieval {
-    __block NSArray *res;
+    __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     [LFPublicAPIClient getUserContentForUser:[Config objectForKey:@"system user"]
                                    withToken:nil
@@ -127,7 +127,7 @@
 
 - (void)testUserAuthentication {
     //with article and site ids
-    __block NSDictionary *res;
+    __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     NSString *userToken = [Config objectForKey:@"moderator user auth token"];
     
@@ -169,7 +169,7 @@
 }
 
 - (void)testLikes {
-    __block NSDictionary *res;
+    __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     NSString *userToken = [Config objectForKey:@"moderator user auth token"];
 
@@ -208,7 +208,7 @@
 }
 
 - (void)testPost {
-    __block NSDictionary *res;
+    __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     NSString *userToken = [Config objectForKey:@"moderator user auth token"];
     NSUInteger ran = arc4random();
@@ -272,7 +272,7 @@
 }
 
 //- (void)testStream {
-//    __block NSDictionary *res;
+//    __block NSDictionary *res = nil;
 //    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
 //    
 //    LFStreamClient *streamer = [LFStreamClient new];
@@ -287,14 +287,14 @@
 //                                   dispatch_semaphore_signal(sema);
 //                               }];
 //    
-//    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+//    dispatch_semaphore_wait(sema, 10 * NSEC_PER_SEC);
 //    NSLog(@"Successfully streamed");
 //    
 //    [streamer stopStreamForCollection:[Config objectForKey:@"collection"]];
 //}
 
 - (void)testFlag {
-    __block NSDictionary *res;
+    __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
 
     [LFWriteClient flagContent:[Config objectForKey:@"content"]
