@@ -51,8 +51,6 @@
 		1CF0626916B323D700CFA905 /* number-test.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0626816B323D700CFA905 /* number-test.json */; };
 		1CF7064216C32D5D009BD41D /* content-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF7064116C32D5D009BD41D /* content-sample.json */; };
 		EF7BB71117B2B7D0009E2E70 /* TestConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF7BB71017B2B7D0009E2E70 /* TestConfig.plist */; };
-		EF8C176417B47815007FFE39 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EF8C176317B47815007FFE39 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		EF8C176517B4D023007FFE39 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EF8C176217B47815007FFE39 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF9FD3CC17B40897009FE59D /* LFStreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623D16B0A3A900CFA905 /* LFStreamClient.m */; };
 		EF9FD45217B4476B009FE59D /* LFClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623416B0A3A900CFA905 /* LFClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF9FD45317B4476B009FE59D /* LFARC4.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0622F16B0A3A900CFA905 /* LFARC4.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -63,6 +61,9 @@
 		EF9FD45817B4476B009FE59D /* LFPublicAPIClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623A16B0A3A900CFA905 /* LFPublicAPIClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF9FD45917B4476B009FE59D /* LFStreamClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623C16B0A3A900CFA905 /* LFStreamClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF9FD45A17B4476B009FE59D /* LFWriteClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623E16B0A3A900CFA905 /* LFWriteClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EFA2AADF17B5AE870022DC8E /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EFA2AADD17B5AE870022DC8E /* JSONKit.h */; };
+		EFA2AAE017B5AE870022DC8E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA2AADE17B5AE870022DC8E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
+		EFA2AAE117B5AE870022DC8E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA2AADE17B5AE870022DC8E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,8 +142,8 @@
 		1CF0626816B323D700CFA905 /* number-test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "number-test.json"; sourceTree = "<group>"; };
 		1CF7064116C32D5D009BD41D /* content-sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "content-sample.json"; sourceTree = "<group>"; };
 		EF7BB71017B2B7D0009E2E70 /* TestConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TestConfig.plist; sourceTree = "<group>"; };
-		EF8C176217B47815007FFE39 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = vendor/JSONKit/JSONKit.h; sourceTree = "<group>"; };
-		EF8C176317B47815007FFE39 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = vendor/JSONKit/JSONKit.m; sourceTree = "<group>"; };
+		EFA2AADD17B5AE870022DC8E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = vendor/JSONKit/JSONKit.h; sourceTree = "<group>"; };
+		EFA2AADE17B5AE870022DC8E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = vendor/JSONKit/JSONKit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,8 +295,8 @@
 		EFA2AAD917B5A6C30022DC8E /* JSONKit */ = {
 			isa = PBXGroup;
 			children = (
-				EF8C176217B47815007FFE39 /* JSONKit.h */,
-				EF8C176317B47815007FFE39 /* JSONKit.m */,
+				EFA2AADD17B5AE870022DC8E /* JSONKit.h */,
+				EFA2AADE17B5AE870022DC8E /* JSONKit.m */,
 			);
 			name = JSONKit;
 			sourceTree = "<group>";
@@ -307,7 +308,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF8C176517B4D023007FFE39 /* JSONKit.h in Headers */,
 				EF9FD45217B4476B009FE59D /* LFClient.h in Headers */,
 				EF9FD45317B4476B009FE59D /* LFARC4.h in Headers */,
 				EF9FD45417B4476B009FE59D /* LFConstants.h in Headers */,
@@ -317,6 +317,7 @@
 				EF9FD45817B4476B009FE59D /* LFPublicAPIClient.h in Headers */,
 				EF9FD45917B4476B009FE59D /* LFStreamClient.h in Headers */,
 				EF9FD45A17B4476B009FE59D /* LFWriteClient.h in Headers */,
+				EFA2AADF17B5AE870022DC8E /* JSONKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +436,7 @@
 			files = (
 				1CF0622616B0A39800CFA905 /* NSDate+Relative.m in Sources */,
 				1CF0622816B0A39800CFA905 /* NSString+Base64Encoding.m in Sources */,
+				EFA2AAE017B5AE870022DC8E /* JSONKit.m in Sources */,
 				1CF0622A16B0A39800CFA905 /* NSString+QueryString.m in Sources */,
 				1CF0624016B0A3A900CFA905 /* LFAdminClient.m in Sources */,
 				EF9FD3CC17B40897009FE59D /* LFStreamClient.m in Sources */,
@@ -455,7 +457,7 @@
 				1C0ADC3216A5DBF000ACC0EA /* Config.m in Sources */,
 				1CF061F316B0936F00CFA905 /* LFTestingURLProtocol.m in Sources */,
 				1CF061F616B093B500CFA905 /* LFClientUnitTests.m in Sources */,
-				EF8C176417B47815007FFE39 /* JSONKit.m in Sources */,
+				EFA2AAE117B5AE870022DC8E /* JSONKit.m in Sources */,
 				1CF061FC16B098C500CFA905 /* LFARC4Tests.m in Sources */,
 				1CF0622716B0A39800CFA905 /* NSDate+Relative.m in Sources */,
 				1CF0622916B0A39800CFA905 /* NSString+Base64Encoding.m in Sources */,
