@@ -63,8 +63,7 @@
             *error = failError;
     }];
     if (payload && [payload objectForKey:@"timeout"]) {
-        *timeout = [NSError errorWithDomain:kLFError code:408u userInfo:[NSDictionary dictionaryWithObject:@"Request timed out."
-                                                                                                    forKey:NSLocalizedDescriptionKey]];
+        *timeout = [NSError errorWithDomain:kLFError code:408u userInfo:@{NSLocalizedDescriptionKey: @"Request timed out."}];
     }
     if (payload && [payload objectForKey:@"data"])
         return payload;

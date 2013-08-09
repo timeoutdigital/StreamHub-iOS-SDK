@@ -45,10 +45,9 @@
     
     NSDictionary *paramsDict;
     if (collectionId) {
-        paramsDict = [NSDictionary dictionaryWithObjects:@[collectionId, userToken] forKeys:@[@"collectionId", @"lftoken"]];
+        paramsDict = @{@"lftoken": userToken, @"collectionId": collectionId};
     } else {
-        articleId = [articleId base64EncodedString];
-        paramsDict = [NSDictionary dictionaryWithObjects:@[siteId, articleId, userToken] forKeys:@[@"siteId", @"articleId", @"lftoken"]];
+        paramsDict = @{@"lftoken": userToken, @"siteId": siteId, @"articleId":[articleId base64EncodedString]};
     }
     
     NSString *queryString = [[NSString alloc] initWithParams:paramsDict];

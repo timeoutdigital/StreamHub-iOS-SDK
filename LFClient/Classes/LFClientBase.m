@@ -28,6 +28,7 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 #import "LFClientBase.h"
+#import "JSONKit.h"
 
 static NSOperationQueue *_LFQueue;
 
@@ -79,8 +80,8 @@ static NSOperationQueue *_LFQueue;
 }
 
 + (NSDictionary *)handleResponse:(NSURLResponse *)resp
-                       error:(NSError *)err
-                        data:(NSData *)data
+                           error:(NSError *)err
+                            data:(NSData *)data
                        onFailure:(void (^)(NSError *))failure
 {
     NSParameterAssert(resp != nil);
@@ -90,35 +91,48 @@ static NSOperationQueue *_LFQueue;
         return nil;
     }
     
-    NSError *JSONerror;
-    NSDictionary *payload  = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&JSONerror];
-    //bad news bears
-    if (JSONerror && JSONerror.code == 3840u) {
-        payload = [self handleNaNBugWithData:data];
-        if (payload)
-            return payload;
-    }
+    NSError *error = nil;
     
-    if (JSONerror) {
-        failure(JSONerror);
+    //id payload = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    
+    JSONDecoder *decoder = [JSONDecoder decoder];
+    id payload = [decoder objectWithData:data error:&error];
+    
+    /*
+     //bad news bears
+     if (error && error.code == 3840u) {
+     payload = [self handleNaNBugWithData:data];
+     if (payload)
+     return payload;
+     }
+     */
+    
+    if (error) {
+        failure(error);
         return nil;
     }
     
     if (!payload) {
         NSError *noDataErr = [[NSError alloc] initWithDomain:kLFError
-                                                            code:0
-                                                        userInfo:[NSDictionary dictionaryWithObject:@"Response failed to return data."
-                                                                                             forKey:NSLocalizedDescriptionKey]];
+                                                        code:0
+                                                    userInfo:@{NSLocalizedDescriptionKey: @"Response failed to return data."}];
         failure(noDataErr);
         return nil;
     }
     
     //reported errors are reported
-    if ([payload objectForKey:@"code"] && ![[payload objectForKey:@"code"] isEqualToNumber:@200]) {
+    if (![payload respondsToSelector:@selector(objectForKey:)]) {
+        failure([NSError errorWithDomain:kLFError
+                                    code:0u
+                                userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Response was parsed as %@, however NSDictionary was expected",  NSStringFromClass([payload class])]}
+                 ]);
+        return nil;
+    } else if ([payload objectForKey:@"code"] &&
+               ![[payload objectForKey:@"code"] isEqualToNumber:@200])
+    {
         err = [NSError errorWithDomain:kLFError
                                   code:[[payload objectForKey:@"code"] integerValue]
-                              userInfo:[NSDictionary dictionaryWithObject:[payload objectForKey:@"msg"]
-                                                                   forKey:NSLocalizedDescriptionKey]];
+                              userInfo:@{NSLocalizedDescriptionKey:[payload objectForKey:@"msg"]}];
         failure(err);
         return nil;
     }
@@ -126,6 +140,7 @@ static NSOperationQueue *_LFQueue;
     return payload;
 }
 
+/*
 // When the heat index pipes down floats exceeding 1.0e-128, NSJSONSerialization does not parse them as doubles and throws an exception. We hack around this.
 // TODO optimize
 + (NSDictionary *)handleNaNBugWithData:(NSData *)data
@@ -182,4 +197,6 @@ static NSOperationQueue *_LFQueue;
 
     return [NSDictionary dictionaryWithDictionary:payload];
 }
+*/
+
 @end

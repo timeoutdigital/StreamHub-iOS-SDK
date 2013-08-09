@@ -64,7 +64,7 @@
     NSParameterAssert(collectionId != nil);
     NSParameterAssert(contentId != nil);
     
-    NSDictionary *paramsDict = [NSDictionary dictionaryWithObjects:@[collectionId, userToken] forKeys:@[@"collection_id", @"lftoken"]];
+    NSDictionary *paramsDict = @{@"collection_id": collectionId, @"lftoken": userToken};
     NSString *queryString = [[NSString alloc] initWithParams:paramsDict];
     
     contentId = [contentId stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

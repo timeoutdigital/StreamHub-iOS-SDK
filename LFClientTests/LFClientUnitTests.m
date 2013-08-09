@@ -35,6 +35,7 @@
 #import "LFWriteClient.h"
 #import "LFStreamClient.h"
 #import "Config.h"
+#import "JSONKit.h"
 
 @interface LFClientUnitTests()
 @end
@@ -277,13 +278,28 @@
 //    STAssertNil(res, @"Stop stream should stop the stream");
 //}
 
-- (void)testFloat
+/*
+- (void)testNumber
 {
-    NSString *spoofPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"float-test" ofType:@"json"];
+    NSString *spoofPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"number-test" ofType:@"json"];
     NSData *responseData = [[NSData alloc] initWithContentsOfFile:spoofPath];
-    NSError *JSONErr;
-    NSDictionary *parsedData = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&JSONErr];
+    NSError *error;
+    id parsedData = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
     STAssertNotNil(parsedData, @"no error");
-    STAssertNil(JSONErr, @"no error");
+    STAssertNil(error, @"no error");
 }
+*/
+
+
+- (void)testNumberJSONKit
+{
+    NSString *spoofPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"number-test" ofType:@"json"];
+    NSData *responseData = [[NSData alloc] initWithContentsOfFile:spoofPath];
+    NSError *error = nil;
+    JSONDecoder *decoder = [JSONDecoder decoder];
+    id parsedData = [decoder objectWithData:responseData error:&error];
+    STAssertNotNil(parsedData, @"no error");
+    STAssertNil(error, @"no error");
+}
+
 @end
