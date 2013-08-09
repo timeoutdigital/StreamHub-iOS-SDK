@@ -28,7 +28,7 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 #import "LFTestingURLProtocol.h"
-#import "LFConstants.h"
+#import "LFClient.h"
 
 @implementation LFTestingURLProtocol
 + (BOOL)canInitWithRequest:(NSURLRequest *)request

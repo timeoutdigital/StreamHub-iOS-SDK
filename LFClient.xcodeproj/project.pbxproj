@@ -170,8 +170,7 @@
 		1C4CC87616A48B3800C33DEC = {
 			isa = PBXGroup;
 			children = (
-				EF8C176217B47815007FFE39 /* JSONKit.h */,
-				EF8C176317B47815007FFE39 /* JSONKit.m */,
+				EFA2AAD917B5A6C30022DC8E /* JSONKit */,
 				1C4CC88616A48B3800C33DEC /* LFClient */,
 				1C4CC89B16A48B3800C33DEC /* LFClientTests */,
 				1C4CC88316A48B3800C33DEC /* Frameworks */,
@@ -290,6 +289,15 @@
 				1CF0623F16B0A3A900CFA905 /* LFWriteClient.m */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		EFA2AAD917B5A6C30022DC8E /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				EF8C176217B47815007FFE39 /* JSONKit.h */,
+				EF8C176317B47815007FFE39 /* JSONKit.m */,
+			);
+			name = JSONKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

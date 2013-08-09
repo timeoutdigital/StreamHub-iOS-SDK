@@ -28,8 +28,7 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 #import "LFARC4Tests.h"
-
-#import "LFARC4.h"
+#import "LFClient.h"
 
 @implementation LFARC4Tests
 - (void)testDecrypt {

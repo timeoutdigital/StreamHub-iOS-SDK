@@ -29,12 +29,7 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 #import "LFClientNetworkTests.h"
-#import "LFPublicAPIClient.h"
-#import "LFBootstrapClient.h"
-#import "LFWriteClient.h"
-#import "LFStreamClient.h"
-#import "LFAdminClient.h"
-#import "LFConstants.h"
+#import "LFClient.h"
 #import "Config.h"
 
 @interface LFClientNetworkTests()

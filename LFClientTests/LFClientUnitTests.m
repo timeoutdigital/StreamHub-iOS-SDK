@@ -27,13 +27,10 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
+
 #import "LFClientUnitTests.h"
 #import "LFTestingURLProtocol.h"
-#import "LFBootstrapClient.h"
-#import "LFPublicAPIClient.h"
-#import "LFAdminClient.h"
-#import "LFWriteClient.h"
-#import "LFStreamClient.h"
+#import "LFClient.h"
 #import "Config.h"
 #import "JSONKit.h"
 
