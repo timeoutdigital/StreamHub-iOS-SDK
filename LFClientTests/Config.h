@@ -29,5 +29,5 @@
 
 @interface Config : NSObject
 + (id)objectForKey:(id)key;
-@property (strong, nonatomic) NSCondition *condition;
+//@property (strong, nonatomic) NSCondition *condition;
 @end

@@ -41,11 +41,11 @@
 + (id)objectForKey:(id)key {
     return [[self ConfigDictionary] objectForKey:key];
 }
-
+/*
 - (NSCondition *)condition
 {
     if (!self.condition)
         self.condition = [NSCondition new];
     return self.condition;
-}
+}*/
 @end
