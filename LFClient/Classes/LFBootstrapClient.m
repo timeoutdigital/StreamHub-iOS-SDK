@@ -43,12 +43,15 @@
     NSParameterAssert(articleId != nil);
     
     NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, networkDomain];
-    NSString *path;
+    NSString *path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init", networkDomain, siteId, [articleId base64EncodedString]];
+    
+    /* ES: Per Jonathan, condition below is unnecessary
     if (environment) {
         path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/%@/init", environment, networkDomain, siteId, [articleId base64EncodedString]];
     } else {
         path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init", networkDomain, siteId, [articleId base64EncodedString]];
     }
+    */
     
     [self requestWithHost:host
                  path:path

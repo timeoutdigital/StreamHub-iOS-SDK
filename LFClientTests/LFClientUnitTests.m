@@ -31,7 +31,7 @@
 #import "LFClientUnitTests.h"
 #import "LFTestingURLProtocol.h"
 #import "LFClient.h"
-#import "Config.h"
+#import "LFConfig.h"
 #import "JSONKit.h"
 
 @interface LFClientUnitTests()

@@ -30,7 +30,7 @@
 
 #import "LFClientNetworkTests.h"
 #import "LFClient.h"
-#import "Config.h"
+#import "LFConfig.h"
 
 @interface LFClientNetworkTests()
 @property (nonatomic) NSString *event;
@@ -41,7 +41,7 @@
 - (void)setUp
 {
     [super setUp];
-    if (![Config objectForKey:@"domain"])
+    if (![LFConfig objectForKey:@"domain"])
         STFail(@"No test settings");
     // Set-up code here.
 }
@@ -57,10 +57,10 @@
     __block NSDictionary *coll = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    [LFBootstrapClient getInitForArticle:[Config objectForKey:@"article"]
-                                 site:[Config objectForKey:@"site"]
-                               network:[Config objectForKey:@"domain"]
-                         environment:[Config objectForKey:@"environment"]
+    [LFBootstrapClient getInitForArticle:[LFConfig objectForKey:@"article"]
+                                 site:[LFConfig objectForKey:@"site"]
+                               network:[LFConfig objectForKey:@"domain"]
+                         environment:[LFConfig objectForKey:@"environment"]
                                  onSuccess:^(NSDictionary *collection) {
                                      coll = collection;
                                      dispatch_semaphore_signal(sema);
@@ -83,8 +83,8 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
 
     [LFPublicAPIClient getHottestCollectionsForTag:@"tag"
-                                             site:[Config objectForKey:@"site"]
-                                          network:[Config objectForKey:@"domain"]
+                                             site:[LFConfig objectForKey:@"site"]
+                                          network:[LFConfig objectForKey:@"domain"]
                                      desiredResults:10
                                             onSuccess:^(NSArray *results) {
                                                 res = results;
@@ -102,9 +102,9 @@
 - (void)testUserDataRetrieval {
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    [LFPublicAPIClient getUserContentForUser:[Config objectForKey:@"system user"]
+    [LFPublicAPIClient getUserContentForUser:[LFConfig objectForKey:@"system user"]
                                    withToken:nil
-                                   forNetwork:[Config objectForKey:@"labs network"]
+                                   forNetwork:[LFConfig objectForKey:@"labs network"]
                                  statuses:nil
                                   offset:nil
                                      onSuccess:^(NSArray *results) {
@@ -124,13 +124,13 @@
     //with article and site ids
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    NSString *userToken = [Config objectForKey:@"moderator user auth token"];
+    NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
     
     [LFAdminClient authenticateUserWithToken:userToken
                                forCollection:nil
-                                  article:[Config objectForKey:@"article"]
-                                     site:[Config objectForKey:@"site"]
-                                   network:[Config objectForKey:@"domain"]
+                                  article:[LFConfig objectForKey:@"article"]
+                                     site:[LFConfig objectForKey:@"site"]
+                                   network:[LFConfig objectForKey:@"domain"]
                                      onSuccess:^(NSDictionary *gotUserData) {
                                          res = gotUserData;
                                          dispatch_semaphore_signal(sema);
@@ -146,10 +146,10 @@
     //with collection id
     res = nil;    
     [LFAdminClient authenticateUserWithToken:userToken
-                               forCollection:[Config objectForKey:@"collection"]
+                               forCollection:[LFConfig objectForKey:@"collection"]
                                   article:nil
                                      site:nil
-                                   network:[Config objectForKey:@"domain"]
+                                   network:[LFConfig objectForKey:@"domain"]
                                      onSuccess:^(NSDictionary *gotUserData) {
                                          res = gotUserData;
                                          dispatch_semaphore_signal(sema);
@@ -166,12 +166,12 @@
 - (void)testLikes {
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    NSString *userToken = [Config objectForKey:@"moderator user auth token"];
+    NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
 
-    [LFWriteClient likeContent:[Config objectForKey:@"content"]
+    [LFWriteClient likeContent:[LFConfig objectForKey:@"content"]
                        forUser:userToken
-                  collection:[Config objectForKey:@"collection"]
-                     network:[Config objectForKey:@"domain"]
+                  collection:[LFConfig objectForKey:@"collection"]
+                     network:[LFConfig objectForKey:@"domain"]
                        onSuccess:^(NSDictionary *content) {
                            res = content;
                            dispatch_semaphore_signal(sema);
@@ -185,10 +185,10 @@
     STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
     
     res = nil;
-    [LFWriteClient unlikeContent:[Config objectForKey:@"content"]
+    [LFWriteClient unlikeContent:[LFConfig objectForKey:@"content"]
                        forUser:userToken
-                  collection:[Config objectForKey:@"collection"]
-                     network:[Config objectForKey:@"domain"]
+                  collection:[LFConfig objectForKey:@"collection"]
+                     network:[LFConfig objectForKey:@"domain"]
                        onSuccess:^(NSDictionary *content) {
                            res = content;
                            dispatch_semaphore_signal(sema);
@@ -205,14 +205,14 @@
 - (void)testPost {
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    NSString *userToken = [Config objectForKey:@"moderator user auth token"];
+    NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
     NSUInteger ran = arc4random();
     
     [LFWriteClient postContent:[NSString stringWithFormat:@"test post, %d", ran]
                        forUser:userToken
                      inReplyTo:nil
-                  forCollection:[Config objectForKey:@"collection"]
-                     network:[Config objectForKey:@"domain"]
+                  forCollection:[LFConfig objectForKey:@"collection"]
+                     network:[LFConfig objectForKey:@"domain"]
                        onSuccess:^(NSDictionary *content) {
                            res = content;
                            dispatch_semaphore_signal(sema);
@@ -226,13 +226,13 @@
     STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
     
     //in reply to
-    NSString *parent = [Config objectForKey:@"content"];
+    NSString *parent = [LFConfig objectForKey:@"content"];
     ran = arc4random();
     [LFWriteClient postContent:[NSString stringWithFormat:@"test reply, %d", ran]
                        forUser:userToken
                      inReplyTo:parent
-                  forCollection:[Config objectForKey:@"collection"]
-                     network:[Config objectForKey:@"domain"]
+                  forCollection:[LFConfig objectForKey:@"collection"]
+                     network:[LFConfig objectForKey:@"domain"]
                        onSuccess:^(NSDictionary *content) {
                            res = content;
                            dispatch_semaphore_signal(sema);
@@ -292,11 +292,11 @@
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
 
-    [LFWriteClient flagContent:[Config objectForKey:@"content"]
-                 forCollection:[Config objectForKey:@"collection"]
-                       network:[Config objectForKey:@"domain"]
+    [LFWriteClient flagContent:[LFConfig objectForKey:@"content"]
+                 forCollection:[LFConfig objectForKey:@"collection"]
+                       network:[LFConfig objectForKey:@"domain"]
                       withFlag:OFF_TOPIC
-                          user:[Config objectForKey:@"moderator user auth token"]
+                          user:[LFConfig objectForKey:@"moderator user auth token"]
                          notes:@"fakeNotes"
                          email:@"fakeEmail"
                      onSuccess:^(NSDictionary *opineData) {

@@ -33,6 +33,7 @@
 
 #import "LFARC4.h"
 #import "LFConstants.h"
+#import "LFConfig.h"
 
 #import "LFClientBase.h"
 #import "LFAdminClient.h"
