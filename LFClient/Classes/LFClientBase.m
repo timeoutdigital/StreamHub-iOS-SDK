@@ -59,6 +59,8 @@ static NSOperationQueue *_LFQueue;
     NSParameterAssert(httpMethod != nil);
     
     NSURL *connectionURL = [[NSURL alloc] initWithScheme:kLFSDKScheme host:host path:path];
+    //NSLog(@"xxx: %@", [connectionURL absoluteString]);
+    
     NSMutableURLRequest *connectionReq = [[NSMutableURLRequest alloc] initWithURL:connectionURL];
     [connectionReq setHTTPMethod:httpMethod];
     [connectionReq setCachePolicy:NSURLRequestUseProtocolCachePolicy];

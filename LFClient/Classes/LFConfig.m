@@ -41,6 +41,7 @@
 + (id)objectForKey:(id)key {
     return [[self ConfigDictionary] objectForKey:key];
 }
+
 /*
 - (NSCondition *)condition
 {
