@@ -1,5 +1,5 @@
 //
-//  NSDate+Relative.h
+//  NSDate+RelativePast.h
 //  LivefyreClient
 //
 //  Created by Thomas Goyne on 8/29/12.
@@ -27,7 +27,7 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-@interface NSDate (Relative)
+@interface NSDate (RelativePast)
 // Returns fuzzy, human readable, time deltas.
-- (NSString *)relativeTime;
+- (NSString *)relativePastTime;
 @end

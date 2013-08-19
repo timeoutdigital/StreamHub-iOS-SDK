@@ -1,5 +1,5 @@
 //
-//  NSDate+Relative.m
+//  NSDate+RelativePast.m
 //  LivefyreClient
 //
 //  Created by Thomas Goyne on 8/29/12.
@@ -27,31 +27,29 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-#import "NSDate+Relative.h"
+#import "NSDate+RelativePast.h"
 
-@implementation NSDate (Relative)
-- (NSString *)relativeTime {
+@implementation NSDate (RelativePast)
+
+- (NSString *)relativePastTime {
     NSTimeInterval time = -[self timeIntervalSinceNow];
-
-    if (time < 0)
-        return @"In the future";
-    if (time < 1)
+    
+    if (time < 1) {
         return @"Now";
-    if (time < 2)
-        return @"One second ago";
-    if (time < 60)
-        return [NSString stringWithFormat:@"%d seconds ago", (int)time];
-    if (time < 120)
-        return @"One minute ago";
-    if (time < 3600)
-        return [NSString stringWithFormat:@"%d minutes ago", (int)time / 60];
-    if (time < 7200)
-        return @"One hour ago";
-    if (time < 86400)
-        return [NSString stringWithFormat:@"%d hours ago", (int)time / 3600];
-
-    return [NSDateFormatter localizedStringFromDate:self
-                                          dateStyle:NSDateFormatterShortStyle
-                                          timeStyle:NSDateFormatterShortStyle];
+    } else if (time < 60) {
+        return [NSString stringWithFormat:@"%ds", (int)time];
+    } else if (time < 3600) {
+        return [NSString stringWithFormat:@"%dm", (int)time / 60];
+    } else if (time < 86400) {
+        return [NSString stringWithFormat:@"%dh", (int)time / 3600];
+    } else if (time < 604800) {
+        return [NSString stringWithFormat:@"%dd", (int)time / 86400];
+    } else if (time < 31536000) {
+        return [NSString stringWithFormat:@"%dw", (int)time / 604800];
+    } else {
+        return [NSString stringWithFormat:@"%dy", (int)time / 31536000];
+        //return [NSDateFormatter localizedStringFromDate:self dateStyle:NSDateFormatterShortStyle timeStyle:nil];
+    }
 }
+
 @end
