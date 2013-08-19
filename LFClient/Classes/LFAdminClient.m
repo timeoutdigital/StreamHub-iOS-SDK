@@ -28,8 +28,8 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 #import "LFAdminClient.h"
-#import "NSString+QueryString.h"
 #import "NSString+Base64Encoding.h"
+#import "NSDictionary+QueryString.h"
 
 @implementation LFAdminClient
 + (void)authenticateUserWithToken:(NSString *)userToken
@@ -50,16 +50,14 @@
         paramsDict = @{@"lftoken": userToken, @"siteId": siteId, @"articleId":[articleId base64EncodedString]};
     }
     
-    NSString *queryString = [[NSString alloc] initWithParams:paramsDict];
-    
     NSString *host = [NSString stringWithFormat:@"%@.%@", kAdminDomain, networkDomain];
-    NSString *path = [NSString stringWithFormat:@"/api/v3.0/auth/%@", queryString];
+    NSString *path = [NSString stringWithFormat:@"/api/v3.0/auth/?%@", [paramsDict queryString]];
     
     [self requestWithHost:host
-                 path:path
-              payload:nil
-               method:@"GET"
-            onSuccess:success
-            onFailure:failure];
+                     path:path
+                   params:nil
+                   method:@"GET"
+                onSuccess:success
+                onFailure:failure];
 }
 @end

@@ -28,7 +28,6 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 #import "LFWriteClient.h"
-#import "NSString+QueryString.h"
 
 @implementation LFWriteClient
 + (void)likeContent:(NSString *)contentId
@@ -65,18 +64,16 @@
     NSParameterAssert(contentId != nil);
     
     NSDictionary *paramsDict = @{@"collection_id": collectionId, @"lftoken": userToken};
-    NSString *queryString = [[NSString alloc] initWithParams:paramsDict];
-    
     contentId = [contentId stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *host = [NSString stringWithFormat:@"%@.%@", kQuillDomain, networkDomain];
     NSString *path = [NSString stringWithFormat:@"/api/v3.0/message/%@/%@/", contentId, actionEndpoint];
 
     [self requestWithHost:host
-                 path:path
-              payload:queryString
-               method:@"POST"
-            onSuccess:success
-            onFailure:failure];
+                     path:path
+                   params:paramsDict
+                   method:@"POST"
+                onSuccess:success
+                onFailure:failure];
 }
 
 + (void)postContent:(NSString *)body
@@ -92,20 +89,20 @@
     NSParameterAssert(collectionId != nil);
     NSParameterAssert(networkDomain != nil);
     
-    NSMutableDictionary *paramsDict = [NSMutableDictionary dictionaryWithObjects:@[body, userToken] forKeys:@[@"body", @"lftoken"]];
-    if (parentId)
+    NSMutableDictionary *paramsDict = [NSMutableDictionary dictionaryWithObjects:@[body, userToken]
+                                                                         forKeys:@[@"body", @"lftoken"]];
+    if (parentId) {
         [paramsDict setObject:parentId forKey:@"parent_id"];
-    
-    NSString *queryString = [[NSString alloc] initWithParams:paramsDict];
+    }
     NSString *host = [NSString stringWithFormat:@"%@.%@", kQuillDomain, networkDomain];
     NSString *path = [NSString stringWithFormat:@"/api/v3.0/collection/%@/post/", collectionId];
     
     [self requestWithHost:host
-                 path:path
-              payload:queryString
-               method:@"POST"
-            onSuccess:success
-            onFailure:failure];
+                     path:path
+                   params:paramsDict
+                   method:@"POST"
+                onSuccess:success
+                onFailure:failure];
 }
 
 + (void)flagContent:(NSString *)contentId
@@ -131,13 +128,12 @@
     if (email)
         [paramsDict setObject:email forKey:@"email"];
 
-    NSString *payload = [[NSString alloc] initWithParams:paramsDict];
     NSString *host = [NSString stringWithFormat:@"%@.%@", kQuillDomain, networkDomain];
     NSString *path = [NSString stringWithFormat:@"/api/v3.0/message/%@/flag/%@/", contentId, flag];
 
     [self requestWithHost:host
                      path:path
-                  payload:payload
+                   params:paramsDict
                    method:@"POST"
                 onSuccess:success
                 onFailure:failure];

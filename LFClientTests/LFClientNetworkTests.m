@@ -85,7 +85,7 @@
     [LFPublicAPIClient getHottestCollectionsForTag:@"tag"
                                              site:[LFConfig objectForKey:@"site"]
                                           network:[LFConfig objectForKey:@"domain"]
-                                     desiredResults:10
+                                     desiredResults:10u
                                             onSuccess:^(NSArray *results) {
                                                 res = results;
                                                 dispatch_semaphore_signal(sema);
@@ -208,7 +208,9 @@
     NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
     NSUInteger ran = arc4random();
     
-    [LFWriteClient postContent:[NSString stringWithFormat:@"test post, %d", ran]
+    NSString *content = [NSString stringWithFormat:@"test post, %d", ran];
+    NSLog(@"Posting content: %@", content);
+    [LFWriteClient postContent:content
                        forUser:userToken
                      inReplyTo:nil
                   forCollection:[LFConfig objectForKey:@"collection"]

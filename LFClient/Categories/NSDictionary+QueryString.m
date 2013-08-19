@@ -1,5 +1,5 @@
 //
-//  NSString+QueryString.h
+//  NSDictionary+QueryString.m
 //  LivefyreClient
 //
 //  Created by zjj on 1/7/13.
@@ -27,8 +27,27 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-@interface NSString(QueryString)
-//Returns a query string beginning with '?' and with each key/value pair 
-//joined by a '=' and separated by a '&'. 
-- (NSString *)initWithParams:(NSDictionary *)params;
+#import "NSDictionary+QueryString.h"
+
+// TODO: figure out whether to use NSUTF8StringEncoding or NSASCIIStringEncoding
+static const NSStringEncoding *kLFURLStringEncoding = NSASCIIStringEncoding;
+static const NSStringEncoding *kLFURLDataEncoding = NSUTF8StringEncoding;
+
+@implementation NSDictionary (QueryString)
+
+- (NSString *)queryString
+{
+    NSMutableArray *pairs = [NSMutableArray arrayWithCapacity:[self count]];
+    for (NSString *key in self) {
+        NSString *escapedKey = [key stringByAddingPercentEscapesUsingEncoding:kLFURLStringEncoding];
+        NSString *escapedValue = [[self objectForKey:key] stringByAddingPercentEscapesUsingEncoding:kLFURLStringEncoding];
+        [pairs addObject:[NSString stringWithFormat:@"%@=%@", escapedKey, escapedValue]];
+    }
+    return [pairs componentsJoinedByString:@"&"];
+}
+
+- (NSData *)queryData {
+    return [[self queryString] dataUsingEncoding:kLFURLDataEncoding];
+}
+
 @end

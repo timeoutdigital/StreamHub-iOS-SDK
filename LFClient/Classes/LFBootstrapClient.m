@@ -54,11 +54,11 @@
     }*/
     
     [self requestWithHost:host
-                 path:path
-              payload:nil
-               method:@"GET"
-            onSuccess:success
-            onFailure:failure];
+                     path:path
+                   params:nil
+                   method:@"GET"
+                onSuccess:success
+                onFailure:failure];
 }
 
 + (void)getContentForPage:(NSUInteger)pageIndex
@@ -89,10 +89,10 @@
     NSString *path = [NSString stringWithFormat:@"/bs3%@%lu.json", pageUrlPathBase, (unsigned long)pageIndex];
     
     [self requestWithHost:host
-                 path:path
-              payload:nil
-               method:@"GET"
-            onSuccess:success
-            onFailure:failure];
+                     path:path
+                   params:nil
+                   method:@"GET"
+                onSuccess:success
+                onFailure:failure];
 }
 @end

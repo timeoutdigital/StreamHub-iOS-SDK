@@ -120,7 +120,7 @@
     [LFPublicAPIClient getHottestCollectionsForTag:@"taggy"
                                               site:@"site"
                                            network:@"hottest-sample"
-                                    desiredResults:10
+                                    desiredResults:10u
                                          onSuccess:^(NSArray *results) {
                                                 res = results;
                                                 dispatch_semaphore_signal(sema);

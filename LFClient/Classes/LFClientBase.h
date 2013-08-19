@@ -37,7 +37,7 @@
 // Sends an asynchronous request to the specified resource.
 + (void)requestWithHost:(NSString *)host
                    path:(NSString *)path
-                payload:(NSString *)payload
+                 params:(NSDictionary *)payload
                  method:(NSString *)httpMethod
               onSuccess:(void (^)(NSDictionary *res))success
               onFailure:(void (^)(NSError *))failure;

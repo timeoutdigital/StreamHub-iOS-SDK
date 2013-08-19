@@ -29,6 +29,7 @@
 
 #import "LFClientBase.h"
 #import "JSONKit.h"
+#import "NSDictionary+QueryString.h"
 
 static NSOperationQueue *_LFQueue;
 
@@ -49,7 +50,7 @@ static NSOperationQueue *_LFQueue;
 
 + (void)requestWithHost:(NSString *)host
                    path:(NSString *)path
-                payload:(NSString *)payload
+                 params:(NSDictionary *)params
                  method:(NSString *)httpMethod
               onSuccess:(void (^)(NSDictionary *res))success
               onFailure:(void (^)(NSError *))failure
@@ -59,24 +60,23 @@ static NSOperationQueue *_LFQueue;
     NSParameterAssert(httpMethod != nil);
     
     NSURL *connectionURL = [[NSURL alloc] initWithScheme:kLFSDKScheme host:host path:path];
-    //NSLog(@"xxx: %@", [connectionURL absoluteString]);
+    //NSLog(@"Absolute URL string: %@", [connectionURL absoluteString]);
     
     NSMutableURLRequest *connectionReq = [[NSMutableURLRequest alloc] initWithURL:connectionURL];
     [connectionReq setHTTPMethod:httpMethod];
     [connectionReq setCachePolicy:NSURLRequestUseProtocolCachePolicy];
     
-    if (payload && [httpMethod isEqualToString:@"POST"]) {
-        //strip off our beloved question mark
-        payload = [payload substringFromIndex:1];
-        [connectionReq setHTTPBody:[payload dataUsingEncoding:NSUTF8StringEncoding]];
+    if (params && [httpMethod isEqualToString:@"POST"]) {
+        [connectionReq setHTTPBody:[params queryData]];
     }
     
-    [NSURLConnection sendAsynchronousRequest:connectionReq queue:[self LFQueue] completionHandler:^(NSURLResponse *resp, NSData *data, NSError *err) {
-        
+    [NSURLConnection sendAsynchronousRequest:connectionReq
+                                       queue:[self LFQueue]
+                           completionHandler:^(NSURLResponse *resp, NSData *data, NSError *err) {
         NSDictionary *payload = [self handleResponse:resp error:err data:data onFailure:failure];
-        if (payload)
+        if (payload) {
             success(payload);
-        
+        }
         return;
     }];
 }
@@ -89,6 +89,7 @@ static NSOperationQueue *_LFQueue;
     NSParameterAssert(resp != nil);
     
     if (err) {
+        // NSURLConnection error
         failure(err);
         return nil;
     }
@@ -109,33 +110,41 @@ static NSOperationQueue *_LFQueue;
      }
      */
     
-    if (error) {
+    NSInteger code = 0;
+    if (error)
+    {
+        // parse error
         failure(error);
         return nil;
     }
-    
-    if (!payload) {
-        NSError *noDataErr = [[NSError alloc] initWithDomain:kLFError
-                                                        code:0
-                                                    userInfo:@{NSLocalizedDescriptionKey: @"Response failed to return data."}];
-        failure(noDataErr);
-        return nil;
-    }
-    
-    //reported errors are reported
-    if (![payload respondsToSelector:@selector(objectForKey:)]) {
+    else if (!payload)
+    {
+        // empty payload
         failure([NSError errorWithDomain:kLFError
-                                    code:0u
-                                userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Response was parsed as %@, however NSDictionary was expected",  NSStringFromClass([payload class])]}
+                                    code:code
+                                userInfo:@{NSLocalizedDescriptionKey:@"Response failed to return data."}
                  ]);
         return nil;
-    } else if ([payload objectForKey:@"code"] &&
-               ![[payload objectForKey:@"code"] isEqualToNumber:@200])
+    }
+    else if (![payload respondsToSelector:@selector(objectForKey:)])
     {
-        err = [NSError errorWithDomain:kLFError
-                                  code:[[payload objectForKey:@"code"] integerValue]
-                              userInfo:@{NSLocalizedDescriptionKey:[payload objectForKey:@"msg"]}];
-        failure(err);
+        // payload of wrong type
+        NSString *errorTemplate = @"Response was parsed as type %@ whereas NSDictionary was expected";
+        NSString *errorDescription = [NSString stringWithFormat:errorTemplate,
+                                      NSStringFromClass([payload class])];
+        failure([NSError errorWithDomain:kLFError
+                                    code:code
+                                userInfo:@{NSLocalizedDescriptionKey:errorDescription}
+                 ]);
+        return nil;
+    }
+    else if ([payload objectForKey:@"code"] && (code = [[payload objectForKey:@"code"] integerValue]) != 200)
+    {
+        // response code not HTTP 200
+        failure([NSError errorWithDomain:kLFError
+                                    code:code
+                                userInfo:@{NSLocalizedDescriptionKey:[payload objectForKey:@"msg"]}
+                 ]);
         return nil;
     }
     

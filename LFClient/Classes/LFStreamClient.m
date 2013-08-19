@@ -29,6 +29,9 @@
 
 #import "LFStreamClient.h"
 
+// timeout after 65 seconds
+static const NSTimeInterval kLFStreamTimeout = 65.0f;
+
 @implementation LFStreamClient
 + (NSString *)buildStreamEndpointForCollection:(NSString *)collectionId
                                        network:(NSString *)networkDomain
@@ -49,24 +52,39 @@
     NSParameterAssert(eventId != nil);
     NSParameterAssert(endpoint != nil);
     
-    NSString *eventedEndpoint = [endpoint stringByAppendingString:eventId];
-    NSURL *connectionURL = [[NSURL alloc] initWithString:eventedEndpoint];
-    NSURLRequest *streamReq = [NSURLRequest requestWithURL:connectionURL cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:65.0];
+    NSURL *url = [[NSURL alloc] initWithString:[endpoint stringByAppendingString:eventId]];
+    NSURLRequest *streamReq = [NSURLRequest requestWithURL:url
+                                               cachePolicy:NSURLCacheStorageNotAllowed
+                                           timeoutInterval:kLFStreamTimeout
+                               ];
     NSURLResponse *resp;
     NSError *requestError;
-    
-    NSData *data = [NSURLConnection sendSynchronousRequest:streamReq returningResponse:&resp error:&requestError];
+    NSData *data = [NSURLConnection sendSynchronousRequest:streamReq
+                                         returningResponse:&resp
+                                                     error:&requestError];
     //wait
-    NSDictionary *payload = [LFClientBase handleResponse:resp error:requestError data:data onFailure:^(NSError *failError) {
-        if (failError)
-            // Lots of errors being juggled, the flow is this: requestError-> failError -> paramError.
+    NSDictionary *payload = [LFClientBase handleResponse:resp
+                                                   error:requestError
+                                                    data:data
+                                               onFailure:^(NSError *failError) {
+        if (failError) {
+            // Lots of errors being juggled, the flow is this:
+            // requestError -> failError -> paramError
             *error = failError;
+        }
     }];
-    if (payload && [payload objectForKey:@"timeout"]) {
-        *timeout = [NSError errorWithDomain:kLFError code:408u userInfo:@{NSLocalizedDescriptionKey: @"Request timed out."}];
+    
+    if (payload) {
+        if ([payload objectForKey:@"timeout"]) {
+            *timeout = [NSError errorWithDomain:kLFError
+                                           code:408
+                                       userInfo:@{NSLocalizedDescriptionKey:@"Request timed out."}
+                        ];
+        }
+        if ([payload objectForKey:@"data"]) {
+            return payload;
+        }
     }
-    if (payload && [payload objectForKey:@"data"])
-        return payload;
     
     return nil;
 }

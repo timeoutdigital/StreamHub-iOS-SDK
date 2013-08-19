@@ -28,7 +28,7 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 #import "LFPublicAPIClient.h"
-#import "NSString+QueryString.h"
+#import "NSDictionary+QueryString.h"
 
 @implementation LFPublicAPIClient
 + (void)getHottestCollectionsForTag:(NSString *)tag
@@ -41,29 +41,31 @@
     NSParameterAssert(networkDomain != nil);
     
     NSMutableDictionary *paramsDict = [[NSMutableDictionary alloc] init];
-    if (tag)
+    if (tag) {
         [paramsDict setObject:tag forKey:@"tag"];
-    if (siteId)
+    }
+    if (siteId) {
         [paramsDict setObject:siteId forKey:@"site"];
-    if (number)
+    }
+    if (number) {
         [paramsDict setObject:[NSString stringWithFormat:@"%d", number] forKey:@"number"];
-    NSString *queryString = [[NSString alloc] initWithParams:paramsDict];
-    
+    }
     NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, networkDomain];
-    NSString *path = [NSString stringWithFormat:@"/api/v3.0/hottest/%@", queryString];
+    NSString *path = [NSString stringWithFormat:@"/api/v3.0/hottest/?%@", [paramsDict queryString]];
     
     [self requestWithHost:host
-                 path:path
-              payload:nil
-               method:@"GET"
-            onSuccess:^(NSDictionary *res) {
-                  NSArray *results = [res objectForKey:@"data"];
-                  if (results)
-                      success(results);
-              }
-            onFailure:failure];
+                     path:path
+                   params:nil
+                   method:@"GET"
+                onSuccess:^(NSDictionary *res) {
+                    NSArray *results = [res objectForKey:@"data"];
+                    if (results) {
+                        success(results);
+                    }
+                }
+                onFailure:failure];
 }
- 
+
 + (void)getUserContentForUser:(NSString *)userId
                     withToken:(NSString *)userToken
                    forNetwork:(NSString *)networkDomain
@@ -76,26 +78,28 @@
     NSParameterAssert(userId != nil);
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    if (userToken)
+    if (userToken) {
         [params setObject:userToken forKey:@"lftoken"];
-    if (statuses)
+    }
+    if (statuses) {
         [params setObject:[statuses componentsJoinedByString:@","] forKey:@"status"];
-    if (offset)
+    }
+    if (offset) {
         [params setObject:[offset stringValue] forKey:@"offset"];
-    NSString *queryString = [[NSString alloc] initWithParams:params];
-    
+    }
     NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, networkDomain];
-    NSString *path = [NSString stringWithFormat:@"/api/v3.0/author/%@/comments/%@", userId, queryString];
+    NSString *path = [NSString stringWithFormat:@"/api/v3.0/author/%@/comments/?%@", userId, [params queryString]];
     
     [self requestWithHost:host
-                 path:path
-              payload:nil
-               method:@"GET"
-            onSuccess:^(NSDictionary *res) {
-                  NSArray *results = [res objectForKey:@"data"];
-                  if (results)
-                      success(results);
-              }
-            onFailure:failure];
+                     path:path
+                   params:nil
+                   method:@"GET"
+                onSuccess:^(NSDictionary *res) {
+                    NSArray *results = [res objectForKey:@"data"];
+                    if (results) {
+                        success(results);
+                    }
+                }
+                onFailure:failure];
 }
 @end
