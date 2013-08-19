@@ -74,7 +74,7 @@ static NSOperationQueue *_LFQueue;
     [connectionReq setHTTPMethod:httpMethod];
     [connectionReq setCachePolicy:NSURLRequestUseProtocolCachePolicy];
     if (httpBody != nil) {
-        [connectionReq setHTTPBody:[params queryData]];
+        [connectionReq setHTTPBody:httpBody];
     }
     
     [NSURLConnection sendAsynchronousRequest:connectionReq
