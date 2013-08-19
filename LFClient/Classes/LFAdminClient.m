@@ -29,7 +29,6 @@
 
 #import "LFAdminClient.h"
 #import "NSString+Base64Encoding.h"
-#import "NSDictionary+QueryString.h"
 
 @implementation LFAdminClient
 + (void)authenticateUserWithToken:(NSString *)userToken
@@ -51,11 +50,9 @@
     }
     
     NSString *host = [NSString stringWithFormat:@"%@.%@", kAdminDomain, networkDomain];
-    NSString *path = [NSString stringWithFormat:@"/api/v3.0/auth/?%@", [paramsDict queryString]];
-    
     [self requestWithHost:host
-                     path:path
-                   params:nil
+                     path:@"/api/v3.0/auth/"
+                   params:paramsDict
                    method:@"GET"
                 onSuccess:success
                 onFailure:failure];

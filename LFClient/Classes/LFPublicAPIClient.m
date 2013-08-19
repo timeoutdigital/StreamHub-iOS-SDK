@@ -28,7 +28,6 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 #import "LFPublicAPIClient.h"
-#import "NSDictionary+QueryString.h"
 
 @implementation LFPublicAPIClient
 + (void)getHottestCollectionsForTag:(NSString *)tag
@@ -51,11 +50,9 @@
         [paramsDict setObject:[NSString stringWithFormat:@"%d", number] forKey:@"number"];
     }
     NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, networkDomain];
-    NSString *path = [NSString stringWithFormat:@"/api/v3.0/hottest/?%@", [paramsDict queryString]];
-    
     [self requestWithHost:host
-                     path:path
-                   params:nil
+                     path:@"/api/v3.0/hottest/"
+                   params:paramsDict
                    method:@"GET"
                 onSuccess:^(NSDictionary *res) {
                     NSArray *results = [res objectForKey:@"data"];
@@ -88,11 +85,10 @@
         [params setObject:[offset stringValue] forKey:@"offset"];
     }
     NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, networkDomain];
-    NSString *path = [NSString stringWithFormat:@"/api/v3.0/author/%@/comments/?%@", userId, [params queryString]];
-    
+    NSString *path = [NSString stringWithFormat:@"/api/v3.0/author/%@/comments/", userId];
     [self requestWithHost:host
                      path:path
-                   params:nil
+                   params:params
                    method:@"GET"
                 onSuccess:^(NSDictionary *res) {
                     NSArray *results = [res objectForKey:@"data"];

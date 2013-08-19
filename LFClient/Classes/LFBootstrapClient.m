@@ -87,7 +87,6 @@
 
     NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, networkDomain];
     NSString *path = [NSString stringWithFormat:@"/bs3%@%lu.json", pageUrlPathBase, (unsigned long)pageIndex];
-    
     [self requestWithHost:host
                      path:path
                    params:nil

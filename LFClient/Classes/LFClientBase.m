@@ -59,14 +59,21 @@ static NSOperationQueue *_LFQueue;
     NSParameterAssert(path != nil);
     NSParameterAssert(httpMethod != nil);
     
+    NSData *httpBody = nil;
+    if (params != nil) {
+        if ([httpMethod isEqualToString:@"POST"]) {
+            httpBody = [params queryData];
+        } else {
+            path = [path stringByAppendingString:[@"?" stringByAppendingString:[params queryString]]];
+        }
+    }
     NSURL *connectionURL = [[NSURL alloc] initWithScheme:kLFSDKScheme host:host path:path];
     //NSLog(@"Absolute URL string: %@", [connectionURL absoluteString]);
     
     NSMutableURLRequest *connectionReq = [[NSMutableURLRequest alloc] initWithURL:connectionURL];
     [connectionReq setHTTPMethod:httpMethod];
     [connectionReq setCachePolicy:NSURLRequestUseProtocolCachePolicy];
-    
-    if (params && [httpMethod isEqualToString:@"POST"]) {
+    if (httpBody != nil) {
         [connectionReq setHTTPBody:[params queryData]];
     }
     
