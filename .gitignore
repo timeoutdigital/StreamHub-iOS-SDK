@@ -25,3 +25,4 @@ LFConfig.plist
 
 #CocoaPods
 Pods/
+Podfile.lock

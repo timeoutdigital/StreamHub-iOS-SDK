@@ -27,11 +27,14 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
+#import <AFHTTPClient.h>
+#import <AFHTTPRequestOperation.h>
 #import "LFClientBase.h"
 #import "JSONKit.h"
-#import "NSDictionary+QueryString.h"
+//#import "NSDictionary+QueryString.h"
 
 static NSOperationQueue *_LFQueue;
+static AFHTTPClient *_httpClient;
 
 @implementation LFClientBase
 //We need our own queue so that our callbacks to do not block the main queue, which executes on the main thread.
@@ -48,6 +51,22 @@ static NSOperationQueue *_LFQueue;
     return _LFQueue;
 }
 
++ (AFHTTPClient *)HTTPClientWithBaseURL:(NSURL*)baseURL
+{
+    if (!_httpClient) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            _httpClient = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
+        });
+    }
+    
+    if (![_httpClient.baseURL.absoluteString isEqualToString:baseURL.absoluteString]) {
+        _httpClient = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
+    }
+    return _httpClient;
+}
+
+/*
 + (void)requestWithHost:(NSString *)host
                    path:(NSString *)path
                  params:(NSDictionary *)params
@@ -86,6 +105,34 @@ static NSOperationQueue *_LFQueue;
         }
         return;
     }];
+} */
+
+
++ (void)requestWithHost:(NSString *)host
+                   path:(NSString *)path
+                 params:(NSDictionary *)params
+                 method:(NSString *)httpMethod
+              onSuccess:(void (^)(NSDictionary *res))success
+              onFailure:(void (^)(NSError *))failure
+{
+    NSParameterAssert(host != nil);
+    NSParameterAssert(path != nil);
+    NSParameterAssert(httpMethod != nil);
+    
+    NSURL *url = [[NSURL alloc] initWithScheme:kLFSDKScheme host:host path:@"/"];
+    NSMutableURLRequest *request = [[self HTTPClientWithBaseURL:url] requestWithMethod:httpMethod
+                                                                                  path:path
+                                                                            parameters:params];
+    [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[self LFQueue]
+                           completionHandler:^(NSURLResponse *resp, NSData *data, NSError *err) {
+                               NSDictionary *payload = [self handleResponse:resp error:err data:data onFailure:failure];
+                               if (payload) {
+                                   success(payload);
+                               }
+                               return;
+                           }];
 }
 
 + (NSDictionary *)handleResponse:(NSURLResponse *)resp

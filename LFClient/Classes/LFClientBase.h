@@ -32,7 +32,6 @@
 
 @interface LFClientBase : NSObject
 // Returns the queue for handling our callback blocks.
-+ (NSOperationQueue *)LFQueue;
 
 // Sends an asynchronous request to the specified resource.
 + (void)requestWithHost:(NSString *)host
