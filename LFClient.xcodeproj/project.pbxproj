@@ -48,6 +48,8 @@
 		1CF7064216C32D5D009BD41D /* content-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF7064116C32D5D009BD41D /* content-sample.json */; };
 		4B81612A98B0424192A13D52 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3656A8D8734DB088215052 /* libPods.a */; };
 		CBA2205933304D33A9F72F97 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3656A8D8734DB088215052 /* libPods.a */; };
+		EF21AB9D17C3E26500094CC2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */; };
+		EF21AB9E17C3E26B00094CC2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */; };
 		EF33A21717B95AD2007A2476 /* LFConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = EF33A21517B95AD2007A2476 /* LFConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF33A21817B95AD2007A2476 /* LFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EF33A21617B95AD2007A2476 /* LFConfig.m */; };
 		EF33A21D17B95EF8007A2476 /* LFConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF33A21C17B95EF8007A2476 /* LFConfig.plist */; };
@@ -141,6 +143,8 @@
 		1CF0625D16B1C5E700CFA905 /* auth-sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "auth-sample.json"; sourceTree = "<group>"; };
 		1CF0626816B323D700CFA905 /* number-test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "number-test.json"; sourceTree = "<group>"; };
 		1CF7064116C32D5D009BD41D /* content-sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "content-sample.json"; sourceTree = "<group>"; };
+		EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EF33A21517B95AD2007A2476 /* LFConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFConfig.h; sourceTree = "<group>"; };
 		EF33A21617B95AD2007A2476 /* LFConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFConfig.m; sourceTree = "<group>"; };
 		EF33A21C17B95EF8007A2476 /* LFConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LFConfig.plist; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF21AB9E17C3E26B00094CC2 /* SystemConfiguration.framework in Frameworks */,
+				EF21AB9D17C3E26500094CC2 /* MobileCoreServices.framework in Frameworks */,
 				1C4CC88516A48B3800C33DEC /* Foundation.framework in Frameworks */,
 				4B81612A98B0424192A13D52 /* libPods.a in Frameworks */,
 			);
@@ -198,6 +204,8 @@
 		1C4CC88316A48B3800C33DEC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */,
+				EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */,
 				1C4CC88416A48B3800C33DEC /* Foundation.framework */,
 				EFE0420D17C3154B0011DD6A /* UIKit.framework */,
 				1C4CC89316A48B3800C33DEC /* SenTestingKit.framework */,
