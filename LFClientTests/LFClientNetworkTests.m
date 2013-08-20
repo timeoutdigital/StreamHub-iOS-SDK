@@ -82,7 +82,7 @@
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
 
-    [LFPublicAPIClient getHottestCollectionsForTag:@"tag"
+    [LFBootstrapClient getHottestCollectionsForTag:@"tag"
                                              site:[LFConfig objectForKey:@"site"]
                                           network:[LFConfig objectForKey:@"domain"]
                                      desiredResults:10u
@@ -102,7 +102,7 @@
 - (void)testUserDataRetrieval {
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    [LFPublicAPIClient getUserContentForUser:[LFConfig objectForKey:@"system user"]
+    [LFBootstrapClient getUserContentForUser:[LFConfig objectForKey:@"system user"]
                                    withToken:nil
                                    forNetwork:[LFConfig objectForKey:@"labs network"]
                                  statuses:nil

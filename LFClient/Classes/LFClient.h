@@ -39,6 +39,5 @@
 #import "LFClientBase.h"
 #import "LFAdminClient.h"
 #import "LFBootstrapClient.h"
-#import "LFPublicAPIClient.h"
 #import "LFStreamClient.h"
 #import "LFWriteClient.h"

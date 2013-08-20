@@ -117,7 +117,7 @@
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    [LFPublicAPIClient getHottestCollectionsForTag:@"taggy"
+    [LFBootstrapClient getHottestCollectionsForTag:@"taggy"
                                               site:@"site"
                                            network:@"hottest-sample"
                                     desiredResults:10u
@@ -137,7 +137,7 @@
 - (void)testUserDataRetrieval {
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    [LFPublicAPIClient getUserContentForUser:@"fakeUser"
+    [LFBootstrapClient getUserContentForUser:@"fakeUser"
                                    withToken:nil
                                    forNetwork:@"usercontent-sample"
                                     statuses:nil

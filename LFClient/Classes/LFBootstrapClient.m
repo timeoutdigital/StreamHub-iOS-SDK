@@ -94,4 +94,74 @@
                 onSuccess:success
                 onFailure:failure];
 }
+
++ (void)getHottestCollectionsForTag:(NSString *)tag
+                               site:(NSString *)siteId
+                            network:(NSString *)networkDomain
+                     desiredResults:(NSUInteger)number
+                          onSuccess:(void (^)(NSArray *))success
+                          onFailure:(void (^)(NSError *))failure
+{
+    NSParameterAssert(networkDomain != nil);
+    
+    NSMutableDictionary *paramsDict = [[NSMutableDictionary alloc] init];
+    if (tag) {
+        [paramsDict setObject:tag forKey:@"tag"];
+    }
+    if (siteId) {
+        [paramsDict setObject:siteId forKey:@"site"];
+    }
+    if (number) {
+        [paramsDict setObject:[NSString stringWithFormat:@"%d", number] forKey:@"number"];
+    }
+    NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, networkDomain];
+    [self requestWithHost:host
+                     path:@"/api/v3.0/hottest/"
+                   params:paramsDict
+                   method:@"GET"
+                onSuccess:^(NSDictionary *res) {
+                    NSArray *results = [res objectForKey:@"data"];
+                    if (results) {
+                        success(results);
+                    }
+                }
+                onFailure:failure];
+}
+
++ (void)getUserContentForUser:(NSString *)userId
+                    withToken:(NSString *)userToken
+                   forNetwork:(NSString *)networkDomain
+                     statuses:(NSArray *)statuses
+                       offset:(NSNumber *)offset
+                    onSuccess:(void (^)(NSArray *))success
+                    onFailure:(void (^)(NSError *))failure
+{
+    NSParameterAssert(networkDomain != nil);
+    NSParameterAssert(userId != nil);
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (userToken) {
+        [params setObject:userToken forKey:@"lftoken"];
+    }
+    if (statuses) {
+        [params setObject:[statuses componentsJoinedByString:@","] forKey:@"status"];
+    }
+    if (offset) {
+        [params setObject:[offset stringValue] forKey:@"offset"];
+    }
+    NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, networkDomain];
+    NSString *path = [NSString stringWithFormat:@"/api/v3.0/author/%@/comments/", userId];
+    [self requestWithHost:host
+                     path:path
+                   params:params
+                   method:@"GET"
+                onSuccess:^(NSDictionary *res) {
+                    NSArray *results = [res objectForKey:@"data"];
+                    if (results) {
+                        success(results);
+                    }
+                }
+                onFailure:failure];
+}
+
 @end
