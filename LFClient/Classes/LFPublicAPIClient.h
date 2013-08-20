@@ -39,7 +39,7 @@
  * Polls for hottest Collections
  *
  * For more information see:
- * https://github.com/Livefyre/livefyre-docs/wiki/Trending-Collection-API
+ * https://github.com/Livefyre/livefyre-docs/wiki/Heat-Index-API
  *
  * @param tag (optional) Tag to filter on.
  * @param siteId (optional) Site ID to filter on.
