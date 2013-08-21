@@ -152,7 +152,7 @@ static AFHTTPClient *_httpClient;
     
     //id payload = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
     
-    JSONDecoder *decoder = [JSONDecoder decoder];
+    JSONDecoder *decoder = [JSONDecoder decoderWithParseOptions:JKParseOptionTruncateNumbers];
     id payload = [decoder objectWithData:data error:&error];
     
     /*

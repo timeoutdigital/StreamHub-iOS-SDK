@@ -293,7 +293,7 @@
     NSString *spoofPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"number-test" ofType:@"json"];
     NSData *responseData = [[NSData alloc] initWithContentsOfFile:spoofPath];
     NSError *error = nil;
-    JSONDecoder *decoder = [JSONDecoder decoder];
+    JSONDecoder *decoder = [JSONDecoder decoderWithParseOptions:JKParseOptionTruncateNumbers];
     id parsedData = [decoder objectWithData:responseData error:&error];
     STAssertNotNil(parsedData, @"no error");
     STAssertNil(error, @"no error");
