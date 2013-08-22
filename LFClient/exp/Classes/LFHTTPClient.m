@@ -70,7 +70,8 @@ static NSString * AFBase64EncodedStringFromString(NSString *string) {
     _lfNetwork = network;
     
     NSString *hostname = [network isEqualToString:@"livefyre.com"] ? environment : network;
-    NSString *urlString = [NSString stringWithFormat:@"%@://%@.%@/", kLFSDKScheme, kBootstrapDomain, hostname];
+    NSString *urlString = [NSString stringWithFormat:@"%@://%@.%@/",
+                           kLFSDKScheme, kBootstrapDomain, hostname];
     
     self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
     if (!self) {
@@ -92,34 +93,11 @@ static NSString * AFBase64EncodedStringFromString(NSString *string) {
 {
     NSParameterAssert(siteId != nil);
     NSParameterAssert(articleId != nil);
-    NSString* path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init", _lfNetwork, siteId, AFBase64EncodedStringFromString(articleId)];
-    [self getPath:path parameters:nil success:(AFSuccessBlock)success failure:(AFFailureBlock)failure];
-}
-
-- (void)getHottestCollectionsForSite:(NSString *)siteId
-                                 tag:(NSString *)tag
-                      desiredResults:(NSUInteger)number
-                           onSuccess:(LFSuccessBlock)success
-                           onFailure:(LFFailureBlock)failure
-{
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    if (tag) {
-        [parameters setObject:tag forKey:@"tag"];
-    }
-    if (siteId) {
-        [parameters setObject:siteId forKey:@"site"];
-    }
-    if (number) {
-        //[parameters setObject:[NSString stringWithFormat:@"%d", number] forKey:@"number"];
-        [parameters setObject:[NSNumber numberWithUnsignedInteger:number] forKey:@"number"];
-    }
-    [self getPath:@"/api/v3.0/hottest/"
-       parameters:parameters
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              // TODO: figure out whether we are doing the right thing here
-              id results = [responseObject objectForKey:@"data"];
-              success((LFJSONRequestOperation*)operation, results);
-          }
+    NSString* path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init",
+                      _lfNetwork, siteId, AFBase64EncodedStringFromString(articleId)];
+    [self getPath:path
+       parameters:nil
+          success:(AFSuccessBlock)success
           failure:(AFFailureBlock)failure];
 }
 
@@ -152,7 +130,7 @@ static NSString * AFBase64EncodedStringFromString(NSString *string) {
         [self.operationQueue addOperation:opSuccess];
         return;
     }
-
+    
     if (pageIndex < 0 || pageIndex >= count) {
         // HTTP index code 416 seems to describe range error better than HTTP 400
         NSBlockOperation *opFailure = [[NSBlockOperation alloc] init];
@@ -178,5 +156,33 @@ static NSString * AFBase64EncodedStringFromString(NSString *string) {
           success:(AFSuccessBlock)success
           failure:(AFFailureBlock)failure];
 }
+
+- (void)getHottestCollectionsForSite:(NSString *)siteId
+                                 tag:(NSString *)tag
+                      desiredResults:(NSUInteger)number
+                           onSuccess:(LFSuccessBlock)success
+                           onFailure:(LFFailureBlock)failure
+{
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    if (tag) {
+        [parameters setObject:tag forKey:@"tag"];
+    }
+    if (siteId) {
+        [parameters setObject:siteId forKey:@"site"];
+    }
+    if (number) {
+        [parameters setObject:[NSNumber numberWithUnsignedInteger:number]
+                       forKey:@"number"];
+    }
+    [self getPath:@"/api/v3.0/hottest/"
+       parameters:parameters
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              // TODO: figure out whether we are doing the right thing here
+              id results = [responseObject objectForKey:@"data"];
+              success((LFJSONRequestOperation*)operation, results);
+          }
+          failure:(AFFailureBlock)failure];
+}
+
 
 @end

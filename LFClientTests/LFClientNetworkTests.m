@@ -140,7 +140,8 @@
     [self.client getPath:path
               parameters:nil
                  success:^(AFHTTPRequestOperation *operation, id JSON){
-                     op = operation; result = JSON;
+                     op = operation;
+                     result = JSON;
                  }
                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                      op = operation;
@@ -164,7 +165,8 @@
     [self.client getInitForSite:[LFConfig objectForKey:@"site"]
                         article:[LFConfig objectForKey:@"article"]
                       onSuccess:^(NSOperation *operation, id JSON){
-                          op = (LFJSONRequestOperation*)operation; result = JSON;
+                          op = (LFJSONRequestOperation*)operation;
+                          result = JSON;
                       }
                       onFailure:^(NSOperation *operation, NSError *error) {
                           op = (LFJSONRequestOperation*)operation;
@@ -213,7 +215,8 @@
                                           tag:@"tag"
                                desiredResults:10u
                                     onSuccess:^(NSOperation *operation, id responseObject) {
-                                        op = (LFJSONRequestOperation *)operation; result = (NSArray *)responseObject;
+                                        op = (LFJSONRequestOperation *)operation;
+                                        result = (NSArray *)responseObject;
                                     } onFailure:^(NSOperation *operation, NSError *error) {
                                         op = (LFJSONRequestOperation *)operation;
                                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);

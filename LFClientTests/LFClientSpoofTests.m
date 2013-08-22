@@ -1,5 +1,5 @@
 //
-//  LFClientUnitTests.m
+//  LFClientSpoofTests.m
 //  LFClient
 //
 //  Created by zjj on 1/23/13.
@@ -28,7 +28,7 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 
-#import "LFClientUnitTests.h"
+#import "LFClientSpoofTests.h"
 #import "LFTestingURLProtocol.h"
 #import "LFClient.h"
 #import "LFConfig.h"
@@ -38,11 +38,12 @@
 #define EXP_SHORTHAND YES
 #import "Expecta.h"
 
-@interface LFClientUnitTests()
+@interface LFClientSpoofTests()
 @property (readwrite, nonatomic, strong) LFHTTPClient *client;
+@property (readwrite, nonatomic, strong) LFHTTPClient *clientHottest;
 @end
 
-@implementation LFClientUnitTests
+@implementation LFClientSpoofTests
 - (void)setUp
 {
     [super setUp];
@@ -50,6 +51,7 @@
     [NSURLProtocol registerClass:[LFTestingURLProtocol class]];
     
     self.client = [[LFHTTPClient alloc] initWithEnvironment:nil network:@"init-sample"];
+    self.clientHottest = [[LFHTTPClient alloc] initWithEnvironment:nil network:@"hottest-sample"];
     
     // set timeout to 60 seconds
     [Expecta setAsynchronousTestTimeout:60.0f];
@@ -59,7 +61,7 @@
 {
     // Tear-down code here.
     [NSURLProtocol unregisterClass:[LFTestingURLProtocol class]];
-
+    
     // cancelling all operations just in case (not strictly required)
     for (NSOperation *operation in self.client.operationQueue.operations) {
         [operation cancel];
@@ -80,18 +82,19 @@
                                  network:@"init-sample"
                              environment:nil
                                onSuccess:^(NSDictionary *collection) {
-                                     bootstrapInitInfo = collection;
-                                     dispatch_semaphore_signal(sema);
-                                 }
+                                   bootstrapInitInfo = collection;
+                                   dispatch_semaphore_signal(sema);
+                               }
                                onFailure:^(NSError *error) {
-                                     if (error)
-                                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                     dispatch_semaphore_signal(sema);
-                                 }];
+                                   NSLog(@"Error code %d, with description %@",
+                                         error.code,
+                                         [error localizedDescription]);
+                                   dispatch_semaphore_signal(sema);
+                               }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     STAssertEquals([bootstrapInitInfo count], 4u, @"Collection dictionary should have 4 keys");
-
+    
     // Get Content
     __block NSDictionary *contentInfo = nil;
     sema = dispatch_semaphore_create(0);
@@ -99,14 +102,15 @@
     [LFBootstrapClient getContentForPage:0
                             withInitInfo:bootstrapInitInfo
                                onSuccess:^(NSDictionary *content) {
-                                     contentInfo = content;
-                                     dispatch_semaphore_signal(sema);
-                                 }
+                                   contentInfo = content;
+                                   dispatch_semaphore_signal(sema);
+                               }
                                onFailure:^(NSError *error) {
-                                     if (error)
-                                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                     dispatch_semaphore_signal(sema);
-                                 }];
+                                   NSLog(@"Error code %d, with description %@",
+                                         error.code,
+                                         [error localizedDescription]);
+                                   dispatch_semaphore_signal(sema);
+                               }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     STAssertNotNil(contentInfo, @"Content head document fail");
@@ -116,14 +120,15 @@
     [LFBootstrapClient getContentForPage:1
                             withInitInfo:bootstrapInitInfo
                                onSuccess:^(NSDictionary *content) {
-                                     contentInfo = content;
-                                     dispatch_semaphore_signal(sema);
-                                 }
+                                   contentInfo = content;
+                                   dispatch_semaphore_signal(sema);
+                               }
                                onFailure:^(NSError *error) {
-                                     if (error)
-                                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                     dispatch_semaphore_signal(sema);
-                                 }];
+                                   NSLog(@"Error code %d, with description %@",
+                                         error.code,
+                                         [error localizedDescription]);
+                                   dispatch_semaphore_signal(sema);
+                               }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     STAssertNotNil(contentInfo, @"Content fetch fail");
@@ -140,11 +145,14 @@
     [self.client getInitForSite:@"fakeSite"
                         article:@"fakeArticle"
                       onSuccess:^(NSOperation *operation, id JSON){
-                          op0 = (LFJSONRequestOperation*)operation; bootstrapInitInfo = JSON;
+                          op0 = (LFJSONRequestOperation*)operation;
+                          bootstrapInitInfo = JSON;
                       }
                       onFailure:^(NSOperation *operation, NSError *error) {
                           op0 = (LFJSONRequestOperation*)operation;
-                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                          NSLog(@"Error code %d, with description %@",
+                                error.code,
+                                [error localizedDescription]);
                       }
      ];
     
@@ -162,11 +170,14 @@
     [self.client getContentWithInit:bootstrapInitInfo
                                page:0
                           onSuccess:^(NSOperation *operation, id JSON){
-                              op1 = (LFJSONRequestOperation*)operation; contentInfo1 = JSON;
+                              op1 = (LFJSONRequestOperation*)operation;
+                              contentInfo1 = JSON;
                           }
                           onFailure:^(NSOperation *operation, NSError *error) {
                               op1 = (LFJSONRequestOperation*)operation;
-                              NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                              NSLog(@"Error code %d, with description %@",
+                                    error.code,
+                                    [error localizedDescription]);
                           }];
     
     // Wait 'til done and then verify that everything is OK
@@ -181,11 +192,14 @@
     [self.client getContentWithInit:bootstrapInitInfo
                                page:1
                           onSuccess:^(NSOperation *operation, id JSON){
-                              op2 = (LFJSONRequestOperation*)operation; contentInfo2 = JSON;
+                              op2 = (LFJSONRequestOperation*)operation;
+                              contentInfo2 = JSON;
                           }
                           onFailure:^(NSOperation *operation, NSError *error) {
                               op2 = (LFJSONRequestOperation*)operation;
-                              NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                              NSLog(@"Error code %d, with description %@",
+                                    error.code,
+                                    [error localizedDescription]);
                           }];
     
     // Wait 'til done and then verify that everything is OK
@@ -196,7 +210,8 @@
 }
 
 #pragma mark - Test Hottest collections
-- (void)testPublicAPIGetTrending {
+- (void)testPublicAPIGetTrending
+{
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
@@ -205,33 +220,66 @@
                                            network:@"hottest-sample"
                                     desiredResults:10u
                                          onSuccess:^(NSArray *results) {
-                                                res = results;
-                                                dispatch_semaphore_signal(sema);
+                                             res = results;
+                                             dispatch_semaphore_signal(sema);
                                          } onFailure:^(NSError *error) {
-                                                NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                                dispatch_semaphore_signal(sema);
-                                            }];
+                                             NSLog(@"Error code %d, with description %@",
+                                                   error.code,
+                                                   [error localizedDescription]);
+                                             dispatch_semaphore_signal(sema);
+                                         }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     
     STAssertEquals([res count], 10u, @"Heat API should return 10 items");
 }
 
+- (void)testHeatAPIWithGetHottestCollections
+{
+    __block LFJSONRequestOperation *op = nil;
+    __block NSArray *result = nil;
+    
+    // Actual call would look something like this:
+    [self.clientHottest getHottestCollectionsForSite:@"site"
+                                                 tag:@"taggy"
+                                      desiredResults:10u
+                                           onSuccess:^(NSOperation *operation, id responseObject) {
+                                               op = (LFJSONRequestOperation *)operation;
+                                               result = (NSArray *)responseObject;
+                                           } onFailure:^(NSOperation *operation, NSError *error) {
+                                               op = (LFJSONRequestOperation *)operation;
+                                               NSLog(@"Error code %d, with description %@",
+                                                     error.code,
+                                                     [error localizedDescription]);
+                                           }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).to.beTruthy();
+    expect(result).to.haveCountOf(10u);
+}
+
+
+#pragma mark - Test user data retrieval
 - (void)testUserDataRetrieval {
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     [LFBootstrapClient getUserContentForUser:@"fakeUser"
                                    withToken:nil
-                                   forNetwork:@"usercontent-sample"
+                                  forNetwork:@"usercontent-sample"
                                     statuses:nil
                                       offset:nil
                                    onSuccess:^(NSArray *results) {
-                                         res = results;
-                                         dispatch_semaphore_signal(sema);
-                                } onFailure:^(NSError *error) {
-                                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                         dispatch_semaphore_signal(sema);
-                                     }];
+                                       res = results;
+                                       dispatch_semaphore_signal(sema);
+                                   } onFailure:^(NSError *error) {
+                                       NSLog(@"Error code %d, with description %@",
+                                             error.code,
+                                             [error localizedDescription]);
+                                       dispatch_semaphore_signal(sema);
+                                   }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     
@@ -249,15 +297,17 @@
                                         site:nil
                                      network:@"auth-sample"
                                    onSuccess:^(NSDictionary *gotUserData) {
-                                         res = gotUserData;
-                                         dispatch_semaphore_signal(sema);
-                                } onFailure:^(NSError *error) {
-                                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                         dispatch_semaphore_signal(sema);
-                                     }];
+                                       res = gotUserData;
+                                       dispatch_semaphore_signal(sema);
+                                   } onFailure:^(NSError *error) {
+                                       NSLog(@"Error code %d, with description %@",
+                                             error.code,
+                                             [error localizedDescription]);
+                                       dispatch_semaphore_signal(sema);
+                                   }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-
+    
     STAssertEquals([res count], 3u, @"User auth should return 3 items");
 }
 
@@ -270,12 +320,14 @@
                     collection:@"fakeColl"
                        network:@"like-sample"
                      onSuccess:^(NSDictionary *content) {
-                           res = content;
-                           dispatch_semaphore_signal(sema);
-                   } onFailure:^(NSError *error) {
-                           NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                           dispatch_semaphore_signal(sema);
-                       }];
+                         res = content;
+                         dispatch_semaphore_signal(sema);
+                     } onFailure:^(NSError *error) {
+                         NSLog(@"Error code %d, with description %@",
+                               error.code,
+                               [error localizedDescription]);
+                         dispatch_semaphore_signal(sema);
+                     }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     
@@ -293,12 +345,14 @@
                  forCollection:@"fakeColl"
                        network:@"post-sample"
                      onSuccess:^(NSDictionary *content) {
-                           res = content;
-                           dispatch_semaphore_signal(sema);
-                   } onFailure:^(NSError *error) {
-                           NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                           dispatch_semaphore_signal(sema);
-                       }];
+                         res = content;
+                         dispatch_semaphore_signal(sema);
+                     } onFailure:^(NSError *error) {
+                         NSLog(@"Error code %d, with description %@",
+                               error.code,
+                               [error localizedDescription]);
+                         dispatch_semaphore_signal(sema);
+                     }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     
@@ -309,7 +363,7 @@
 - (void)testFlag {
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-
+    
     [LFWriteClient flagContent:@"fakeContent"
                  forCollection:@"fakeCollection"
                        network:@"flag-sample"
@@ -321,12 +375,14 @@
                          res = opineData;
                          dispatch_semaphore_signal(sema);
                      } onFailure:^(NSError *error) {
-                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                         NSLog(@"Error code %d, with description %@",
+                               error.code,
+                               [error localizedDescription]);
                          dispatch_semaphore_signal(sema);
                      }];
-
+    
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-
+    
     STAssertEquals([res count], 3u, @"Post content should return 3 items");
 }
 
@@ -334,7 +390,7 @@
 //    __block NSDictionary *res = nil;
 //    __block NSUInteger trips = 2;
 //    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-//     
+//
 //    LFStreamClient *streamer = [LFStreamClient new];
 //    [streamer startStreamForCollection:@"fakeColl"
 //                             fromEvent:@"fakeId"
@@ -348,10 +404,10 @@
 //                                   NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
 //                                   dispatch_semaphore_signal(sema);
 //                               }];
-//    
+//
 //    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
 //    STAssertEquals([res count], 3u, @"Stream should return 3 items");
-//    
+//
 //    [streamer stopStreamForCollection:@"fakeColl"];
 //    res = nil;
 //    //Stop stream will stop, but due to async magic there is no gaurantee when it will stop.
