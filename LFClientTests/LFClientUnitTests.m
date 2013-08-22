@@ -33,8 +33,13 @@
 #import "LFClient.h"
 #import "LFConfig.h"
 #import "JSONKit.h"
+#import "LFHTTPClient.h"
+
+#define EXP_SHORTHAND YES
+#import "Expecta.h"
 
 @interface LFClientUnitTests()
+@property (readwrite, nonatomic, strong) LFHTTPClient *client;
 @end
 
 @implementation LFClientUnitTests
@@ -43,6 +48,11 @@
     [super setUp];
     //These tests are nominal.
     [NSURLProtocol registerClass:[LFTestingURLProtocol class]];
+    
+    self.client = [[LFHTTPClient alloc] initWithEnvironment:nil network:@"init-sample"];
+    
+    // set timeout to 60 seconds
+    [Expecta setAsynchronousTestTimeout:60.0f];
 }
 
 - (void)tearDown
@@ -50,10 +60,17 @@
     // Tear-down code here.
     [NSURLProtocol unregisterClass:[LFTestingURLProtocol class]];
 
+    // cancelling all operations just in case (not strictly required)
+    for (NSOperation *operation in self.client.operationQueue.operations) {
+        [operation cancel];
+    }
+    self.client = nil;
+    
     [super tearDown];
 }
 
-- (void)testBootstrapClient {
+#pragma mark - Test Bootstrap Client
+- (void)testBootstrapClientGetPages {
     // Get Init
     __block NSDictionary *bootstrapInitInfo = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -113,6 +130,72 @@
 }
 
 
+- (void)testLFHTTPClient
+{
+    // Get Init
+    __block NSDictionary *bootstrapInitInfo = nil;
+    __block LFJSONRequestOperation *op0 = nil;
+    
+    // This is the easiest way to use LFHTTPClient
+    [self.client getInitForSite:@"fakeSite"
+                        article:@"fakeArticle"
+                      onSuccess:^(NSOperation *operation, id JSON){
+                          op0 = (LFJSONRequestOperation*)operation; bootstrapInitInfo = JSON;
+                      }
+                      onFailure:^(NSOperation *operation, NSError *error) {
+                          op0 = (LFJSONRequestOperation*)operation;
+                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                      }
+     ];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op0.isFinished).will.beTruthy();
+    expect(op0).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op0.error).notTo.equal(NSURLErrorTimedOut);
+    // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
+    expect(bootstrapInitInfo).to.haveCountOf(4);
+    
+    
+    // Get Page 1
+    __block NSDictionary *contentInfo1 = nil;
+    __block LFJSONRequestOperation *op1 = nil;
+    [self.client getContentWithInit:bootstrapInitInfo
+                               page:0
+                          onSuccess:^(NSOperation *operation, id JSON){
+                              op1 = (LFJSONRequestOperation*)operation; contentInfo1 = JSON;
+                          }
+                          onFailure:^(NSOperation *operation, NSError *error) {
+                              op1 = (LFJSONRequestOperation*)operation;
+                              NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                          }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op1.isFinished).will.beTruthy();
+    //expect(op1).to.beInstanceOf([LFJSONRequestOperation class]);
+    //expect(op1.error).notTo.equal(NSURLErrorTimedOut);
+    expect(contentInfo1).to.beTruthy();
+    
+    // Get Page 2
+    __block NSDictionary *contentInfo2 = nil;
+    __block LFJSONRequestOperation *op2 = nil;
+    [self.client getContentWithInit:bootstrapInitInfo
+                               page:1
+                          onSuccess:^(NSOperation *operation, id JSON){
+                              op2 = (LFJSONRequestOperation*)operation; contentInfo2 = JSON;
+                          }
+                          onFailure:^(NSOperation *operation, NSError *error) {
+                              op2 = (LFJSONRequestOperation*)operation;
+                              NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                          }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op2.isFinished).will.beTruthy();
+    expect(op2).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op2.error).notTo.equal(NSURLErrorTimedOut);
+    expect(contentInfo2).to.beTruthy();
+}
+
+#pragma mark -
 - (void)testPublicAPIGetTrending {
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -221,6 +304,7 @@
     
     STAssertEquals([res count], 3u, @"Post content should return 3 items");
 }
+
 
 - (void)testFlag {
     __block NSDictionary *res = nil;

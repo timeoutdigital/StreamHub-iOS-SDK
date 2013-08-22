@@ -48,9 +48,9 @@
 
 - (void)setUp
 {
-    // Set-up code here.
     [super setUp];
 
+    // Set-up code here.
     if (![LFConfig objectForKey:@"domain"]) {
         STFail(@"No test settings");
     }
@@ -64,13 +64,14 @@
 - (void)tearDown
 {
     // Tear-down code here.
-    [super tearDown];
     
     // cancelling all operations just in case (not strictly required)
     for (NSOperation *operation in self.client.operationQueue.operations) {
         [operation cancel];
     }
     self.client = nil;
+    
+    [super tearDown];
 }
 
 #pragma mark - Get init
@@ -87,8 +88,7 @@
                                    dispatch_semaphore_signal(sema);
                                }
                                onFailure:^(NSError *error) {
-                                   if (error)
-                                       NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                                   NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                    dispatch_semaphore_signal(sema);
                                }];
     
@@ -103,7 +103,7 @@
 {
     __block id result = nil;
     
-    // Actual call would look something like this:
+    // Most complicated way to use LFHTTPClient... Nevertheless it should work
     NSString* path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init",
                       [LFConfig objectForKey:@"domain"],
                       [LFConfig objectForKey:@"site"],
@@ -115,9 +115,7 @@
                                       result = JSON;
                                   }
                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                      if (error) {
-                                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                      }
+                                      NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                   }];
     [self.client enqueueHTTPRequestOperation:op];
     
@@ -134,7 +132,7 @@
     __block AFHTTPRequestOperation *op = nil;
     __block id result = nil;
     
-    // Actual call would look something like this:
+    // Second easiest way to use LFHTTPClient
     NSString* path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init",
                       [LFConfig objectForKey:@"domain"],
                       [LFConfig objectForKey:@"site"],
@@ -146,9 +144,7 @@
                  }
                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                      op = operation;
-                     if (error) {
-                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                     }
+                     NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                  }];
     
     // Wait 'til done and then verify that everything is OK
@@ -161,20 +157,18 @@
 
 - (void)testInitWithGetInitForArticle
 {
-    __block AFHTTPRequestOperation *op = nil;
+    __block LFJSONRequestOperation *op = nil;
     __block id result = nil;
     
-    // Actual call would look something like this:
+    // This is the easiest way to use LFHTTPClient
     [self.client getInitForSite:[LFConfig objectForKey:@"site"]
                         article:[LFConfig objectForKey:@"article"]
-                      onSuccess:^(LFJSONRequestOperation *operation, id JSON){
-                          op = operation; result = JSON;
+                      onSuccess:^(NSOperation *operation, id JSON){
+                          op = (LFJSONRequestOperation*)operation; result = JSON;
                       }
-                      onFailure:^(LFJSONRequestOperation *operation, NSError *error) {
-                          op = operation;
-                          if (error) {
-                              NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                          }
+                      onFailure:^(NSOperation *operation, NSError *error) {
+                          op = (LFJSONRequestOperation*)operation;
+                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                       }
      ];
     
@@ -186,8 +180,9 @@
     expect(result).to.haveCountOf(4);
 }
 
-#pragma mark -
-- (void)testHeatAPIResultRetrieval {
+#pragma mark - Retrieve Hottest Collections
+- (void)testHeatAPIResultRetrieval
+{
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
 
@@ -208,6 +203,30 @@
     STAssertNotNil(res, @"Should have returned results");
 }
 
+- (void)testHeatAPIWithGetHottestCollections
+{
+    __block LFJSONRequestOperation *op = nil;
+    __block NSArray *result = nil;
+    
+    // Actual call would look something like this:
+    [self.client getHottestCollectionsForSite:[LFConfig objectForKey:@"site"]
+                                          tag:@"tag"
+                               desiredResults:10u
+                                    onSuccess:^(NSOperation *operation, id responseObject) {
+                                        op = (LFJSONRequestOperation *)operation; result = (NSArray *)responseObject;
+                                    } onFailure:^(NSOperation *operation, NSError *error) {
+                                        op = (LFJSONRequestOperation *)operation;
+                                        NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                                    }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).to.beTruthy();
+}
+
+#pragma mark - Retrieve User Data
 - (void)testUserDataRetrieval {
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
