@@ -69,8 +69,7 @@
     NSString *spoofPath = [[NSBundle bundleForClass:[self class]] pathForResource:methodId ofType:@"json"];
     NSData *responseData = [[NSData alloc] initWithContentsOfFile:spoofPath];
     
-    [client URLProtocol:self didReceiveResponse:response
-     cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+    [client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
     [client URLProtocol:self didLoadData:responseData];
     [client URLProtocolDidFinishLoading:self];
 }

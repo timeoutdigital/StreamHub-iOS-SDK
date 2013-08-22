@@ -32,7 +32,7 @@
 //TODO add constants and enums to appledoc.
 @interface LFConstants : NSObject
 extern NSString *const kLFSDKScheme;
-extern NSString *const kLFError;
+extern NSString *const kLFErrorDomain;
 //
 extern NSString *const kShareTypeTwitter;
 extern NSString *const kShareTypeFacebook;

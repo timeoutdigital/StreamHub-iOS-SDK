@@ -31,45 +31,66 @@
 #import "LFClientNetworkTests.h"
 #import "LFClient.h"
 #import "LFConfig.h"
+#import "LFHTTPClient.h"
+#import "LFJSONRequestOperation.h"
+#import "NSString+Base64Encoding.h"
+#import <AFJSONRequestOperation.h>
+
+#define EXP_SHORTHAND YES
+#import "Expecta.h"
 
 @interface LFClientNetworkTests()
 @property (nonatomic) NSString *event;
+@property (readwrite, nonatomic, strong) LFHTTPClient *client;
 @end
 
 @implementation LFClientNetworkTests
 
 - (void)setUp
 {
-    [super setUp];
-    if (![LFConfig objectForKey:@"domain"])
-        STFail(@"No test settings");
     // Set-up code here.
+    [super setUp];
+
+    if (![LFConfig objectForKey:@"domain"]) {
+        STFail(@"No test settings");
+    }
+    
+    self.client = [[LFHTTPClient alloc] initWithEnvironment:[LFConfig objectForKey:@"environment"] network:[LFConfig objectForKey:@"domain"]];
+    
+    // set timeout to 60 seconds
+    [Expecta setAsynchronousTestTimeout:60.0f];
 }
 
 - (void)tearDown
 {
     // Tear-down code here.
-    
     [super tearDown];
+    
+    // cancelling all operations just in case (not strictly required)
+    for (NSOperation *operation in self.client.operationQueue.operations) {
+        [operation cancel];
+    }
+    self.client = nil;
 }
 
+#pragma mark - Get init
 - (void)testCollectionRetrieval {
     __block NSDictionary *coll = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
     [LFBootstrapClient getInitForArticle:[LFConfig objectForKey:@"article"]
-                                 site:[LFConfig objectForKey:@"site"]
-                               network:[LFConfig objectForKey:@"domain"]
-                         environment:[LFConfig objectForKey:@"environment"]
-                                 onSuccess:^(NSDictionary *collection) {
-                                     coll = collection;
-                                     dispatch_semaphore_signal(sema);
-                                 }
-                                 onFailure:^(NSError *error) {
-                                     if (error)
-                                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                     dispatch_semaphore_signal(sema);
-                                 }];
+                                    site:[LFConfig objectForKey:@"site"]
+                                 network:[LFConfig objectForKey:@"domain"]
+                             environment:[LFConfig objectForKey:@"environment"]
+                               onSuccess:^(NSDictionary *collection) {
+                                   coll = collection;
+                                   dispatch_semaphore_signal(sema);
+                               }
+                               onFailure:^(NSError *error) {
+                                   if (error)
+                                       NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                                   dispatch_semaphore_signal(sema);
+                               }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     
@@ -78,6 +99,94 @@
     STAssertNotNil(self.event, @"Should have fetched a head document");
 }
 
+- (void)testInitWithLFJSONRequestOperation
+{
+    __block id result = nil;
+    
+    // Actual call would look something like this:
+    NSString* path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init",
+                      [LFConfig objectForKey:@"domain"],
+                      [LFConfig objectForKey:@"site"],
+                      [[LFConfig objectForKey:@"article"] base64EncodedString]];
+    NSURLRequest *request = [self.client requestWithMethod:@"GET" path:path parameters:nil];
+    LFJSONRequestOperation *op = [LFJSONRequestOperation
+                                  JSONRequestOperationWithRequest:request
+                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                      result = JSON;
+                                  }
+                                  failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                      if (error) {
+                                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                                      }
+                                  }];
+    [self.client enqueueHTTPRequestOperation:op];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(op.response.statusCode).to.equal(200);
+    // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
+    expect(result).to.haveCountOf(4);
+}
+
+- (void)testInitWithGetPath
+{
+    __block AFHTTPRequestOperation *op = nil;
+    __block id result = nil;
+    
+    // Actual call would look something like this:
+    NSString* path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init",
+                      [LFConfig objectForKey:@"domain"],
+                      [LFConfig objectForKey:@"site"],
+                      [[LFConfig objectForKey:@"article"] base64EncodedString]];
+    [self.client getPath:path
+              parameters:nil
+                 success:^(AFHTTPRequestOperation *operation, id JSON){
+                     op = operation; result = JSON;
+                 }
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     op = operation;
+                     if (error) {
+                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                     }
+                 }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
+    expect(result).to.haveCountOf(4);
+}
+
+- (void)testInitWithGetInitForArticle
+{
+    __block AFHTTPRequestOperation *op = nil;
+    __block id result = nil;
+    
+    // Actual call would look something like this:
+    [self.client getInitForSite:[LFConfig objectForKey:@"site"]
+                        article:[LFConfig objectForKey:@"article"]
+                      onSuccess:^(LFJSONRequestOperation *operation, id JSON){
+                          op = operation; result = JSON;
+                      }
+                      onFailure:^(LFJSONRequestOperation *operation, NSError *error) {
+                          op = operation;
+                          if (error) {
+                              NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                          }
+                      }
+     ];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
+    expect(result).to.haveCountOf(4);
+}
+
+#pragma mark -
 - (void)testHeatAPIResultRetrieval {
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);

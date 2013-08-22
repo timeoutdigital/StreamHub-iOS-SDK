@@ -31,7 +31,7 @@
 
 @implementation LFConstants
 NSString *const kLFSDKScheme = @"http";
-NSString *const kLFError = @"LFSDKErrorDomain";
+NSString *const kLFErrorDomain = @"LFSDKErrorDomain";
 //
 NSString *const kShareTypeTwitter = @"twitter";
 NSString *const kShareTypeFacebook = @"facebook";

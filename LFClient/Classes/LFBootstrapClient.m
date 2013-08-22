@@ -46,13 +46,6 @@
     NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, hostname];
     NSString *path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init", networkDomain, siteId, [articleId base64EncodedString]];
     
-    /* ES: Per Jonathan, condition below is unnecessary
-    if (environment) {
-        path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/%@/init", environment, networkDomain, siteId, [articleId base64EncodedString]];
-    } else {
-        path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init", networkDomain, siteId, [articleId base64EncodedString]];
-    }*/
-    
     [self requestWithHost:host
                      path:path
                    params:nil
@@ -78,7 +71,7 @@
     NSUInteger nPages = [[initInfo valueForKeyPath:@"collectionSettings.archiveInfo.nPages"] integerValue];
     
     if (pageIndex >= nPages) {
-        failure([NSError errorWithDomain:kLFError code:400u userInfo:@{NSLocalizedDescriptionKey: @"Page index outside of collection page bounds."}]);
+        failure([NSError errorWithDomain:kLFErrorDomain code:400u userInfo:@{NSLocalizedDescriptionKey: @"Page index outside of collection page bounds."}]);
         return;
     }
     

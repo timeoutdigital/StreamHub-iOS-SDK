@@ -174,7 +174,7 @@ static AFHTTPClient *_httpClient;
     else if (!payload)
     {
         // empty payload
-        failure([NSError errorWithDomain:kLFError
+        failure([NSError errorWithDomain:kLFErrorDomain
                                     code:code
                                 userInfo:@{NSLocalizedDescriptionKey:@"Response failed to return data."}
                  ]);
@@ -186,7 +186,7 @@ static AFHTTPClient *_httpClient;
         NSString *errorTemplate = @"Response was parsed as type %@ whereas NSDictionary was expected";
         NSString *errorDescription = [NSString stringWithFormat:errorTemplate,
                                       NSStringFromClass([payload class])];
-        failure([NSError errorWithDomain:kLFError
+        failure([NSError errorWithDomain:kLFErrorDomain
                                     code:code
                                 userInfo:@{NSLocalizedDescriptionKey:errorDescription}
                  ]);
@@ -195,7 +195,7 @@ static AFHTTPClient *_httpClient;
     else if ([payload objectForKey:@"code"] && (code = [[payload objectForKey:@"code"] integerValue]) != 200)
     {
         // response code not HTTP 200
-        failure([NSError errorWithDomain:kLFError
+        failure([NSError errorWithDomain:kLFErrorDomain
                                     code:code
                                 userInfo:@{NSLocalizedDescriptionKey:[payload objectForKey:@"msg"]}
                  ]);

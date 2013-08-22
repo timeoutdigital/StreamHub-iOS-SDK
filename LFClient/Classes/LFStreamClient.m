@@ -76,7 +76,7 @@ static const NSTimeInterval kLFStreamTimeout = 65.0f;
     
     if (payload) {
         if ([payload objectForKey:@"timeout"]) {
-            *timeout = [NSError errorWithDomain:kLFError
+            *timeout = [NSError errorWithDomain:kLFErrorDomain
                                            code:408
                                        userInfo:@{NSLocalizedDescriptionKey:@"Request timed out."}
                         ];

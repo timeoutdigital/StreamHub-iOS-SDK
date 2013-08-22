@@ -45,13 +45,23 @@
 		1CF0626916B323D700CFA905 /* number-test.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0626816B323D700CFA905 /* number-test.json */; };
 		1CF7064216C32D5D009BD41D /* content-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF7064116C32D5D009BD41D /* content-sample.json */; };
 		4B81612A98B0424192A13D52 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3656A8D8734DB088215052 /* libPods.a */; };
-		CBA2205933304D33A9F72F97 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3656A8D8734DB088215052 /* libPods.a */; };
+		EF03D34717C538F20097FDD3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF03D34617C538F20097FDD3 /* CoreGraphics.framework */; };
+		EF03D34917C539060097FDD3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF03D34817C539060097FDD3 /* Security.framework */; };
+		EF03D34A17C5391C0097FDD3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */; };
+		EF03D34B17C539460097FDD3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */; };
+		EF03D34D17C53A7D0097FDD3 /* LFNetworkingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF03D34C17C53A7D0097FDD3 /* LFNetworkingTests.m */; };
 		EF21AB9D17C3E26500094CC2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */; };
 		EF21AB9E17C3E26B00094CC2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */; };
 		EF33A21717B95AD2007A2476 /* LFConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = EF33A21517B95AD2007A2476 /* LFConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF33A21817B95AD2007A2476 /* LFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EF33A21617B95AD2007A2476 /* LFConfig.m */; };
 		EF33A21D17B95EF8007A2476 /* LFConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF33A21C17B95EF8007A2476 /* LFConfig.plist */; };
 		EF33A21E17B95F13007A2476 /* LFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EF33A21617B95AD2007A2476 /* LFConfig.m */; };
+		EF3F1E4B17C4879D004E61A4 /* LFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3F1E4917C4879D004E61A4 /* LFHTTPClient.h */; };
+		EF3F1E4C17C4879D004E61A4 /* LFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3F1E4A17C4879D004E61A4 /* LFHTTPClient.m */; };
+		EF3F1E4D17C4879D004E61A4 /* LFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3F1E4A17C4879D004E61A4 /* LFHTTPClient.m */; };
+		EF3F1E5417C487ED004E61A4 /* LFJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3F1E5217C487ED004E61A4 /* LFJSONRequestOperation.h */; };
+		EF3F1E5517C487ED004E61A4 /* LFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3F1E5317C487ED004E61A4 /* LFJSONRequestOperation.m */; };
+		EF3F1E5617C487ED004E61A4 /* LFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3F1E5317C487ED004E61A4 /* LFJSONRequestOperation.m */; };
 		EF86E60C17C2C24B0061E773 /* NSDate+RelativePast.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0622016B0A39800CFA905 /* NSDate+RelativePast.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF9FD3CC17B40897009FE59D /* LFStreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623D16B0A3A900CFA905 /* LFStreamClient.m */; };
 		EF9FD45217B4476B009FE59D /* LFClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623416B0A3A900CFA905 /* LFClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -66,6 +76,9 @@
 		EFA2AAE017B5AE870022DC8E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA2AADE17B5AE870022DC8E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
 		EFA2AAE117B5AE870022DC8E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA2AADE17B5AE870022DC8E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
 		EFE0420E17C3154B0011DD6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFE0420D17C3154B0011DD6A /* UIKit.framework */; };
+		EFE0CB1317C535EF00775C9C /* LFHTTPClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE0CB1117C535EF00775C9C /* LFHTTPClientTests.m */; };
+		EFF44A7617C53D4300C56866 /* libPods-test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EFF44A7517C53D4300C56866 /* libPods-test.a */; };
+		EFF44A7817C5403300C56866 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EFF44A7717C5403300C56866 /* Icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,14 +151,27 @@
 		1CF0625D16B1C5E700CFA905 /* auth-sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "auth-sample.json"; sourceTree = "<group>"; };
 		1CF0626816B323D700CFA905 /* number-test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "number-test.json"; sourceTree = "<group>"; };
 		1CF7064116C32D5D009BD41D /* content-sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "content-sample.json"; sourceTree = "<group>"; };
+		400C3847B3944FFB8721989F /* Pods-test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.xcconfig"; path = "Pods/Pods-test.xcconfig"; sourceTree = SOURCE_ROOT; };
+		86A23FF4102D4E61B8CFE67B /* libPods-test.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-test.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF03D34617C538F20097FDD3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EF03D34817C539060097FDD3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		EF03D34C17C53A7D0097FDD3 /* LFNetworkingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFNetworkingTests.m; sourceTree = "<group>"; };
 		EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EF33A21517B95AD2007A2476 /* LFConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFConfig.h; sourceTree = "<group>"; };
 		EF33A21617B95AD2007A2476 /* LFConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFConfig.m; sourceTree = "<group>"; };
 		EF33A21C17B95EF8007A2476 /* LFConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LFConfig.plist; sourceTree = "<group>"; };
+		EF3F1E4917C4879D004E61A4 /* LFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFHTTPClient.h; path = LFClient/exp/Classes/LFHTTPClient.h; sourceTree = "<group>"; };
+		EF3F1E4A17C4879D004E61A4 /* LFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPClient.m; path = LFClient/exp/Classes/LFHTTPClient.m; sourceTree = "<group>"; };
+		EF3F1E5217C487ED004E61A4 /* LFJSONRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFJSONRequestOperation.h; path = LFClient/exp/Classes/LFJSONRequestOperation.h; sourceTree = "<group>"; };
+		EF3F1E5317C487ED004E61A4 /* LFJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFJSONRequestOperation.m; path = LFClient/exp/Classes/LFJSONRequestOperation.m; sourceTree = "<group>"; };
 		EFA2AADD17B5AE870022DC8E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = vendor/JSONKit/JSONKit.h; sourceTree = "<group>"; };
 		EFA2AADE17B5AE870022DC8E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = vendor/JSONKit/JSONKit.m; sourceTree = "<group>"; };
 		EFE0420D17C3154B0011DD6A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		EFE0CB1117C535EF00775C9C /* LFHTTPClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFHTTPClientTests.m; sourceTree = "<group>"; };
+		EFE0CB1217C535EF00775C9C /* LFNetworkingTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFNetworkingTests.h; sourceTree = "<group>"; };
+		EFF44A7517C53D4300C56866 /* libPods-test.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libPods-test.a"; path = "Pods/build/Debug-iphoneos/libPods-test.a"; sourceTree = "<group>"; };
+		EFF44A7717C5403300C56866 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		FC3656A8D8734DB088215052 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -165,10 +191,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF03D34B17C539460097FDD3 /* MobileCoreServices.framework in Frameworks */,
+				EF03D34A17C5391C0097FDD3 /* SystemConfiguration.framework in Frameworks */,
+				EF03D34917C539060097FDD3 /* Security.framework in Frameworks */,
+				EF03D34717C538F20097FDD3 /* CoreGraphics.framework in Frameworks */,
 				EFE0420E17C3154B0011DD6A /* UIKit.framework in Frameworks */,
 				1C4CC89416A48B3800C33DEC /* SenTestingKit.framework in Frameworks */,
 				1C4CC89716A48B3800C33DEC /* Foundation.framework in Frameworks */,
-				CBA2205933304D33A9F72F97 /* libPods.a in Frameworks */,
+				EFF44A7617C53D4300C56866 /* libPods-test.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +214,7 @@
 				1C4CC88316A48B3800C33DEC /* Frameworks */,
 				1C4CC88216A48B3800C33DEC /* Products */,
 				02CB172F1F6340C29045EFCF /* Pods.xcconfig */,
+				400C3847B3944FFB8721989F /* Pods-test.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -199,12 +230,16 @@
 		1C4CC88316A48B3800C33DEC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EFF44A7517C53D4300C56866 /* libPods-test.a */,
+				EF03D34817C539060097FDD3 /* Security.framework */,
+				EF03D34617C538F20097FDD3 /* CoreGraphics.framework */,
 				EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */,
 				EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */,
 				1C4CC88416A48B3800C33DEC /* Foundation.framework */,
 				EFE0420D17C3154B0011DD6A /* UIKit.framework */,
 				1C4CC89316A48B3800C33DEC /* SenTestingKit.framework */,
 				FC3656A8D8734DB088215052 /* libPods.a */,
+				86A23FF4102D4E61B8CFE67B /* libPods-test.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -212,6 +247,7 @@
 		1C4CC88616A48B3800C33DEC /* LFClient */ = {
 			isa = PBXGroup;
 			children = (
+				EF3F1E4117C45E8E004E61A4 /* exp */,
 				1CF0621F16B0A39800CFA905 /* Categories */,
 				1CF0622C16B0A3A900CFA905 /* Classes */,
 				1C4CC88716A48B3800C33DEC /* Supporting Files */,
@@ -232,6 +268,9 @@
 		1C4CC89B16A48B3800C33DEC /* LFClientTests */ = {
 			isa = PBXGroup;
 			children = (
+				EFE0CB1217C535EF00775C9C /* LFNetworkingTests.h */,
+				EF03D34C17C53A7D0097FDD3 /* LFNetworkingTests.m */,
+				EFE0CB1117C535EF00775C9C /* LFHTTPClientTests.m */,
 				EF33A21C17B95EF8007A2476 /* LFConfig.plist */,
 				1CF061FA16B098C500CFA905 /* LFARC4Tests.h */,
 				1CF061FB16B098C500CFA905 /* LFARC4Tests.m */,
@@ -249,6 +288,7 @@
 		1C4CC89C16A48B3800C33DEC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EFF44A7717C5403300C56866 /* Icon.png */,
 				1CD5686D17A05DFC008ECF55 /* flag-sample.json */,
 				1CF7064116C32D5D009BD41D /* content-sample.json */,
 				1CF0626816B323D700CFA905 /* number-test.json */,
@@ -300,6 +340,26 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		EF3F1E4017C45E8E004E61A4 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				EF3F1E4917C4879D004E61A4 /* LFHTTPClient.h */,
+				EF3F1E4A17C4879D004E61A4 /* LFHTTPClient.m */,
+				EF3F1E5217C487ED004E61A4 /* LFJSONRequestOperation.h */,
+				EF3F1E5317C487ED004E61A4 /* LFJSONRequestOperation.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		EF3F1E4117C45E8E004E61A4 /* exp */ = {
+			isa = PBXGroup;
+			children = (
+				EF3F1E4017C45E8E004E61A4 /* Classes */,
+			);
+			name = exp;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		EFA2AAD917B5A6C30022DC8E /* JSONKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,6 +378,7 @@
 			files = (
 				EF86E60C17C2C24B0061E773 /* NSDate+RelativePast.h in Headers */,
 				EF33A21717B95AD2007A2476 /* LFConfig.h in Headers */,
+				EF3F1E4B17C4879D004E61A4 /* LFHTTPClient.h in Headers */,
 				EFA2AADF17B5AE870022DC8E /* JSONKit.h in Headers */,
 				EF9FD45217B4476B009FE59D /* LFClient.h in Headers */,
 				EF9FD45317B4476B009FE59D /* LFARC4.h in Headers */,
@@ -327,6 +388,7 @@
 				EF9FD45717B4476B009FE59D /* LFBootstrapClient.h in Headers */,
 				EF9FD45917B4476B009FE59D /* LFStreamClient.h in Headers */,
 				EF9FD45A17B4476B009FE59D /* LFWriteClient.h in Headers */,
+				EF3F1E5417C487ED004E61A4 /* LFJSONRequestOperation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +480,7 @@
 				1CF0626916B323D700CFA905 /* number-test.json in Resources */,
 				1CF7064216C32D5D009BD41D /* content-sample.json in Resources */,
 				1C70BC2216CB0AEF006243EA /* livefyre-logo.png in Resources */,
+				EFF44A7817C5403300C56866 /* Icon.png in Resources */,
 				1C70BC2316CB0AEF006243EA /* livefyre-logo@2x.png in Resources */,
 				1CD5686E17A05DFC008ECF55 /* flag-sample.json in Resources */,
 			);
@@ -482,7 +545,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Pods-test-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FFCFA5D7517A4F5B9D563E42 /* Check Pods Manifest.lock */ = {
@@ -508,6 +571,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CF0622616B0A39800CFA905 /* NSDate+RelativePast.m in Sources */,
+				EF3F1E4C17C4879D004E61A4 /* LFHTTPClient.m in Sources */,
 				1CF0622816B0A39800CFA905 /* NSString+Base64Encoding.m in Sources */,
 				EFA2AAE017B5AE870022DC8E /* JSONKit.m in Sources */,
 				1CF0624016B0A3A900CFA905 /* LFAdminClient.m in Sources */,
@@ -515,6 +579,7 @@
 				1CF0624216B0A3A900CFA905 /* LFARC4.m in Sources */,
 				EF33A21817B95AD2007A2476 /* LFConfig.m in Sources */,
 				1CF0624416B0A3A900CFA905 /* LFBootstrapClient.m in Sources */,
+				EF3F1E5517C487ED004E61A4 /* LFJSONRequestOperation.m in Sources */,
 				1CF0624816B0A3A900CFA905 /* LFClientBase.m in Sources */,
 				1CF0624A16B0A3A900CFA905 /* LFConstants.m in Sources */,
 				1CF0625016B0A3A900CFA905 /* LFWriteClient.m in Sources */,
@@ -528,9 +593,13 @@
 				1C4CC8A316A48B3800C33DEC /* LFClientNetworkTests.m in Sources */,
 				EF33A21E17B95F13007A2476 /* LFConfig.m in Sources */,
 				1CF061F316B0936F00CFA905 /* LFTestingURLProtocol.m in Sources */,
+				EF3F1E5617C487ED004E61A4 /* LFJSONRequestOperation.m in Sources */,
+				EF3F1E4D17C4879D004E61A4 /* LFHTTPClient.m in Sources */,
+				EF03D34D17C53A7D0097FDD3 /* LFNetworkingTests.m in Sources */,
 				1CF061F616B093B500CFA905 /* LFClientUnitTests.m in Sources */,
 				EFA2AAE117B5AE870022DC8E /* JSONKit.m in Sources */,
 				1CF061FC16B098C500CFA905 /* LFARC4Tests.m in Sources */,
+				EFE0CB1317C535EF00775C9C /* LFHTTPClientTests.m in Sources */,
 				1CF0622716B0A39800CFA905 /* NSDate+RelativePast.m in Sources */,
 				1CF0622916B0A39800CFA905 /* NSString+Base64Encoding.m in Sources */,
 				1CF0624116B0A3A900CFA905 /* LFAdminClient.m in Sources */,
@@ -644,7 +713,7 @@
 		};
 		1C4CC8AA16A48B3800C33DEC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02CB172F1F6340C29045EFCF /* Pods.xcconfig */;
+			baseConfigurationReference = 400C3847B3944FFB8721989F /* Pods-test.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -662,7 +731,7 @@
 		};
 		1C4CC8AB16A48B3800C33DEC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02CB172F1F6340C29045EFCF /* Pods.xcconfig */;
+			baseConfigurationReference = 400C3847B3944FFB8721989F /* Pods-test.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "";
 				FRAMEWORK_SEARCH_PATHS = (
