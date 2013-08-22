@@ -195,7 +195,7 @@
     expect(contentInfo2).to.beTruthy();
 }
 
-#pragma mark -
+#pragma mark - Test Hottest collections
 - (void)testPublicAPIGetTrending {
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -359,28 +359,5 @@
 //    STAssertNil(res, @"Stop stream should stop the stream");
 //}
 
-/*
-- (void)testNumber
-{
-    NSString *spoofPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"number-test" ofType:@"json"];
-    NSData *responseData = [[NSData alloc] initWithContentsOfFile:spoofPath];
-    NSError *error;
-    id parsedData = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
-    STAssertNotNil(parsedData, @"no error");
-    STAssertNil(error, @"no error");
-}
-*/
-
-
-- (void)testNumberJSONKit
-{
-    NSString *spoofPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"number-test" ofType:@"json"];
-    NSData *responseData = [[NSData alloc] initWithContentsOfFile:spoofPath];
-    NSError *error = nil;
-    JSONDecoder *decoder = [JSONDecoder decoderWithParseOptions:JKParseOptionTruncateNumbers];
-    id parsedData = [decoder objectWithData:responseData error:&error];
-    STAssertNotNil(parsedData, @"no error");
-    STAssertNil(error, @"no error");
-}
 
 @end

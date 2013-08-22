@@ -62,6 +62,7 @@
 		EF3F1E5417C487ED004E61A4 /* LFJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3F1E5217C487ED004E61A4 /* LFJSONRequestOperation.h */; };
 		EF3F1E5517C487ED004E61A4 /* LFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3F1E5317C487ED004E61A4 /* LFJSONRequestOperation.m */; };
 		EF3F1E5617C487ED004E61A4 /* LFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3F1E5317C487ED004E61A4 /* LFJSONRequestOperation.m */; };
+		EF56AF8D17C6CEB50086127D /* LFJSONKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF56AF8C17C6CEB50086127D /* LFJSONKitTests.m */; };
 		EF86E60C17C2C24B0061E773 /* NSDate+RelativePast.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0622016B0A39800CFA905 /* NSDate+RelativePast.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF9FD3CC17B40897009FE59D /* LFStreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623D16B0A3A900CFA905 /* LFStreamClient.m */; };
 		EF9FD45217B4476B009FE59D /* LFClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623416B0A3A900CFA905 /* LFClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -165,12 +166,14 @@
 		EF3F1E4A17C4879D004E61A4 /* LFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPClient.m; path = LFClient/exp/Classes/LFHTTPClient.m; sourceTree = "<group>"; };
 		EF3F1E5217C487ED004E61A4 /* LFJSONRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFJSONRequestOperation.h; path = LFClient/exp/Classes/LFJSONRequestOperation.h; sourceTree = "<group>"; };
 		EF3F1E5317C487ED004E61A4 /* LFJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFJSONRequestOperation.m; path = LFClient/exp/Classes/LFJSONRequestOperation.m; sourceTree = "<group>"; };
+		EF56AF8B17C6CEB50086127D /* LFJSONKitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFJSONKitTests.h; sourceTree = "<group>"; };
+		EF56AF8C17C6CEB50086127D /* LFJSONKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFJSONKitTests.m; sourceTree = "<group>"; };
 		EFA2AADD17B5AE870022DC8E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = vendor/JSONKit/JSONKit.h; sourceTree = "<group>"; };
 		EFA2AADE17B5AE870022DC8E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = vendor/JSONKit/JSONKit.m; sourceTree = "<group>"; };
 		EFE0420D17C3154B0011DD6A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EFE0CB1117C535EF00775C9C /* LFHTTPClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFHTTPClientTests.m; sourceTree = "<group>"; };
 		EFE0CB1217C535EF00775C9C /* LFNetworkingTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFNetworkingTests.h; sourceTree = "<group>"; };
-		EFF44A7517C53D4300C56866 /* libPods-test.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libPods-test.a"; path = "Pods/build/Debug-iphoneos/libPods-test.a"; sourceTree = "<group>"; };
+		EFF44A7517C53D4300C56866 /* libPods-test.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-test.a"; path = "Pods/build/Debug-iphoneos/libPods-test.a"; sourceTree = "<group>"; };
 		EFF44A7717C5403300C56866 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		FC3656A8D8734DB088215052 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -280,6 +283,8 @@
 				1CF061F216B0936F00CFA905 /* LFTestingURLProtocol.m */,
 				1CF061F416B093B500CFA905 /* LFClientUnitTests.h */,
 				1CF061F516B093B500CFA905 /* LFClientUnitTests.m */,
+				EF56AF8B17C6CEB50086127D /* LFJSONKitTests.h */,
+				EF56AF8C17C6CEB50086127D /* LFJSONKitTests.m */,
 				1C4CC89C16A48B3800C33DEC /* Supporting Files */,
 			);
 			path = LFClientTests;
@@ -596,6 +601,7 @@
 				EF3F1E5617C487ED004E61A4 /* LFJSONRequestOperation.m in Sources */,
 				EF3F1E4D17C4879D004E61A4 /* LFHTTPClient.m in Sources */,
 				EF03D34D17C53A7D0097FDD3 /* LFNetworkingTests.m in Sources */,
+				EF56AF8D17C6CEB50086127D /* LFJSONKitTests.m in Sources */,
 				1CF061F616B093B500CFA905 /* LFClientUnitTests.m in Sources */,
 				EFA2AAE117B5AE870022DC8E /* JSONKit.m in Sources */,
 				1CF061FC16B098C500CFA905 /* LFARC4Tests.m in Sources */,
