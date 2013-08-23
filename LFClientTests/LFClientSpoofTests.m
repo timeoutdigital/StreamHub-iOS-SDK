@@ -41,6 +41,7 @@
 @interface LFClientSpoofTests()
 @property (readwrite, nonatomic, strong) LFHTTPClient *client;
 @property (readwrite, nonatomic, strong) LFHTTPClient *clientHottest;
+@property (readwrite, nonatomic, strong) LFHTTPClient *clientUserContent;
 @end
 
 @implementation LFClientSpoofTests
@@ -52,6 +53,7 @@
     
     self.client = [[LFHTTPClient alloc] initWithEnvironment:nil network:@"init-sample"];
     self.clientHottest = [[LFHTTPClient alloc] initWithEnvironment:nil network:@"hottest-sample"];
+    self.clientUserContent = [[LFHTTPClient alloc] initWithEnvironment:nil network:@"usercontent-sample"];
     
     // set timeout to 60 seconds
     [Expecta setAsynchronousTestTimeout:60.0f];
@@ -209,7 +211,7 @@
     expect(contentInfo2).to.beTruthy();
 }
 
-#pragma mark - Test Hottest collections
+#pragma mark -
 - (void)testPublicAPIGetTrending
 {
     __block NSArray *res = nil;
@@ -262,8 +264,9 @@
 }
 
 
-#pragma mark - Test user data retrieval
-- (void)testUserDataRetrieval {
+#pragma mark -
+- (void)testUserDataRetrieval
+{
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     [LFBootstrapClient getUserContentForUser:@"fakeUser"
@@ -286,6 +289,35 @@
     STAssertEquals([res count], 12u, @"User content API should return 12 items");
 }
 
+- (void)testUserDataWithGetContentForUser
+{
+    __block LFJSONRequestOperation *op = nil;
+    __block NSArray *result = nil;
+    
+    // Actual call would look something like this:
+    [self.clientUserContent getUserContentForUser:@"fakeUser"
+                                            token:nil
+                                         statuses:nil
+                                           offset:nil
+                                        onSuccess:^(NSOperation *operation, id responseObject) {
+                                            op = (LFJSONRequestOperation *)operation;
+                                            result = (NSArray *)responseObject;
+                                        } onFailure:^(NSOperation *operation, NSError *error) {
+                                            op = (LFJSONRequestOperation *)operation;
+                                            NSLog(@"Error code %d, with description %@",
+                                                  error.code,
+                                                  [error localizedDescription]);
+                                        }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).to.beTruthy();
+    expect(result).to.haveCountOf(12u);
+}
+
+#pragma mark - Test Admin Client
 - (void)testUserAuthentication {
     //with article and site ids
     __block NSDictionary *res = nil;
@@ -311,6 +343,7 @@
     STAssertEquals([res count], 3u, @"User auth should return 3 items");
 }
 
+#pragma mark - Test Write Client
 - (void)testLikes {
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);

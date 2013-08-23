@@ -179,10 +179,38 @@ static NSString * AFBase64EncodedStringFromString(NSString *string) {
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               // TODO: figure out whether we are doing the right thing here
               id results = [responseObject objectForKey:@"data"];
-              success((LFJSONRequestOperation*)operation, results);
+              success(operation, results);
           }
           failure:(AFFailureBlock)failure];
 }
 
+- (void)getUserContentForUser:(NSString *)userId
+                        token:(NSString *)userToken
+                     statuses:(NSArray*)statuses
+                       offset:(NSInteger)offset
+                    onSuccess:(LFSuccessBlock)success
+                    onFailure:(LFFailureBlock)failure
+{
+    NSParameterAssert(userId != nil);
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    if (userToken) {
+        [parameters setObject:userToken forKey:@"lftoken"];
+    }
+    if (statuses) {
+        [parameters setObject:statuses forKey:@"status"];
+    }
+    if (offset) {
+        [parameters setObject:[NSNumber numberWithInteger:offset]
+                       forKey:@"offset"];
+    }
+    [self getPath:[NSString stringWithFormat:@"/api/v3.0/author/%@/comments/", userId]
+       parameters:parameters
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              // TODO: figure out whether we are doing the right thing here
+              id results = [responseObject objectForKey:@"data"];
+              success(operation, results);
+          }
+          failure:(AFFailureBlock)failure];
+}
 
 @end

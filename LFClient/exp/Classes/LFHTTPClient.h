@@ -81,6 +81,30 @@ typedef void (^AFFailureBlock) (AFHTTPRequestOperation *operation, NSError *erro
                  onSuccess:(LFSuccessBlock)success
                  onFailure:(LFFailureBlock)failure;
 
+/** @name User Information */
+
+/**
+ * Fetches the user's content history
+ *
+ * For more information see:
+ * https://github.com/Livefyre/livefyre-docs/wiki/User-Content-API
+ *
+ * @param userId The Id of the user whose content is to be fetched.
+ * @param userToken (optional) The lftoken of the user whose content is to be fetched. This parameter is required by default unless the network specifies otherwise.
+ * @param statuses (optional) array of comment states to return.
+ * @param offset (optional) Number of results to skip, defaults to 0. 25 items are returned at a time.
+ * @param success Callback called with a dictionary after the results data has
+ * been retrieved.
+ * @param failure Callback called with an error after a failure to retrieve data.
+ * @return void
+ */
+- (void)getUserContentForUser:(NSString *)userId
+                        token:(NSString *)userToken
+                     statuses:(NSArray*)statuses
+                       offset:(NSInteger)offset
+                    onSuccess:(LFSuccessBlock)success
+                    onFailure:(LFFailureBlock)failure;
+
 @property (nonatomic, readonly, strong) NSString* lfEnvironment;
 @property (nonatomic, readonly, strong) NSString* lfNetwork;
 
