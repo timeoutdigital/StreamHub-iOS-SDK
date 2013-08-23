@@ -56,9 +56,13 @@
 		EF33A21817B95AD2007A2476 /* LFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EF33A21617B95AD2007A2476 /* LFConfig.m */; };
 		EF33A21D17B95EF8007A2476 /* LFConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF33A21C17B95EF8007A2476 /* LFConfig.plist */; };
 		EF33A21E17B95F13007A2476 /* LFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EF33A21617B95AD2007A2476 /* LFConfig.m */; };
-		EF3F1E4B17C4879D004E61A4 /* LFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3F1E4917C4879D004E61A4 /* LFHTTPClient.h */; };
-		EF3F1E4C17C4879D004E61A4 /* LFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3F1E4A17C4879D004E61A4 /* LFHTTPClient.m */; };
-		EF3F1E4D17C4879D004E61A4 /* LFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3F1E4A17C4879D004E61A4 /* LFHTTPClient.m */; };
+		EF3D39AF17C6F5400014807D /* LFHTTPAdminClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3D39AD17C6F5400014807D /* LFHTTPAdminClient.h */; };
+		EF3D39B017C6F5400014807D /* LFHTTPAdminClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3D39AE17C6F5400014807D /* LFHTTPAdminClient.m */; };
+		EF3D39B117C6F5400014807D /* LFHTTPAdminClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3D39AE17C6F5400014807D /* LFHTTPAdminClient.m */; };
+		EF3D39B317C6FCD00014807D /* lftypes.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3D39B217C6FCD00014807D /* lftypes.h */; };
+		EF3F1E4B17C4879D004E61A4 /* LFHTTPBoostrapClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3F1E4917C4879D004E61A4 /* LFHTTPBoostrapClient.h */; };
+		EF3F1E4C17C4879D004E61A4 /* LFHTTPBoostrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3F1E4A17C4879D004E61A4 /* LFHTTPBoostrapClient.m */; };
+		EF3F1E4D17C4879D004E61A4 /* LFHTTPBoostrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3F1E4A17C4879D004E61A4 /* LFHTTPBoostrapClient.m */; };
 		EF3F1E5417C487ED004E61A4 /* LFJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3F1E5217C487ED004E61A4 /* LFJSONRequestOperation.h */; };
 		EF3F1E5517C487ED004E61A4 /* LFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3F1E5317C487ED004E61A4 /* LFJSONRequestOperation.m */; };
 		EF3F1E5617C487ED004E61A4 /* LFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3F1E5317C487ED004E61A4 /* LFJSONRequestOperation.m */; };
@@ -162,8 +166,11 @@
 		EF33A21517B95AD2007A2476 /* LFConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFConfig.h; sourceTree = "<group>"; };
 		EF33A21617B95AD2007A2476 /* LFConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFConfig.m; sourceTree = "<group>"; };
 		EF33A21C17B95EF8007A2476 /* LFConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LFConfig.plist; sourceTree = "<group>"; };
-		EF3F1E4917C4879D004E61A4 /* LFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFHTTPClient.h; path = LFClient/exp/Classes/LFHTTPClient.h; sourceTree = "<group>"; };
-		EF3F1E4A17C4879D004E61A4 /* LFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPClient.m; path = LFClient/exp/Classes/LFHTTPClient.m; sourceTree = "<group>"; };
+		EF3D39AD17C6F5400014807D /* LFHTTPAdminClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFHTTPAdminClient.h; path = LFClient/exp/Classes/LFHTTPAdminClient.h; sourceTree = "<group>"; };
+		EF3D39AE17C6F5400014807D /* LFHTTPAdminClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPAdminClient.m; path = LFClient/exp/Classes/LFHTTPAdminClient.m; sourceTree = "<group>"; };
+		EF3D39B217C6FCD00014807D /* lftypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lftypes.h; path = LFClient/exp/Classes/lftypes.h; sourceTree = SOURCE_ROOT; };
+		EF3F1E4917C4879D004E61A4 /* LFHTTPBoostrapClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFHTTPBoostrapClient.h; path = LFClient/exp/Classes/LFHTTPBoostrapClient.h; sourceTree = "<group>"; };
+		EF3F1E4A17C4879D004E61A4 /* LFHTTPBoostrapClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPBoostrapClient.m; path = LFClient/exp/Classes/LFHTTPBoostrapClient.m; sourceTree = "<group>"; };
 		EF3F1E5217C487ED004E61A4 /* LFJSONRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFJSONRequestOperation.h; path = LFClient/exp/Classes/LFJSONRequestOperation.h; sourceTree = "<group>"; };
 		EF3F1E5317C487ED004E61A4 /* LFJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFJSONRequestOperation.m; path = LFClient/exp/Classes/LFJSONRequestOperation.m; sourceTree = "<group>"; };
 		EF56AF8B17C6CEB50086127D /* LFJSONKitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFJSONKitTests.h; sourceTree = "<group>"; };
@@ -324,6 +331,7 @@
 		1CF0622C16B0A3A900CFA905 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				EF3D39B217C6FCD00014807D /* lftypes.h */,
 				1CF0623416B0A3A900CFA905 /* LFClient.h */,
 				EF33A21517B95AD2007A2476 /* LFConfig.h */,
 				EF33A21617B95AD2007A2476 /* LFConfig.m */,
@@ -348,8 +356,10 @@
 		EF3F1E4017C45E8E004E61A4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				EF3F1E4917C4879D004E61A4 /* LFHTTPClient.h */,
-				EF3F1E4A17C4879D004E61A4 /* LFHTTPClient.m */,
+				EF3F1E4917C4879D004E61A4 /* LFHTTPBoostrapClient.h */,
+				EF3F1E4A17C4879D004E61A4 /* LFHTTPBoostrapClient.m */,
+				EF3D39AD17C6F5400014807D /* LFHTTPAdminClient.h */,
+				EF3D39AE17C6F5400014807D /* LFHTTPAdminClient.m */,
 				EF3F1E5217C487ED004E61A4 /* LFJSONRequestOperation.h */,
 				EF3F1E5317C487ED004E61A4 /* LFJSONRequestOperation.m */,
 			);
@@ -383,7 +393,8 @@
 			files = (
 				EF86E60C17C2C24B0061E773 /* NSDate+RelativePast.h in Headers */,
 				EF33A21717B95AD2007A2476 /* LFConfig.h in Headers */,
-				EF3F1E4B17C4879D004E61A4 /* LFHTTPClient.h in Headers */,
+				EF3F1E4B17C4879D004E61A4 /* LFHTTPBoostrapClient.h in Headers */,
+				EF3D39B317C6FCD00014807D /* lftypes.h in Headers */,
 				EFA2AADF17B5AE870022DC8E /* JSONKit.h in Headers */,
 				EF9FD45217B4476B009FE59D /* LFClient.h in Headers */,
 				EF9FD45317B4476B009FE59D /* LFARC4.h in Headers */,
@@ -392,6 +403,7 @@
 				EF9FD45617B4476B009FE59D /* LFAdminClient.h in Headers */,
 				EF9FD45717B4476B009FE59D /* LFBootstrapClient.h in Headers */,
 				EF9FD45917B4476B009FE59D /* LFStreamClient.h in Headers */,
+				EF3D39AF17C6F5400014807D /* LFHTTPAdminClient.h in Headers */,
 				EF9FD45A17B4476B009FE59D /* LFWriteClient.h in Headers */,
 				EF3F1E5417C487ED004E61A4 /* LFJSONRequestOperation.h in Headers */,
 			);
@@ -576,7 +588,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CF0622616B0A39800CFA905 /* NSDate+RelativePast.m in Sources */,
-				EF3F1E4C17C4879D004E61A4 /* LFHTTPClient.m in Sources */,
+				EF3F1E4C17C4879D004E61A4 /* LFHTTPBoostrapClient.m in Sources */,
 				1CF0622816B0A39800CFA905 /* NSString+Base64Encoding.m in Sources */,
 				EFA2AAE017B5AE870022DC8E /* JSONKit.m in Sources */,
 				1CF0624016B0A3A900CFA905 /* LFAdminClient.m in Sources */,
@@ -587,6 +599,7 @@
 				EF3F1E5517C487ED004E61A4 /* LFJSONRequestOperation.m in Sources */,
 				1CF0624816B0A3A900CFA905 /* LFClientBase.m in Sources */,
 				1CF0624A16B0A3A900CFA905 /* LFConstants.m in Sources */,
+				EF3D39B017C6F5400014807D /* LFHTTPAdminClient.m in Sources */,
 				1CF0625016B0A3A900CFA905 /* LFWriteClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -599,7 +612,7 @@
 				EF33A21E17B95F13007A2476 /* LFConfig.m in Sources */,
 				1CF061F316B0936F00CFA905 /* LFTestingURLProtocol.m in Sources */,
 				EF3F1E5617C487ED004E61A4 /* LFJSONRequestOperation.m in Sources */,
-				EF3F1E4D17C4879D004E61A4 /* LFHTTPClient.m in Sources */,
+				EF3F1E4D17C4879D004E61A4 /* LFHTTPBoostrapClient.m in Sources */,
 				EF03D34D17C53A7D0097FDD3 /* LFNetworkingTests.m in Sources */,
 				EF56AF8D17C6CEB50086127D /* LFJSONKitTests.m in Sources */,
 				1CF061F616B093B500CFA905 /* LFClientSpoofTests.m in Sources */,
@@ -614,6 +627,7 @@
 				1CF0624916B0A3A900CFA905 /* LFClientBase.m in Sources */,
 				1CF0624B16B0A3A900CFA905 /* LFConstants.m in Sources */,
 				1CF0624F16B0A3A900CFA905 /* LFStreamClient.m in Sources */,
+				EF3D39B117C6F5400014807D /* LFHTTPAdminClient.m in Sources */,
 				1CF0625116B0A3A900CFA905 /* LFWriteClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

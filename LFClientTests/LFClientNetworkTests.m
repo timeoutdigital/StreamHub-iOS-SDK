@@ -31,7 +31,7 @@
 #import "LFClientNetworkTests.h"
 #import "LFClient.h"
 #import "LFConfig.h"
-#import "LFHTTPClient.h"
+#import "LFHTTPBoostrapClient.h"
 #import "LFJSONRequestOperation.h"
 #import "NSString+Base64Encoding.h"
 #import <AFJSONRequestOperation.h>
@@ -41,7 +41,7 @@
 
 @interface LFClientNetworkTests()
 @property (nonatomic) NSString *event;
-@property (readwrite, nonatomic, strong) LFHTTPClient *client;
+@property (readwrite, nonatomic, strong) LFHTTPBoostrapClient *client;
 @end
 
 @implementation LFClientNetworkTests
@@ -55,7 +55,7 @@
         STFail(@"No test settings");
     }
     
-    self.client = [[LFHTTPClient alloc] initWithEnvironment:[LFConfig objectForKey:@"environment"] network:[LFConfig objectForKey:@"domain"]];
+    self.client = [[LFHTTPBoostrapClient alloc] initWithEnvironment:[LFConfig objectForKey:@"environment"] network:[LFConfig objectForKey:@"domain"]];
     
     // set timeout to 60 seconds
     [Expecta setAsynchronousTestTimeout:60.0f];

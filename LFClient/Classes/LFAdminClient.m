@@ -41,13 +41,14 @@
     NSParameterAssert(userToken != nil);
     NSParameterAssert(collectionId != nil);
     
-    NSDictionary *paramsDict = @{@"lftoken": userToken,
+    NSDictionary *parameters = @{@"lftoken": userToken,
                                  @"collectionId": collectionId};
     
-    NSString *host = [NSString stringWithFormat:@"%@.%@", kAdminDomain, networkDomain];
+    NSString *host = [NSString stringWithFormat:@"%@.%@",
+                      kAdminDomain, networkDomain];
     [self requestWithHost:host
                      path:@"/api/v3.0/auth/"
-                   params:paramsDict
+                   params:parameters
                    method:@"GET"
                 onSuccess:success
                 onFailure:failure];
@@ -65,14 +66,15 @@
     NSParameterAssert(siteId != nil);
     NSParameterAssert(articleId != nil);
     
-    NSDictionary *paramsDict = @{@"lftoken": userToken,
+    NSDictionary *parameters = @{@"lftoken": userToken,
                                  @"siteId": siteId,
                                  @"articleId":[articleId base64EncodedString]};
     
-    NSString *host = [NSString stringWithFormat:@"%@.%@", kAdminDomain, networkDomain];
+    NSString *host = [NSString stringWithFormat:@"%@.%@",
+                      kAdminDomain, networkDomain];
     [self requestWithHost:host
                      path:@"/api/v3.0/auth/"
-                   params:paramsDict
+                   params:parameters
                    method:@"GET"
                 onSuccess:success
                 onFailure:failure];

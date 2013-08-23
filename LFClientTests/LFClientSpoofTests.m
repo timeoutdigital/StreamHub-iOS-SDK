@@ -33,15 +33,17 @@
 #import "LFClient.h"
 #import "LFConfig.h"
 #import "JSONKit.h"
-#import "LFHTTPClient.h"
+#import "LFHTTPBoostrapClient.h"
+#import "LFHTTPAdminClient.h"
 
 #define EXP_SHORTHAND YES
 #import "Expecta.h"
 
 @interface LFClientSpoofTests()
-@property (readwrite, nonatomic, strong) LFHTTPClient *client;
-@property (readwrite, nonatomic, strong) LFHTTPClient *clientHottest;
-@property (readwrite, nonatomic, strong) LFHTTPClient *clientUserContent;
+@property (readwrite, nonatomic, strong) LFHTTPBoostrapClient *client;
+@property (readwrite, nonatomic, strong) LFHTTPBoostrapClient *clientHottest;
+@property (readwrite, nonatomic, strong) LFHTTPBoostrapClient *clientUserContent;
+@property (readwrite, nonatomic, strong) LFHTTPAdminClient *clientAdmin;
 @end
 
 @implementation LFClientSpoofTests
@@ -51,9 +53,10 @@
     //These tests are nominal.
     [NSURLProtocol registerClass:[LFTestingURLProtocol class]];
     
-    self.client = [[LFHTTPClient alloc] initWithEnvironment:nil network:@"init-sample"];
-    self.clientHottest = [[LFHTTPClient alloc] initWithEnvironment:nil network:@"hottest-sample"];
-    self.clientUserContent = [[LFHTTPClient alloc] initWithEnvironment:nil network:@"usercontent-sample"];
+    self.client = [[LFHTTPBoostrapClient alloc] initWithEnvironment:nil network:@"init-sample"];
+    self.clientHottest = [[LFHTTPBoostrapClient alloc] initWithEnvironment:nil network:@"hottest-sample"];
+    self.clientUserContent = [[LFHTTPBoostrapClient alloc] initWithEnvironment:nil network:@"usercontent-sample"];
+    self.clientAdmin = [[LFHTTPAdminClient alloc] initWithEnvironment:nil network:@"usercontent-sample"];
     
     // set timeout to 60 seconds
     [Expecta setAsynchronousTestTimeout:60.0f];
@@ -338,6 +341,33 @@
     STAssertEquals([res count], 3u, @"User auth should return 3 items");
 }
 
+- (void)testUserAuthentication1a
+{
+    __block LFJSONRequestOperation *op = nil;
+    __block id result = nil;
+    
+    // Actual call would look something like this:
+    [self.clientAdmin authenticateUserWithToken:@"fakeToken"
+                                     collection:@"fakeColl"
+                                      onSuccess:^(NSOperation *operation, id responseObject) {
+                                          op = (LFJSONRequestOperation *)operation;
+                                          result = (NSArray *)responseObject;
+                                      }
+                                      onFailure:^(NSOperation *operation, NSError *error) {
+                                          op = (LFJSONRequestOperation *)operation;
+                                          NSLog(@"Error code %d, with description %@",
+                                                error.code,
+                                                [error localizedDescription]);
+                                      }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).to.beTruthy();
+    expect(result).to.haveCountOf(3u);
+}
+
 - (void)testUserAuthentication2 {
     //with collection
     __block NSDictionary *res = nil;
@@ -359,6 +389,34 @@
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     STAssertEquals([res count], 3u, @"User auth should return 3 items");
+}
+
+- (void)testUserAuthentication2a
+{
+    __block LFJSONRequestOperation *op = nil;
+    __block id result = nil;
+    
+    // Actual call would look something like this:
+    [self.clientAdmin authenticateUserWithToken:@"fakeToken"
+                                           site:@"fakeSite"
+                                        article:@"fakeArticle"
+                                      onSuccess:^(NSOperation *operation, id responseObject) {
+                                          op = (LFJSONRequestOperation *)operation;
+                                          result = (NSArray *)responseObject;
+                                      }
+                                      onFailure:^(NSOperation *operation, NSError *error) {
+                                          op = (LFJSONRequestOperation *)operation;
+                                          NSLog(@"Error code %d, with description %@",
+                                                error.code,
+                                                [error localizedDescription]);
+                                      }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).to.beTruthy();
+    expect(result).to.haveCountOf(3u);
 }
 
 #pragma mark - Test Write Client

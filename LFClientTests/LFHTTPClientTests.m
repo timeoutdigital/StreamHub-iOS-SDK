@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 #import "LFNetworkingTests.h"
-#import "LFHTTPClient.h"
+#import "LFHTTPBoostrapClient.h"
 #import "LFJSONRequestOperation.h"
 
 @interface LFBufferedInputStreamProvider : NSObject <NSStreamDelegate>
@@ -109,24 +109,24 @@
 #pragma mark - Test setup
 
 @interface LFHTTPClientTests : SenTestCase
-@property (readwrite, nonatomic, strong) LFHTTPClient *client;
+@property (readwrite, nonatomic, strong) LFHTTPBoostrapClient *client;
 @end
 
 @implementation LFHTTPClientTests
 @synthesize client = _client;
 
 - (void)setUp {
-    self.client = [LFHTTPClient clientWithBaseURL:[NSURL URLWithString:AFNetworkingTestsBaseURLString]];
+    self.client = [LFHTTPBoostrapClient clientWithBaseURL:[NSURL URLWithString:AFNetworkingTestsBaseURLString]];
 }
 
 #pragma mark - Test cases
 
 - (void)testInitRaisesException {
-    expect(^{ (void)[[LFHTTPClient alloc] init]; }).to.raiseAny();
+    expect(^{ (void)[[LFHTTPBoostrapClient alloc] init]; }).to.raiseAny();
 }
 
 - (void)testInitAppendsTerminatingSlashToPath {
-    LFHTTPClient *client = [[LFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://httpbin.org/test"]];
+    LFHTTPBoostrapClient *client = [[LFHTTPBoostrapClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://httpbin.org/test"]];
     expect([[client baseURL] absoluteString]).to.equal(@"http://httpbin.org/test/");
 }
 
@@ -423,7 +423,7 @@
 }
 
 - (void)testMultipartUploadDoesNotFailDueToStreamSentAnEventBeforeBeingOpenedError {
-    NSString *pathToImage = [[NSBundle bundleForClass:[LFHTTPClient class]] pathForResource:@"Icon" ofType:@"png"];
+    NSString *pathToImage = [[NSBundle bundleForClass:[LFHTTPBoostrapClient class]] pathForResource:@"Icon" ofType:@"png"];
     NSData *imageData = [NSData dataWithContentsOfFile:pathToImage];
     NSMutableURLRequest *request = [self.client multipartFormRequestWithMethod:@"POST" path:@"/post" parameters:@{ @"foo": @"bar" } constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imageData name:@"icon[image]" fileName:@"icon.png" mimeType:@"image/png"];

@@ -1,20 +1,19 @@
 //
-//  LFHTTPClient.h
+//  LFHTTPBoostrapClient.h
 //  
 //
 //  Created by Eugene Scherba on 8/20/13.
 //
 //
 
+#import "lftypes.h"
 #import "AFHTTPClient.h"
 #import "LFJSONRequestOperation.h"
 
-typedef void (^LFSuccessBlock) (NSOperation *operation, id responseObject);
-typedef void (^LFFailureBlock) (NSOperation *operation, NSError *error);
-typedef void (^AFSuccessBlock) (AFHTTPRequestOperation *operation, id responseObject);
-typedef void (^AFFailureBlock) (AFHTTPRequestOperation *operation, NSError *error);
+@interface LFHTTPBoostrapClient : AFHTTPClient
 
-@interface LFHTTPClient : AFHTTPClient
+@property (nonatomic, readonly, strong) NSString* lfEnvironment;
+@property (nonatomic, readonly, strong) NSString* lfNetwork;
 
 /**
  * Initialize Livefyre client
@@ -23,6 +22,9 @@ typedef void (^AFFailureBlock) (AFHTTPRequestOperation *operation, NSError *erro
  * @param environment (optional) Where the collection is hosted, i.e. t-402. Used for development/testing purposes.
  * @return LFClient instance
  */
+
++ (instancetype)clientWithEnvironment:(NSString *)environment
+                              network:(NSString *)network;
 
 - (id)initWithEnvironment:(NSString *)environment
                   network:(NSString *)network;
@@ -104,8 +106,5 @@ typedef void (^AFFailureBlock) (AFHTTPRequestOperation *operation, NSError *erro
                        offset:(NSInteger)offset
                     onSuccess:(LFSuccessBlock)success
                     onFailure:(LFFailureBlock)failure;
-
-@property (nonatomic, readonly, strong) NSString* lfEnvironment;
-@property (nonatomic, readonly, strong) NSString* lfNetwork;
 
 @end
