@@ -151,15 +151,11 @@
     }
     [self getPath:@"/api/v3.0/hottest/"
        parameters:parameters
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              // TODO grabbing "data" may not be the best thing to do here
-              id results = [responseObject objectForKey:@"data"];
-              success(operation, results);
-          }
+          success:(AFSuccessBlock)success
           failure:(AFFailureBlock)failure];
 }
 
-// TODO -- move token, statuses, and offset to "parameters" argument?
+//TODO -- move optional arguments to "parameters" dictionary argument?
 - (void)getUserContentForUser:(NSString *)userId
                         token:(NSString *)userToken
                      statuses:(NSArray*)statuses
@@ -181,11 +177,7 @@
     }
     [self getPath:[NSString stringWithFormat:@"/api/v3.0/author/%@/comments/", userId]
        parameters:parameters
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              // TODO grabbing "data" may not be the best thing to do here
-              id results = [responseObject objectForKey:@"data"];
-              success(operation, results);
-          }
+          success:(AFSuccessBlock)success
           failure:(AFFailureBlock)failure];
 }
 

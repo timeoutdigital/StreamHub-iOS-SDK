@@ -254,7 +254,7 @@
 - (void)testHeatAPIWithGetHottestCollections
 {
     __block LFJSONRequestOperation *op = nil;
-    __block NSArray *result = nil;
+    __block NSDictionary *result = nil;
     
     // Actual call would look something like this:
     [self.clientHottest getHottestCollectionsForSite:@"site"
@@ -262,7 +262,7 @@
                                       desiredResults:10u
                                            onSuccess:^(NSOperation *operation, id responseObject) {
                                                op = (LFJSONRequestOperation *)operation;
-                                               result = (NSArray *)responseObject;
+                                               result = (NSDictionary *)responseObject;
                                            } onFailure:^(NSOperation *operation, NSError *error) {
                                                op = (LFJSONRequestOperation *)operation;
                                                NSLog(@"Error code %d, with description %@",
@@ -275,7 +275,7 @@
     expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
-    expect(result).to.haveCountOf(10u);
+    expect([result objectForKey:@"data"]).to.haveCountOf(10u);
 }
 
 
@@ -306,7 +306,7 @@
 - (void)testUserDataWithGetContentForUser
 {
     __block LFJSONRequestOperation *op = nil;
-    __block NSArray *result = nil;
+    __block NSDictionary *result = nil;
     
     // Actual call would look something like this:
     [self.clientUserContent getUserContentForUser:@"fakeUser"
@@ -315,7 +315,7 @@
                                            offset:nil
                                         onSuccess:^(NSOperation *operation, id responseObject) {
                                             op = (LFJSONRequestOperation *)operation;
-                                            result = (NSArray *)responseObject;
+                                            result = (NSDictionary *)responseObject;
                                         } onFailure:^(NSOperation *operation, NSError *error) {
                                             op = (LFJSONRequestOperation *)operation;
                                             NSLog(@"Error code %d, with description %@",
@@ -328,7 +328,7 @@
     expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
-    expect(result).to.haveCountOf(12u);
+    expect([result objectForKey:@"data"]).to.haveCountOf(12u);
 }
 
 #pragma mark - Test Admin Client

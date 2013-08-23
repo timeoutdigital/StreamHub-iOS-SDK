@@ -35,6 +35,7 @@
 #import "LFConfig.h"
 #import "LFHTTPBoostrapClient.h"
 #import "LFHTTPAdminClient.h"
+#import "LFHTTPWriteClient.h"
 
 #import "LFJSONRequestOperation.h"
 #import "NSString+Base64Encoding.h"
@@ -51,6 +52,7 @@
 @property (readwrite, nonatomic, strong) LFHTTPBoostrapClient *client;
 @property (readwrite, nonatomic, strong) LFHTTPBoostrapClient *clientLabs;
 @property (readwrite, nonatomic, strong) LFHTTPAdminClient *clientAdmin;
+@property (readwrite, nonatomic, strong) LFHTTPWriteClient *clientWrite;
 @end
 
 @implementation LFClientNetworkTests
@@ -69,6 +71,9 @@
     self.clientLabs = [LFHTTPBoostrapClient clientWithEnvironment:[LFConfig objectForKey:@"environment"] network:[LFConfig objectForKey:@"labs network"]];
     
     self.clientAdmin = [LFHTTPAdminClient clientWithEnvironment:nil network:[LFConfig objectForKey:@"domain"]];
+    
+    self.clientWrite = [LFHTTPWriteClient clientWithEnvironment:nil network:[LFConfig objectForKey:@"domain"] user:[LFConfig objectForKey:@"moderator user auth token"]];
+    
     // set timeout to 60 seconds
     [Expecta setAsynchronousTestTimeout:60.0f];
 }
@@ -213,7 +218,6 @@
                                             }];
  
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    
     STAssertNotNil(res, @"Should have returned results");
 }
 
@@ -259,7 +263,6 @@
                                    }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-
     STAssertNotNil(res, @"Should have returned results");
 }
 
@@ -305,7 +308,6 @@
                                      }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    
     STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
 }
 
@@ -355,7 +357,6 @@
                                    }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    
     STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
 }
 
@@ -403,9 +404,33 @@
                      }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    
     STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
 }
+
+- (void)testLikesHTTP {
+    __block LFJSONRequestOperation *op = nil;
+    __block NSDictionary *result = nil;
+    
+    [self.clientWrite postOpinion:LFDispositionLike
+                       forContent:[LFConfig objectForKey:@"content"]
+                     inCollection:[LFConfig objectForKey:@"collection"]
+                        onSuccess:^(NSOperation *operation, id responseObject) {
+                            op = (LFJSONRequestOperation *)operation;
+                            result = (NSDictionary *)responseObject;
+                        }
+                        onFailure:^(NSOperation *operation, NSError *error) {
+                            op = (LFJSONRequestOperation *)operation;
+                            NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                        }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect([result objectForKey:@"status"]).to.equal(@"ok");
+}
+
+#pragma mark -
 - (void)testUnlikes {
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -424,63 +449,201 @@
                        }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    
     STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
 }
 
+- (void)testUnlikesHTTP {
+    __block LFJSONRequestOperation *op = nil;
+    __block NSDictionary *result = nil;
+    
+    [self.clientWrite postOpinion:LFDispositionUnlike
+                       forContent:[LFConfig objectForKey:@"content"]
+                     inCollection:[LFConfig objectForKey:@"collection"]
+                        onSuccess:^(NSOperation *operation, id responseObject) {
+                            op = (LFJSONRequestOperation *)operation;
+                            result = (NSDictionary *)responseObject;
+                        }
+                        onFailure:^(NSOperation *operation, NSError *error) {
+                            op = (LFJSONRequestOperation *)operation;
+                            NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                        }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect([result objectForKey:@"status"]).to.equal(@"ok");
+}
+
+#pragma mark -
 - (void)testPost {
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
-    NSUInteger ran = arc4random();
     
-    NSString *content = [NSString stringWithFormat:@"test post, %d", ran];
-    NSLog(@"Posting content: %@", content);
+    NSString *content = [NSString stringWithFormat:@"test post, %d", arc4random()];
     [LFWriteClient postContent:content
-                       forUser:userToken
+                       forUser:[LFConfig objectForKey:@"moderator user auth token"]
                      inReplyTo:nil
-                  forCollection:[LFConfig objectForKey:@"collection"]
-                     network:[LFConfig objectForKey:@"domain"]
-                       onSuccess:^(NSDictionary *content) {
-                           res = content;
-                           dispatch_semaphore_signal(sema);
-                       } onFailure:^(NSError *error) {
-                           NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                           dispatch_semaphore_signal(sema);
-                       }];
+                 forCollection:[LFConfig objectForKey:@"collection"]
+                       network:[LFConfig objectForKey:@"domain"]
+                     onSuccess:^(NSDictionary *content) {
+                         res = content;
+                         dispatch_semaphore_signal(sema);
+                     }
+                     onFailure:^(NSError *error) {
+                         NSLog(@"Error code %d, with description %@",
+                               error.code,
+                               [error localizedDescription]);
+                         dispatch_semaphore_signal(sema);
+                     }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    
     STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
 }
 
-- (void)testPostReplyTo {
+- (void)testPostHTTP
+{
+    __block LFJSONRequestOperation *op = nil;
+    __block id result = nil;
+    
+    // Actual call would look something like this:
+    [self.clientWrite postContent:[NSString stringWithFormat:@"test post, %d", arc4random()]
+                    forCollection:[LFConfig objectForKey:@"collection"]
+                        inReplyTo:nil
+                        onSuccess:^(NSOperation *operation, id responseObject) {
+                            op = (LFJSONRequestOperation*)operation;
+                            result = responseObject;
+                        }
+                        onFailure:^(NSOperation *operation, NSError *error) {
+                            op = (LFJSONRequestOperation*)operation;
+                            NSLog(@"Error code %d, with description %@",
+                                  error.code,
+                                  [error localizedDescription]);
+                        }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).to.beTruthy();
+    expect([result objectForKey:@"status"]).to.equal(@"ok");
+}
+
+#pragma mark -
+- (void)testPostInReplyTo {
     //in reply to
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     NSString *parent = [LFConfig objectForKey:@"content"];
-    NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
-    NSUInteger ran = ran = arc4random();
-    [LFWriteClient postContent:[NSString stringWithFormat:@"test reply, %d", ran]
-                       forUser:userToken
+    [LFWriteClient postContent:[NSString stringWithFormat:@"test reply, %d", arc4random()]
+                       forUser:[LFConfig objectForKey:@"moderator user auth token"]
                      inReplyTo:parent
-                  forCollection:[LFConfig objectForKey:@"collection"]
-                     network:[LFConfig objectForKey:@"domain"]
-                       onSuccess:^(NSDictionary *content) {
-                           res = content;
-                           dispatch_semaphore_signal(sema);
-                       } onFailure:^(NSError *error) {
-                           NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                           dispatch_semaphore_signal(sema);
-                       }];
+                 forCollection:[LFConfig objectForKey:@"collection"]
+                       network:[LFConfig objectForKey:@"domain"]
+                     onSuccess:^(NSDictionary *content) {
+                         res = content;
+                         dispatch_semaphore_signal(sema);
+                     } onFailure:^(NSError *error) {
+                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                         dispatch_semaphore_signal(sema);
+                     }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-
-    NSString *prent = [[[[[res objectForKey:@"data"] objectForKey:@"messages"] objectAtIndex:0] objectForKey:@"content"] objectForKey:@"parentId"];
-    STAssertEqualObjects(prent, parent, @"This response should have been a child.");
+    
+    NSString *parent1 = [[[res valueForKeyPath:@"data.messages"] objectAtIndex:0]
+                         valueForKeyPath:@"content.parentId"];
+    STAssertEqualObjects(parent1, parent, @"This response should have been a child.");
 }
 
-    //share to
+- (void)testPostInReplyToHTTP
+{
+    __block LFJSONRequestOperation *op = nil;
+    __block id result = nil;
+    
+    NSString *parent = [LFConfig objectForKey:@"content"];
+    
+    // Actual call would look something like this:
+    [self.clientWrite postContent:[NSString stringWithFormat:@"test reply, %d", arc4random()]
+                    forCollection:[LFConfig objectForKey:@"collection"]
+                        inReplyTo:parent
+                        onSuccess:^(NSOperation *operation, id responseObject) {
+                            op = (LFJSONRequestOperation*)operation;
+                            result = responseObject;
+                        }
+                        onFailure:^(NSOperation *operation, NSError *error) {
+                            op = (LFJSONRequestOperation*)operation;
+                            NSLog(@"Error code %d, with description %@",
+                                  error.code,
+                                  [error localizedDescription]);
+                        }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).to.beTruthy();
+    expect([result objectForKey:@"status"]).to.equal(@"ok");
+    NSString *parent1 = [[[result valueForKeyPath:@"data.messages"] objectAtIndex:0]
+                         valueForKeyPath:@"content.parentId"];
+    expect(parent1).to.equal(parent);
+}
+
+#pragma mark -
+- (void)testFlag {
+    __block NSDictionary *res = nil;
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    
+    [LFWriteClient flagContent:[LFConfig objectForKey:@"content"]
+                 forCollection:[LFConfig objectForKey:@"collection"]
+                       network:[LFConfig objectForKey:@"domain"]
+                      withFlag:LFFlagOfftopic
+                          user:[LFConfig objectForKey:@"moderator user auth token"]
+                         notes:@"fakeNotes"
+                         email:@"fakeEmail"
+                     onSuccess:^(NSDictionary *opineData) {
+                         res = opineData;
+                         dispatch_semaphore_signal(sema);
+                     } onFailure:^(NSError *error) {
+                         NSLog(@"Error code %d, with description %@",
+                               error.code,
+                               [error localizedDescription]);
+                         dispatch_semaphore_signal(sema);
+                     }];
+    
+    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
+    STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
+}
+
+- (void)testFlagHTTP
+{
+    __block LFJSONRequestOperation *op = nil;
+    __block id result = nil;
+
+    // Actual call would look something like this:
+    [self.clientWrite postFlag:LFFlagOfftopic
+                    forContent:[LFConfig objectForKey:@"content"]
+                  inCollection:[LFConfig objectForKey:@"collection"]
+                    parameters:@{@"notes":@"fakeNotes", @"email":@"fakeEmail"}
+                     onSuccess:^(NSOperation *operation, id responseObject) {
+                         op = (LFJSONRequestOperation*)operation;
+                         result = responseObject;
+                     }
+                     onFailure:^(NSOperation *operation, NSError *error) {
+                         op = (LFJSONRequestOperation*)operation;
+                         NSLog(@"Error code %d, with description %@",
+                               error.code,
+                               [error localizedDescription]);
+                     }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).to.beTruthy();
+    expect([result objectForKey:@"status"]).to.equal(@"ok");
+}
+
+//share to
 //    ran = arc4random();
 //    [LFWriteClient postContent:[NSString stringWithFormat:@"test reply, %d", ran]
 //                       forUser:userToken
@@ -521,28 +684,5 @@
 //    [streamer stopStreamForCollection:[Config objectForKey:@"collection"]];
 //}
 
-- (void)testFlag {
-    __block NSDictionary *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-
-    [LFWriteClient flagContent:[LFConfig objectForKey:@"content"]
-                 forCollection:[LFConfig objectForKey:@"collection"]
-                       network:[LFConfig objectForKey:@"domain"]
-                      withFlag:LFFlagOfftopic
-                          user:[LFConfig objectForKey:@"moderator user auth token"]
-                         notes:@"fakeNotes"
-                         email:@"fakeEmail"
-                     onSuccess:^(NSDictionary *opineData) {
-                         res = opineData;
-                         dispatch_semaphore_signal(sema);
-                     } onFailure:^(NSError *error) {
-                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                         dispatch_semaphore_signal(sema);
-                     }];
-
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-
-    STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
-}
 
 @end
