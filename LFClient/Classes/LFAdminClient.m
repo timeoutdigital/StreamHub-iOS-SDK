@@ -32,7 +32,28 @@
 
 @implementation LFAdminClient
 + (void)authenticateUserWithToken:(NSString *)userToken
-                    forCollection:(NSString *)collectionId
+                       collection:(NSString *)collectionId
+                          network:(NSString *)networkDomain
+                        onSuccess:(void (^)(NSDictionary *))success
+                        onFailure:(void (^)(NSError *))failure
+{
+    NSParameterAssert(networkDomain != nil);
+    NSParameterAssert(userToken != nil);
+    NSParameterAssert(collectionId != nil);
+    
+    NSDictionary *paramsDict = @{@"lftoken": userToken,
+                                 @"collectionId": collectionId};
+    
+    NSString *host = [NSString stringWithFormat:@"%@.%@", kAdminDomain, networkDomain];
+    [self requestWithHost:host
+                     path:@"/api/v3.0/auth/"
+                   params:paramsDict
+                   method:@"GET"
+                onSuccess:success
+                onFailure:failure];
+}
+
++ (void)authenticateUserWithToken:(NSString *)userToken
                           article:(NSString *)articleId
                              site:(NSString *)siteId
                           network:(NSString *)networkDomain
@@ -41,13 +62,12 @@
 {
     NSParameterAssert(networkDomain != nil);
     NSParameterAssert(userToken != nil);
+    NSParameterAssert(siteId != nil);
+    NSParameterAssert(articleId != nil);
     
-    NSDictionary *paramsDict;
-    if (collectionId) {
-        paramsDict = @{@"lftoken": userToken, @"collectionId": collectionId};
-    } else {
-        paramsDict = @{@"lftoken": userToken, @"siteId": siteId, @"articleId":[articleId base64EncodedString]};
-    }
+    NSDictionary *paramsDict = @{@"lftoken": userToken,
+                                 @"siteId": siteId,
+                                 @"articleId":[articleId base64EncodedString]};
     
     NSString *host = [NSString stringWithFormat:@"%@.%@", kAdminDomain, networkDomain];
     [self requestWithHost:host

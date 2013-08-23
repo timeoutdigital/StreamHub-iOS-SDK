@@ -232,7 +232,6 @@
                                          }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    
     STAssertEquals([res count], 10u, @"Heat API should return 10 items");
 }
 
@@ -285,7 +284,6 @@
                                    }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    
     STAssertEquals([res count], 12u, @"User content API should return 12 items");
 }
 
@@ -318,15 +316,13 @@
 }
 
 #pragma mark - Test Admin Client
-- (void)testUserAuthentication {
-    //with article and site ids
+- (void)testUserAuthentication1 {
+    //with collection
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
     [LFAdminClient authenticateUserWithToken:@"fakeToken"
-                               forCollection:@"fakeColl"
-                                     article:nil
-                                        site:nil
+                                  collection:@"fakeColl"
                                      network:@"auth-sample"
                                    onSuccess:^(NSDictionary *gotUserData) {
                                        res = gotUserData;
@@ -339,7 +335,29 @@
                                    }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
+    STAssertEquals([res count], 3u, @"User auth should return 3 items");
+}
+
+- (void)testUserAuthentication2 {
+    //with collection
+    __block NSDictionary *res = nil;
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
+    [LFAdminClient authenticateUserWithToken:@"fakeToken"
+                                     article:@"fakeArticle"
+                                        site:@"fakeSite"
+                                     network:@"auth-sample"
+                                   onSuccess:^(NSDictionary *gotUserData) {
+                                       res = gotUserData;
+                                       dispatch_semaphore_signal(sema);
+                                   } onFailure:^(NSError *error) {
+                                       NSLog(@"Error code %d, with description %@",
+                                             error.code,
+                                             [error localizedDescription]);
+                                       dispatch_semaphore_signal(sema);
+                                   }];
+    
+    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     STAssertEquals([res count], 3u, @"User auth should return 3 items");
 }
 
@@ -363,7 +381,6 @@
                      }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    
     STAssertEquals([res count], 3u, @"Like action should return 3 items");
 }
 
@@ -388,7 +405,6 @@
                      }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    
     STAssertEquals([res count], 3u, @"Post content should return 3 items");
 }
 
@@ -415,7 +431,6 @@
                      }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    
     STAssertEquals([res count], 3u, @"Post content should return 3 items");
 }
 

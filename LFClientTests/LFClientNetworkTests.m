@@ -251,14 +251,13 @@
     STAssertNotNil(res, @"Should have returned results");
 }
 
-- (void)testUserAuthentication {
+- (void)testUserAuthentication1 {
     //with article and site ids
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
     
     [LFAdminClient authenticateUserWithToken:userToken
-                               forCollection:nil
                                   article:[LFConfig objectForKey:@"article"]
                                      site:[LFConfig objectForKey:@"site"]
                                    network:[LFConfig objectForKey:@"domain"]
@@ -273,21 +272,23 @@
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     
     STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
-    
+}
+- (void)testUserAuthentication2 {
     //with collection id
-    res = nil;    
+    __block NSDictionary *res = nil;
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
+    
     [LFAdminClient authenticateUserWithToken:userToken
-                               forCollection:[LFConfig objectForKey:@"collection"]
-                                  article:nil
-                                     site:nil
-                                   network:[LFConfig objectForKey:@"domain"]
-                                     onSuccess:^(NSDictionary *gotUserData) {
-                                         res = gotUserData;
-                                         dispatch_semaphore_signal(sema);
-                                     } onFailure:^(NSError *error) {
-                                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                         dispatch_semaphore_signal(sema);
-                                     }];
+                                  collection:[LFConfig objectForKey:@"collection"]
+                                     network:[LFConfig objectForKey:@"domain"]
+                                   onSuccess:^(NSDictionary *gotUserData) {
+                                       res = gotUserData;
+                                       dispatch_semaphore_signal(sema);
+                                   } onFailure:^(NSError *error) {
+                                       NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                                       dispatch_semaphore_signal(sema);
+                                   }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     
