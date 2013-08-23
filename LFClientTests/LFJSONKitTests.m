@@ -8,7 +8,6 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-#import "LFJSONKitTests.h"
 #import "JSONKit.h"
 
 #define EXP_SHORTHAND YES

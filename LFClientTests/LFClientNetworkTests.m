@@ -34,6 +34,8 @@
 #import "LFClient.h"
 #import "LFConfig.h"
 #import "LFHTTPBoostrapClient.h"
+#import "LFHTTPAdminClient.h"
+
 #import "LFJSONRequestOperation.h"
 #import "NSString+Base64Encoding.h"
 #import <AFJSONRequestOperation.h>
@@ -47,6 +49,8 @@
 @interface LFClientNetworkTests()
 @property (nonatomic) NSString *event;
 @property (readwrite, nonatomic, strong) LFHTTPBoostrapClient *client;
+@property (readwrite, nonatomic, strong) LFHTTPBoostrapClient *clientLabs;
+@property (readwrite, nonatomic, strong) LFHTTPAdminClient *clientAdmin;
 @end
 
 @implementation LFClientNetworkTests
@@ -60,8 +64,11 @@
         STFail(@"No test settings");
     }
     
-    self.client = [LFHTTPBoostrapClient clientWithEnvironment:[LFConfig objectForKey:@"environment"] network:[LFConfig objectForKey:@"domain"]];
+    self.client = [LFHTTPBoostrapClient clientWithEnvironment:[LFConfig objectForKey:@"environment"]
+                                                      network:[LFConfig objectForKey:@"domain"]];
+    self.clientLabs = [LFHTTPBoostrapClient clientWithEnvironment:[LFConfig objectForKey:@"environment"] network:[LFConfig objectForKey:@"labs network"]];
     
+    self.clientAdmin = [LFHTTPAdminClient clientWithEnvironment:nil network:[LFConfig objectForKey:@"domain"]];
     // set timeout to 60 seconds
     [Expecta setAsynchronousTestTimeout:60.0f];
 }
@@ -256,6 +263,28 @@
     STAssertNotNil(res, @"Should have returned results");
 }
 
+- (void)testUserDataRetrievalHTTP
+{
+    __block LFJSONRequestOperation *op = nil;
+    __block NSArray *result = nil;
+    
+    // Actual call would look something like this:
+    [self.clientLabs getUserContentForUser:[LFConfig objectForKey:@"system user"]
+                                     token:nil statuses:nil offset:0 onSuccess:^(NSOperation *operation, id responseObject) {
+                                         op = (LFJSONRequestOperation *)operation;
+                                         result = (NSArray *)responseObject;
+                                     } onFailure:^(NSOperation *operation, NSError *error) {
+                                         op = (LFJSONRequestOperation *)operation;
+                                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                                     }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).to.beTruthy();
+}
+
 #pragma mark - Test user authentication
 - (void)testUserAuthenticationSiteArticle {
     //with article and site ids
@@ -280,6 +309,34 @@
     STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
 }
 
+- (void)testUserAuthenticationSiteArticleHTTP {
+    //with collection id
+    __block LFJSONRequestOperation *op = nil;
+    __block NSDictionary *result = nil;
+    
+    NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
+    
+    [self.clientAdmin authenticateUserWithToken:userToken
+                                           site:[LFConfig objectForKey:@"site"]
+                                        article:[LFConfig objectForKey:@"article"]
+                                      onSuccess:^(NSOperation *operation, id responseObject) {
+                                          op = (LFJSONRequestOperation *)operation;
+                                          result = (NSDictionary *)responseObject;
+                                      }
+                                      onFailure:^(NSOperation *operation, NSError *error) {
+                                          op = (LFJSONRequestOperation *)operation;
+                                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                                      }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect([result objectForKey:@"status"]).to.equal(@"ok");
+}
+
+
+#pragma mark -
 - (void)testUserAuthenticationCollection {
     //with collection id
     __block NSDictionary *res = nil;
@@ -302,28 +359,58 @@
     STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
 }
 
+- (void)testUserAuthenticationCollectionHTTP {
+    //with collection id
+    __block LFJSONRequestOperation *op = nil;
+    __block NSDictionary *result = nil;
+    
+    NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
+    
+    [self.clientAdmin authenticateUserWithToken:userToken
+                                     collection:[LFConfig objectForKey:@"collection"]
+                                      onSuccess:^(NSOperation *operation, id responseObject) {
+                                          op = (LFJSONRequestOperation *)operation;
+                                          result = (NSDictionary *)responseObject;
+                                      }
+                                      onFailure:^(NSOperation *operation, NSError *error) {
+                                          op = (LFJSONRequestOperation *)operation;
+                                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                                      }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect([result objectForKey:@"status"]).to.equal(@"ok");
+}
+
+#pragma mark -
 - (void)testLikes {
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
-
+    
     [LFWriteClient likeContent:[LFConfig objectForKey:@"content"]
                        forUser:userToken
-                  collection:[LFConfig objectForKey:@"collection"]
-                     network:[LFConfig objectForKey:@"domain"]
-                       onSuccess:^(NSDictionary *content) {
-                           res = content;
-                           dispatch_semaphore_signal(sema);
-                       } onFailure:^(NSError *error) {
-                           NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                           dispatch_semaphore_signal(sema);
-                       }];
+                    collection:[LFConfig objectForKey:@"collection"]
+                       network:[LFConfig objectForKey:@"domain"]
+                     onSuccess:^(NSDictionary *content) {
+                         res = content;
+                         dispatch_semaphore_signal(sema);
+                     } onFailure:^(NSError *error) {
+                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                         dispatch_semaphore_signal(sema);
+                     }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     
     STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
+}
+- (void)testUnlikes {
+    __block NSDictionary *res = nil;
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
     
-    res = nil;
     [LFWriteClient unlikeContent:[LFConfig objectForKey:@"content"]
                        forUser:userToken
                   collection:[LFConfig objectForKey:@"collection"]

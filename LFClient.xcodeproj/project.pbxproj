@@ -279,12 +279,12 @@
 		1C4CC89B16A48B3800C33DEC /* LFClientTests */ = {
 			isa = PBXGroup;
 			children = (
+				EFB9AB9B17C779740083ED47 /* Tests */,
 				EF33A21C17B95EF8007A2476 /* LFConfig.plist */,
 				EFE0CB1217C535EF00775C9C /* LFNetworkingTests.h */,
 				EF03D34C17C53A7D0097FDD3 /* LFNetworkingTests.m */,
 				1CF061F116B0936F00CFA905 /* LFTestingURLProtocol.h */,
 				1CF061F216B0936F00CFA905 /* LFTestingURLProtocol.m */,
-				EFB9AB9B17C779740083ED47 /* Tests */,
 				1C4CC89C16A48B3800C33DEC /* Supporting Files */,
 			);
 			path = LFClientTests;
