@@ -445,7 +445,8 @@
                      onSuccess:^(NSDictionary *content) {
                          res = content;
                          dispatch_semaphore_signal(sema);
-                     } onFailure:^(NSError *error) {
+                     }
+                     onFailure:^(NSError *error) {
                          NSLog(@"Error code %d, with description %@",
                                error.code,
                                [error localizedDescription]);
@@ -463,10 +464,13 @@
     
     // Actual call would look something like this:
     [self.clientLike postOpinion:LFDispositionLike
-                       forContent:@"fakeContent" inCollection:@"fakeColl" onSuccess:^(NSOperation *operation, id responseObject) {
+                      forContent:@"fakeContent"
+                    inCollection:@"fakeColl"
+                       onSuccess:^(NSOperation *operation, id responseObject) {
                            op = (LFJSONRequestOperation*)operation;
                            result = responseObject;
-                       } onFailure:^(NSOperation *operation, NSError *error) {
+                       }
+                       onFailure:^(NSOperation *operation, NSError *error) {
                            op = (LFJSONRequestOperation*)operation;
                            NSLog(@"Error code %d, with description %@",
                                  error.code,
@@ -495,7 +499,8 @@
                      onSuccess:^(NSDictionary *content) {
                          res = content;
                          dispatch_semaphore_signal(sema);
-                     } onFailure:^(NSError *error) {
+                     }
+                     onFailure:^(NSError *error) {
                          NSLog(@"Error code %d, with description %@",
                                error.code,
                                [error localizedDescription]);
@@ -517,15 +522,18 @@
                          stringWithFormat:@"test post, %d",
                          arc4random()];
     [self.clientPost postContent:content
-                   forCollection:@"fakeColl" inReplyTo:nil onSuccess:^(NSOperation *operation, id responseObject) {
-                       op = (LFJSONRequestOperation*)operation;
-                       result = responseObject;
-                   } onFailure:^(NSOperation *operation, NSError *error) {
-                       op = (LFJSONRequestOperation*)operation;
-                       NSLog(@"Error code %d, with description %@",
-                             error.code,
-                             [error localizedDescription]);
-                   }];
+                   forCollection:@"fakeColl"
+                       inReplyTo:nil
+                       onSuccess:^(NSOperation *operation, id responseObject) {
+                           op = (LFJSONRequestOperation*)operation;
+                           result = responseObject;
+                       }
+                       onFailure:^(NSOperation *operation, NSError *error) {
+                           op = (LFJSONRequestOperation*)operation;
+                           NSLog(@"Error code %d, with description %@",
+                                 error.code,
+                                 [error localizedDescription]);
+                       }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
@@ -550,7 +558,8 @@
                      onSuccess:^(NSDictionary *opineData) {
                          res = opineData;
                          dispatch_semaphore_signal(sema);
-                     } onFailure:^(NSError *error) {
+                     }
+                     onFailure:^(NSError *error) {
                          NSLog(@"Error code %d, with description %@",
                                error.code,
                                [error localizedDescription]);
@@ -568,15 +577,19 @@
     
     // Actual call would look something like this:
     [self.clientFlag postFlag:LFFlagOfftopic
-                   forContent:@"fakeContent" inCollection:@"fakeCollection" parameters:@{@"notes":@"fakeNotes", @"email":@"fakeEmail"} onSuccess:^(NSOperation *operation, id responseObject) {
-                       op = (LFJSONRequestOperation*)operation;
-                       result = responseObject;
-                   } onFailure:^(NSOperation *operation, NSError *error) {
-                       op = (LFJSONRequestOperation*)operation;
-                       NSLog(@"Error code %d, with description %@",
-                             error.code,
-                             [error localizedDescription]);
-                   }];
+                   forContent:@"fakeContent"
+                 inCollection:@"fakeCollection"
+                   parameters:@{@"notes":@"fakeNotes", @"email":@"fakeEmail"}
+                    onSuccess:^(NSOperation *operation, id responseObject) {
+                        op = (LFJSONRequestOperation*)operation;
+                        result = responseObject;
+                    }
+                    onFailure:^(NSOperation *operation, NSError *error) {
+                        op = (LFJSONRequestOperation*)operation;
+                        NSLog(@"Error code %d, with description %@",
+                              error.code,
+                              [error localizedDescription]);
+                    }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
