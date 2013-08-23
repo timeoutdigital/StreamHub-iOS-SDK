@@ -60,6 +60,9 @@
 		EF3D39B017C6F5400014807D /* LFHTTPAdminClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3D39AE17C6F5400014807D /* LFHTTPAdminClient.m */; };
 		EF3D39B117C6F5400014807D /* LFHTTPAdminClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3D39AE17C6F5400014807D /* LFHTTPAdminClient.m */; };
 		EF3D39B317C6FCD00014807D /* lftypes.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3D39B217C6FCD00014807D /* lftypes.h */; };
+		EF3D39BB17C702940014807D /* LFHTTPWriteClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3D39B917C702940014807D /* LFHTTPWriteClient.h */; };
+		EF3D39BC17C702940014807D /* LFHTTPWriteClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3D39BA17C702940014807D /* LFHTTPWriteClient.m */; };
+		EF3D39BD17C702940014807D /* LFHTTPWriteClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3D39BA17C702940014807D /* LFHTTPWriteClient.m */; };
 		EF3F1E4B17C4879D004E61A4 /* LFHTTPBoostrapClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3F1E4917C4879D004E61A4 /* LFHTTPBoostrapClient.h */; };
 		EF3F1E4C17C4879D004E61A4 /* LFHTTPBoostrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3F1E4A17C4879D004E61A4 /* LFHTTPBoostrapClient.m */; };
 		EF3F1E4D17C4879D004E61A4 /* LFHTTPBoostrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3F1E4A17C4879D004E61A4 /* LFHTTPBoostrapClient.m */; };
@@ -117,16 +120,13 @@
 		1C4CC89316A48B3800C33DEC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		1C4CC89D16A48B3800C33DEC /* LFClientTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LFClientTests-Info.plist"; sourceTree = "<group>"; };
 		1C4CC89F16A48B3800C33DEC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1C4CC8A116A48B3800C33DEC /* LFClientNetworkTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFClientNetworkTests.h; sourceTree = "<group>"; };
 		1C4CC8A216A48B3800C33DEC /* LFClientNetworkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFClientNetworkTests.m; sourceTree = "<group>"; };
 		1C70BC2016CB0AEF006243EA /* livefyre-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "livefyre-logo.png"; path = "Resources/livefyre-logo.png"; sourceTree = "<group>"; };
 		1C70BC2116CB0AEF006243EA /* livefyre-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "livefyre-logo@2x.png"; path = "Resources/livefyre-logo@2x.png"; sourceTree = "<group>"; };
 		1CD5686D17A05DFC008ECF55 /* flag-sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "flag-sample.json"; sourceTree = "<group>"; };
 		1CF061F116B0936F00CFA905 /* LFTestingURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFTestingURLProtocol.h; sourceTree = "<group>"; };
 		1CF061F216B0936F00CFA905 /* LFTestingURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFTestingURLProtocol.m; sourceTree = "<group>"; };
-		1CF061F416B093B500CFA905 /* LFClientSpoofTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFClientSpoofTests.h; sourceTree = "<group>"; };
 		1CF061F516B093B500CFA905 /* LFClientSpoofTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFClientSpoofTests.m; sourceTree = "<group>"; };
-		1CF061FA16B098C500CFA905 /* LFARC4Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFARC4Tests.h; sourceTree = "<group>"; };
 		1CF061FB16B098C500CFA905 /* LFARC4Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFARC4Tests.m; sourceTree = "<group>"; };
 		1CF0622016B0A39800CFA905 /* NSDate+RelativePast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+RelativePast.h"; sourceTree = "<group>"; };
 		1CF0622116B0A39800CFA905 /* NSDate+RelativePast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+RelativePast.m"; sourceTree = "<group>"; };
@@ -169,11 +169,12 @@
 		EF3D39AD17C6F5400014807D /* LFHTTPAdminClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFHTTPAdminClient.h; path = LFClient/exp/Classes/LFHTTPAdminClient.h; sourceTree = "<group>"; };
 		EF3D39AE17C6F5400014807D /* LFHTTPAdminClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPAdminClient.m; path = LFClient/exp/Classes/LFHTTPAdminClient.m; sourceTree = "<group>"; };
 		EF3D39B217C6FCD00014807D /* lftypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lftypes.h; path = LFClient/exp/Classes/lftypes.h; sourceTree = SOURCE_ROOT; };
+		EF3D39B917C702940014807D /* LFHTTPWriteClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFHTTPWriteClient.h; path = LFClient/exp/Classes/LFHTTPWriteClient.h; sourceTree = "<group>"; };
+		EF3D39BA17C702940014807D /* LFHTTPWriteClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPWriteClient.m; path = LFClient/exp/Classes/LFHTTPWriteClient.m; sourceTree = "<group>"; };
 		EF3F1E4917C4879D004E61A4 /* LFHTTPBoostrapClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFHTTPBoostrapClient.h; path = LFClient/exp/Classes/LFHTTPBoostrapClient.h; sourceTree = "<group>"; };
 		EF3F1E4A17C4879D004E61A4 /* LFHTTPBoostrapClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPBoostrapClient.m; path = LFClient/exp/Classes/LFHTTPBoostrapClient.m; sourceTree = "<group>"; };
 		EF3F1E5217C487ED004E61A4 /* LFJSONRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFJSONRequestOperation.h; path = LFClient/exp/Classes/LFJSONRequestOperation.h; sourceTree = "<group>"; };
 		EF3F1E5317C487ED004E61A4 /* LFJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFJSONRequestOperation.m; path = LFClient/exp/Classes/LFJSONRequestOperation.m; sourceTree = "<group>"; };
-		EF56AF8B17C6CEB50086127D /* LFJSONKitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFJSONKitTests.h; sourceTree = "<group>"; };
 		EF56AF8C17C6CEB50086127D /* LFJSONKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFJSONKitTests.m; sourceTree = "<group>"; };
 		EFA2AADD17B5AE870022DC8E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = vendor/JSONKit/JSONKit.h; sourceTree = "<group>"; };
 		EFA2AADE17B5AE870022DC8E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = vendor/JSONKit/JSONKit.m; sourceTree = "<group>"; };
@@ -278,20 +279,12 @@
 		1C4CC89B16A48B3800C33DEC /* LFClientTests */ = {
 			isa = PBXGroup;
 			children = (
+				EF33A21C17B95EF8007A2476 /* LFConfig.plist */,
 				EFE0CB1217C535EF00775C9C /* LFNetworkingTests.h */,
 				EF03D34C17C53A7D0097FDD3 /* LFNetworkingTests.m */,
-				EFE0CB1117C535EF00775C9C /* LFHTTPClientTests.m */,
-				EF33A21C17B95EF8007A2476 /* LFConfig.plist */,
-				1CF061FA16B098C500CFA905 /* LFARC4Tests.h */,
-				1CF061FB16B098C500CFA905 /* LFARC4Tests.m */,
-				1C4CC8A116A48B3800C33DEC /* LFClientNetworkTests.h */,
-				1C4CC8A216A48B3800C33DEC /* LFClientNetworkTests.m */,
 				1CF061F116B0936F00CFA905 /* LFTestingURLProtocol.h */,
 				1CF061F216B0936F00CFA905 /* LFTestingURLProtocol.m */,
-				1CF061F416B093B500CFA905 /* LFClientSpoofTests.h */,
-				1CF061F516B093B500CFA905 /* LFClientSpoofTests.m */,
-				EF56AF8B17C6CEB50086127D /* LFJSONKitTests.h */,
-				EF56AF8C17C6CEB50086127D /* LFJSONKitTests.m */,
+				EFB9AB9B17C779740083ED47 /* Tests */,
 				1C4CC89C16A48B3800C33DEC /* Supporting Files */,
 			);
 			path = LFClientTests;
@@ -332,13 +325,13 @@
 			isa = PBXGroup;
 			children = (
 				EF3D39B217C6FCD00014807D /* lftypes.h */,
+				1CF0623816B0A3A900CFA905 /* LFConstants.h */,
+				1CF0623916B0A3A900CFA905 /* LFConstants.m */,
 				1CF0623416B0A3A900CFA905 /* LFClient.h */,
 				EF33A21517B95AD2007A2476 /* LFConfig.h */,
 				EF33A21617B95AD2007A2476 /* LFConfig.m */,
 				1CF0622F16B0A3A900CFA905 /* LFARC4.h */,
 				1CF0623016B0A3A900CFA905 /* LFARC4.m */,
-				1CF0623816B0A3A900CFA905 /* LFConstants.h */,
-				1CF0623916B0A3A900CFA905 /* LFConstants.m */,
 				1CF0623616B0A3A900CFA905 /* LFClientBase.h */,
 				1CF0623716B0A3A900CFA905 /* LFClientBase.m */,
 				1CF0622D16B0A3A900CFA905 /* LFAdminClient.h */,
@@ -360,6 +353,8 @@
 				EF3F1E4A17C4879D004E61A4 /* LFHTTPBoostrapClient.m */,
 				EF3D39AD17C6F5400014807D /* LFHTTPAdminClient.h */,
 				EF3D39AE17C6F5400014807D /* LFHTTPAdminClient.m */,
+				EF3D39B917C702940014807D /* LFHTTPWriteClient.h */,
+				EF3D39BA17C702940014807D /* LFHTTPWriteClient.m */,
 				EF3F1E5217C487ED004E61A4 /* LFJSONRequestOperation.h */,
 				EF3F1E5317C487ED004E61A4 /* LFJSONRequestOperation.m */,
 			);
@@ -384,6 +379,18 @@
 			name = JSONKit;
 			sourceTree = "<group>";
 		};
+		EFB9AB9B17C779740083ED47 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				EFE0CB1117C535EF00775C9C /* LFHTTPClientTests.m */,
+				1CF061FB16B098C500CFA905 /* LFARC4Tests.m */,
+				EF56AF8C17C6CEB50086127D /* LFJSONKitTests.m */,
+				1C4CC8A216A48B3800C33DEC /* LFClientNetworkTests.m */,
+				1CF061F516B093B500CFA905 /* LFClientSpoofTests.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -396,6 +403,7 @@
 				EF3F1E4B17C4879D004E61A4 /* LFHTTPBoostrapClient.h in Headers */,
 				EF3D39B317C6FCD00014807D /* lftypes.h in Headers */,
 				EFA2AADF17B5AE870022DC8E /* JSONKit.h in Headers */,
+				EF3D39BB17C702940014807D /* LFHTTPWriteClient.h in Headers */,
 				EF9FD45217B4476B009FE59D /* LFClient.h in Headers */,
 				EF9FD45317B4476B009FE59D /* LFARC4.h in Headers */,
 				EF9FD45417B4476B009FE59D /* LFConstants.h in Headers */,
@@ -600,6 +608,7 @@
 				1CF0624816B0A3A900CFA905 /* LFClientBase.m in Sources */,
 				1CF0624A16B0A3A900CFA905 /* LFConstants.m in Sources */,
 				EF3D39B017C6F5400014807D /* LFHTTPAdminClient.m in Sources */,
+				EF3D39BC17C702940014807D /* LFHTTPWriteClient.m in Sources */,
 				1CF0625016B0A3A900CFA905 /* LFWriteClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -620,6 +629,7 @@
 				1CF061FC16B098C500CFA905 /* LFARC4Tests.m in Sources */,
 				EFE0CB1317C535EF00775C9C /* LFHTTPClientTests.m in Sources */,
 				1CF0622716B0A39800CFA905 /* NSDate+RelativePast.m in Sources */,
+				EF3D39BD17C702940014807D /* LFHTTPWriteClient.m in Sources */,
 				1CF0622916B0A39800CFA905 /* NSString+Base64Encoding.m in Sources */,
 				1CF0624116B0A3A900CFA905 /* LFAdminClient.m in Sources */,
 				1CF0624316B0A3A900CFA905 /* LFARC4.m in Sources */,

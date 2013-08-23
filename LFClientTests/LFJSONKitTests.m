@@ -6,12 +6,16 @@
 //  Copyright (c) 2013 Livefyre. All rights reserved.
 //
 
+#import <SenTestingKit/SenTestingKit.h>
+
 #import "LFJSONKitTests.h"
 #import "JSONKit.h"
 
 #define EXP_SHORTHAND YES
 #import "Expecta.h"
 
+@interface LFJSONKitTests : SenTestCase
+@end
 
 @interface LFJSONKitTests ()
 @end

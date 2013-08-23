@@ -30,6 +30,19 @@
 #import "LFConstants.h"
 
 @implementation LFConstants
+
+NSString* const LFUserDispositionString[] = {
+    @"like",
+    @"unlike"
+};
+
+NSString* const LFUserFlagString[] = {
+    @"offensive",
+    @"spam",
+    @"disagree",
+    @"off-topic"
+};
+
 NSString *const kLFSDKScheme = @"http";
 NSString *const kLFErrorDomain = @"LFSDKErrorDomain";
 //
@@ -48,4 +61,5 @@ NSString *const kStreamDomain = @"stream1";
 NSString *const kAdminDomain = @"admin";
 NSString *const kBootstrapDomain = @"bootstrap";
 NSString *const kQuillDomain = @"quill";
+
 @end

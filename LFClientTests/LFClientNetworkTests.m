@@ -28,7 +28,9 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-#import "LFClientNetworkTests.h"
+
+#import <SenTestingKit/SenTestingKit.h>
+
 #import "LFClient.h"
 #import "LFConfig.h"
 #import "LFHTTPBoostrapClient.h"
@@ -38,6 +40,9 @@
 
 #define EXP_SHORTHAND YES
 #import "Expecta.h"
+
+@interface LFClientNetworkTests : SenTestCase
+@end
 
 @interface LFClientNetworkTests()
 @property (nonatomic) NSString *event;
@@ -55,7 +60,7 @@
         STFail(@"No test settings");
     }
     
-    self.client = [[LFHTTPBoostrapClient alloc] initWithEnvironment:[LFConfig objectForKey:@"environment"] network:[LFConfig objectForKey:@"domain"]];
+    self.client = [LFHTTPBoostrapClient clientWithEnvironment:[LFConfig objectForKey:@"environment"] network:[LFConfig objectForKey:@"domain"]];
     
     // set timeout to 60 seconds
     [Expecta setAsynchronousTestTimeout:60.0f];
@@ -251,7 +256,8 @@
     STAssertNotNil(res, @"Should have returned results");
 }
 
-- (void)testUserAuthentication1 {
+#pragma mark - Test user authentication
+- (void)testUserAuthenticationSiteArticle {
     //with article and site ids
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -273,7 +279,8 @@
     
     STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
 }
-- (void)testUserAuthentication2 {
+
+- (void)testUserAuthenticationCollection {
     //with collection id
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -358,10 +365,15 @@
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     
     STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
-    
+}
+
+- (void)testPostReplyTo {
     //in reply to
+    __block NSDictionary *res = nil;
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     NSString *parent = [LFConfig objectForKey:@"content"];
-    ran = arc4random();
+    NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
+    NSUInteger ran = ran = arc4random();
     [LFWriteClient postContent:[NSString stringWithFormat:@"test reply, %d", ran]
                        forUser:userToken
                      inReplyTo:parent
@@ -379,7 +391,8 @@
 
     NSString *prent = [[[[[res objectForKey:@"data"] objectForKey:@"messages"] objectAtIndex:0] objectForKey:@"content"] objectForKey:@"parentId"];
     STAssertEqualObjects(prent, parent, @"This response should have been a child.");
-    
+}
+
     //share to
 //    ran = arc4random();
 //    [LFWriteClient postContent:[NSString stringWithFormat:@"test reply, %d", ran]
@@ -398,7 +411,6 @@
 //    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
 //    STAssertEqualObjects(prent, parent, @"This response should have been a child.");
 //    NSLog(@"Successfully posted w/ shareTo");
-}
 
 //- (void)testStream {
 //    __block NSDictionary *res = nil;
@@ -429,7 +441,7 @@
     [LFWriteClient flagContent:[LFConfig objectForKey:@"content"]
                  forCollection:[LFConfig objectForKey:@"collection"]
                        network:[LFConfig objectForKey:@"domain"]
-                      withFlag:OFF_TOPIC
+                      withFlag:LFFlagOfftopic
                           user:[LFConfig objectForKey:@"moderator user auth token"]
                          notes:@"fakeNotes"
                          email:@"fakeEmail"
@@ -445,4 +457,5 @@
 
     STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
 }
+
 @end

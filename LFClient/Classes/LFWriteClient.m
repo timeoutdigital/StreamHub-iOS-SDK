@@ -29,6 +29,9 @@
 
 #import "LFWriteClient.h"
 
+@interface LFWriteClient ()
+@end
+
 @implementation LFWriteClient
 + (void)likeContent:(NSString *)contentId
             forUser:(NSString *)userToken
@@ -108,7 +111,7 @@
 + (void)flagContent:(NSString *)contentId
       forCollection:(NSString *)collectionId
             network:(NSString *)networkDomain
-           withFlag:(FlagType)flagType
+           withFlag:(LFUserFlag)flagType
                user:(NSString *)userToken
               notes:(NSString *)notes
               email:(NSString *)email
@@ -139,17 +142,17 @@
                 onFailure:failure];
 }
 
-+ (NSString *)adaptFlag:(FlagType)flagType
++ (NSString *)adaptFlag:(LFUserFlag)flagType
 {
     switch (flagType) {
-        case OFFENSIVE:
+        case LFFlagOffensive:
             return @"offensive";
             break;
-        case SPAM:
+        case LFFlagSpam:
             return @"spam";
-        case DISAGREE:
+        case LFFlagDisagree:
             return @"disagree";
-        case OFF_TOPIC:
+        case LFFlagOfftopic:
             return @"off-topic";
         default:
             [NSException raise:@"Unknown flag type" format:@"Unknown flag type: '%d'", flagType];

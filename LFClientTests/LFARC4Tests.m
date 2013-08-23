@@ -27,8 +27,12 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-#import "LFARC4Tests.h"
+#import <SenTestingKit/SenTestingKit.h>
+
 #import "LFClient.h"
+
+@interface LFARC4Tests : SenTestCase
+@end
 
 @implementation LFARC4Tests
 - (void)testDecrypt {

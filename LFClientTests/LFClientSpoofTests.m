@@ -27,23 +27,31 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
+#import <SenTestingKit/SenTestingKit.h>
 
-#import "LFClientSpoofTests.h"
 #import "LFTestingURLProtocol.h"
 #import "LFClient.h"
 #import "LFConfig.h"
 #import "JSONKit.h"
 #import "LFHTTPBoostrapClient.h"
 #import "LFHTTPAdminClient.h"
+#import "LFHTTPWriteClient.h"
 
 #define EXP_SHORTHAND YES
 #import "Expecta.h"
+
+
+@interface LFClientSpoofTests : SenTestCase
+@end
 
 @interface LFClientSpoofTests()
 @property (readwrite, nonatomic, strong) LFHTTPBoostrapClient *client;
 @property (readwrite, nonatomic, strong) LFHTTPBoostrapClient *clientHottest;
 @property (readwrite, nonatomic, strong) LFHTTPBoostrapClient *clientUserContent;
 @property (readwrite, nonatomic, strong) LFHTTPAdminClient *clientAdmin;
+@property (readwrite, nonatomic, strong) LFHTTPWriteClient *clientLike;
+@property (readwrite, nonatomic, strong) LFHTTPWriteClient *clientPost;
+@property (readwrite, nonatomic, strong) LFHTTPWriteClient *clientFlag;
 @end
 
 @implementation LFClientSpoofTests
@@ -53,10 +61,15 @@
     //These tests are nominal.
     [NSURLProtocol registerClass:[LFTestingURLProtocol class]];
     
-    self.client = [[LFHTTPBoostrapClient alloc] initWithEnvironment:nil network:@"init-sample"];
-    self.clientHottest = [[LFHTTPBoostrapClient alloc] initWithEnvironment:nil network:@"hottest-sample"];
-    self.clientUserContent = [[LFHTTPBoostrapClient alloc] initWithEnvironment:nil network:@"usercontent-sample"];
-    self.clientAdmin = [[LFHTTPAdminClient alloc] initWithEnvironment:nil network:@"usercontent-sample"];
+    self.client = [LFHTTPBoostrapClient clientWithEnvironment:nil network:@"init-sample"];
+    self.clientHottest = [LFHTTPBoostrapClient clientWithEnvironment:nil network:@"hottest-sample"];
+    self.clientUserContent = [LFHTTPBoostrapClient clientWithEnvironment:nil network:@"usercontent-sample"];
+    
+    self.clientAdmin = [LFHTTPAdminClient clientWithEnvironment:nil network:@"usercontent-sample"];
+    
+    self.clientLike = [LFHTTPWriteClient clientWithEnvironment:nil network:@"like-sample" user:@"fakeUserToken"];
+    self.clientPost = [LFHTTPWriteClient clientWithEnvironment:nil network:@"post-sample" user:@"fakeUser"];
+    self.clientFlag = [LFHTTPWriteClient clientWithEnvironment:nil network:@"flag-sample" user:@"fakeUserToken"];
     
     // set timeout to 60 seconds
     [Expecta setAsynchronousTestTimeout:60.0f];
@@ -368,6 +381,7 @@
     expect(result).to.haveCountOf(3u);
 }
 
+#pragma mark -
 - (void)testUserAuthentication2 {
     //with collection
     __block NSDictionary *res = nil;
@@ -442,6 +456,32 @@
     STAssertEquals([res count], 3u, @"Like action should return 3 items");
 }
 
+- (void)testLikes2
+{
+    __block LFJSONRequestOperation *op = nil;
+    __block id result = nil;
+    
+    // Actual call would look something like this:
+    [self.clientLike postOpinion:LFDispositionLike
+                       forContent:@"fakeContent" inCollection:@"fakeColl" onSuccess:^(NSOperation *operation, id responseObject) {
+                           op = (LFJSONRequestOperation*)operation;
+                           result = responseObject;
+                       } onFailure:^(NSOperation *operation, NSError *error) {
+                           op = (LFJSONRequestOperation*)operation;
+                           NSLog(@"Error code %d, with description %@",
+                                 error.code,
+                                 [error localizedDescription]);
+                       }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).to.beTruthy();
+    expect(result).to.haveCountOf(3u);
+}
+
+#pragma mark -
 - (void)testPost {
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -467,6 +507,35 @@
 }
 
 
+- (void)testPost2
+{
+    __block LFJSONRequestOperation *op = nil;
+    __block id result = nil;
+    
+    // Actual call would look something like this:
+    NSString *content = [NSString
+                         stringWithFormat:@"test post, %d",
+                         arc4random()];
+    [self.clientPost postContent:content
+                   forCollection:@"fakeColl" inReplyTo:nil onSuccess:^(NSOperation *operation, id responseObject) {
+                       op = (LFJSONRequestOperation*)operation;
+                       result = responseObject;
+                   } onFailure:^(NSOperation *operation, NSError *error) {
+                       op = (LFJSONRequestOperation*)operation;
+                       NSLog(@"Error code %d, with description %@",
+                             error.code,
+                             [error localizedDescription]);
+                   }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).to.beTruthy();
+    expect(result).to.haveCountOf(3u);
+}
+
+#pragma mark -
 - (void)testFlag {
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -474,7 +543,7 @@
     [LFWriteClient flagContent:@"fakeContent"
                  forCollection:@"fakeCollection"
                        network:@"flag-sample"
-                      withFlag:OFF_TOPIC
+                      withFlag:LFFlagOfftopic
                           user:@"fakeUser"
                          notes:@"fakeNotes"
                          email:@"fakeEmail"
@@ -491,6 +560,32 @@
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     STAssertEquals([res count], 3u, @"Post content should return 3 items");
 }
+
+- (void)testFlag2
+{
+    __block LFJSONRequestOperation *op = nil;
+    __block id result = nil;
+    
+    // Actual call would look something like this:
+    [self.clientFlag postFlag:LFFlagOfftopic
+                   forContent:@"fakeContent" inCollection:@"fakeCollection" parameters:@{@"notes":@"fakeNotes", @"email":@"fakeEmail"} onSuccess:^(NSOperation *operation, id responseObject) {
+                       op = (LFJSONRequestOperation*)operation;
+                       result = responseObject;
+                   } onFailure:^(NSOperation *operation, NSError *error) {
+                       op = (LFJSONRequestOperation*)operation;
+                       NSLog(@"Error code %d, with description %@",
+                             error.code,
+                             [error localizedDescription]);
+                   }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).to.beTruthy();
+    expect(result).to.haveCountOf(3u);
+}
+
 
 //- (void)testStream {
 //    __block NSDictionary *res = nil;
