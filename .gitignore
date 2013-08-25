@@ -26,3 +26,9 @@ LFConfig.plist
 #CocoaPods
 Pods/
 Podfile.lock
+
+#ctags
+tags
+
+# Vim
+*.swp
