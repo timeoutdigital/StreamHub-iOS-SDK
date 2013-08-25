@@ -86,7 +86,7 @@ static AFHTTPClient *_httpClient;
             path = [path stringByAppendingString:[@"?" stringByAppendingString:[params queryString]]];
         }
     }
-    NSURL *connectionURL = [[NSURL alloc] initWithScheme:kLFSDKScheme host:host path:path];
+    NSURL *connectionURL = [[NSURL alloc] initWithScheme:LFSScheme host:host path:path];
     //NSLog(@"Absolute URL string: %@", [connectionURL absoluteString]);
     
     NSMutableURLRequest *connectionReq = [[NSMutableURLRequest alloc] initWithURL:connectionURL];
@@ -119,7 +119,7 @@ static AFHTTPClient *_httpClient;
     NSParameterAssert(path != nil);
     NSParameterAssert(httpMethod != nil);
     
-    NSURL *url = [[NSURL alloc] initWithScheme:kLFSDKScheme host:host path:@"/"];
+    NSURL *url = [[NSURL alloc] initWithScheme:LFSScheme host:host path:@"/"];
     NSMutableURLRequest *request = [[self HTTPClientWithBaseURL:url] requestWithMethod:httpMethod
                                                                                   path:path
                                                                             parameters:params];
@@ -174,7 +174,7 @@ static AFHTTPClient *_httpClient;
     else if (!payload)
     {
         // empty payload
-        failure([NSError errorWithDomain:kLFErrorDomain
+        failure([NSError errorWithDomain:LFSErrorDomain
                                     code:code
                                 userInfo:@{NSLocalizedDescriptionKey:@"Response failed to return data."}
                  ]);
@@ -186,7 +186,7 @@ static AFHTTPClient *_httpClient;
         NSString *errorTemplate = @"Response was parsed as type %@ whereas NSDictionary was expected";
         NSString *errorDescription = [NSString stringWithFormat:errorTemplate,
                                       NSStringFromClass([payload class])];
-        failure([NSError errorWithDomain:kLFErrorDomain
+        failure([NSError errorWithDomain:LFSErrorDomain
                                     code:code
                                 userInfo:@{NSLocalizedDescriptionKey:errorDescription}
                  ]);
@@ -195,7 +195,7 @@ static AFHTTPClient *_httpClient;
     else if ([payload objectForKey:@"code"] && (code = [[payload objectForKey:@"code"] integerValue]) != 200)
     {
         // response code not HTTP 200
-        failure([NSError errorWithDomain:kLFErrorDomain
+        failure([NSError errorWithDomain:LFSErrorDomain
                                     code:code
                                 userInfo:@{NSLocalizedDescriptionKey:[payload objectForKey:@"msg"]}
                  ]);

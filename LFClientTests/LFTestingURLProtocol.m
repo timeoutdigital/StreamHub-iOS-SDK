@@ -33,7 +33,7 @@
 @implementation LFTestingURLProtocol
 + (BOOL)canInitWithRequest:(NSURLRequest *)request
 {
-    return [[[request URL] scheme] isEqualToString:kLFSDKScheme];
+    return [[[request URL] scheme] isEqualToString:LFSScheme];
 }
 
 + (NSURLRequest*)canonicalRequestForRequest:(NSURLRequest *)request

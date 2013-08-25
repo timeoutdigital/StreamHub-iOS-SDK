@@ -33,13 +33,13 @@
                      user:(NSString *)userToken;
 
 
-- (void)postOpinion:(LFUserDisposition)action
+- (void)postOpinion:(LFSUserDisposition)action
          forContent:(NSString *)contentId
        inCollection:(NSString *)collectionId
           onSuccess:(LFSuccessBlock)success
           onFailure:(LFFailureBlock)failure;
 
-- (void)postFlag:(LFUserFlag)flag
+- (void)postFlag:(LFSUserFlag)flag
       forContent:(NSString *)contentId
     inCollection:(NSString *)collectionId
       parameters:(NSDictionary*)parameters

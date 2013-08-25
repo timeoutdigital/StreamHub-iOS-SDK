@@ -32,8 +32,8 @@
 //TODO add constants and enums to appledoc.
 @interface LFConstants : NSObject
 
-extern NSString *const kLFSDKScheme;
-extern NSString *const kLFErrorDomain;
+extern NSString *const LFSScheme;
+extern NSString *const LFSErrorDomain;
 //
 extern NSString *const kShareTypeTwitter;
 extern NSString *const kShareTypeFacebook;
@@ -52,19 +52,19 @@ extern NSString *const kBootstrapDomain;
 extern NSString *const kQuillDomain;
 
 // user content preferences (like, unlike, etc)
-extern NSString* const LFUserDispositionString[];
-typedef NS_ENUM(NSUInteger, LFUserDisposition) {
-    LFDispositionLike = 0u,
-    LFDispositionUnlike
+extern NSString* const LFSUserDispositionString[];
+typedef NS_ENUM(NSUInteger, LFSUserDisposition) {
+    LFSDispositionLike = 0u,
+    LFSDispositionUnlike
 };
 
 // moderator content flags
-extern NSString* const LFUserFlagString[];
-typedef NS_ENUM(NSUInteger, LFUserFlag) {
-    LFFlagOffensive = 0u,
-    LFFlagSpam,
-    LFFlagDisagree,
-    LFFlagOfftopic
+extern NSString* const LFSUserFlagString[];
+typedef NS_ENUM(NSUInteger, LFSUserFlag) {
+    LFSFlagOffensive = 0u,
+    LFSFlagSpam,
+    LFSFlagDisagree,
+    LFSFlagOfftopic
 };
 
 enum ContentType {

@@ -46,7 +46,7 @@
     NSString *hostname = [network isEqualToString:@"livefyre.com"] ? environment : network;
     NSString *urlString = [NSString
                            stringWithFormat:@"%@://%@.%@/",
-                           kLFSDKScheme, kQuillDomain, hostname];
+                           LFSScheme, kQuillDomain, hostname];
     
     self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
     if (!self) {
@@ -64,7 +64,7 @@
 
 #pragma mark - Methods
 
-- (void)postOpinion:(LFUserDisposition)action
+- (void)postOpinion:(LFSUserDisposition)action
          forContent:(NSString *)contentId
        inCollection:(NSString *)collectionId
           onSuccess:(LFSuccessBlock)success
@@ -72,7 +72,7 @@
 {
     NSParameterAssert(contentId != nil);
     
-    NSString *actionEndpoint = LFUserDispositionString[action];
+    NSString *actionEndpoint = LFSUserDispositionString[action];
     NSDictionary *parameters = @{@"collection_id":collectionId,
                                  @"lftoken": _lfUser};
     NSString *path = [NSString
@@ -85,7 +85,7 @@
            failure:failure];
 }
 
-- (void)postFlag:(LFUserFlag)flag
+- (void)postFlag:(LFSUserFlag)flag
       forContent:(NSString *)contentId
     inCollection:(NSString *)collectionId
       parameters:(NSDictionary*)parameters
@@ -94,7 +94,7 @@
 {
     NSParameterAssert(contentId != nil);
     
-    NSString *flagString = LFUserFlagString[flag];
+    NSString *flagString = LFSUserFlagString[flag];
     NSMutableDictionary *parameters1 =
     [NSMutableDictionary
      dictionaryWithObjects:@[contentId, collectionId, flagString, _lfUser]

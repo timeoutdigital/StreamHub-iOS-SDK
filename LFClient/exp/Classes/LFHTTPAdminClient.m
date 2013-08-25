@@ -41,7 +41,7 @@
     
     NSString *hostname = [network isEqualToString:@"livefyre.com"] ? environment : network;
     NSString *urlString = [NSString stringWithFormat:@"%@://%@.%@/",
-                           kLFSDKScheme, kAdminDomain, hostname];
+                           LFSScheme, kAdminDomain, hostname];
     
     self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
     if (!self) {

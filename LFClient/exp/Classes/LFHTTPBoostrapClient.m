@@ -44,7 +44,7 @@
     
     NSString *hostname = [network isEqualToString:@"livefyre.com"] ? environment : network;
     NSString *urlString = [NSString stringWithFormat:@"%@://%@.%@/",
-                           kLFSDKScheme, kBootstrapDomain, hostname];
+                           LFSScheme, kBootstrapDomain, hostname];
     
     self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
     if (!self) {
@@ -112,7 +112,7 @@
         __weak NSBlockOperation *opFailure1 = opFailure;
         [opFailure addExecutionBlock:^{
             failure(opFailure1,
-                    [NSError errorWithDomain:kLFErrorDomain
+                    [NSError errorWithDomain:LFSErrorDomain
                                         code:416u
                                     userInfo:@{NSLocalizedDescriptionKey:@"Page index outside of collection page bounds."}]
                     );

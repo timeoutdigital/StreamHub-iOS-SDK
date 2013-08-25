@@ -463,7 +463,7 @@
     __block id result = nil;
     
     // Actual call would look something like this:
-    [self.clientLike postOpinion:LFDispositionLike
+    [self.clientLike postOpinion:LFSDispositionLike
                       forContent:@"fakeContent"
                     inCollection:@"fakeColl"
                        onSuccess:^(NSOperation *operation, id responseObject) {
@@ -551,7 +551,7 @@
     [LFWriteClient flagContent:@"fakeContent"
                  forCollection:@"fakeCollection"
                        network:@"flag-sample"
-                      withFlag:LFFlagOfftopic
+                      withFlag:LFSFlagOfftopic
                           user:@"fakeUser"
                          notes:@"fakeNotes"
                          email:@"fakeEmail"
@@ -576,7 +576,7 @@
     __block id result = nil;
     
     // Actual call would look something like this:
-    [self.clientFlag postFlag:LFFlagOfftopic
+    [self.clientFlag postFlag:LFSFlagOfftopic
                    forContent:@"fakeContent"
                  inCollection:@"fakeCollection"
                    parameters:@{@"notes":@"fakeNotes", @"email":@"fakeEmail"}

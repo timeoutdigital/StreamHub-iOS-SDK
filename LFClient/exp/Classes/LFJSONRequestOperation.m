@@ -80,7 +80,7 @@ static dispatch_queue_t json_request_operation_processing_queue() {
     if (!responseJSON)
     {
         // empty payload
-        self.JSONError = [NSError errorWithDomain:kLFErrorDomain
+        self.JSONError = [NSError errorWithDomain:LFSErrorDomain
                                              code:code
                                          userInfo:@{NSLocalizedDescriptionKey:@"Response failed to return data."}
                           ];
@@ -92,7 +92,7 @@ static dispatch_queue_t json_request_operation_processing_queue() {
         NSString *errorTemplate = @"Response was parsed as type `%@' whereas a dictionary was expected";
         NSString *errorDescription = [NSString stringWithFormat:errorTemplate,
                                       NSStringFromClass([responseJSON class])];
-        self.JSONError = [NSError errorWithDomain:kLFErrorDomain
+        self.JSONError = [NSError errorWithDomain:LFSErrorDomain
                                              code:code
                                          userInfo:@{NSLocalizedDescriptionKey:errorDescription}
                           ];
@@ -103,7 +103,7 @@ static dispatch_queue_t json_request_operation_processing_queue() {
         // response code not HTTP 200
         NSString *errorTemplate = @"Response code was %d whereas code 200 was expected";
         NSString *errorMsg = [responseJSON objectForKey:@"msg"] ?: [NSString stringWithFormat:errorTemplate, code];
-        self.JSONError = [NSError errorWithDomain:kLFErrorDomain
+        self.JSONError = [NSError errorWithDomain:LFSErrorDomain
                                              code:code
                                          userInfo:@{NSLocalizedDescriptionKey:errorMsg}
                           ];

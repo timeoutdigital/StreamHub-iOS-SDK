@@ -111,7 +111,7 @@
 + (void)flagContent:(NSString *)contentId
       forCollection:(NSString *)collectionId
             network:(NSString *)networkDomain
-           withFlag:(LFUserFlag)flagType
+           withFlag:(LFSUserFlag)flagType
                user:(NSString *)userToken
               notes:(NSString *)notes
               email:(NSString *)email
@@ -142,17 +142,17 @@
                 onFailure:failure];
 }
 
-+ (NSString *)adaptFlag:(LFUserFlag)flagType
++ (NSString *)adaptFlag:(LFSUserFlag)flagType
 {
     switch (flagType) {
-        case LFFlagOffensive:
+        case LFSFlagOffensive:
             return @"offensive";
             break;
-        case LFFlagSpam:
+        case LFSFlagSpam:
             return @"spam";
-        case LFFlagDisagree:
+        case LFSFlagDisagree:
             return @"disagree";
-        case LFFlagOfftopic:
+        case LFSFlagOfftopic:
             return @"off-topic";
         default:
             [NSException raise:@"Unknown flag type" format:@"Unknown flag type: '%d'", flagType];

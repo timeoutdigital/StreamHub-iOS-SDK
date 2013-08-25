@@ -31,20 +31,20 @@
 
 @implementation LFConstants
 
-NSString* const LFUserDispositionString[] = {
+NSString* const LFSUserDispositionString[] = {
     @"like",
     @"unlike"
 };
 
-NSString* const LFUserFlagString[] = {
+NSString* const LFSUserFlagString[] = {
     @"offensive",
     @"spam",
     @"disagree",
     @"off-topic"
 };
 
-NSString *const kLFSDKScheme = @"http";
-NSString *const kLFErrorDomain = @"LFSDKErrorDomain";
+NSString *const LFSScheme = @"http";
+NSString *const LFSErrorDomain = @"LFSErrorDomain";
 //
 NSString *const kShareTypeTwitter = @"twitter";
 NSString *const kShareTypeFacebook = @"facebook";

@@ -71,7 +71,7 @@
     NSUInteger nPages = [[initInfo valueForKeyPath:@"collectionSettings.archiveInfo.nPages"] integerValue];
     
     if (pageIndex >= nPages) {
-        failure([NSError errorWithDomain:kLFErrorDomain code:400u userInfo:@{NSLocalizedDescriptionKey: @"Page index outside of collection page bounds."}]);
+        failure([NSError errorWithDomain:LFSErrorDomain code:400u userInfo:@{NSLocalizedDescriptionKey: @"Page index outside of collection page bounds."}]);
         return;
     }
     

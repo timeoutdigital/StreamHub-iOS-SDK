@@ -118,7 +118,7 @@
 + (void)flagContent:(NSString *)contentId
       forCollection:(NSString *)collectionId
             network:(NSString *)networkDomain
-           withFlag:(LFUserFlag)flagType
+           withFlag:(LFSUserFlag)flagType
                user:(NSString *)userToken
               notes:(NSString *)notes
               email:(NSString *)email

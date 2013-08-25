@@ -411,7 +411,7 @@
     __block LFJSONRequestOperation *op = nil;
     __block NSDictionary *result = nil;
     
-    [self.clientWrite postOpinion:LFDispositionLike
+    [self.clientWrite postOpinion:LFSDispositionLike
                        forContent:[LFConfig objectForKey:@"content"]
                      inCollection:[LFConfig objectForKey:@"collection"]
                         onSuccess:^(NSOperation *operation, id responseObject) {
@@ -456,7 +456,7 @@
     __block LFJSONRequestOperation *op = nil;
     __block NSDictionary *result = nil;
     
-    [self.clientWrite postOpinion:LFDispositionUnlike
+    [self.clientWrite postOpinion:LFSDispositionUnlike
                        forContent:[LFConfig objectForKey:@"content"]
                      inCollection:[LFConfig objectForKey:@"collection"]
                         onSuccess:^(NSOperation *operation, id responseObject) {
@@ -596,7 +596,7 @@
     [LFWriteClient flagContent:[LFConfig objectForKey:@"content"]
                  forCollection:[LFConfig objectForKey:@"collection"]
                        network:[LFConfig objectForKey:@"domain"]
-                      withFlag:LFFlagOfftopic
+                      withFlag:LFSFlagOfftopic
                           user:[LFConfig objectForKey:@"moderator user auth token"]
                          notes:@"fakeNotes"
                          email:@"fakeEmail"
@@ -620,7 +620,7 @@
     __block id result = nil;
 
     // Actual call would look something like this:
-    [self.clientWrite postFlag:LFFlagOfftopic
+    [self.clientWrite postFlag:LFSFlagOfftopic
                     forContent:[LFConfig objectForKey:@"content"]
                   inCollection:[LFConfig objectForKey:@"collection"]
                     parameters:@{@"notes":@"fakeNotes", @"email":@"fakeEmail"}

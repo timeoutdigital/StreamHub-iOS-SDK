@@ -41,7 +41,7 @@ static const NSTimeInterval kLFStreamTimeout = 65.0f;
     
     NSString *host = [NSString stringWithFormat:@"%@.%@", kStreamDomain, networkDomain];
     NSString *eventlessPath = [NSString stringWithFormat:@"/v3.0/collection/%@/", collectionId];
-    return [NSString stringWithFormat:@"%@://%@%@", kLFSDKScheme, host, eventlessPath];
+    return [NSString stringWithFormat:@"%@://%@%@", LFSScheme, host, eventlessPath];
 }
 
 + (NSDictionary *)pollStreamEndpoint:(NSString *)endpoint
@@ -76,7 +76,7 @@ static const NSTimeInterval kLFStreamTimeout = 65.0f;
     
     if (payload) {
         if ([payload objectForKey:@"timeout"]) {
-            *timeout = [NSError errorWithDomain:kLFErrorDomain
+            *timeout = [NSError errorWithDomain:LFSErrorDomain
                                            code:408
                                        userInfo:@{NSLocalizedDescriptionKey:@"Request timed out."}
                         ];
