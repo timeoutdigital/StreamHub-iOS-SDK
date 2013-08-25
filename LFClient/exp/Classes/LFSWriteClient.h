@@ -1,5 +1,5 @@
 //
-//  LFHTTPWriteClient.h
+//  LFSWriteClient.h
 //  LFClient
 //
 //  Created by Eugene Scherba on 8/22/13.
@@ -8,9 +8,9 @@
 
 #import "lftypes.h"
 #import "AFHTTPClient.h"
-#import "LFJSONRequestOperation.h"
+#import "LFSJSONRequestOperation.h"
 
-@interface LFHTTPWriteClient : AFHTTPClient
+@interface LFSWriteClient : AFHTTPClient
 
 @property (nonatomic, readonly, strong) NSString* lfEnvironment;
 @property (nonatomic, readonly, strong) NSString* lfNetwork;
@@ -33,7 +33,7 @@
                      user:(NSString *)userToken;
 
 
-- (void)postOpinion:(LFSUserDisposition)action
+- (void)postOpinion:(LFSOpinion)action
          forContent:(NSString *)contentId
        inCollection:(NSString *)collectionId
           onSuccess:(LFSuccessBlock)success

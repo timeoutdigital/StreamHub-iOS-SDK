@@ -52,10 +52,10 @@ extern NSString *const kBootstrapDomain;
 extern NSString *const kQuillDomain;
 
 // user content preferences (like, unlike, etc)
-extern NSString* const LFSUserDispositionString[];
-typedef NS_ENUM(NSUInteger, LFSUserDisposition) {
-    LFSDispositionLike = 0u,
-    LFSDispositionUnlike
+extern NSString* const LFSOpinionString[];
+typedef NS_ENUM(NSUInteger, LFSOpinion) {
+    LFSOpinionLike = 0u,
+    LFSOpinionUnlike
 };
 
 // moderator content flags
@@ -67,42 +67,42 @@ typedef NS_ENUM(NSUInteger, LFSUserFlag) {
     LFSFlagOfftopic
 };
 
-enum ContentType {
+typedef NS_ENUM(NSUInteger, LFSContentType) {
     // A message posted by a user in reply to an article or another comment.
-    ContentTypeMessage = 0,
+    LFSContentTypeMessage = 0u,
     // An opinion from a user indicating that they like a comment or an embed.
-    ContentTypeOpine = 1,
+    LFSContentTypeOpine,
     // An embedded image which is part of a comment.
-    ContentTypeEmbed = 3
+    LFSContentTypeEmbed
 };
 
-enum ContentVisibility {
+typedef NS_ENUM(NSUInteger, LFSContentVisibility) {
     // The content is visible to no one, usually due to being deleted.
-    ContentVisibilityNone = 0,
+    LFSContentVisibilityNone = 0,
     // The content is visible to everyone.
-    ContentVisibilityEveryone = 1,
+    LFSContentVisibilityEveryone = 1,
     // The content is visible to only the author due to bozoing.
-    ContentVisibilityOwner = 2,
+    LFSContentVisibilityOwner = 2,
     // The content is visible to the author and any moderators for the
     // collection, usually meaning that it's waiting for approval.
-    ContentVisibilityGroup = 3
+    LFSContentVisibilityGroup = 3
 };
 
-enum Permissions {
-    PermissionsNone = 0,
-    PermissionsWhitelist = 1,
-    PermissionsBlacklist = 2,
-    PermissionsGraylist = 3,
-    PermissionsModerator = 4
+typedef NS_ENUM(NSUInteger, LFSPermissions) {
+    LFSPermissionsNone = 0,
+    LFSPermissionsWhitelist = 1,
+    LFSPermissionsBlacklist = 2,
+    LFSPermissionsGraylist = 3,
+    LFSPermissionsModerator = 4
 };
 
-typedef enum LFPermissionScope {
-    LFPermissionScopeGlobal = 0,
-    LFPermissionScopeNetwork = 1,
-    LFPermissionScopeSite = 2,
-    LFPermissionScopeCollection = 3,
-    LFPermissionScopeCollectionRule = 4
-} LFPermissionScope;
+typedef NS_ENUM(NSUInteger, LFSPermissionScope) {
+    LFSPermissionScopeGlobal = 0,
+    LFSPermissionScopeNetwork = 1,
+    LFSPermissionScopeSite = 2,
+    LFSPermissionScopeCollection = 3,
+    LFSPermissionScopeCollectionRule = 4
+};
 
 
 @end

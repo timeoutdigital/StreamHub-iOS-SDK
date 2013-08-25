@@ -1,15 +1,15 @@
 //
-//  LFHTTPAdminClient.m
+//  LFSAdminClient.m
 //  LFClient
 //
 //  Created by Eugene Scherba on 8/22/13.
 //  Copyright (c) 2013 Livefyre. All rights reserved.
 //
 
-#import "LFHTTPAdminClient.h"
+#import "LFSAdminClient.h"
 #import "NSString+Base64Encoding.h"
 
-@implementation LFHTTPAdminClient
+@implementation LFSAdminClient
 
 @synthesize lfEnvironment = _lfEnvironment;
 @synthesize lfNetwork = _lfNetwork;
@@ -48,7 +48,7 @@
         return nil;
     }
     
-    [self registerHTTPOperationClass:[LFJSONRequestOperation class]];
+    [self registerHTTPOperationClass:[LFSJSONRequestOperation class]];
     
     // Accept HTTP Header;
     // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1

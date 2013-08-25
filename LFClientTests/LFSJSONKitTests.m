@@ -13,13 +13,13 @@
 #define EXP_SHORTHAND YES
 #import "Expecta.h"
 
-@interface LFJSONKitTests : SenTestCase
+@interface LFSJSONKitTests : SenTestCase
 @end
 
-@interface LFJSONKitTests ()
+@interface LFSJSONKitTests ()
 @end
 
-@implementation LFJSONKitTests
+@implementation LFSJSONKitTests
 
 - (void)setUp
 {

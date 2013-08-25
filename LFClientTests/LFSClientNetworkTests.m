@@ -33,29 +33,29 @@
 
 #import "LFClient.h"
 #import "LFConfig.h"
-#import "LFHTTPBoostrapClient.h"
-#import "LFHTTPAdminClient.h"
-#import "LFHTTPWriteClient.h"
+#import "LFSBoostrapClient.h"
+#import "LFSAdminClient.h"
+#import "LFSWriteClient.h"
 
-#import "LFJSONRequestOperation.h"
+#import "LFSJSONRequestOperation.h"
 #import "NSString+Base64Encoding.h"
 #import <AFJSONRequestOperation.h>
 
 #define EXP_SHORTHAND YES
 #import "Expecta.h"
 
-@interface LFClientNetworkTests : SenTestCase
+@interface LFSClientNetworkTests : SenTestCase
 @end
 
-@interface LFClientNetworkTests()
+@interface LFSClientNetworkTests()
 @property (nonatomic) NSString *event;
-@property (readwrite, nonatomic, strong) LFHTTPBoostrapClient *client;
-@property (readwrite, nonatomic, strong) LFHTTPBoostrapClient *clientLabs;
-@property (readwrite, nonatomic, strong) LFHTTPAdminClient *clientAdmin;
-@property (readwrite, nonatomic, strong) LFHTTPWriteClient *clientWrite;
+@property (readwrite, nonatomic, strong) LFSBoostrapClient *client;
+@property (readwrite, nonatomic, strong) LFSBoostrapClient *clientLabs;
+@property (readwrite, nonatomic, strong) LFSAdminClient *clientAdmin;
+@property (readwrite, nonatomic, strong) LFSWriteClient *clientWrite;
 @end
 
-@implementation LFClientNetworkTests
+@implementation LFSClientNetworkTests
 
 - (void)setUp
 {
@@ -66,13 +66,13 @@
         STFail(@"No test settings");
     }
     
-    self.client = [LFHTTPBoostrapClient clientWithEnvironment:[LFConfig objectForKey:@"environment"]
+    self.client = [LFSBoostrapClient clientWithEnvironment:[LFConfig objectForKey:@"environment"]
                                                       network:[LFConfig objectForKey:@"domain"]];
-    self.clientLabs = [LFHTTPBoostrapClient clientWithEnvironment:[LFConfig objectForKey:@"environment"] network:[LFConfig objectForKey:@"labs network"]];
+    self.clientLabs = [LFSBoostrapClient clientWithEnvironment:[LFConfig objectForKey:@"environment"] network:[LFConfig objectForKey:@"labs network"]];
     
-    self.clientAdmin = [LFHTTPAdminClient clientWithEnvironment:nil network:[LFConfig objectForKey:@"domain"]];
+    self.clientAdmin = [LFSAdminClient clientWithEnvironment:nil network:[LFConfig objectForKey:@"domain"]];
     
-    self.clientWrite = [LFHTTPWriteClient clientWithEnvironment:nil network:[LFConfig objectForKey:@"domain"] user:[LFConfig objectForKey:@"moderator user auth token"]];
+    self.clientWrite = [LFSWriteClient clientWithEnvironment:nil network:[LFConfig objectForKey:@"domain"] user:[LFConfig objectForKey:@"moderator user auth token"]];
     
     // set timeout to 60 seconds
     [Expecta setAsynchronousTestTimeout:60.0f];
@@ -126,7 +126,7 @@
                       [LFConfig objectForKey:@"site"],
                       [[LFConfig objectForKey:@"article"] base64EncodedString]];
     NSURLRequest *request = [self.client requestWithMethod:@"GET" path:path parameters:nil];
-    LFJSONRequestOperation *op = [LFJSONRequestOperation
+    LFSJSONRequestOperation *op = [LFSJSONRequestOperation
                                   JSONRequestOperationWithRequest:request
                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                       result = JSON;
@@ -167,7 +167,7 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
     expect(result).to.haveCountOf(4);
@@ -175,25 +175,25 @@
 
 - (void)testInitWithGetInitForArticle
 {
-    __block LFJSONRequestOperation *op = nil;
+    __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
     
     // This is the easiest way to use LFHTTPClient
     [self.client getInitForSite:[LFConfig objectForKey:@"site"]
                         article:[LFConfig objectForKey:@"article"]
                       onSuccess:^(NSOperation *operation, id JSON){
-                          op = (LFJSONRequestOperation*)operation;
+                          op = (LFSJSONRequestOperation*)operation;
                           result = JSON;
                       }
                       onFailure:^(NSOperation *operation, NSError *error) {
-                          op = (LFJSONRequestOperation*)operation;
+                          op = (LFSJSONRequestOperation*)operation;
                           NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                       }
      ];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
     expect(result).to.haveCountOf(4);
@@ -223,7 +223,7 @@
 
 - (void)testHeatAPIWithGetHottestCollections
 {
-    __block LFJSONRequestOperation *op = nil;
+    __block LFSJSONRequestOperation *op = nil;
     __block NSArray *result = nil;
     
     // Actual call would look something like this:
@@ -231,16 +231,16 @@
                                           tag:@"tag"
                                desiredResults:10u
                                     onSuccess:^(NSOperation *operation, id responseObject) {
-                                        op = (LFJSONRequestOperation *)operation;
+                                        op = (LFSJSONRequestOperation *)operation;
                                         result = (NSArray *)responseObject;
                                     } onFailure:^(NSOperation *operation, NSError *error) {
-                                        op = (LFJSONRequestOperation *)operation;
+                                        op = (LFSJSONRequestOperation *)operation;
                                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                     }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
 }
@@ -268,22 +268,22 @@
 
 - (void)testUserDataRetrievalHTTP
 {
-    __block LFJSONRequestOperation *op = nil;
+    __block LFSJSONRequestOperation *op = nil;
     __block NSArray *result = nil;
     
     // Actual call would look something like this:
     [self.clientLabs getUserContentForUser:[LFConfig objectForKey:@"system user"]
                                      token:nil statuses:nil offset:0 onSuccess:^(NSOperation *operation, id responseObject) {
-                                         op = (LFJSONRequestOperation *)operation;
+                                         op = (LFSJSONRequestOperation *)operation;
                                          result = (NSArray *)responseObject;
                                      } onFailure:^(NSOperation *operation, NSError *error) {
-                                         op = (LFJSONRequestOperation *)operation;
+                                         op = (LFSJSONRequestOperation *)operation;
                                          NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                      }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
 }
@@ -313,7 +313,7 @@
 
 - (void)testUserAuthenticationSiteArticleHTTP {
     //with collection id
-    __block LFJSONRequestOperation *op = nil;
+    __block LFSJSONRequestOperation *op = nil;
     __block NSDictionary *result = nil;
     
     NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
@@ -322,17 +322,17 @@
                                            site:[LFConfig objectForKey:@"site"]
                                         article:[LFConfig objectForKey:@"article"]
                                       onSuccess:^(NSOperation *operation, id responseObject) {
-                                          op = (LFJSONRequestOperation *)operation;
+                                          op = (LFSJSONRequestOperation *)operation;
                                           result = (NSDictionary *)responseObject;
                                       }
                                       onFailure:^(NSOperation *operation, NSError *error) {
-                                          op = (LFJSONRequestOperation *)operation;
+                                          op = (LFSJSONRequestOperation *)operation;
                                           NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                       }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect([result objectForKey:@"status"]).to.equal(@"ok");
 }
@@ -362,7 +362,7 @@
 
 - (void)testUserAuthenticationCollectionHTTP {
     //with collection id
-    __block LFJSONRequestOperation *op = nil;
+    __block LFSJSONRequestOperation *op = nil;
     __block NSDictionary *result = nil;
     
     NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
@@ -370,17 +370,17 @@
     [self.clientAdmin authenticateUserWithToken:userToken
                                      collection:[LFConfig objectForKey:@"collection"]
                                       onSuccess:^(NSOperation *operation, id responseObject) {
-                                          op = (LFJSONRequestOperation *)operation;
+                                          op = (LFSJSONRequestOperation *)operation;
                                           result = (NSDictionary *)responseObject;
                                       }
                                       onFailure:^(NSOperation *operation, NSError *error) {
-                                          op = (LFJSONRequestOperation *)operation;
+                                          op = (LFSJSONRequestOperation *)operation;
                                           NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                                       }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect([result objectForKey:@"status"]).to.equal(@"ok");
 }
@@ -408,24 +408,24 @@
 }
 
 - (void)testLikesHTTP {
-    __block LFJSONRequestOperation *op = nil;
+    __block LFSJSONRequestOperation *op = nil;
     __block NSDictionary *result = nil;
     
-    [self.clientWrite postOpinion:LFSDispositionLike
+    [self.clientWrite postOpinion:LFSOpinionLike
                        forContent:[LFConfig objectForKey:@"content"]
                      inCollection:[LFConfig objectForKey:@"collection"]
                         onSuccess:^(NSOperation *operation, id responseObject) {
-                            op = (LFJSONRequestOperation *)operation;
+                            op = (LFSJSONRequestOperation *)operation;
                             result = (NSDictionary *)responseObject;
                         }
                         onFailure:^(NSOperation *operation, NSError *error) {
-                            op = (LFJSONRequestOperation *)operation;
+                            op = (LFSJSONRequestOperation *)operation;
                             NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                         }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect([result objectForKey:@"status"]).to.equal(@"ok");
 }
@@ -453,24 +453,24 @@
 }
 
 - (void)testUnlikesHTTP {
-    __block LFJSONRequestOperation *op = nil;
+    __block LFSJSONRequestOperation *op = nil;
     __block NSDictionary *result = nil;
     
-    [self.clientWrite postOpinion:LFSDispositionUnlike
+    [self.clientWrite postOpinion:LFSOpinionUnlike
                        forContent:[LFConfig objectForKey:@"content"]
                      inCollection:[LFConfig objectForKey:@"collection"]
                         onSuccess:^(NSOperation *operation, id responseObject) {
-                            op = (LFJSONRequestOperation *)operation;
+                            op = (LFSJSONRequestOperation *)operation;
                             result = (NSDictionary *)responseObject;
                         }
                         onFailure:^(NSOperation *operation, NSError *error) {
-                            op = (LFJSONRequestOperation *)operation;
+                            op = (LFSJSONRequestOperation *)operation;
                             NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
                         }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect([result objectForKey:@"status"]).to.equal(@"ok");
 }
@@ -503,7 +503,7 @@
 
 - (void)testPostHTTP
 {
-    __block LFJSONRequestOperation *op = nil;
+    __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
     
     // Actual call would look something like this:
@@ -511,11 +511,11 @@
                     forCollection:[LFConfig objectForKey:@"collection"]
                         inReplyTo:nil
                         onSuccess:^(NSOperation *operation, id responseObject) {
-                            op = (LFJSONRequestOperation*)operation;
+                            op = (LFSJSONRequestOperation*)operation;
                             result = responseObject;
                         }
                         onFailure:^(NSOperation *operation, NSError *error) {
-                            op = (LFJSONRequestOperation*)operation;
+                            op = (LFSJSONRequestOperation*)operation;
                             NSLog(@"Error code %d, with description %@",
                                   error.code,
                                   [error localizedDescription]);
@@ -523,7 +523,7 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
     expect([result objectForKey:@"status"]).to.equal(@"ok");
@@ -557,7 +557,7 @@
 
 - (void)testPostInReplyToHTTP
 {
-    __block LFJSONRequestOperation *op = nil;
+    __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
     
     NSString *parent = [LFConfig objectForKey:@"content"];
@@ -567,11 +567,11 @@
                     forCollection:[LFConfig objectForKey:@"collection"]
                         inReplyTo:parent
                         onSuccess:^(NSOperation *operation, id responseObject) {
-                            op = (LFJSONRequestOperation*)operation;
+                            op = (LFSJSONRequestOperation*)operation;
                             result = responseObject;
                         }
                         onFailure:^(NSOperation *operation, NSError *error) {
-                            op = (LFJSONRequestOperation*)operation;
+                            op = (LFSJSONRequestOperation*)operation;
                             NSLog(@"Error code %d, with description %@",
                                   error.code,
                                   [error localizedDescription]);
@@ -579,7 +579,7 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
     expect([result objectForKey:@"status"]).to.equal(@"ok");
@@ -616,7 +616,7 @@
 
 - (void)testFlagHTTP
 {
-    __block LFJSONRequestOperation *op = nil;
+    __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
 
     // Actual call would look something like this:
@@ -625,11 +625,11 @@
                   inCollection:[LFConfig objectForKey:@"collection"]
                     parameters:@{@"notes":@"fakeNotes", @"email":@"fakeEmail"}
                      onSuccess:^(NSOperation *operation, id responseObject) {
-                         op = (LFJSONRequestOperation*)operation;
+                         op = (LFSJSONRequestOperation*)operation;
                          result = responseObject;
                      }
                      onFailure:^(NSOperation *operation, NSError *error) {
-                         op = (LFJSONRequestOperation*)operation;
+                         op = (LFSJSONRequestOperation*)operation;
                          NSLog(@"Error code %d, with description %@",
                                error.code,
                                [error localizedDescription]);
@@ -637,7 +637,7 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFJSONRequestOperation class]);
+    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
     expect([result objectForKey:@"status"]).to.equal(@"ok");

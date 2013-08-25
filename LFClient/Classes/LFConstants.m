@@ -31,7 +31,7 @@
 
 @implementation LFConstants
 
-NSString* const LFSUserDispositionString[] = {
+NSString* const LFSOpinionString[] = {
     @"like",
     @"unlike"
 };

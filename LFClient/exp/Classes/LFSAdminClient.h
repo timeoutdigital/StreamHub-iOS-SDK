@@ -1,5 +1,5 @@
 //
-//  LFHTTPAdminClient.h
+//  LFSAdminClient.h
 //  LFClient
 //
 //  Created by Eugene Scherba on 8/22/13.
@@ -8,9 +8,9 @@
 
 #import "lftypes.h"
 #import "AFHTTPClient.h"
-#import "LFJSONRequestOperation.h"
+#import "LFSJSONRequestOperation.h"
 
-@interface LFHTTPAdminClient : AFHTTPClient
+@interface LFSAdminClient : AFHTTPClient
 
 @property (nonatomic, readonly, strong) NSString* lfEnvironment;
 @property (nonatomic, readonly, strong) NSString* lfNetwork;

@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Livefyre. All rights reserved.
 //
 
-#import "LFJSONRequestOperation.h"
+#import "LFSJSONRequestOperation.h"
 #import "JSONKit.h"
 
 static dispatch_queue_t json_request_operation_processing_queue() {
@@ -19,13 +19,13 @@ static dispatch_queue_t json_request_operation_processing_queue() {
     return lf_json_request_operation_processing_queue;
 }
 
-@interface LFJSONRequestOperation ()
+@interface LFSJSONRequestOperation ()
 @property (readwrite, nonatomic, strong) id responseJSON;
 @property (readwrite, nonatomic, strong) NSError *JSONError;
 @property (readwrite, nonatomic, strong) NSRecursiveLock *lock;
 @end
 
-@implementation LFJSONRequestOperation
+@implementation LFSJSONRequestOperation
 @synthesize responseJSON = _responseJSON;
 @synthesize JSONReadingOptions = _JSONReadingOptions;
 @synthesize JSONError = _JSONError;
@@ -35,14 +35,14 @@ static dispatch_queue_t json_request_operation_processing_queue() {
 										success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id JSON))success
 										failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON))failure
 {
-    LFJSONRequestOperation *requestOperation = [(LFJSONRequestOperation *)[self alloc] initWithRequest:urlRequest];
+    LFSJSONRequestOperation *requestOperation = [(LFSJSONRequestOperation *)[self alloc] initWithRequest:urlRequest];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseJSON) {
         if (success) {
             success(operation.request, operation.response, responseJSON);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (failure) {
-            failure(operation.request, operation.response, error, [(LFJSONRequestOperation *)operation responseJSON]);
+            failure(operation.request, operation.response, error, [(LFSJSONRequestOperation *)operation responseJSON]);
         }
     }];
     

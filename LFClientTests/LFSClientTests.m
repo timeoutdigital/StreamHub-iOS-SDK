@@ -21,10 +21,10 @@
 // THE SOFTWARE.
 
 #import "LFNetworkingTests.h"
-#import "LFHTTPBoostrapClient.h"
-#import "LFJSONRequestOperation.h"
+#import "LFSBoostrapClient.h"
+#import "LFSJSONRequestOperation.h"
 
-@interface LFBufferedInputStreamProvider : NSObject <NSStreamDelegate>
+@interface LFSBufferedInputStreamProvider : NSObject <NSStreamDelegate>
 @property (nonatomic, strong) NSData *data;
 @property (nonatomic, strong) NSInputStream *inputStream;
 @property (nonatomic, strong) NSOutputStream *outputStream;
@@ -35,7 +35,7 @@
 
 #pragma mark - LFBufferedInputStreamProvider
 
-@implementation LFBufferedInputStreamProvider
+@implementation LFSBufferedInputStreamProvider
 
 - (id)initWithData:(NSData *)data {
     self = [super init];
@@ -108,25 +108,25 @@
 
 #pragma mark - Test setup
 
-@interface LFHTTPClientTests : SenTestCase
-@property (readwrite, nonatomic, strong) LFHTTPBoostrapClient *client;
+@interface LFSClientTests : SenTestCase
+@property (readwrite, nonatomic, strong) LFSBoostrapClient *client;
 @end
 
-@implementation LFHTTPClientTests
+@implementation LFSClientTests
 @synthesize client = _client;
 
 - (void)setUp {
-    self.client = [LFHTTPBoostrapClient clientWithBaseURL:[NSURL URLWithString:AFNetworkingTestsBaseURLString]];
+    self.client = [LFSBoostrapClient clientWithBaseURL:[NSURL URLWithString:AFNetworkingTestsBaseURLString]];
 }
 
 #pragma mark - Test cases
 
 - (void)testInitRaisesException {
-    expect(^{ (void)[[LFHTTPBoostrapClient alloc] init]; }).to.raiseAny();
+    expect(^{ (void)[[LFSBoostrapClient alloc] init]; }).to.raiseAny();
 }
 
 - (void)testInitAppendsTerminatingSlashToPath {
-    LFHTTPBoostrapClient *client = [[LFHTTPBoostrapClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://httpbin.org/test"]];
+    LFSBoostrapClient *client = [[LFSBoostrapClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://httpbin.org/test"]];
     expect([[client baseURL] absoluteString]).to.equal(@"http://httpbin.org/test/");
 }
 
@@ -166,16 +166,16 @@
     NSMutableURLRequest *request = [self.client requestWithMethod:@"GET" path:@"/path" parameters:nil];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 
-    expect([LFJSONRequestOperation canProcessRequest:request]).to.beTruthy();
+    expect([LFSJSONRequestOperation canProcessRequest:request]).to.beTruthy();
 
     AFHTTPRequestOperation *operation = [self.client HTTPRequestOperationWithRequest:request success:nil failure:nil];
     expect([operation class]).to.equal([AFHTTPRequestOperation class]);
 
-    [self.client registerHTTPOperationClass:[LFJSONRequestOperation class]];
+    [self.client registerHTTPOperationClass:[LFSJSONRequestOperation class]];
     operation = [self.client HTTPRequestOperationWithRequest:request success:nil failure:nil];
-    expect([operation class]).to.equal([LFJSONRequestOperation class]);
+    expect([operation class]).to.equal([LFSJSONRequestOperation class]);
 
-    [self.client unregisterHTTPOperationClass:[LFJSONRequestOperation class]];
+    [self.client unregisterHTTPOperationClass:[LFSJSONRequestOperation class]];
     operation = [self.client HTTPRequestOperationWithRequest:request success:nil failure:nil];
     expect([operation class]).to.equal([AFHTTPRequestOperation class]);
 }
@@ -296,7 +296,7 @@
 }
 
 - (void)testThatCancelAllHTTPOperationsWithMethodPathCancelsOnlyMatchingOperations {
-    [self.client registerHTTPOperationClass:[LFJSONRequestOperation class]];
+    [self.client registerHTTPOperationClass:[LFSJSONRequestOperation class]];
     [self.client registerHTTPOperationClass:[AFImageRequestOperation class]];
 
     NSMutableURLRequest *firstRequest = [self.client requestWithMethod:@"GET" path:@"/ip" parameters:nil];
@@ -360,7 +360,7 @@
 }
 
 - (void)testThatEnqueueBatchOfHTTPRequestOperationsConstructsOperationsWithAppropriateRegisteredHTTPRequestOperationClasses {
-    [self.client registerHTTPOperationClass:[LFJSONRequestOperation class]];
+    [self.client registerHTTPOperationClass:[LFSJSONRequestOperation class]];
     [self.client registerHTTPOperationClass:[AFImageRequestOperation class]];
 
     NSMutableURLRequest *firstRequest = [self.client requestWithMethod:@"GET" path:@"/" parameters:nil];
@@ -383,7 +383,7 @@
     expect(operations).notTo.beNil();
     expect(operations).to.haveCountOf(2);
 
-    expect([[operations objectAtIndex:0] class]).to.equal([LFJSONRequestOperation class]);
+    expect([[operations objectAtIndex:0] class]).to.equal([LFSJSONRequestOperation class]);
     expect([[operations objectAtIndex:1] class]).to.equal([AFImageRequestOperation class]);
 }
 
@@ -423,7 +423,7 @@
 }
 
 - (void)testMultipartUploadDoesNotFailDueToStreamSentAnEventBeforeBeingOpenedError {
-    NSString *pathToImage = [[NSBundle bundleForClass:[LFHTTPBoostrapClient class]] pathForResource:@"Icon" ofType:@"png"];
+    NSString *pathToImage = [[NSBundle bundleForClass:[LFSBoostrapClient class]] pathForResource:@"Icon" ofType:@"png"];
     NSData *imageData = [NSData dataWithContentsOfFile:pathToImage];
     NSMutableURLRequest *request = [self.client multipartFormRequestWithMethod:@"POST" path:@"/post" parameters:@{ @"foo": @"bar" } constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imageData name:@"icon[image]" fileName:@"icon.png" mimeType:@"image/png"];

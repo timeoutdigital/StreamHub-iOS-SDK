@@ -1,5 +1,5 @@
 //
-//  LFJSONRequestOperation.h
+//  LFSJSONRequestOperation.h
 //  LFClient
 //
 //  Created by Eugene Scherba on 8/20/13.
@@ -20,7 +20,7 @@
  
  @warning JSON parsing will use the built-in `NSJSONSerialization` class.
  */
-@interface LFJSONRequestOperation : AFHTTPRequestOperation
+@interface LFSJSONRequestOperation : AFHTTPRequestOperation
 
 ///----------------------------
 /// @name Getting Response Data

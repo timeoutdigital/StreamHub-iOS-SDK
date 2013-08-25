@@ -1,5 +1,5 @@
 //
-//  LFHTTPBoostrapClient.h
+//  LFSBoostrapClient.h
 //  
 //
 //  Created by Eugene Scherba on 8/20/13.
@@ -8,9 +8,9 @@
 
 #import "lftypes.h"
 #import "AFHTTPClient.h"
-#import "LFJSONRequestOperation.h"
+#import "LFSJSONRequestOperation.h"
 
-@interface LFHTTPBoostrapClient : AFHTTPClient
+@interface LFSBoostrapClient : AFHTTPClient
 
 @property (nonatomic, readonly, strong) NSString* lfEnvironment;
 @property (nonatomic, readonly, strong) NSString* lfNetwork;

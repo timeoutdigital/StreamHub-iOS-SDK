@@ -1,15 +1,15 @@
 //
-//  LFHTTPWriteClient.m
+//  LFSWriteClient.m
 //  LFClient
 //
 //  Created by Eugene Scherba on 8/22/13.
 //  Copyright (c) 2013 Livefyre. All rights reserved.
 //
 
-#import "LFHTTPWriteClient.h"
+#import "LFSWriteClient.h"
 #import "NSString+Base64Encoding.h"
 
-@implementation LFHTTPWriteClient
+@implementation LFSWriteClient
 
 @synthesize lfEnvironment = _lfEnvironment;
 @synthesize lfNetwork = _lfNetwork;
@@ -53,7 +53,7 @@
         return nil;
     }
     
-    [self registerHTTPOperationClass:[LFJSONRequestOperation class]];
+    [self registerHTTPOperationClass:[LFSJSONRequestOperation class]];
     
     // Accept HTTP Header;
     // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
@@ -64,7 +64,7 @@
 
 #pragma mark - Methods
 
-- (void)postOpinion:(LFSUserDisposition)action
+- (void)postOpinion:(LFSOpinion)action
          forContent:(NSString *)contentId
        inCollection:(NSString *)collectionId
           onSuccess:(LFSuccessBlock)success
@@ -72,7 +72,7 @@
 {
     NSParameterAssert(contentId != nil);
     
-    NSString *actionEndpoint = LFSUserDispositionString[action];
+    NSString *actionEndpoint = LFSOpinionString[action];
     NSDictionary *parameters = @{@"collection_id":collectionId,
                                  @"lftoken": _lfUser};
     NSString *path = [NSString

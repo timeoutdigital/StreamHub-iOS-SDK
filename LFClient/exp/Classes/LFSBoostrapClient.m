@@ -1,18 +1,18 @@
 //
-//  LFHTTPBoostrapClient.m
+//  LFSBoostrapClient.m
 //
 //
 //  Created by Eugene Scherba on 8/20/13.
 //
 //
 
-#import "LFHTTPBoostrapClient.h"
+#import "LFSBoostrapClient.h"
 #import "NSString+Base64Encoding.h"
 
-@interface LFHTTPBoostrapClient ()
+@interface LFSBoostrapClient ()
 @end
 
-@implementation LFHTTPBoostrapClient
+@implementation LFSBoostrapClient
 
 @synthesize lfEnvironment = _lfEnvironment;
 @synthesize lfNetwork = _lfNetwork;
@@ -51,7 +51,7 @@
         return nil;
     }
     
-    [self registerHTTPOperationClass:[LFJSONRequestOperation class]];
+    [self registerHTTPOperationClass:[LFSJSONRequestOperation class]];
     
     // Accept HTTP Header;
     // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
