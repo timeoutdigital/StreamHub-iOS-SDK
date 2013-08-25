@@ -9,6 +9,8 @@
 #import "LFSAdminClient.h"
 #import "NSString+Base64Encoding.h"
 
+static const NSString* const kLFSAdminDomain = @"admin";
+
 @implementation LFSAdminClient
 
 @synthesize lfEnvironment = _lfEnvironment;
@@ -41,7 +43,7 @@
     
     NSString *hostname = [network isEqualToString:@"livefyre.com"] ? environment : network;
     NSString *urlString = [NSString stringWithFormat:@"%@://%@.%@/",
-                           LFSScheme, kAdminDomain, hostname];
+                           LFSScheme, kLFSAdminDomain, hostname];
     
     self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
     if (!self) {

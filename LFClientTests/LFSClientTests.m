@@ -423,10 +423,10 @@
 }
 
 - (void)testMultipartUploadDoesNotFailDueToStreamSentAnEventBeforeBeingOpenedError {
-    NSString *pathToImage = [[NSBundle bundleForClass:[LFSBoostrapClient class]] pathForResource:@"Icon" ofType:@"png"];
+    NSString *pathToImage = [[NSBundle bundleForClass:[LFSBoostrapClient class]] pathForResource:@"livefyre-logo" ofType:@"png"];
     NSData *imageData = [NSData dataWithContentsOfFile:pathToImage];
     NSMutableURLRequest *request = [self.client multipartFormRequestWithMethod:@"POST" path:@"/post" parameters:@{ @"foo": @"bar" } constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:imageData name:@"icon[image]" fileName:@"icon.png" mimeType:@"image/png"];
+        [formData appendPartWithFileData:imageData name:@"icon[image]" fileName:@"livefyre-logo.png" mimeType:@"image/png"];
     }];
     AFHTTPRequestOperation *operation = [self.client HTTPRequestOperationWithRequest:request success:nil failure:nil];
 

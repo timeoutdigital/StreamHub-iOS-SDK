@@ -31,21 +31,10 @@
 
 @implementation LFConstants
 
-NSString* const LFSOpinionString[] = {
-    @"like",
-    @"unlike"
-};
-
-NSString* const LFSUserFlagString[] = {
-    @"offensive",
-    @"spam",
-    @"disagree",
-    @"off-topic"
-};
-
 NSString *const LFSScheme = @"http";
 NSString *const LFSErrorDomain = @"LFSErrorDomain";
-//
+
+/*
 NSString *const kShareTypeTwitter = @"twitter";
 NSString *const kShareTypeFacebook = @"facebook";
 NSString *const kShareTypeLinkedin = @"linkedin";
@@ -56,10 +45,6 @@ NSString *const kCommentStatusPending = @"unapproved";
 NSString *const kCommentStatusSpam = @"spam";
 NSString *const kCommentStatusHidden = @"deleted";
 NSString *const kCommentStatusDeleted = @"hard-deleted";
-// 
-NSString *const kStreamDomain = @"stream1";
-NSString *const kAdminDomain = @"admin";
-NSString *const kBootstrapDomain = @"bootstrap";
-NSString *const kQuillDomain = @"quill";
+*/
 
 @end

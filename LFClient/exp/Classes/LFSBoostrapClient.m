@@ -12,6 +12,8 @@
 @interface LFSBoostrapClient ()
 @end
 
+static const NSString* const kLFSBootstrapDomain = @"bootstrap";
+
 @implementation LFSBoostrapClient
 
 @synthesize lfEnvironment = _lfEnvironment;
@@ -44,7 +46,7 @@
     
     NSString *hostname = [network isEqualToString:@"livefyre.com"] ? environment : network;
     NSString *urlString = [NSString stringWithFormat:@"%@://%@.%@/",
-                           LFSScheme, kBootstrapDomain, hostname];
+                           LFSScheme, kLFSBootstrapDomain, hostname];
     
     self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
     if (!self) {

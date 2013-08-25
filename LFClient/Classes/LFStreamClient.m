@@ -29,8 +29,8 @@
 
 #import "LFStreamClient.h"
 
-// timeout after 65 seconds
-static const NSTimeInterval kLFStreamTimeout = 65.0f;
+static const NSString* const kLFSStreamDomain = @"stream1";
+static const NSTimeInterval kLFStreamTimeout = 65.0f; // timeout after 65 seconds
 
 @implementation LFStreamClient
 + (NSString *)buildStreamEndpointForCollection:(NSString *)collectionId
@@ -39,7 +39,7 @@ static const NSTimeInterval kLFStreamTimeout = 65.0f;
     NSParameterAssert(collectionId != nil);
     NSParameterAssert(networkDomain != nil);
     
-    NSString *host = [NSString stringWithFormat:@"%@.%@", kStreamDomain, networkDomain];
+    NSString *host = [NSString stringWithFormat:@"%@.%@", kLFSStreamDomain, networkDomain];
     NSString *eventlessPath = [NSString stringWithFormat:@"/v3.0/collection/%@/", collectionId];
     return [NSString stringWithFormat:@"%@://%@%@", LFSScheme, host, eventlessPath];
 }

@@ -34,7 +34,24 @@
 
 extern NSString *const LFSScheme;
 extern NSString *const LFSErrorDomain;
-//
+
+
+// user content preferences (like, unlike, etc)
+typedef NS_ENUM(NSUInteger, LFSOpinion) {
+    LFSOpinionLike = 0u,
+    LFSOpinionUnlike
+};
+
+// moderator content flags
+typedef NS_ENUM(NSUInteger, LFSUserFlag) {
+    LFSFlagOffensive = 0u,
+    LFSFlagSpam,
+    LFSFlagDisagree,
+    LFSFlagOfftopic
+};
+
+
+/*
 extern NSString *const kShareTypeTwitter;
 extern NSString *const kShareTypeFacebook;
 extern NSString *const kShareTypeLinkedin;
@@ -45,64 +62,39 @@ extern NSString *const kCommentStatusPending;
 extern NSString *const kCommentStatusSpam;
 extern NSString *const kCommentStatusHidden;
 extern NSString *const kCommentStatusDeleted;
-//
-extern NSString *const kStreamDomain;
-extern NSString *const kAdminDomain;
-extern NSString *const kBootstrapDomain;
-extern NSString *const kQuillDomain;
+*/
 
-// user content preferences (like, unlike, etc)
-extern NSString* const LFSOpinionString[];
-typedef NS_ENUM(NSUInteger, LFSOpinion) {
-    LFSOpinionLike = 0u,
-    LFSOpinionUnlike
-};
 
-// moderator content flags
-extern NSString* const LFSUserFlagString[];
-typedef NS_ENUM(NSUInteger, LFSUserFlag) {
-    LFSFlagOffensive = 0u,
-    LFSFlagSpam,
-    LFSFlagDisagree,
-    LFSFlagOfftopic
-};
-
+/*
 typedef NS_ENUM(NSUInteger, LFSContentType) {
-    // A message posted by a user in reply to an article or another comment.
-    LFSContentTypeMessage = 0u,
-    // An opinion from a user indicating that they like a comment or an embed.
-    LFSContentTypeOpine,
-    // An embedded image which is part of a comment.
-    LFSContentTypeEmbed
+    LFSContentTypeMessage = 0u, //A message posted by a user in reply to an article or another comment
+    LFSContentTypeOpine, // An opinion from a user indicating that they like a comment or an embed
+    LFSContentTypeEmbed // An embedded image which is part of a comment
 };
 
 typedef NS_ENUM(NSUInteger, LFSContentVisibility) {
-    // The content is visible to no one, usually due to being deleted.
-    LFSContentVisibilityNone = 0,
-    // The content is visible to everyone.
-    LFSContentVisibilityEveryone = 1,
-    // The content is visible to only the author due to bozoing.
-    LFSContentVisibilityOwner = 2,
-    // The content is visible to the author and any moderators for the
-    // collection, usually meaning that it's waiting for approval.
-    LFSContentVisibilityGroup = 3
+    LFSContentVisibilityNone = 0u, //content is visible to no one, usually due to being deleted
+    LFSContentVisibilityEveryone, //content is visible to everyone
+    LFSContentVisibilityOwner, //content is visible to only the author due to bozoing
+    LFSContentVisibilityGroup //content is visible to the author and any moderators for the
+    // collection, usually meaning that it's waiting for approval
 };
 
 typedef NS_ENUM(NSUInteger, LFSPermissions) {
-    LFSPermissionsNone = 0,
-    LFSPermissionsWhitelist = 1,
-    LFSPermissionsBlacklist = 2,
-    LFSPermissionsGraylist = 3,
-    LFSPermissionsModerator = 4
+    LFSPermissionsNone = 0u,
+    LFSPermissionsWhitelist,
+    LFSPermissionsBlacklist,
+    LFSPermissionsGraylist,
+    LFSPermissionsModerator
 };
 
 typedef NS_ENUM(NSUInteger, LFSPermissionScope) {
-    LFSPermissionScopeGlobal = 0,
-    LFSPermissionScopeNetwork = 1,
-    LFSPermissionScopeSite = 2,
-    LFSPermissionScopeCollection = 3,
-    LFSPermissionScopeCollectionRule = 4
+    LFSPermissionScopeGlobal = 0u,
+    LFSPermissionScopeNetwork,
+    LFSPermissionScopeSite,
+    LFSPermissionScopeCollection,
+    LFSPermissionScopeCollectionRule
 };
-
+*/
 
 @end

@@ -32,6 +32,8 @@
 @interface LFWriteClient ()
 @end
 
+static const NSString *const kLFSQuillDomain = @"quill";
+
 @implementation LFWriteClient
 + (void)likeContent:(NSString *)contentId
             forUser:(NSString *)userToken
@@ -68,7 +70,7 @@
     
     NSDictionary *paramsDict = @{@"collection_id": collectionId, @"lftoken": userToken};
     contentId = [contentId stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString *host = [NSString stringWithFormat:@"%@.%@", kQuillDomain, networkDomain];
+    NSString *host = [NSString stringWithFormat:@"%@.%@", kLFSQuillDomain, networkDomain];
     NSString *path = [NSString stringWithFormat:@"/api/v3.0/message/%@/%@/", contentId, actionEndpoint];
 
     [self requestWithHost:host
@@ -97,7 +99,7 @@
     if (parentId) {
         [paramsDict setObject:parentId forKey:@"parent_id"];
     }
-    NSString *host = [NSString stringWithFormat:@"%@.%@", kQuillDomain, networkDomain];
+    NSString *host = [NSString stringWithFormat:@"%@.%@", kLFSQuillDomain, networkDomain];
     NSString *path = [NSString stringWithFormat:@"/api/v3.0/collection/%@/post/", collectionId];
     
     [self requestWithHost:host
@@ -131,7 +133,7 @@
     if (email)
         [paramsDict setObject:email forKey:@"email"];
 
-    NSString *host = [NSString stringWithFormat:@"%@.%@", kQuillDomain, networkDomain];
+    NSString *host = [NSString stringWithFormat:@"%@.%@", kLFSQuillDomain, networkDomain];
     NSString *path = [NSString stringWithFormat:@"/api/v3.0/message/%@/flag/%@/", contentId, flag];
 
     [self requestWithHost:host

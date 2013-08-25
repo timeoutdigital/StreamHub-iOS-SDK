@@ -30,6 +30,8 @@
 #import "LFBootstrapClient.h"
 #import "NSString+Base64Encoding.h"
 
+static const NSString* const kLFSBootstrapDomain = @"bootstrap";
+
 @implementation LFBootstrapClient
 + (void)getInitForArticle:(NSString *)articleId
                      site:(NSString *)siteId
@@ -43,7 +45,7 @@
     NSParameterAssert(articleId != nil);
 
     NSString *hostname = [networkDomain isEqualToString:@"livefyre.com"] ? environment : networkDomain;
-    NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, hostname];
+    NSString *host = [NSString stringWithFormat:@"%@.%@", kLFSBootstrapDomain, hostname];
     NSString *path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init", networkDomain, siteId, [articleId base64EncodedString]];
     
     [self requestWithHost:host
@@ -78,7 +80,7 @@
     NSString *networkDomain = [initInfo valueForKeyPath:@"collectionSettings.networkId"];
     NSString *pageUrlPathBase = [initInfo valueForKeyPath:@"collectionSettings.archiveInfo.pathBase"];
 
-    NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, networkDomain];
+    NSString *host = [NSString stringWithFormat:@"%@.%@", kLFSBootstrapDomain, networkDomain];
     NSString *path = [NSString stringWithFormat:@"/bs3%@%lu.json", pageUrlPathBase, (unsigned long)pageIndex];
     [self requestWithHost:host
                      path:path
@@ -107,7 +109,7 @@
     if (number) {
         [paramsDict setObject:[NSString stringWithFormat:@"%d", number] forKey:@"number"];
     }
-    NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, networkDomain];
+    NSString *host = [NSString stringWithFormat:@"%@.%@", kLFSBootstrapDomain, networkDomain];
     [self requestWithHost:host
                      path:@"/api/v3.0/hottest/"
                    params:paramsDict
@@ -142,7 +144,7 @@
     if (offset) {
         [params setObject:[offset stringValue] forKey:@"offset"];
     }
-    NSString *host = [NSString stringWithFormat:@"%@.%@", kBootstrapDomain, networkDomain];
+    NSString *host = [NSString stringWithFormat:@"%@.%@", kLFSBootstrapDomain, networkDomain];
     NSString *path = [NSString stringWithFormat:@"/api/v3.0/author/%@/comments/", userId];
     [self requestWithHost:host
                      path:path

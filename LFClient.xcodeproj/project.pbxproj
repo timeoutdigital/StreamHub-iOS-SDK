@@ -13,8 +13,6 @@
 		1C4CC89716A48B3800C33DEC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C4CC88416A48B3800C33DEC /* Foundation.framework */; };
 		1C4CC8A016A48B3800C33DEC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1C4CC89E16A48B3800C33DEC /* InfoPlist.strings */; };
 		1C4CC8A316A48B3800C33DEC /* LFSClientNetworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CC8A216A48B3800C33DEC /* LFSClientNetworkTests.m */; };
-		1C70BC2216CB0AEF006243EA /* livefyre-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C70BC2016CB0AEF006243EA /* livefyre-logo.png */; };
-		1C70BC2316CB0AEF006243EA /* livefyre-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C70BC2116CB0AEF006243EA /* livefyre-logo@2x.png */; };
 		1CD5686E17A05DFC008ECF55 /* flag-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CD5686D17A05DFC008ECF55 /* flag-sample.json */; };
 		1CF061F316B0936F00CFA905 /* LFTestingURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF061F216B0936F00CFA905 /* LFTestingURLProtocol.m */; };
 		1CF061F616B093B500CFA905 /* LFSClientSpoofTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF061F516B093B500CFA905 /* LFSClientSpoofTests.m */; };
@@ -84,9 +82,10 @@
 		EFA2AAE117B5AE870022DC8E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA2AADE17B5AE870022DC8E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
 		EFB7A02917C80D9F00694E71 /* libPods-test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EFB7A02817C80D9F00694E71 /* libPods-test.a */; };
 		EFB7A02B17C80DA800694E71 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EFB7A02A17C80DA800694E71 /* libPods.a */; };
+		EFDD477617CA3771009AEE9E /* livefyre-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EFDD477417CA3771009AEE9E /* livefyre-logo.png */; };
+		EFDD477717CA3771009AEE9E /* livefyre-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EFDD477517CA3771009AEE9E /* livefyre-logo@2x.png */; };
 		EFE0420E17C3154B0011DD6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFE0420D17C3154B0011DD6A /* UIKit.framework */; };
 		EFE0CB1317C535EF00775C9C /* LFSClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE0CB1117C535EF00775C9C /* LFSClientTests.m */; };
-		EFF44A7817C5403300C56866 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EFF44A7717C5403300C56866 /* Icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,8 +120,6 @@
 		1C4CC89D16A48B3800C33DEC /* LFClientTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LFClientTests-Info.plist"; sourceTree = "<group>"; };
 		1C4CC89F16A48B3800C33DEC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1C4CC8A216A48B3800C33DEC /* LFSClientNetworkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFSClientNetworkTests.m; sourceTree = "<group>"; };
-		1C70BC2016CB0AEF006243EA /* livefyre-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "livefyre-logo.png"; path = "Resources/livefyre-logo.png"; sourceTree = "<group>"; };
-		1C70BC2116CB0AEF006243EA /* livefyre-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "livefyre-logo@2x.png"; path = "Resources/livefyre-logo@2x.png"; sourceTree = "<group>"; };
 		1CD5686D17A05DFC008ECF55 /* flag-sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "flag-sample.json"; sourceTree = "<group>"; };
 		1CF061F116B0936F00CFA905 /* LFTestingURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFTestingURLProtocol.h; sourceTree = "<group>"; };
 		1CF061F216B0936F00CFA905 /* LFTestingURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFTestingURLProtocol.m; sourceTree = "<group>"; };
@@ -179,10 +176,11 @@
 		EFA2AADE17B5AE870022DC8E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = vendor/JSONKit/JSONKit.m; sourceTree = "<group>"; };
 		EFB7A02817C80D9F00694E71 /* libPods-test.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-test.a"; path = "Pods/build/Debug-iphoneos/libPods-test.a"; sourceTree = "<group>"; };
 		EFB7A02A17C80DA800694E71 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		EFDD477417CA3771009AEE9E /* livefyre-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "livefyre-logo.png"; path = "Resources/livefyre-logo.png"; sourceTree = "<group>"; };
+		EFDD477517CA3771009AEE9E /* livefyre-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "livefyre-logo@2x.png"; path = "Resources/livefyre-logo@2x.png"; sourceTree = "<group>"; };
 		EFE0420D17C3154B0011DD6A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EFE0CB1117C535EF00775C9C /* LFSClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSClientTests.m; sourceTree = "<group>"; };
 		EFE0CB1217C535EF00775C9C /* LFNetworkingTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFNetworkingTests.h; sourceTree = "<group>"; };
-		EFF44A7717C5403300C56866 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,8 +265,8 @@
 		1C4CC88716A48B3800C33DEC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1C70BC2016CB0AEF006243EA /* livefyre-logo.png */,
-				1C70BC2116CB0AEF006243EA /* livefyre-logo@2x.png */,
+				EFDD477417CA3771009AEE9E /* livefyre-logo.png */,
+				EFDD477517CA3771009AEE9E /* livefyre-logo@2x.png */,
 				1CF0625216B0A64F00CFA905 /* LFClient-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -291,7 +289,6 @@
 		1C4CC89C16A48B3800C33DEC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EFF44A7717C5403300C56866 /* Icon.png */,
 				1CD5686D17A05DFC008ECF55 /* flag-sample.json */,
 				1CF7064116C32D5D009BD41D /* content-sample.json */,
 				1CF0626816B323D700CFA905 /* number-test.json */,
@@ -496,15 +493,14 @@
 				1CF0625616B1BD5B00CFA905 /* like-sample.json in Resources */,
 				1CF0625716B1BD5B00CFA905 /* post-sample.json in Resources */,
 				EF33A21D17B95EF8007A2476 /* LFConfig.plist in Resources */,
+				EFDD477717CA3771009AEE9E /* livefyre-logo@2x.png in Resources */,
 				1CF0625816B1BD5B00CFA905 /* stream-sample.json in Resources */,
 				1CF0625A16B1BD6900CFA905 /* usercontent-sample.json in Resources */,
 				1CF0625C16B1BD7100CFA905 /* hottest-sample.json in Resources */,
 				1CF0625E16B1C5E700CFA905 /* auth-sample.json in Resources */,
 				1CF0626916B323D700CFA905 /* number-test.json in Resources */,
 				1CF7064216C32D5D009BD41D /* content-sample.json in Resources */,
-				1C70BC2216CB0AEF006243EA /* livefyre-logo.png in Resources */,
-				EFF44A7817C5403300C56866 /* Icon.png in Resources */,
-				1C70BC2316CB0AEF006243EA /* livefyre-logo@2x.png in Resources */,
+				EFDD477617CA3771009AEE9E /* livefyre-logo.png in Resources */,
 				1CD5686E17A05DFC008ECF55 /* flag-sample.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

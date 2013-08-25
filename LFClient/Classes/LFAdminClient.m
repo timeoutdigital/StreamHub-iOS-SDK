@@ -30,6 +30,8 @@
 #import "LFAdminClient.h"
 #import "NSString+Base64Encoding.h"
 
+static const NSString* const kLFSAdminDomain = @"admin";
+
 @implementation LFAdminClient
 + (void)authenticateUserWithToken:(NSString *)userToken
                        collection:(NSString *)collectionId
@@ -45,7 +47,7 @@
                                  @"collectionId": collectionId};
     
     NSString *host = [NSString stringWithFormat:@"%@.%@",
-                      kAdminDomain, networkDomain];
+                      kLFSAdminDomain, networkDomain];
     [self requestWithHost:host
                      path:@"/api/v3.0/auth/"
                    params:parameters
@@ -71,7 +73,7 @@
                                  @"articleId":[articleId base64EncodedString]};
     
     NSString *host = [NSString stringWithFormat:@"%@.%@",
-                      kAdminDomain, networkDomain];
+                      kLFSAdminDomain, networkDomain];
     [self requestWithHost:host
                      path:@"/api/v3.0/auth/"
                    params:parameters

@@ -9,6 +9,21 @@
 #import "LFSWriteClient.h"
 #import "NSString+Base64Encoding.h"
 
+static const NSString *const kLFSQuillDomain = @"quill";
+
+static const NSString* const LFSOpinionString[] = {
+    @"like",
+    @"unlike"
+};
+
+static const NSString* const LFSUserFlagString[] = {
+    @"offensive",
+    @"spam",
+    @"disagree",
+    @"off-topic"
+};
+
+
 @implementation LFSWriteClient
 
 @synthesize lfEnvironment = _lfEnvironment;
@@ -46,7 +61,7 @@
     NSString *hostname = [network isEqualToString:@"livefyre.com"] ? environment : network;
     NSString *urlString = [NSString
                            stringWithFormat:@"%@://%@.%@/",
-                           LFSScheme, kQuillDomain, hostname];
+                           LFSScheme, kLFSQuillDomain, hostname];
     
     self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
     if (!self) {
@@ -72,7 +87,7 @@
 {
     NSParameterAssert(contentId != nil);
     
-    NSString *actionEndpoint = LFSOpinionString[action];
+    const NSString *actionEndpoint = LFSOpinionString[action];
     NSDictionary *parameters = @{@"collection_id":collectionId,
                                  @"lftoken": _lfUser};
     NSString *path = [NSString
@@ -94,7 +109,7 @@
 {
     NSParameterAssert(contentId != nil);
     
-    NSString *flagString = LFSUserFlagString[flag];
+    const NSString *flagString = LFSUserFlagString[flag];
     NSMutableDictionary *parameters1 =
     [NSMutableDictionary
      dictionaryWithObjects:@[contentId, collectionId, flagString, _lfUser]
