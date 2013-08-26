@@ -54,21 +54,19 @@
 - (void)loadSpoofData;
 {
     NSURLRequest *request = [self request];
+    NSURL *url = request.URL;
     NSHTTPURLResponse *response =
-    [[NSHTTPURLResponse alloc] initWithURL:request.URL MIMEType:@"application/json" expectedContentLength:-1 textEncodingName:nil];
+    [[NSHTTPURLResponse alloc] initWithURL:url MIMEType:@"application/json" expectedContentLength:-1 textEncodingName:nil];
 
-    //grabbing the networkId
-    NSString *methodId;
-    if ([[[[request URL] host] componentsSeparatedByString:@"."] objectAtIndex:1]) {
-        methodId = [[[[request URL] host] componentsSeparatedByString:@"."] objectAtIndex:1];
-    } else {
+    NSString *methodId = [[url.host componentsSeparatedByString:@"."] objectAtIndex:1];
+    if (!methodId) {
         [NSException raise:@"Spoof Network Fail" format:@"Fix your test methodology, it's bad and you should feel bad."];
     }
 
     NSString *spoofPath = [[NSBundle bundleForClass:[self class]] pathForResource:methodId ofType:@"json"];
     NSData *responseData = [NSData dataWithContentsOfFile:spoofPath];
     
-    id client = [self client];
+    id client = self.client;
     [client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
     [client URLProtocol:self didLoadData:responseData];
     [client URLProtocolDidFinishLoading:self];

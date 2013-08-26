@@ -254,7 +254,7 @@
 - (void)testHeatAPIWithGetHottestCollections
 {
     __block LFSJSONRequestOperation *op = nil;
-    __block NSDictionary *result = nil;
+    __block NSArray *result = nil;
     
     // Actual call would look something like this:
     [self.clientHottest getHottestCollectionsForSite:@"site"
@@ -262,7 +262,7 @@
                                       desiredResults:10u
                                            onSuccess:^(NSOperation *operation, id responseObject) {
                                                op = (LFSJSONRequestOperation *)operation;
-                                               result = (NSDictionary *)responseObject;
+                                               result = (NSArray *)responseObject;
                                            } onFailure:^(NSOperation *operation, NSError *error) {
                                                op = (LFSJSONRequestOperation *)operation;
                                                NSLog(@"Error code %d, with description %@",
@@ -275,7 +275,8 @@
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
-    expect([result objectForKey:@"data"]).to.haveCountOf(10u);
+    expect(result).to.beKindOf([NSArray class]);
+    expect(result).to.haveCountOf(10u);
 }
 
 
@@ -306,7 +307,7 @@
 - (void)testUserDataWithGetContentForUser
 {
     __block LFSJSONRequestOperation *op = nil;
-    __block NSDictionary *result = nil;
+    __block NSArray *result = nil;
     
     // Actual call would look something like this:
     [self.clientUserContent getUserContentForUser:@"fakeUser"
@@ -315,7 +316,7 @@
                                            offset:nil
                                         onSuccess:^(NSOperation *operation, id responseObject) {
                                             op = (LFSJSONRequestOperation *)operation;
-                                            result = (NSDictionary *)responseObject;
+                                            result = (NSArray *)responseObject;
                                         } onFailure:^(NSOperation *operation, NSError *error) {
                                             op = (LFSJSONRequestOperation *)operation;
                                             NSLog(@"Error code %d, with description %@",
@@ -328,7 +329,8 @@
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
-    expect([result objectForKey:@"data"]).to.haveCountOf(12u);
+    expect(result).to.beKindOf([NSArray class]);
+    expect(result).to.haveCountOf(12u);
 }
 
 #pragma mark - Test Admin Client
@@ -378,7 +380,6 @@
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
-    expect(result).to.haveCountOf(3u);
 }
 
 #pragma mark -
@@ -430,7 +431,6 @@
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
-    expect(result).to.haveCountOf(3u);
 }
 
 #pragma mark - Test Write Client
@@ -482,7 +482,6 @@
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
-    expect(result).to.haveCountOf(3u);
 }
 
 #pragma mark -
@@ -540,7 +539,6 @@
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
-    expect(result).to.haveCountOf(3u);
 }
 
 #pragma mark -
@@ -596,7 +594,6 @@
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
-    expect(result).to.haveCountOf(3u);
 }
 
 

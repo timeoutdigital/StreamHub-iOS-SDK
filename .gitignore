@@ -32,3 +32,6 @@ tags
 
 # Vim
 *.swp
+
+# Vim plugins
+.build

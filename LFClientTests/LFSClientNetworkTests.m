@@ -334,7 +334,6 @@
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    expect([result objectForKey:@"status"]).to.equal(@"ok");
 }
 
 
@@ -382,7 +381,6 @@
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    expect([result objectForKey:@"status"]).to.equal(@"ok");
 }
 
 #pragma mark -
@@ -427,7 +425,6 @@
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    expect([result objectForKey:@"status"]).to.equal(@"ok");
 }
 
 #pragma mark -
@@ -472,7 +469,6 @@
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    expect([result objectForKey:@"status"]).to.equal(@"ok");
 }
 
 #pragma mark -
@@ -526,7 +522,6 @@
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
-    expect([result objectForKey:@"status"]).to.equal(@"ok");
 }
 
 #pragma mark -
@@ -582,8 +577,7 @@
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
-    expect([result objectForKey:@"status"]).to.equal(@"ok");
-    NSString *parent1 = [[[result valueForKeyPath:@"data.messages"] objectAtIndex:0]
+    NSString *parent1 = [[[result objectForKey:@"messages"] objectAtIndex:0]
                          valueForKeyPath:@"content.parentId"];
     expect(parent1).to.equal(parent);
 }
@@ -640,7 +634,6 @@
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
-    expect([result objectForKey:@"status"]).to.equal(@"ok");
 }
 
 //share to

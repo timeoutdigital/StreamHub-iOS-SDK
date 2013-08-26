@@ -76,12 +76,11 @@ static dispatch_queue_t json_request_operation_processing_queue() {
 
 - (void)setResponseJSON:(id)responseJSON
 {
-    NSInteger code = 0;
     if (!responseJSON)
     {
         // empty payload
         self.JSONError = [NSError errorWithDomain:LFSErrorDomain
-                                             code:code
+                                             code:0
                                          userInfo:@{NSLocalizedDescriptionKey:@"Response failed to return data."}
                           ];
         _responseJSON = nil;
@@ -93,23 +92,39 @@ static dispatch_queue_t json_request_operation_processing_queue() {
         NSString *errorDescription = [NSString stringWithFormat:errorTemplate,
                                       NSStringFromClass([responseJSON class])];
         self.JSONError = [NSError errorWithDomain:LFSErrorDomain
-                                             code:code
+                                             code:0
                                          userInfo:@{NSLocalizedDescriptionKey:errorDescription}
                           ];
         _responseJSON = nil;
     }
-    else if ([responseJSON objectForKey:@"code"] && (code = [[responseJSON objectForKey:@"code"] integerValue]) != 200)
+    else if ([responseJSON count] == 3u &&
+             [responseJSON objectForKey:@"data"] &&
+             [responseJSON objectForKey:@"status"] && [[responseJSON objectForKey:@"status"] isEqualToString:@"ok"] &&
+             [responseJSON objectForKey:@"code"] && [[responseJSON objectForKey:@"code"] integerValue] == 200)
     {
-        // response code not HTTP 200
-        NSString *errorTemplate = @"Response code was %d whereas code 200 was expected";
-        NSString *errorMsg = [responseJSON objectForKey:@"msg"] ?: [NSString stringWithFormat:errorTemplate, code];
+        _responseJSON = [responseJSON objectForKey:@"data"];      // Unwrap Django "burrito" wrapper
+    } else if ([responseJSON count] == 4u &&
+               [responseJSON objectForKey:@"networkSettings"] &&
+               [responseJSON objectForKey:@"headDocument"] &&
+               [responseJSON objectForKey:@"collectionSettings"] &&
+               [responseJSON objectForKey:@"siteSettings"]) {
+        _responseJSON = responseJSON;
+    } else {
+        NSString *errorText = @"Unexpected response.";
+        NSInteger code = 0;
+        if ((code = [[responseJSON objectForKey:@"code"] integerValue])) {
+            errorText = [errorText stringByAppendingString:[NSString stringWithFormat:@" Code was %d.", code]];
+        }
+        NSString *msg = nil;
+        if ((msg = [[responseJSON objectForKey:@"msg"] stringValue])) {
+            errorText = [errorText stringByAppendingString:[NSString stringWithFormat:@" %@", msg]];
+        }
         self.JSONError = [NSError errorWithDomain:LFSErrorDomain
                                              code:code
-                                         userInfo:@{NSLocalizedDescriptionKey:errorMsg}
+                                         userInfo:@{NSLocalizedDescriptionKey:errorText}
                           ];
         _responseJSON = nil;
     }
-    _responseJSON = responseJSON;
 }
 
 - (NSError *)error {
