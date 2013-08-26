@@ -14,7 +14,6 @@
 
 @property (nonatomic, readonly, strong) NSString* lfEnvironment;
 @property (nonatomic, readonly, strong) NSString* lfNetwork;
-@property (nonatomic, readonly, strong) NSString* lfUser;
 
 /**
  * Initialize Livefyre client
@@ -25,21 +24,21 @@
  */
 
 + (instancetype)clientWithEnvironment:(NSString *)environment
-                              network:(NSString *)network
-                                 user:(NSString *)userToken;
+                              network:(NSString *)network;
 
 - (id)initWithEnvironment:(NSString *)environment
-                  network:(NSString *)network
-                     user:(NSString *)userToken;
+                  network:(NSString *)network;
 
 
 - (void)postOpinion:(LFSOpinion)action
+            forUser:(NSString*)userToken
          forContent:(NSString *)contentId
        inCollection:(NSString *)collectionId
           onSuccess:(LFSuccessBlock)success
           onFailure:(LFFailureBlock)failure;
 
 - (void)postFlag:(LFSUserFlag)flag
+            forUser:(NSString*)userToken
       forContent:(NSString *)contentId
     inCollection:(NSString *)collectionId
       parameters:(NSDictionary*)parameters
@@ -47,6 +46,7 @@
        onFailure:(LFFailureBlock)failure;
 
 - (void)postContent:(NSString *)body
+            forUser:(NSString*)userToken
       forCollection:(NSString *)collectionId
           inReplyTo:(NSString *)parentId
           onSuccess:(LFSuccessBlock)success

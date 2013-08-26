@@ -28,15 +28,13 @@ static const NSString* const LFSUserFlagString[] = {
 
 @synthesize lfEnvironment = _lfEnvironment;
 @synthesize lfNetwork = _lfNetwork;
-@synthesize lfUser = _lfUser;
 
 #pragma mark - Initialization
 
 + (instancetype)clientWithEnvironment:(NSString *)environment
                               network:(NSString *)network
-                                 user:(NSString *)userToken
 {
-    return [[self alloc] initWithEnvironment:environment network:network user:userToken];
+    return [[self alloc] initWithEnvironment:environment network:network];
 }
 
 - (id)init {
@@ -48,7 +46,6 @@ static const NSString* const LFSUserFlagString[] = {
 
 - (id)initWithEnvironment:(NSString *)environment
                   network:(NSString *)network
-                     user:(NSString *)userToken
 {
     //NSParameterAssert(environment != nil);
     NSParameterAssert(network != nil);
@@ -56,7 +53,6 @@ static const NSString* const LFSUserFlagString[] = {
     // cache passed parameters into readonly properties
     _lfEnvironment = environment;
     _lfNetwork = network;
-    _lfUser = userToken;
     
     NSString *hostname = [network isEqualToString:@"livefyre.com"] ? environment : network;
     NSString *urlString = [NSString
@@ -80,6 +76,7 @@ static const NSString* const LFSUserFlagString[] = {
 #pragma mark - Methods
 
 - (void)postOpinion:(LFSOpinion)action
+            forUser:(NSString*)userToken
          forContent:(NSString *)contentId
        inCollection:(NSString *)collectionId
           onSuccess:(LFSuccessBlock)success
@@ -89,7 +86,7 @@ static const NSString* const LFSUserFlagString[] = {
     
     const NSString *actionEndpoint = LFSOpinionString[action];
     NSDictionary *parameters = @{@"collection_id":collectionId,
-                                 @"lftoken": _lfUser};
+                                 @"lftoken": userToken};
     NSString *path = [NSString
                       stringWithFormat:@"message/%@/%@/",
                       contentId, actionEndpoint];
@@ -101,6 +98,7 @@ static const NSString* const LFSUserFlagString[] = {
 }
 
 - (void)postFlag:(LFSUserFlag)flag
+            forUser:(NSString*)userToken
       forContent:(NSString *)contentId
     inCollection:(NSString *)collectionId
       parameters:(NSDictionary*)parameters
@@ -112,7 +110,7 @@ static const NSString* const LFSUserFlagString[] = {
     const NSString *flagString = LFSUserFlagString[flag];
     NSMutableDictionary *parameters1 =
     [NSMutableDictionary
-     dictionaryWithObjects:@[contentId, collectionId, flagString, _lfUser]
+     dictionaryWithObjects:@[contentId, collectionId, flagString, userToken]
      forKeys:@[@"message_id", @"collection_id", @"flag", @"lftoken"]];
     
     // parameters passed in can be { notes: @"...", email: @"..." }
@@ -129,6 +127,7 @@ static const NSString* const LFSUserFlagString[] = {
 }
 
 - (void)postContent:(NSString *)body
+            forUser:(NSString*)userToken
       forCollection:(NSString *)collectionId
           inReplyTo:(NSString *)parentId
           onSuccess:(LFSuccessBlock)success
@@ -139,7 +138,7 @@ static const NSString* const LFSUserFlagString[] = {
     
     NSMutableDictionary *parameters =
     [NSMutableDictionary
-     dictionaryWithObjects:@[body, _lfUser]
+     dictionaryWithObjects:@[body, userToken]
      forKeys:@[@"body", @"lftoken"]];
     
     if (parentId) {

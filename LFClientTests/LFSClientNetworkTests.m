@@ -61,19 +61,19 @@
 - (void)setUp
 {
     [super setUp];
-
+    
     // Set-up code here.
     if (![LFConfig objectForKey:@"domain"]) {
         STFail(@"No test settings");
     }
     
     self.client = [LFSBoostrapClient clientWithEnvironment:[LFConfig objectForKey:@"environment"]
-                                                      network:[LFConfig objectForKey:@"domain"]];
+                                                   network:[LFConfig objectForKey:@"domain"]];
     self.clientLabs = [LFSBoostrapClient clientWithEnvironment:[LFConfig objectForKey:@"environment"] network:[LFConfig objectForKey:@"labs network"]];
     
     self.clientAdmin = [LFSAdminClient clientWithEnvironment:nil network:[LFConfig objectForKey:@"domain"]];
     
-    self.clientWrite = [LFSWriteClient clientWithEnvironment:nil network:[LFConfig objectForKey:@"domain"] user:[LFConfig objectForKey:@"moderator user auth token"]];
+    self.clientWrite = [LFSWriteClient clientWithEnvironment:nil network:[LFConfig objectForKey:@"domain"]];
     
     // set timeout to 60 seconds
     [Expecta setAsynchronousTestTimeout:60.0f];
@@ -128,13 +128,13 @@
                       [[LFConfig objectForKey:@"article"] base64String]];
     NSURLRequest *request = [self.client requestWithMethod:@"GET" path:path parameters:nil];
     LFSJSONRequestOperation *op = [LFSJSONRequestOperation
-                                  JSONRequestOperationWithRequest:request
-                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                      result = JSON;
-                                  }
-                                  failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                      NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                  }];
+                                   JSONRequestOperationWithRequest:request
+                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                       result = JSON;
+                                   }
+                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                       NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                                   }];
     [self.client enqueueHTTPRequestOperation:op];
     
     // Wait 'til done and then verify that everything is OK
@@ -205,19 +205,19 @@
 {
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-
+    
     [LFBootstrapClient getHottestCollectionsForTag:@"tag"
-                                             site:[LFConfig objectForKey:@"site"]
-                                          network:[LFConfig objectForKey:@"domain"]
-                                     desiredResults:10u
-                                            onSuccess:^(NSArray *results) {
-                                                res = results;
-                                                dispatch_semaphore_signal(sema);
-                                            } onFailure:^(NSError *error) {
-                                                NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                                dispatch_semaphore_signal(sema);
-                                            }];
- 
+                                              site:[LFConfig objectForKey:@"site"]
+                                           network:[LFConfig objectForKey:@"domain"]
+                                    desiredResults:10u
+                                         onSuccess:^(NSArray *results) {
+                                             res = results;
+                                             dispatch_semaphore_signal(sema);
+                                         } onFailure:^(NSError *error) {
+                                             NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                                             dispatch_semaphore_signal(sema);
+                                         }];
+    
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     STAssertNotNil(res, @"Should have returned results");
 }
@@ -252,15 +252,15 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     [LFBootstrapClient getUserContentForUser:[LFConfig objectForKey:@"system user"]
                                    withToken:nil
-                                   forNetwork:[LFConfig objectForKey:@"labs network"]
-                                 statuses:nil
-                                  offset:nil
-                                     onSuccess:^(NSArray *results) {
-                                         res = results;
-                                         dispatch_semaphore_signal(sema);
+                                  forNetwork:[LFConfig objectForKey:@"labs network"]
+                                    statuses:nil
+                                      offset:nil
+                                   onSuccess:^(NSArray *results) {
+                                       res = results;
+                                       dispatch_semaphore_signal(sema);
                                    } onFailure:^(NSError *error) {
-                                        NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                        dispatch_semaphore_signal(sema);
+                                       NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                                       dispatch_semaphore_signal(sema);
                                    }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
@@ -297,16 +297,16 @@
     NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
     
     [LFAdminClient authenticateUserWithToken:userToken
-                                  article:[LFConfig objectForKey:@"article"]
-                                     site:[LFConfig objectForKey:@"site"]
-                                   network:[LFConfig objectForKey:@"domain"]
-                                     onSuccess:^(NSDictionary *gotUserData) {
-                                         res = gotUserData;
-                                         dispatch_semaphore_signal(sema);
-                                     } onFailure:^(NSError *error) {
-                                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                         dispatch_semaphore_signal(sema);
-                                     }];
+                                     article:[LFConfig objectForKey:@"article"]
+                                        site:[LFConfig objectForKey:@"site"]
+                                     network:[LFConfig objectForKey:@"domain"]
+                                   onSuccess:^(NSDictionary *gotUserData) {
+                                       res = gotUserData;
+                                       dispatch_semaphore_signal(sema);
+                                   } onFailure:^(NSError *error) {
+                                       NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
+                                       dispatch_semaphore_signal(sema);
+                                   }];
     
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
@@ -411,6 +411,7 @@
     __block NSDictionary *result = nil;
     
     [self.clientWrite postOpinion:LFSOpinionLike
+                          forUser:[LFConfig objectForKey:@"moderator user auth token"]
                        forContent:[LFConfig objectForKey:@"content"]
                      inCollection:[LFConfig objectForKey:@"collection"]
                         onSuccess:^(NSOperation *operation, id responseObject) {
@@ -435,9 +436,9 @@
     NSString *userToken = [LFConfig objectForKey:@"moderator user auth token"];
     
     [LFWriteClient unlikeContent:[LFConfig objectForKey:@"content"]
-                       forUser:userToken
-                  collection:[LFConfig objectForKey:@"collection"]
-                     network:[LFConfig objectForKey:@"domain"]
+                         forUser:userToken
+                      collection:[LFConfig objectForKey:@"collection"]
+                         network:[LFConfig objectForKey:@"domain"]
                        onSuccess:^(NSDictionary *content) {
                            res = content;
                            dispatch_semaphore_signal(sema);
@@ -455,6 +456,7 @@
     __block NSDictionary *result = nil;
     
     [self.clientWrite postOpinion:LFSOpinionUnlike
+                          forUser:[LFConfig objectForKey:@"moderator user auth token"]
                        forContent:[LFConfig objectForKey:@"content"]
                      inCollection:[LFConfig objectForKey:@"collection"]
                         onSuccess:^(NSOperation *operation, id responseObject) {
@@ -505,6 +507,7 @@
     
     // Actual call would look something like this:
     [self.clientWrite postContent:[NSString stringWithFormat:@"test post, %d", arc4random()]
+                          forUser:[LFConfig objectForKey:@"moderator user auth token"]
                     forCollection:[LFConfig objectForKey:@"collection"]
                         inReplyTo:nil
                         onSuccess:^(NSOperation *operation, id responseObject) {
@@ -560,6 +563,7 @@
     
     // Actual call would look something like this:
     [self.clientWrite postContent:[NSString stringWithFormat:@"test reply, %d", arc4random()]
+                          forUser:[LFConfig objectForKey:@"moderator user auth token"]
                     forCollection:[LFConfig objectForKey:@"collection"]
                         inReplyTo:parent
                         onSuccess:^(NSOperation *operation, id responseObject) {
@@ -613,9 +617,10 @@
 {
     __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
-
+    
     // Actual call would look something like this:
     [self.clientWrite postFlag:LFSFlagOfftopic
+                       forUser:[LFConfig objectForKey:@"moderator user auth token"]
                     forContent:[LFConfig objectForKey:@"content"]
                   inCollection:[LFConfig objectForKey:@"collection"]
                     parameters:@{@"notes":@"fakeNotes", @"email":@"fakeEmail"}
@@ -659,7 +664,7 @@
 //- (void)testStream {
 //    __block NSDictionary *res = nil;
 //    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-//    
+//
 //    LFStreamClient *streamer = [LFStreamClient new];
 //    [streamer startStreamForCollection:[Config objectForKey:@"collection"]
 //                             fromEvent:@"2648462675" //the past
@@ -671,10 +676,10 @@
 //                                   NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
 //                                   dispatch_semaphore_signal(sema);
 //                               }];
-//    
+//
 //    dispatch_semaphore_wait(sema, 10 * NSEC_PER_SEC);
 //    NSLog(@"Successfully streamed");
-//    
+//
 //    [streamer stopStreamForCollection:[Config objectForKey:@"collection"]];
 //}
 

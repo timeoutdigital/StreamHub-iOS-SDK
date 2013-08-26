@@ -67,9 +67,9 @@
     
     self.clientAdmin = [LFSAdminClient clientWithEnvironment:nil network:@"usercontent-sample"];
     
-    self.clientLike = [LFSWriteClient clientWithEnvironment:nil network:@"like-sample" user:@"fakeUserToken"];
-    self.clientPost = [LFSWriteClient clientWithEnvironment:nil network:@"post-sample" user:@"fakeUser"];
-    self.clientFlag = [LFSWriteClient clientWithEnvironment:nil network:@"flag-sample" user:@"fakeUserToken"];
+    self.clientLike = [LFSWriteClient clientWithEnvironment:nil network:@"like-sample"];
+    self.clientPost = [LFSWriteClient clientWithEnvironment:nil network:@"post-sample"];
+    self.clientFlag = [LFSWriteClient clientWithEnvironment:nil network:@"flag-sample"];
     
     // set timeout to 60 seconds
     [Expecta setAsynchronousTestTimeout:60.0f];
@@ -464,6 +464,7 @@
     
     // Actual call would look something like this:
     [self.clientLike postOpinion:LFSOpinionLike
+                         forUser:@"fakeUserToken"
                       forContent:@"fakeContent"
                     inCollection:@"fakeColl"
                        onSuccess:^(NSOperation *operation, id responseObject) {
@@ -521,6 +522,7 @@
                          stringWithFormat:@"test post, %d",
                          arc4random()];
     [self.clientPost postContent:content
+                         forUser:@"fakeUser"
                    forCollection:@"fakeColl"
                        inReplyTo:nil
                        onSuccess:^(NSOperation *operation, id responseObject) {
@@ -575,6 +577,7 @@
     
     // Actual call would look something like this:
     [self.clientFlag postFlag:LFSFlagOfftopic
+                      forUser:@"fakeUserToken"
                    forContent:@"fakeContent"
                  inCollection:@"fakeCollection"
                    parameters:@{@"notes":@"fakeNotes", @"email":@"fakeEmail"}
