@@ -76,54 +76,76 @@ static dispatch_queue_t json_request_operation_processing_queue() {
 
 - (void)setResponseJSON:(id)responseJSON
 {
+    NSString *data = nil;
+    NSString *status = nil;
+    NSNumber *code = nil;
     if (!responseJSON)
     {
-        // empty payload
+        // Empty payload
+        _responseJSON = nil;
         self.JSONError = [NSError errorWithDomain:LFSErrorDomain
                                              code:0
-                                         userInfo:@{NSLocalizedDescriptionKey:@"Response failed to return data."}
-                          ];
-        _responseJSON = nil;
+                                         userInfo:@{NSLocalizedDescriptionKey:@"Response failed to return data."}];
     }
     else if (![responseJSON respondsToSelector:@selector(objectForKey:)])
     {
-        // payload of wrong type
+        // Payload of wrong type
         NSString *errorTemplate = @"Response was parsed as type `%@' whereas a dictionary was expected";
         NSString *errorDescription = [NSString stringWithFormat:errorTemplate,
                                       NSStringFromClass([responseJSON class])];
+        _responseJSON = nil;
         self.JSONError = [NSError errorWithDomain:LFSErrorDomain
                                              code:0
-                                         userInfo:@{NSLocalizedDescriptionKey:errorDescription}
-                          ];
-        _responseJSON = nil;
+                                         userInfo:@{NSLocalizedDescriptionKey:errorDescription}];
     }
-    else if ([responseJSON count] == 3u &&
-             [responseJSON objectForKey:@"data"] &&
-             [responseJSON objectForKey:@"status"] && [[responseJSON objectForKey:@"status"] isEqualToString:@"ok"] &&
-             [responseJSON objectForKey:@"code"] && [[responseJSON objectForKey:@"code"] integerValue] == 200)
+    else if ((data = [responseJSON objectForKey:@"data"]) &&
+             (status = [responseJSON objectForKey:@"status"]) &&
+             (code = [responseJSON objectForKey:@"code"]))
     {
-        _responseJSON = [responseJSON objectForKey:@"data"];       // Unwrap Django "burrito" wrapper
-    } else if ([responseJSON count] == 4u &&
-               [responseJSON objectForKey:@"networkSettings"] &&
-               [responseJSON objectForKey:@"headDocument"] &&
-               [responseJSON objectForKey:@"collectionSettings"] &&
-               [responseJSON objectForKey:@"siteSettings"]) {
-        _responseJSON = responseJSON;                              // pass whole response (no unwrapping)
-    } else {
+        NSString *msg;
+        if ([status isEqualToString:@"ok"])
+        {
+            // Unwrap API Envelope:
+            // https://github.com/Livefyre/livefyre-docs/wiki/StreamHub-API-Reference#wiki-api-envelope
+            _responseJSON = data;
+        }
+        else if ((msg = [responseJSON objectForKey:@"msg"]))
+        {
+            // Report error with message
+            NSInteger codeValue = [code integerValue];
+            NSString *errorMsg = [NSString stringWithFormat:@"Error %d: %@", codeValue, msg];
+            _responseJSON = nil;
+            self.JSONError = [NSError errorWithDomain:LFSErrorDomain
+                                                 code:codeValue
+                                             userInfo:@{NSLocalizedDescriptionKey:errorMsg}];
+        }
+        else
+        {
+            // Report error with error code
+            NSInteger codeValue = [code integerValue];
+            NSString *errorMsg = [NSString stringWithFormat:@"Error %d (No Description Available)", codeValue];
+            _responseJSON = nil;
+            self.JSONError = [NSError errorWithDomain:LFSErrorDomain
+                                                 code:codeValue
+                                             userInfo:@{NSLocalizedDescriptionKey:errorMsg}];
+        }
+    }
+    else if ([responseJSON objectForKey:@"networkSettings"] &&
+             [responseJSON objectForKey:@"headDocument"] &&
+             [responseJSON objectForKey:@"collectionSettings"] &&
+             [responseJSON objectForKey:@"siteSettings"])
+    {
+        // Pass whole response (no unwrapping)
+        _responseJSON = responseJSON;
+    }
+    else
+    {
+        // Unknown response type
         NSString *errorText = @"Unexpected response.";
-        NSInteger code = 0;
-        if ((code = [[responseJSON objectForKey:@"code"] integerValue])) {
-            errorText = [errorText stringByAppendingString:[NSString stringWithFormat:@" Code was %d.", code]];
-        }
-        NSString *msg = nil;
-        if ((msg = [[responseJSON objectForKey:@"msg"] stringValue])) {
-            errorText = [errorText stringByAppendingString:[NSString stringWithFormat:@" %@", msg]];
-        }
-        self.JSONError = [NSError errorWithDomain:LFSErrorDomain
-                                             code:code
-                                         userInfo:@{NSLocalizedDescriptionKey:errorText}
-                          ];
         _responseJSON = nil;
+        self.JSONError = [NSError errorWithDomain:LFSErrorDomain
+                                             code:0
+                                         userInfo:@{NSLocalizedDescriptionKey:errorText}];
     }
 }
 

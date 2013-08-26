@@ -98,7 +98,7 @@ static const NSString* const LFSUserFlagString[] = {
 }
 
 - (void)postFlag:(LFSUserFlag)flag
-            forUser:(NSString*)userToken
+         forUser:(NSString*)userToken
       forContent:(NSString *)contentId
     inCollection:(NSString *)collectionId
       parameters:(NSDictionary*)parameters
