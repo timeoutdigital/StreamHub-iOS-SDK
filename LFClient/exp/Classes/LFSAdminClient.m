@@ -7,7 +7,7 @@
 //
 
 #import "LFSAdminClient.h"
-#import "NSString+Base64Encoding.h"
+#import "MF_Base64Additions.h"
 
 static const NSString* const kLFSAdminDomain = @"admin";
 
@@ -89,7 +89,7 @@ static const NSString* const kLFSAdminDomain = @"admin";
     [self getPath:@"auth/"
        parameters:@{@"lftoken": userToken,
                     @"siteId": siteId,
-                    @"articleId":[articleId base64EncodedString]}
+                    @"articleId":[articleId base64String]}
           success:(AFSuccessBlock)success
           failure:(AFFailureBlock)failure];
 }

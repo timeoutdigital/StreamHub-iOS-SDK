@@ -28,7 +28,7 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 #import "LFAdminClient.h"
-#import "NSString+Base64Encoding.h"
+#import "MF_Base64Additions.h"
 
 static const NSString* const kLFSAdminDomain = @"admin";
 
@@ -70,7 +70,7 @@ static const NSString* const kLFSAdminDomain = @"admin";
     
     NSDictionary *parameters = @{@"lftoken": userToken,
                                  @"siteId": siteId,
-                                 @"articleId":[articleId base64EncodedString]};
+                                 @"articleId":[articleId base64String]};
     
     NSString *host = [NSString stringWithFormat:@"%@.%@",
                       kLFSAdminDomain, networkDomain];

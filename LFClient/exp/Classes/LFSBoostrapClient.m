@@ -7,7 +7,7 @@
 //
 
 #import "LFSBoostrapClient.h"
-#import "NSString+Base64Encoding.h"
+#import "MF_Base64Additions.h"
 
 @interface LFSBoostrapClient ()
 @end
@@ -71,7 +71,7 @@ static const NSString* const kLFSBootstrapDomain = @"bootstrap";
     NSParameterAssert(siteId != nil);
     NSParameterAssert(articleId != nil);
     NSString* path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init",
-                      _lfNetwork, siteId, [articleId base64EncodedString]];
+                      _lfNetwork, siteId, [articleId base64String]];
     [self getPath:path
        parameters:nil
           success:(AFSuccessBlock)success

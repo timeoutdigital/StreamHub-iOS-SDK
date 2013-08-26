@@ -28,7 +28,7 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 #import "LFBootstrapClient.h"
-#import "NSString+Base64Encoding.h"
+#import "MF_Base64Additions.h"
 
 static const NSString* const kLFSBootstrapDomain = @"bootstrap";
 
@@ -46,7 +46,7 @@ static const NSString* const kLFSBootstrapDomain = @"bootstrap";
 
     NSString *hostname = [networkDomain isEqualToString:@"livefyre.com"] ? environment : networkDomain;
     NSString *host = [NSString stringWithFormat:@"%@.%@", kLFSBootstrapDomain, hostname];
-    NSString *path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init", networkDomain, siteId, [articleId base64EncodedString]];
+    NSString *path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init", networkDomain, siteId, [articleId base64String]];
     
     [self requestWithHost:host
                      path:path

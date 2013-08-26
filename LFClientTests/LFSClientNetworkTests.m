@@ -38,7 +38,8 @@
 #import "LFSWriteClient.h"
 
 #import "LFSJSONRequestOperation.h"
-#import "NSString+Base64Encoding.h"
+#import "MF_Base64Additions.h"
+
 #import <AFJSONRequestOperation.h>
 
 #define EXP_SHORTHAND YES
@@ -124,7 +125,7 @@
     NSString* path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init",
                       [LFConfig objectForKey:@"domain"],
                       [LFConfig objectForKey:@"site"],
-                      [[LFConfig objectForKey:@"article"] base64EncodedString]];
+                      [[LFConfig objectForKey:@"article"] base64String]];
     NSURLRequest *request = [self.client requestWithMethod:@"GET" path:path parameters:nil];
     LFSJSONRequestOperation *op = [LFSJSONRequestOperation
                                   JSONRequestOperationWithRequest:request
@@ -153,7 +154,7 @@
     NSString* path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init",
                       [LFConfig objectForKey:@"domain"],
                       [LFConfig objectForKey:@"site"],
-                      [[LFConfig objectForKey:@"article"] base64EncodedString]];
+                      [[LFConfig objectForKey:@"article"] base64String]];
     [self.client getPath:path
               parameters:nil
                  success:^(AFHTTPRequestOperation *operation, id JSON){

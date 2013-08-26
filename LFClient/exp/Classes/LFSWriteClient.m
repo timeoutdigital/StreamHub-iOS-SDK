@@ -7,7 +7,7 @@
 //
 
 #import "LFSWriteClient.h"
-#import "NSString+Base64Encoding.h"
+#import "MF_Base64Additions.h"
 
 static const NSString *const kLFSQuillDomain = @"quill";
 
