@@ -42,7 +42,7 @@ static const NSString* const kLFSAdminDomain = @"admin";
     _lfNetwork = network;
     
     NSString *hostname = [network isEqualToString:@"livefyre.com"] ? environment : network;
-    NSString *urlString = [NSString stringWithFormat:@"%@://%@.%@/",
+    NSString *urlString = [NSString stringWithFormat:@"%@://%@.%@/api/v3.0/",
                            LFSScheme, kLFSAdminDomain, hostname];
     
     self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
@@ -69,7 +69,7 @@ static const NSString* const kLFSAdminDomain = @"admin";
     NSParameterAssert(userToken != nil);
     NSParameterAssert(collectionId != nil);
     
-    [self getPath:@"/api/v3.0/auth/"
+    [self getPath:@"auth/"
        parameters:@{@"lftoken": userToken,
                     @"collectionId": collectionId}
           success:(AFSuccessBlock)success
@@ -86,7 +86,7 @@ static const NSString* const kLFSAdminDomain = @"admin";
     NSParameterAssert(siteId != nil);
     NSParameterAssert(articleId != nil);
     
-    [self getPath:@"/api/v3.0/auth/"
+    [self getPath:@"auth/"
        parameters:@{@"lftoken": userToken,
                     @"siteId": siteId,
                     @"articleId":[articleId base64EncodedString]}

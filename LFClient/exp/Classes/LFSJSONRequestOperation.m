@@ -102,13 +102,13 @@ static dispatch_queue_t json_request_operation_processing_queue() {
              [responseJSON objectForKey:@"status"] && [[responseJSON objectForKey:@"status"] isEqualToString:@"ok"] &&
              [responseJSON objectForKey:@"code"] && [[responseJSON objectForKey:@"code"] integerValue] == 200)
     {
-        _responseJSON = [responseJSON objectForKey:@"data"];      // Unwrap Django "burrito" wrapper
+        _responseJSON = [responseJSON objectForKey:@"data"];       // Unwrap Django "burrito" wrapper
     } else if ([responseJSON count] == 4u &&
                [responseJSON objectForKey:@"networkSettings"] &&
                [responseJSON objectForKey:@"headDocument"] &&
                [responseJSON objectForKey:@"collectionSettings"] &&
                [responseJSON objectForKey:@"siteSettings"]) {
-        _responseJSON = responseJSON;
+        _responseJSON = responseJSON;                              // pass whole response (no unwrapping)
     } else {
         NSString *errorText = @"Unexpected response.";
         NSInteger code = 0;

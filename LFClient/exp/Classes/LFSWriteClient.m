@@ -60,7 +60,7 @@ static const NSString* const LFSUserFlagString[] = {
     
     NSString *hostname = [network isEqualToString:@"livefyre.com"] ? environment : network;
     NSString *urlString = [NSString
-                           stringWithFormat:@"%@://%@.%@/",
+                           stringWithFormat:@"%@://%@.%@/api/v3.0/",
                            LFSScheme, kLFSQuillDomain, hostname];
     
     self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
@@ -91,7 +91,7 @@ static const NSString* const LFSUserFlagString[] = {
     NSDictionary *parameters = @{@"collection_id":collectionId,
                                  @"lftoken": _lfUser};
     NSString *path = [NSString
-                      stringWithFormat:@"/api/v3.0/message/%@/%@/",
+                      stringWithFormat:@"message/%@/%@/",
                       contentId, actionEndpoint];
     
     [self postPath:path
@@ -118,7 +118,7 @@ static const NSString* const LFSUserFlagString[] = {
     // parameters passed in can be { notes: @"...", email: @"..." }
     [parameters1 addEntriesFromDictionary:parameters];
     NSString *path = [NSString
-                      stringWithFormat:@"/api/v3.0/message/%@/flag/%@/",
+                      stringWithFormat:@"message/%@/flag/%@/",
                       contentId, flagString];
     
     [self postPath:path
@@ -147,7 +147,7 @@ static const NSString* const LFSUserFlagString[] = {
     }
     
     NSString *path = [NSString
-                      stringWithFormat:@"/api/v3.0/collection/%@/post/",
+                      stringWithFormat:@"collection/%@/post/",
                       collectionId];
     
     [self postPath:path
