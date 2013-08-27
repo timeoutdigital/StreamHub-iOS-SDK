@@ -31,8 +31,8 @@
 
 // one header to rule them all
 #import "NSDate+RelativePast.h"
+#import "NSString+LFSEref.h"
 
-#import "LFARC4.h"
 #import "LFConstants.h"
 #import "LFConfig.h"
 

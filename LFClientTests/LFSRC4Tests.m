@@ -31,10 +31,10 @@
 
 #import "LFClient.h"
 
-@interface LFSARC4Tests : SenTestCase
+@interface LFSRC4Tests : SenTestCase
 @end
 
-@implementation LFSARC4Tests
+@implementation LFSRC4Tests
 - (void)testDecrypt {
     const char rawKey[] = "secret key"; // 736563726574206B6579
     NSString *cipherText = @"0DC9D79D144D7B0C491F2ACF8F8B9B";
@@ -45,7 +45,7 @@
         [key appendFormat:@"%02X", (unsigned char)rawKey[i]];
     }
 
-    NSString *decrypted = [LFARC4 decrypt:cipherText withKey:key];
+    NSString *decrypted = [cipherText decryptRC4WithKey:key];
     STAssertEqualObjects(decrypted, plainText, nil);
 }
 @end
