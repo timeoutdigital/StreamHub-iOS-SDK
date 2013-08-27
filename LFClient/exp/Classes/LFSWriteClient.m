@@ -181,8 +181,9 @@ static const NSString* const LFSUserFlagString[] = {
     for (NSString *tag in tagArray) {
         [encodedTags addObject:[tag JSONString]];
     }
+    NSString *urlString = url ? [url absoluteString] : @"";
     NSString *collectionMeta = [JWT encodePayload:@{@"title":[title JSONString],
-                                                    @"url":[url absoluteString],
+                                                    @"url":urlString,
                                                     @"tags":[encodedTags componentsJoinedByString:@","],
                                                     @"articleId":[articleId JSONString]}
                                        withSecret:siteKey];

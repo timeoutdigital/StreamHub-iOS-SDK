@@ -642,6 +642,39 @@
     expect(result).to.beTruthy();
 }
 
+#pragma mark -
+- (void)testCreateCollectionHTTP
+{
+    __block LFSJSONRequestOperation *op = nil;
+    __block id result = nil;
+    
+    // Actual call would look something like this:
+    [self.clientWrite createCollection:@"justTesting"
+                               forSite:[LFConfig objectForKey:@"site"]
+                               siteKey:[LFConfig objectForKey:@"site key"]
+                                 title:@"La la la la"
+                               withURL:nil
+                                  tags:@[@"hey", @"hello"]
+                             onSuccess:^(NSOperation *operation, id responseObject) {
+                                 op = (LFSJSONRequestOperation*)operation;
+                                 result = responseObject;
+                             }
+                             onFailure:^(NSOperation *operation, NSError *error) {
+                                 op = (LFSJSONRequestOperation*)operation;
+                                 NSLog(@"Error code %d. Description: %@. Recovery Suggestion: %@",
+                                       error.code,
+                                       [error localizedDescription],
+                                       [error localizedRecoverySuggestion]);
+                             }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).to.beTruthy();
+}
+
+
 //share to
 //    ran = arc4random();
 //    [LFWriteClient postContent:[NSString stringWithFormat:@"test reply, %d", ran]

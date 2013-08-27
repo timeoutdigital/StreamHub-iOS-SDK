@@ -161,4 +161,5 @@ static const NSString *const kLFSQuillDomain = @"quill";
             break;
     }
 }
+
 @end
