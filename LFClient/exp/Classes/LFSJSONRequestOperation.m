@@ -76,7 +76,6 @@ static dispatch_queue_t json_request_operation_processing_queue() {
 
 - (void)setResponseJSON:(id)responseJSON
 {
-    NSString *data = nil;
     NSString *status = nil;
     NSNumber *code = nil;
     if (!responseJSON)
@@ -98,8 +97,7 @@ static dispatch_queue_t json_request_operation_processing_queue() {
                                              code:0
                                          userInfo:@{NSLocalizedDescriptionKey:errorDescription}];
     }
-    else if ((data = [responseJSON objectForKey:@"data"]) &&
-             (status = [responseJSON objectForKey:@"status"]) &&
+    else if ((status = [responseJSON objectForKey:@"status"]) &&
              (code = [responseJSON objectForKey:@"code"]))
     {
         NSString *msg;
@@ -107,7 +105,7 @@ static dispatch_queue_t json_request_operation_processing_queue() {
         {
             // Unwrap API Envelope:
             // https://github.com/Livefyre/livefyre-docs/wiki/StreamHub-API-Reference#wiki-api-envelope
-            _responseJSON = data;
+            _responseJSON = [responseJSON objectForKey:@"data"];
         }
         else if ((msg = [responseJSON objectForKey:@"msg"]))
         {

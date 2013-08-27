@@ -163,81 +163,136 @@ static const NSString* const LFSUserFlagString[] = {
            failure:failure];
 }
 
-- (void)createCollection:(NSString *)articleId
-                  forSite:(NSString*)siteId
-                 siteKey:(NSString*)siteKey
+// Creates "signed" collection
+- (void)createCollection:(NSString*)articleId
+                 forSite:(NSString*)siteId
+           secretSiteKey:(NSString*)secretSiteKey
                    title:(NSString*)title
-                 withURL:(NSURL *)url
                     tags:(NSArray*)tagArray
+                 withURL:(NSURL *)newURL
                onSuccess:(LFSuccessBlock)success
                onFailure:(LFFailureBlock)failure
 {
+    NSParameterAssert(articleId != nil);
+    NSParameterAssert(newURL != nil); //TODO: issue ticket to remove this requirement
     NSParameterAssert(siteId != nil);
     NSParameterAssert([title length] <= 255);
     NSParameterAssert([articleId length] <= 255);
     
     // JSON-encode and concatenate tag array
-    NSMutableArray *encodedTags = [NSMutableArray arrayWithCapacity:[tagArray count]];
-    for (NSString *tag in tagArray) {
-        [encodedTags addObject:[tag JSONString]];
-    }
-    NSString *urlString = url ? [url absoluteString] : @"";
-    NSString *collectionMeta = [JWT encodePayload:@{@"title":[title JSONString],
-                                                    @"url":urlString,
-                                                    @"tags":[encodedTags componentsJoinedByString:@","],
-                                                    @"articleId":[articleId JSONString]}
-                                       withSecret:siteKey];
-    NSString *checksum = [collectionMeta md5];
-    NSDictionary *parameters = @{@"collectionMeta": collectionMeta, @"checksum": checksum};
+    NSDictionary *dict = @{@"title":title,
+                          @"url":[newURL absoluteString],
+                          @"tags":[tagArray componentsJoinedByString:@","],
+                          @"articleId":articleId};
     
-    NSString *path = [NSString
-                      stringWithFormat:@"site/%@/collection/create",
-                      siteId];
+    NSString *collectionMeta = [JWT encodePayload:dict
+                                       withSecret:secretSiteKey];
     
-    [self postPath:path
-        parameters:parameters
- parameterEncoding:AFJSONParameterEncoding
-           success:success
-           failure:failure];
+    NSDictionary *parameters = @{@"collectionMeta": collectionMeta,
+                                 @"checksum": [collectionMeta md5]};
+    
+    NSURL *fullURL = [self.baseURL
+                      URLByAppendingPathComponent:
+                      [NSString stringWithFormat:@"site/%@/collection/create",
+                       siteId]];
+    
+    [self postURL:fullURL
+       parameters:parameters
+parameterEncoding:AFJSONParameterEncoding
+          success:success
+          failure:failure];
 }
 
-// extend standard operation to parametrize by parameter encoding
-- (void)postPath:(NSString *)path
-      parameters:(NSDictionary *)parameters
-parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
-         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+- (void)createCollection:(NSString*)articleId
+                 forSite:(NSString*)siteId
+                   title:(NSString*)title
+                    tags:(NSArray*)tagArray
+                 withURL:(NSURL *)newURL
+               onSuccess:(LFSuccessBlock)success
+               onFailure:(LFFailureBlock)failure
 {
+    NSParameterAssert(articleId != nil);
+    NSParameterAssert(newURL != nil); //TODO: issue ticket to remove this requirement
+    NSParameterAssert(siteId != nil);
+    NSParameterAssert([title length] <= 255);
+    NSParameterAssert([articleId length] <= 255);
+    
+    // JSON-encode and concatenate tag array
+    NSDictionary *dict = @{@"title":title,
+                           @"url":[newURL absoluteString],
+                           @"tags":[tagArray componentsJoinedByString:@","],
+                           @"articleId":articleId,
+                           @"signed":[NSNumber numberWithBool:NO]};
+    
+    NSDictionary *parameters = @{@"collectionMeta":dict};
+    
+    NSURL *fullURL = [self.baseURL
+                      URLByAppendingPathComponent:
+                      [NSString stringWithFormat:@"site/%@/collection/create",
+                       siteId]];
+    
+    [self postURL:fullURL
+       parameters:parameters
+parameterEncoding:AFJSONParameterEncoding
+          success:success
+          failure:failure];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// extend standard operation to parametrize by parameter encoding
+- (void)postURL:(NSURL *)url
+     parameters:(NSDictionary *)parameters
+parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
+        success:(AFSuccessBlock)success
+        failure:(AFFailureBlock)failure
+{
+    
 	NSURLRequest *request = [self requestWithMethod:@"POST"
-                                               path:path
+                                                url:url
                                          parameters:parameters
                                   parameterEncoding:parameterEncoding];
-	AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
-                                                                      success:success
-                                                                      failure:failure];
+	
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
     [self enqueueHTTPRequestOperation:operation];
 }
 
 // extend standard operation to parametrize by parameter encoding
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method
-                                      path:(NSString *)path
+                                       url:(NSURL *)url
                                 parameters:(NSDictionary *)parameters
                          parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
 {
     NSParameterAssert(method);
     
-    if (!path) {
-        path = @"";
-    }
-    
-    NSURL *url = [NSURL URLWithString:path relativeToURL:self.baseURL];
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request setHTTPMethod:method];
     [request setAllHTTPHeaderFields:self.defaultHeaders];
     
     if (parameters) {
         if ([method isEqualToString:@"GET"] || [method isEqualToString:@"HEAD"] || [method isEqualToString:@"DELETE"]) {
-            url = [NSURL URLWithString:[[url absoluteString] stringByAppendingFormat:[path rangeOfString:@"?"].location == NSNotFound ? @"?%@" : @"&%@", AFQueryStringFromParametersWithEncoding(parameters, self.stringEncoding)]];
+            url = [url URLByAppendingPathComponent:[NSString stringWithFormat:
+                                                    ([[url absoluteString] rangeOfString:@"?"].location == NSNotFound ? @"?%@" : @"&%@"),
+                                                    AFQueryStringFromParametersWithEncoding(parameters, self.stringEncoding)]];
             [request setURL:url];
         } else {
             NSString *charset = (__bridge NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(self.stringEncoding));
@@ -252,7 +307,7 @@ parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
                     [request setValue:[NSString stringWithFormat:@"application/json; charset=%@", charset] forHTTPHeaderField:@"Content-Type"];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wassign-enum"
-                    [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:parameters options:0 error:&error]];
+                    [request setHTTPBody:[parameters JSONDataWithOptions:JKSerializeOptionNone error:&error]];
 #pragma clang diagnostic pop
                     break;
                 case AFPropertyListParameterEncoding:;
@@ -268,5 +323,4 @@ parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
     }
 	return request;
 }
-
 @end

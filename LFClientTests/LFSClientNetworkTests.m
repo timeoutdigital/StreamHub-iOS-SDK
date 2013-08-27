@@ -643,18 +643,18 @@
 }
 
 #pragma mark -
-- (void)testCreateCollectionHTTP
+- (void)testCreateCollectionWithSecretHTTP
 {
     __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
     
-    // Actual call would look something like this:
-    [self.clientWrite createCollection:@"justTesting"
+    // Modify article Id to a unique one to avoid error 409
+    [self.clientWrite createCollection:@"justTesting5"
                                forSite:[LFConfig objectForKey:@"site"]
-                               siteKey:[LFConfig objectForKey:@"site key"]
+                         secretSiteKey:[LFConfig objectForKey:@"site key"]
                                  title:@"La la la la"
-                               withURL:nil
                                   tags:@[@"hey", @"hello"]
+                               withURL:[NSURL URLWithString:@"http://erere.com/ererereer"]
                              onSuccess:^(NSOperation *operation, id responseObject) {
                                  op = (LFSJSONRequestOperation*)operation;
                                  result = responseObject;
@@ -671,9 +671,50 @@
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    expect(result).to.beTruthy();
+    if (op.error) {
+        // HTTP 409: Collection already exists for site_id ... and article_id .... Use update instead.
+        expect(op.response.statusCode).to.equal(409);
+    } else {
+        // HTTP 202: This request is being processed.
+        expect(op.response.statusCode).to.equal(202);
+    }
 }
 
+- (void)testCreateCollectionUnsignedHTTP
+{
+    __block LFSJSONRequestOperation *op = nil;
+    __block id result = nil;
+    
+    // Modify article Id to a unique one to avoid error 409
+    [self.clientWrite createCollection:@"justTesting6"
+                               forSite:[LFConfig objectForKey:@"site"]
+                                 title:@"La la la la"
+                                  tags:@[@"hey", @"hello"]
+                               withURL:[NSURL URLWithString:@"http://erere.com/ererereer"]
+                             onSuccess:^(NSOperation *operation, id responseObject) {
+                                 op = (LFSJSONRequestOperation*)operation;
+                                 result = responseObject;
+                             }
+                             onFailure:^(NSOperation *operation, NSError *error) {
+                                 op = (LFSJSONRequestOperation*)operation;
+                                 NSLog(@"Error code %d. Description: %@. Recovery Suggestion: %@",
+                                       error.code,
+                                       [error localizedDescription],
+                                       [error localizedRecoverySuggestion]);
+                             }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    if (op.error) {
+        // HTTP 409: Collection already exists for site_id ... and article_id .... Use update instead.
+        expect(op.response.statusCode).to.equal(409);
+    } else {
+        // HTTP 202: This request is being processed.
+        expect(op.response.statusCode).to.equal(202);
+    }
+}
 
 //share to
 //    ran = arc4random();
