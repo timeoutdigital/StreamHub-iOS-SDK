@@ -176,6 +176,7 @@
 
 - (void)testInitWithGetInitForArticle
 {
+    //Note: this test fails when the URL is wrong (the way it's meant to be)
     __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
     
@@ -224,6 +225,7 @@
 
 - (void)testHeatAPIWithGetHottestCollections
 {
+    //Note: this test fails when the URL is wrong (the way it's meant to be)
     __block LFSJSONRequestOperation *op = nil;
     __block NSArray *result = nil;
     
@@ -269,6 +271,7 @@
 
 - (void)testUserDataRetrievalHTTP
 {
+    //Note: this test fails when the URL is wrong (the way it's meant to be)
     __block LFSJSONRequestOperation *op = nil;
     __block NSArray *result = nil;
     
@@ -502,6 +505,7 @@
 
 - (void)testPostHTTP
 {
+    //Note: this test fails when the URL is wrong (the way it's meant to be)
     __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
     
@@ -556,6 +560,7 @@
 
 - (void)testPostInReplyToHTTP
 {
+    //Note: this test fails when the URL is wrong (the way it's meant to be)
     __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
     
@@ -615,6 +620,7 @@
 
 - (void)testFlagHTTP
 {
+    //Note: this test fails when the URL is wrong (the way it's meant to be)
     __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
     
@@ -645,6 +651,7 @@
 #pragma mark -
 - (void)testCreateCollectionWithSecretHTTP
 {
+    //Note: this test fails when the URL is wrong (the way it's meant to be)
     __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
     
@@ -682,6 +689,7 @@
 
 - (void)testCreateCollectionUnsignedHTTP
 {
+    //Note: this test fails when the URL is wrong (the way it's meant to be)
     __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
     

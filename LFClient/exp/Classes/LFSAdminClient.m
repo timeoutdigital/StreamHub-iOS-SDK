@@ -9,54 +9,11 @@
 #import "LFSAdminClient.h"
 #import "MF_Base64Additions.h"
 
-static const NSString* const kLFSAdminDomain = @"admin";
-
 @implementation LFSAdminClient
 
-@synthesize lfEnvironment = _lfEnvironment;
-@synthesize lfNetwork = _lfNetwork;
-
-#pragma mark - Initialization
-
-+ (instancetype)clientWithEnvironment:(NSString *)environment
-                              network:(NSString *)network
-{
-    return [[self alloc] initWithEnvironment:environment network:network];
-}
-
-- (id)init {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"%@ Failed to call designated initializer. Invoke `initWithEnvironment:network:` instead.",
-                                           NSStringFromClass([self class])]
-                                 userInfo:nil];
-}
-
-- (id)initWithEnvironment:(NSString *)environment
-                  network:(NSString *)network
-{
-    //NSParameterAssert(environment != nil);
-    NSParameterAssert(network != nil);
-    
-    // cache passed parameters into readonly properties
-    _lfEnvironment = environment;
-    _lfNetwork = network;
-    
-    NSString *hostname = [network isEqualToString:@"livefyre.com"] ? environment : network;
-    NSString *urlString = [NSString stringWithFormat:@"%@://%@.%@/api/v3.0/",
-                           LFSScheme, kLFSAdminDomain, hostname];
-    
-    self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
-    if (!self) {
-        return nil;
-    }
-    
-    [self registerHTTPOperationClass:[LFSJSONRequestOperation class]];
-    
-    // Accept HTTP Header;
-    // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
-    [self setDefaultHeader:@"Accept" value:@"application/json"];
-    [self setParameterEncoding:AFFormURLParameterEncoding];
-    return self;
+#pragma mark - Overrides
+-(NSString*)subdomain {
+    return @"admin";
 }
 
 #pragma mark - Methods
@@ -69,7 +26,8 @@ static const NSString* const kLFSAdminDomain = @"admin";
     NSParameterAssert(userToken != nil);
     NSParameterAssert(collectionId != nil);
     
-    [self getPath:@"auth/"
+    // Note: changing path still results in tests being passed
+    [self getPath:@"/api/v3.0/auth/"
        parameters:@{@"lftoken": userToken,
                     @"collectionId": collectionId}
           success:(AFSuccessBlock)success
@@ -86,7 +44,8 @@ static const NSString* const kLFSAdminDomain = @"admin";
     NSParameterAssert(siteId != nil);
     NSParameterAssert(articleId != nil);
     
-    [self getPath:@"auth/"
+    // Note: changing path still results in tests being passed
+    [self getPath:@"/api/v3.0/auth/"
        parameters:@{@"lftoken": userToken,
                     @"siteId": siteId,
                     @"articleId":[articleId base64String]}

@@ -6,28 +6,9 @@
 //
 //
 
-#import "lftypes.h"
-#import "AFHTTPClient.h"
-#import "LFSJSONRequestOperation.h"
+#import "LFSBaseClient.h"
 
-@interface LFSBoostrapClient : AFHTTPClient
-
-@property (nonatomic, readonly, strong) NSString* lfEnvironment;
-@property (nonatomic, readonly, strong) NSString* lfNetwork;
-
-/**
- * Initialize Livefyre client
- *
- * @param networkDomain The collection's network as identified by domain, i.e. livefyre.com.
- * @param environment (optional) Where the collection is hosted, i.e. t-402. Used for development/testing purposes.
- * @return LFClient instance
- */
-
-+ (instancetype)clientWithEnvironment:(NSString *)environment
-                              network:(NSString *)network;
-
-- (id)initWithEnvironment:(NSString *)environment
-                  network:(NSString *)network;
+@interface LFSBoostrapClient : LFSBaseClient
 
 /**
  * Get the initial bootstrap data for a collection.

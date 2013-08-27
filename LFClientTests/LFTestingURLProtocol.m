@@ -58,12 +58,12 @@
     NSHTTPURLResponse *response =
     [[NSHTTPURLResponse alloc] initWithURL:url MIMEType:@"application/json" expectedContentLength:-1 textEncodingName:nil];
 
-    NSString *methodId = [[url.host componentsSeparatedByString:@"."] objectAtIndex:1];
-    if (!methodId) {
+    NSString *resourcePath = [[url.host componentsSeparatedByString:@"."] objectAtIndex:1];
+    if (!resourcePath) {
         [NSException raise:@"Spoof Network Fail" format:@"Fix your test methodology, it's bad and you should feel bad."];
     }
 
-    NSString *spoofPath = [[NSBundle bundleForClass:[self class]] pathForResource:methodId ofType:@"json"];
+    NSString *spoofPath = [[NSBundle bundleForClass:[self class]] pathForResource:resourcePath ofType:@"json"];
     NSData *responseData = [NSData dataWithContentsOfFile:spoofPath];
     
     id client = self.client;

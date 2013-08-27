@@ -12,54 +12,11 @@
 @interface LFSBoostrapClient ()
 @end
 
-static const NSString* const kLFSBootstrapDomain = @"bootstrap";
-
 @implementation LFSBoostrapClient
 
-@synthesize lfEnvironment = _lfEnvironment;
-@synthesize lfNetwork = _lfNetwork;
-
-#pragma mark - Initialization
-
-+ (instancetype)clientWithEnvironment:(NSString *)environment
-                              network:(NSString *)network
-{
-    return [[self alloc] initWithEnvironment:environment network:network];
-}
-
-- (id)init {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:[NSString stringWithFormat:@"%@ Failed to call designated initializer. Invoke `initWithEnvironment:network:` instead.",
-                                           NSStringFromClass([self class])]
-                                 userInfo:nil];
-}
-
-- (id)initWithEnvironment:(NSString *)environment
-                  network:(NSString *)network
-{
-    //NSParameterAssert(environment != nil);
-    NSParameterAssert(network != nil);
-    
-    // cache passed parameters into readonly properties
-    _lfEnvironment = environment;
-    _lfNetwork = network;
-    
-    NSString *hostname = [network isEqualToString:@"livefyre.com"] ? environment : network;
-    NSString *urlString = [NSString stringWithFormat:@"%@://%@.%@/",
-                           LFSScheme, kLFSBootstrapDomain, hostname];
-    
-    self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
-    if (!self) {
-        return nil;
-    }
-    
-    [self registerHTTPOperationClass:[LFSJSONRequestOperation class]];
-    
-    // Accept HTTP Header;
-    // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
-    [self setDefaultHeader:@"Accept" value:@"application/json"];
-    [self setParameterEncoding:AFFormURLParameterEncoding];
-    return self;
+#pragma mark - Overrides
+-(NSString*)subdomain {
+    return @"bootstrap";
 }
 
 #pragma mark - Instance Methods
@@ -71,7 +28,7 @@ static const NSString* const kLFSBootstrapDomain = @"bootstrap";
     NSParameterAssert(siteId != nil);
     NSParameterAssert(articleId != nil);
     NSString* path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init",
-                      _lfNetwork, siteId, [articleId base64String]];
+                      self.lfNetwork, siteId, [articleId base64String]];
     [self getPath:path
        parameters:nil
           success:(AFSuccessBlock)success
