@@ -86,7 +86,7 @@ static const NSString* const kLFSBootstrapDomain = @"bootstrap";
     NSParameterAssert(info != nil);
     NSParameterAssert(pageIndex != NSNotFound); // is NSNotFound actually useful in this context?
     
-    NSDictionary *collectionSettings = [info objectForKey:@"collectionSettings"];
+    NSDictionary *collectionSettings = [info objectForKey:LFSCollectionSettings];
     NSDictionary *archiveInfo = [collectionSettings objectForKey:@"archiveInfo"];
     
     // Note: in this SDK allow for negative indexes (for enumerating pages in reverse order)
@@ -101,7 +101,7 @@ static const NSString* const kLFSBootstrapDomain = @"bootstrap";
         __weak NSBlockOperation *opSuccess1 = opSuccess;
         [opSuccess addExecutionBlock:^{
             success(opSuccess1,
-                    [info objectForKey:@"headDocument"]
+                    [info objectForKey:LFSHeadDocument]
                     );
         }];
         [self.operationQueue addOperation:opSuccess];

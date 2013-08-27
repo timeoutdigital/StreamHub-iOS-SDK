@@ -34,6 +34,12 @@
 NSString *const LFSScheme = @"http";
 NSString *const LFSErrorDomain = @"LFSErrorDomain";
 
+// Various constants to help with parsing JSON files
+NSString *const LFSCollectionSettings = @"collectionSettings";
+NSString *const LFSHeadDocument = @"headDocument";
+NSString *const LFSNetworkSettings = @"networkSettings";
+NSString *const LFSSiteSettings = @"siteSettings";
+
 /*
 NSString *const kShareTypeTwitter = @"twitter";
 NSString *const kShareTypeFacebook = @"facebook";

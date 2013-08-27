@@ -27,14 +27,17 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
-
 //TODO add constants and enums to appledoc.
 @interface LFSConstants : NSObject
 
 extern NSString *const LFSScheme;
 extern NSString *const LFSErrorDomain;
 
+// Various constants to help with parsing JSON files
+extern NSString *const LFSCollectionSettings;
+extern NSString *const LFSHeadDocument;
+extern NSString *const LFSNetworkSettings;
+extern NSString *const LFSSiteSettings;
 
 // user content preferences (like, unlike, etc)
 typedef NS_ENUM(NSUInteger, LFSOpinion) {

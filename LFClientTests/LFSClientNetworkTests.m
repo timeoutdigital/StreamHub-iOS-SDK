@@ -113,7 +113,7 @@
     dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     
     //Need status code from backend
-    self.event = [[coll objectForKey:@"collectionSettings"] objectForKey:@"event"];
+    self.event = [[coll objectForKey:LFSCollectionSettings] objectForKey:@"event"];
     STAssertNotNil(self.event, @"Should have fetched a head document");
 }
 
