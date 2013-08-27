@@ -28,7 +28,7 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "LFConstants.h"
+#import "LFSConstants.h"
 
 @interface LFClientBase : NSObject
 // Returns the queue for handling our callback blocks.

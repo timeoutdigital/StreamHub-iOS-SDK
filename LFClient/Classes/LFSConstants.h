@@ -1,5 +1,5 @@
 //
-//  LFConstants.h
+//  LFSConstants.h
 //  LivefyreClient
 //
 //  Created by zjj on 1/9/13.
@@ -30,7 +30,7 @@
 #import <Foundation/Foundation.h>
 
 //TODO add constants and enums to appledoc.
-@interface LFConstants : NSObject
+@interface LFSConstants : NSObject
 
 extern NSString *const LFSScheme;
 extern NSString *const LFSErrorDomain;

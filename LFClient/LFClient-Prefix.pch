@@ -8,6 +8,6 @@
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <MobileCoreServices/MobileCoreServices.h>
 
-    #import "LFConstants.h"
+    #import "LFSConstants.h"
     #import "LFClientBase.h"
 #endif

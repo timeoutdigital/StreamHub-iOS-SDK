@@ -1,5 +1,5 @@
 //
-//  LFConstants.m
+//  LFSConstants.m
 //  LivefyreClient
 //
 //  Created by zjj on 1/9/13.
@@ -27,9 +27,9 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-#import "LFConstants.h"
+#import "LFSConstants.h"
 
-@implementation LFConstants
+@implementation LFSConstants
 
 NSString *const LFSScheme = @"http";
 NSString *const LFSErrorDomain = @"LFSErrorDomain";

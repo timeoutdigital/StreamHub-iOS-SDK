@@ -28,7 +28,7 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 //
 #import <Foundation/Foundation.h>
-#import "LFConstants.h"
+#import "LFSConstants.h"
 #import "LFClientBase.h"
 
 @interface LFAdminClient : LFClientBase

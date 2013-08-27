@@ -33,7 +33,7 @@
 #import "NSDate+RelativePast.h"
 #import "NSString+LFSEref.h"
 
-#import "LFConstants.h"
+#import "LFSConstants.h"
 #import "LFConfig.h"
 
 #import "LFClientBase.h"
