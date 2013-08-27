@@ -51,4 +51,13 @@
           inReplyTo:(NSString *)parentId
           onSuccess:(LFSuccessBlock)success
           onFailure:(LFFailureBlock)failure;
+
+- (void)createCollection:(NSString *)articleId
+                 forSite:(NSString*)siteId
+                 siteKey:(NSString*)siteKey
+                   title:(NSString*)title
+                 withURL:(NSURL *)url
+                    tags:(NSArray*)tagArray
+               onSuccess:(LFSuccessBlock)success
+               onFailure:(LFFailureBlock)failure;
 @end

@@ -1,11 +1,12 @@
-platform :ios, '5.0'
+platform :ios, '6.0'
 xcodeproj 'LFClient.xcodeproj'
 
 target :default do
 	link_with 'LFClient'
 	pod 'AFNetworking', '~> 1.3.2'
-	#pod 'JWT', '~> 1.0.3'
+	pod 'JWT', '~> 1.0.3'
 	pod 'Base64', '~> 1.0.1'
+	pod 'NSString-Hashes', '~> 1.2.0'
 end
 
 target :test do
