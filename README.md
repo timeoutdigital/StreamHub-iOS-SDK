@@ -7,7 +7,7 @@ Read the docs: http://livefyre.github.com/StreamHub-iOS-SDK/
 
 # Using
 
-Drag LFClient into your Xcode workspace
+Drag LFSClient into your Xcode workspace
 
 Import the Clients that you'd like to use
 
@@ -19,11 +19,11 @@ Clone the repo:
 
 Setup test config:
     
-    mv LFClientTests/TestConfig.plist.sample LFClientTests/TestConfig.plist
+    mv LFSClientTests/TestConfig.plist.sample LFSClientTests/TestConfig.plist
 
 Then edit `TestConfig.plist' to include your network info. When done, open the project in Xcode:
 
-    open LFClient/LFClient.xcodeproj/
+    open LFSClient/LFSClient.xcodeproj/
 
 Make sure you've selected the iOS Emulator as your Device in Xcode
 

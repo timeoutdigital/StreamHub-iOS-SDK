@@ -1,14 +1,14 @@
 platform :ios, '6.0'
-xcodeproj 'LFClient.xcodeproj'
+xcodeproj 'LFSClient.xcodeproj'
 
-link_with 'LFClient'
+link_with 'LFSClient'
 pod 'AFNetworking', '~> 1.3.2'
 pod 'JWT', '~> 1.0.3'
 pod 'Base64', '~> 1.0.1'
 pod 'NSString-Hashes', '~> 1.2.0'
 
 target :test do
-    link_with 'LFClientTests'
+    link_with 'LFSClientTests'
 	pod 'JWT', '~> 1.0.3'
 	pod 'Base64', '~> 1.0.1'
 	pod 'NSString-Hashes', '~> 1.2.0'
