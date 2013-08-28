@@ -510,20 +510,20 @@
     __block id result = nil;
     
     // Actual call would look something like this:
-    [self.clientWrite postContent:[NSString stringWithFormat:@"test post, %d", arc4random()]
-                          forUser:[LFConfig objectForKey:@"moderator user auth token"]
-                    forCollection:[LFConfig objectForKey:@"collection"]
-                        inReplyTo:nil
-                        onSuccess:^(NSOperation *operation, id responseObject) {
-                            op = (LFSJSONRequestOperation*)operation;
-                            result = responseObject;
-                        }
-                        onFailure:^(NSOperation *operation, NSError *error) {
-                            op = (LFSJSONRequestOperation*)operation;
-                            NSLog(@"Error code %d, with description %@",
-                                  error.code,
-                                  [error localizedDescription]);
-                        }];
+    [self.clientWrite postNewContent:[NSString stringWithFormat:@"test post, %d", arc4random()]
+                             forUser:[LFConfig objectForKey:@"moderator user auth token"]
+                       forCollection:[LFConfig objectForKey:@"collection"]
+                           inReplyTo:nil
+                           onSuccess:^(NSOperation *operation, id responseObject) {
+                               op = (LFSJSONRequestOperation*)operation;
+                               result = responseObject;
+                           }
+                           onFailure:^(NSOperation *operation, NSError *error) {
+                               op = (LFSJSONRequestOperation*)operation;
+                               NSLog(@"Error code %d, with description %@",
+                                     error.code,
+                                     [error localizedDescription]);
+                           }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
@@ -567,20 +567,20 @@
     NSString *parent = [LFConfig objectForKey:@"content"];
     
     // Actual call would look something like this:
-    [self.clientWrite postContent:[NSString stringWithFormat:@"test reply, %d", arc4random()]
-                          forUser:[LFConfig objectForKey:@"moderator user auth token"]
-                    forCollection:[LFConfig objectForKey:@"collection"]
-                        inReplyTo:parent
-                        onSuccess:^(NSOperation *operation, id responseObject) {
-                            op = (LFSJSONRequestOperation*)operation;
-                            result = responseObject;
-                        }
-                        onFailure:^(NSOperation *operation, NSError *error) {
-                            op = (LFSJSONRequestOperation*)operation;
-                            NSLog(@"Error code %d, with description %@",
-                                  error.code,
-                                  [error localizedDescription]);
-                        }];
+    [self.clientWrite postNewContent:[NSString stringWithFormat:@"test reply, %d", arc4random()]
+                             forUser:[LFConfig objectForKey:@"moderator user auth token"]
+                       forCollection:[LFConfig objectForKey:@"collection"]
+                           inReplyTo:parent
+                           onSuccess:^(NSOperation *operation, id responseObject) {
+                               op = (LFSJSONRequestOperation*)operation;
+                               result = responseObject;
+                           }
+                           onFailure:^(NSOperation *operation, NSError *error) {
+                               op = (LFSJSONRequestOperation*)operation;
+                               NSLog(@"Error code %d, with description %@",
+                                     error.code,
+                                     [error localizedDescription]);
+                           }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
@@ -656,23 +656,23 @@
     __block id result = nil;
     
     // Modify article Id to a unique one to avoid error 409
-    [self.clientWrite createCollection:@"justTesting5"
-                               forSite:[LFConfig objectForKey:@"site"]
-                         secretSiteKey:[LFConfig objectForKey:@"site key"]
-                                 title:@"La la la la"
-                                  tags:@[@"hey", @"hello"]
-                               withURL:[NSURL URLWithString:@"http://erere.com/ererereer"]
-                             onSuccess:^(NSOperation *operation, id responseObject) {
-                                 op = (LFSJSONRequestOperation*)operation;
-                                 result = responseObject;
-                             }
-                             onFailure:^(NSOperation *operation, NSError *error) {
-                                 op = (LFSJSONRequestOperation*)operation;
-                                 NSLog(@"Error code %d. Description: %@. Recovery Suggestion: %@",
-                                       error.code,
-                                       [error localizedDescription],
-                                       [error localizedRecoverySuggestion]);
-                             }];
+    [self.clientWrite postNewArticle:@"justTesting7"
+                             forSite:[LFConfig objectForKey:@"site"]
+                       secretSiteKey:[LFConfig objectForKey:@"site key"]
+                               title:@"La la la la"
+                                tags:@[@"hey", @"hello"]
+                             withURL:[NSURL URLWithString:@"http://erere.com/ererereer"]
+                           onSuccess:^(NSOperation *operation, id responseObject) {
+                               op = (LFSJSONRequestOperation*)operation;
+                               result = responseObject;
+                           }
+                           onFailure:^(NSOperation *operation, NSError *error) {
+                               op = (LFSJSONRequestOperation*)operation;
+                               NSLog(@"Error code %d. Description: %@. Recovery Suggestion: %@",
+                                     error.code,
+                                     [error localizedDescription],
+                                     [error localizedRecoverySuggestion]);
+                           }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
@@ -694,22 +694,23 @@
     __block id result = nil;
     
     // Modify article Id to a unique one to avoid error 409
-    [self.clientWrite createCollection:@"justTesting6"
-                               forSite:[LFConfig objectForKey:@"site"]
-                                 title:@"La la la la"
-                                  tags:@[@"hey", @"hello"]
-                               withURL:[NSURL URLWithString:@"http://erere.com/ererereer"]
-                             onSuccess:^(NSOperation *operation, id responseObject) {
-                                 op = (LFSJSONRequestOperation*)operation;
-                                 result = responseObject;
-                             }
-                             onFailure:^(NSOperation *operation, NSError *error) {
-                                 op = (LFSJSONRequestOperation*)operation;
-                                 NSLog(@"Error code %d. Description: %@. Recovery Suggestion: %@",
-                                       error.code,
-                                       [error localizedDescription],
-                                       [error localizedRecoverySuggestion]);
-                             }];
+    [self.clientWrite postNewArticle:@"justTesting8"
+                             forSite:[LFConfig objectForKey:@"site"]
+                       secretSiteKey:nil
+                               title:@"La la la la"
+                                tags:@[@"hey", @"hello"]
+                             withURL:[NSURL URLWithString:@"http://erere.com/ererereer"]
+                           onSuccess:^(NSOperation *operation, id responseObject) {
+                               op = (LFSJSONRequestOperation*)operation;
+                               result = responseObject;
+                           }
+                           onFailure:^(NSOperation *operation, NSError *error) {
+                               op = (LFSJSONRequestOperation*)operation;
+                               NSLog(@"Error code %d. Description: %@. Recovery Suggestion: %@",
+                                     error.code,
+                                     [error localizedDescription],
+                                     [error localizedRecoverySuggestion]);
+                           }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();

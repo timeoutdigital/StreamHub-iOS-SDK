@@ -520,7 +520,7 @@
     NSString *content = [NSString
                          stringWithFormat:@"test post, %d",
                          arc4random()];
-    [self.clientPost postContent:content
+    [self.clientPost postNewContent:content
                          forUser:@"fakeUser"
                    forCollection:@"fakeColl"
                        inReplyTo:nil

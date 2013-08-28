@@ -18,7 +18,7 @@
 
 #pragma mark - Methods
 
-- (void)authenticateUserWithToken:(NSString *)userToken
+- (void)authenticateUserWithToken:(NSString *)userToken // JWT
                        collection:(NSString *)collectionId
                         onSuccess:(LFSuccessBlock)success
                         onFailure:(LFFailureBlock)failure
@@ -34,7 +34,7 @@
           failure:(AFFailureBlock)failure];
 }
 
-- (void)authenticateUserWithToken:(NSString *)userToken
+- (void)authenticateUserWithToken:(NSString *)userToken // JWT
                              site:(NSString *)siteId
                           article:(NSString *)articleId
                         onSuccess:(LFSuccessBlock)success

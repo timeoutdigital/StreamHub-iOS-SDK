@@ -82,12 +82,12 @@ static const NSString* const LFSUserFlagString[] = {
     
 }
 
-- (void)postContent:(NSString *)body
-            forUser:(NSString*)userToken
-      forCollection:(NSString *)collectionId
-          inReplyTo:(NSString *)parentId
-          onSuccess:(LFSuccessBlock)success
-          onFailure:(LFFailureBlock)failure
+- (void)postNewContent:(NSString *)body
+               forUser:(NSString*)userToken
+         forCollection:(NSString *)collectionId
+             inReplyTo:(NSString *)parentId
+             onSuccess:(LFSuccessBlock)success
+             onFailure:(LFFailureBlock)failure
 {
     NSParameterAssert(body != nil);
     NSParameterAssert(collectionId != nil);
@@ -111,15 +111,14 @@ static const NSString* const LFSUserFlagString[] = {
            failure:failure];
 }
 
-// Creates "signed" collection
-- (void)createCollection:(NSString*)articleId
-                 forSite:(NSString*)siteId
-           secretSiteKey:(NSString*)secretSiteKey
-                   title:(NSString*)title
-                    tags:(NSArray*)tagArray
-                 withURL:(NSURL *)newURL
-               onSuccess:(LFSuccessBlock)success
-               onFailure:(LFFailureBlock)failure
+- (void)postNewArticle:(NSString*)articleId
+               forSite:(NSString*)siteId
+         secretSiteKey:(NSString*)secretSiteKey
+                 title:(NSString*)title
+                  tags:(NSArray*)tagArray
+               withURL:(NSURL *)newURL
+             onSuccess:(LFSuccessBlock)success
+             onFailure:(LFFailureBlock)failure
 {
     NSParameterAssert(articleId != nil);
     NSParameterAssert(newURL != nil); //TODO: issue ticket to remove this requirement
@@ -127,52 +126,21 @@ static const NSString* const LFSUserFlagString[] = {
     NSParameterAssert([title length] <= 255);
     NSParameterAssert([articleId length] <= 255);
     
-    // JSON-encode and concatenate tag array
-    NSDictionary *dict = @{@"title":title,
-                          @"url":[newURL absoluteString],
-                          @"tags":[tagArray componentsJoinedByString:@","],
-                          @"articleId":articleId};
-    
-    NSString *collectionMeta = [JWT encodePayload:dict
-                                       withSecret:secretSiteKey];
-    
-    NSDictionary *parameters = @{@"collectionMeta": collectionMeta,
-                                 @"checksum": [collectionMeta md5]};
-    
-    NSURL *fullURL = [self.baseURL
-                      URLByAppendingPathComponent:
-                      [NSString stringWithFormat:@"/api/v3.0/site/%@/collection/create",
-                       siteId]];
-    
-    [self postURL:fullURL
-       parameters:parameters
-parameterEncoding:AFJSONParameterEncoding
-          success:success
-          failure:failure];
-}
-
-- (void)createCollection:(NSString*)articleId
-                 forSite:(NSString*)siteId
-                   title:(NSString*)title
-                    tags:(NSArray*)tagArray
-                 withURL:(NSURL *)newURL
-               onSuccess:(LFSuccessBlock)success
-               onFailure:(LFFailureBlock)failure
-{
-    NSParameterAssert(articleId != nil);
-    NSParameterAssert(newURL != nil); //TODO: issue ticket to remove this requirement
-    NSParameterAssert(siteId != nil);
-    NSParameterAssert([title length] <= 255);
-    NSParameterAssert([articleId length] <= 255);
-    
-    // JSON-encode and concatenate tag array
     NSDictionary *dict = @{@"title":title,
                            @"url":[newURL absoluteString],
                            @"tags":[tagArray componentsJoinedByString:@","],
                            @"articleId":articleId,
-                           @"signed":[NSNumber numberWithBool:NO]};
+                           @"signed":[NSNumber numberWithBool:(secretSiteKey != nil)]};
     
-    NSDictionary *parameters = @{@"collectionMeta":dict};
+    NSDictionary *parameters;
+    if (secretSiteKey != nil) {
+        NSString *collectionMeta = [JWT encodePayload:dict
+                                           withSecret:secretSiteKey];
+        parameters = @{@"collectionMeta":collectionMeta,
+                       @"checksum":[collectionMeta md5]};
+    } else {
+        parameters = @{@"collectionMeta":dict};
+    }
     
     NSURL *fullURL = [self.baseURL
                       URLByAppendingPathComponent:
