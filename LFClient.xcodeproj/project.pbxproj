@@ -345,6 +345,8 @@
 		EF3F1E4017C45E8E004E61A4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				EF3F1E5217C487ED004E61A4 /* LFSJSONRequestOperation.h */,
+				EF3F1E5317C487ED004E61A4 /* LFSJSONRequestOperation.m */,
 				EF35D0F317CD58A200E47161 /* LFSBaseClient.h */,
 				EF35D0F417CD58A200E47161 /* LFSBaseClient.m */,
 				EF3F1E4917C4879D004E61A4 /* LFSBoostrapClient.h */,
@@ -353,8 +355,6 @@
 				EF3D39AE17C6F5400014807D /* LFSAdminClient.m */,
 				EF3D39B917C702940014807D /* LFSWriteClient.h */,
 				EF3D39BA17C702940014807D /* LFSWriteClient.m */,
-				EF3F1E5217C487ED004E61A4 /* LFSJSONRequestOperation.h */,
-				EF3F1E5317C487ED004E61A4 /* LFSJSONRequestOperation.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";

@@ -19,9 +19,8 @@
  *
  * @param userToken The lftoken representing a user.
  * @param collectionId The Id of the collection to auth against.
- * @param success Callback called with a dictionary after the user data has
- * been retrieved.
- * @param failure Callback called with an error after a failure to retrieve data.
+ * @param success   Success callback
+ * @param failure   Failure callback
  * @return void
  */
 
@@ -39,9 +38,8 @@
  * @param userToken The lftoken representing a user.
  * @param siteId The Id of the article's site.
  * @param articleId The Id of the collection's article.
- * @param success Callback called with a dictionary after the user data has
- * been retrieved.
- * @param failure Callback called with an error after a failure to retrieve data.
+ * @param success   Success callback
+ * @param failure   Failure callback
  * @return void
  */
 

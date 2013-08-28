@@ -12,9 +12,7 @@
 @implementation LFSAdminClient
 
 #pragma mark - Overrides
--(NSString*)subdomain {
-    return @"admin";
-}
+-(NSString*)subdomain { return @"admin"; }
 
 #pragma mark - Methods
 

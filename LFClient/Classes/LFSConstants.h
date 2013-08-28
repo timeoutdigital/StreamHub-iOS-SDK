@@ -27,7 +27,7 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-//TODO add constants and enums to appledoc.
+
 @interface LFSConstants : NSObject
 
 extern NSString *const LFSScheme;

@@ -19,8 +19,9 @@
 /**
  * Initialize Livefyre client
  *
- * @param networkDomain The collection's network as identified by domain, i.e. livefyre.com.
- * @param environment (optional) Where the collection is hosted, i.e. t-402. Used for development/testing purposes.
+ * @param networkDomain network as identified by domain, i.e. livefyre.com.
+ * @param environment (optional) Where collection(s) are hosted, i.e. t-402. 
+ *        Used for development/testing purposes.
  * @return LFClient instance
  */
 

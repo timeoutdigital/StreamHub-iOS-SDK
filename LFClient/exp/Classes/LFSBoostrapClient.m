@@ -15,9 +15,7 @@
 @implementation LFSBoostrapClient
 
 #pragma mark - Overrides
--(NSString*)subdomain {
-    return @"bootstrap";
-}
+-(NSString*)subdomain { return @"bootstrap"; }
 
 #pragma mark - Instance Methods
 - (void)getInitForSite:(NSString *)siteId
@@ -91,6 +89,33 @@
           failure:(AFFailureBlock)failure];
 }
 
+- (void)getUserContentForUser:(NSString *)userId
+                        token:(NSString *)userToken
+                     statuses:(NSArray*)statuses
+                       offset:(NSInteger)offset
+                    onSuccess:(LFSuccessBlock)success
+                    onFailure:(LFFailureBlock)failure
+{
+    NSParameterAssert(userId != nil);
+    
+    //TODO: move optional arguments to "parameters" dictionary argument?
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    if (userToken) {
+        [parameters setObject:userToken forKey:@"lftoken"];
+    }
+    if (statuses) {
+        [parameters setObject:statuses forKey:@"status"];
+    }
+    if (offset) {
+        [parameters setObject:[NSNumber numberWithInteger:offset]
+                       forKey:@"offset"];
+    }
+    [self getPath:[NSString stringWithFormat:@"/api/v3.0/author/%@/comments/", userId]
+       parameters:parameters
+          success:(AFSuccessBlock)success
+          failure:(AFFailureBlock)failure];
+}
+
 - (void)getHottestCollectionsForSite:(NSString *)siteId
                                  tag:(NSString *)tag
                       desiredResults:(NSUInteger)number
@@ -109,32 +134,6 @@
                        forKey:@"number"];
     }
     [self getPath:@"/api/v3.0/hottest/"
-       parameters:parameters
-          success:(AFSuccessBlock)success
-          failure:(AFFailureBlock)failure];
-}
-
-//TODO -- move optional arguments to "parameters" dictionary argument?
-- (void)getUserContentForUser:(NSString *)userId
-                        token:(NSString *)userToken
-                     statuses:(NSArray*)statuses
-                       offset:(NSInteger)offset
-                    onSuccess:(LFSuccessBlock)success
-                    onFailure:(LFFailureBlock)failure
-{
-    NSParameterAssert(userId != nil);
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    if (userToken) {
-        [parameters setObject:userToken forKey:@"lftoken"];
-    }
-    if (statuses) {
-        [parameters setObject:statuses forKey:@"status"];
-    }
-    if (offset) {
-        [parameters setObject:[NSNumber numberWithInteger:offset]
-                       forKey:@"offset"];
-    }
-    [self getPath:[NSString stringWithFormat:@"/api/v3.0/author/%@/comments/", userId]
        parameters:parameters
           success:(AFSuccessBlock)success
           failure:(AFFailureBlock)failure];

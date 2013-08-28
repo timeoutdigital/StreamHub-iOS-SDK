@@ -25,9 +25,7 @@ static const NSString* const LFSUserFlagString[] = {
 @implementation LFSWriteClient
 
 #pragma mark - Overrides
--(NSString*)subdomain {
-    return @"quill";
-}
+-(NSString*)subdomain { return @"quill"; }
 
 #pragma mark - Methods
 
@@ -121,7 +119,7 @@ static const NSString* const LFSUserFlagString[] = {
              onFailure:(LFFailureBlock)failure
 {
     NSParameterAssert(articleId != nil);
-    NSParameterAssert(newURL != nil); //TODO: issue ticket to remove this requirement
+    NSParameterAssert(newURL != nil);
     NSParameterAssert(siteId != nil);
     NSParameterAssert([title length] <= 255);
     NSParameterAssert([articleId length] <= 255);
