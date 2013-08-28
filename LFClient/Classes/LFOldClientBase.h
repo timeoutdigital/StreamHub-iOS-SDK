@@ -30,7 +30,7 @@
 #import <Foundation/Foundation.h>
 #import "LFSConstants.h"
 
-@interface LFClientBase : NSObject
+@interface LFOldClientBase : NSObject
 // Returns the queue for handling our callback blocks.
 
 // Sends an asynchronous request to the specified resource.

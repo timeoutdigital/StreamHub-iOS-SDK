@@ -29,9 +29,9 @@
 
 #import <Foundation/Foundation.h>
 #import "LFSConstants.h"
-#import "LFClientBase.h"
+#import "LFOldClientBase.h"
 
-@interface LFWriteClient : LFClientBase
+@interface LFOldWriteClient : LFOldClientBase
 /** @name Content Interaction */
 
 /**

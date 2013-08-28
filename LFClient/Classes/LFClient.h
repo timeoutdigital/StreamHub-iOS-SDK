@@ -35,8 +35,8 @@
 
 #import "LFSConstants.h"
 
-#import "LFClientBase.h"
-#import "LFAdminClient.h"
-#import "LFBootstrapClient.h"
-#import "LFStreamClient.h"
-#import "LFWriteClient.h"
+#import "LFOldClientBase.h"
+#import "LFOldAdminClient.h"
+#import "LFOldBootstrapClient.h"
+#import "LFOldStreamClient.h"
+#import "LFOldWriteClient.h"

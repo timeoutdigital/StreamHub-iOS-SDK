@@ -27,14 +27,14 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-#import "LFWriteClient.h"
+#import "LFOldWriteClient.h"
 
-@interface LFWriteClient ()
+@interface LFOldWriteClient ()
 @end
 
 static const NSString *const kLFSQuillDomain = @"quill";
 
-@implementation LFWriteClient
+@implementation LFOldWriteClient
 + (void)likeContent:(NSString *)contentId
             forUser:(NSString *)userToken
          collection:(NSString *)collectionId

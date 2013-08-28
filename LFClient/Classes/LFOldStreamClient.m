@@ -27,12 +27,12 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-#import "LFStreamClient.h"
+#import "LFOldStreamClient.h"
 
 static const NSString* const kLFSStreamDomain = @"stream1";
 static const NSTimeInterval kLFStreamTimeout = 65.0f; // timeout after 65 seconds
 
-@implementation LFStreamClient
+@implementation LFOldStreamClient
 + (NSString *)buildStreamEndpointForCollection:(NSString *)collectionId
                                        network:(NSString *)networkDomain
 {
@@ -63,7 +63,7 @@ static const NSTimeInterval kLFStreamTimeout = 65.0f; // timeout after 65 second
                                          returningResponse:&resp
                                                      error:&requestError];
     //wait
-    NSDictionary *payload = [LFClientBase handleResponse:resp
+    NSDictionary *payload = [LFOldClientBase handleResponse:resp
                                                    error:requestError
                                                     data:data
                                                onFailure:^(NSError *failError) {

@@ -94,7 +94,7 @@
     __block NSDictionary *bootstrapInitInfo = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    [LFBootstrapClient getInitForArticle:@"fakeArticle"
+    [LFOldBootstrapClient getInitForArticle:@"fakeArticle"
                                     site:@"fakeSite"
                                  network:@"init-sample"
                              environment:nil
@@ -116,7 +116,7 @@
     __block NSDictionary *contentInfo = nil;
     sema = dispatch_semaphore_create(0);
     
-    [LFBootstrapClient getContentForPage:0
+    [LFOldBootstrapClient getContentForPage:0
                             withInitInfo:bootstrapInitInfo
                                onSuccess:^(NSDictionary *content) {
                                    contentInfo = content;
@@ -134,7 +134,7 @@
     
     sema = dispatch_semaphore_create(0);
     
-    [LFBootstrapClient getContentForPage:1
+    [LFOldBootstrapClient getContentForPage:1
                             withInitInfo:bootstrapInitInfo
                                onSuccess:^(NSDictionary *content) {
                                    contentInfo = content;
@@ -232,7 +232,7 @@
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    [LFBootstrapClient getHottestCollectionsForTag:@"taggy"
+    [LFOldBootstrapClient getHottestCollectionsForTag:@"taggy"
                                               site:@"site"
                                            network:@"hottest-sample"
                                     desiredResults:10u
@@ -284,7 +284,7 @@
 {
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    [LFBootstrapClient getUserContentForUser:@"fakeUser"
+    [LFOldBootstrapClient getUserContentForUser:@"fakeUser"
                                    withToken:nil
                                   forNetwork:@"usercontent-sample"
                                     statuses:nil
@@ -338,7 +338,7 @@
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    [LFAdminClient authenticateUserWithToken:@"fakeToken"
+    [LFOldAdminClient authenticateUserWithToken:@"fakeToken"
                                   collection:@"fakeColl"
                                      network:@"auth-sample"
                                    onSuccess:^(NSDictionary *gotUserData) {
@@ -387,7 +387,7 @@
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    [LFAdminClient authenticateUserWithToken:@"fakeToken"
+    [LFOldAdminClient authenticateUserWithToken:@"fakeToken"
                                      article:@"fakeArticle"
                                         site:@"fakeSite"
                                      network:@"auth-sample"
@@ -437,7 +437,7 @@
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    [LFWriteClient likeContent:@"fakeContent"
+    [LFOldWriteClient likeContent:@"fakeContent"
                        forUser:@"fakeUserToken"
                     collection:@"fakeColl"
                        network:@"like-sample"
@@ -490,7 +490,7 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     NSUInteger ran = arc4random();
     
-    [LFWriteClient postContent:[NSString stringWithFormat:@"test post, %d", ran]
+    [LFOldWriteClient postContent:[NSString stringWithFormat:@"test post, %d", ran]
                        forUser:@"fakeUser"
                      inReplyTo:nil
                  forCollection:@"fakeColl"
@@ -547,7 +547,7 @@
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    [LFWriteClient flagContent:@"fakeContent"
+    [LFOldWriteClient flagContent:@"fakeContent"
                  forCollection:@"fakeCollection"
                        network:@"flag-sample"
                       withFlag:LFSFlagOfftopic

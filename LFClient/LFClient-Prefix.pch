@@ -9,5 +9,5 @@
     #import <MobileCoreServices/MobileCoreServices.h>
 
     #import "LFSConstants.h"
-    #import "LFClientBase.h"
+    #import "LFOldClientBase.h"
 #endif

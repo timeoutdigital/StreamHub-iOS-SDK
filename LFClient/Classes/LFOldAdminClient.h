@@ -1,5 +1,5 @@
 //
-//  LFAdminClient.m
+//  LFAdminClient.h
 //  LFClient
 //
 //  Created by zjj on 1/14/13.
@@ -26,59 +26,53 @@
 //  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
+//
+#import <Foundation/Foundation.h>
+#import "LFSConstants.h"
+#import "LFOldClientBase.h"
 
-#import "LFAdminClient.h"
-#import "MF_Base64Additions.h"
+@interface LFOldAdminClient : LFOldClientBase
+/** @name User Authentication */
 
-static const NSString* const kLFSAdminDomain = @"admin";
+/**
+ * Check a user's token against the auth admin.
+ *
+ * It is necessary to provide either a collectionId or a siteId combined with an articleId.
+ *
+ * @param userToken The lftoken representing a user.
+ * @param collectionId The Id of the collection to auth against.
+ * @param networkDomain The collection's network as identified by domain, i.e. livefyre.com.
+ * @param success Callback called with a dictionary after the user data has
+ * been retrieved.
+ * @param failure Callback called with an error after a failure to retrieve data.
+ * @return void
+ */
 
-@implementation LFAdminClient
 + (void)authenticateUserWithToken:(NSString *)userToken
                        collection:(NSString *)collectionId
                           network:(NSString *)networkDomain
                         onSuccess:(void (^)(NSDictionary *))success
-                        onFailure:(void (^)(NSError *))failure
-{
-    NSParameterAssert(networkDomain != nil);
-    NSParameterAssert(userToken != nil);
-    NSParameterAssert(collectionId != nil);
-    
-    NSDictionary *parameters = @{@"lftoken": userToken,
-                                 @"collectionId": collectionId};
-    
-    NSString *host = [NSString stringWithFormat:@"%@.%@",
-                      kLFSAdminDomain, networkDomain];
-    [self requestWithHost:host
-                     path:@"/api/v3.0/auth/"
-                   params:parameters
-                   method:@"GET"
-                onSuccess:success
-                onFailure:failure];
-}
+                        onFailure:(void (^)(NSError *))failure;
+
+/**
+ * Check a user's token against the auth admin.
+ *
+ * It is necessary to provide either a collectionId or a siteId combined with an articleId.
+ *
+ * @param userToken The lftoken representing a user.
+ * @param articleId The Id of the collection's article.
+ * @param siteId The Id of the article's site.
+ * @param networkDomain The collection's network as identified by domain, i.e. livefyre.com.
+ * @param success Callback called with a dictionary after the user data has
+ * been retrieved.
+ * @param failure Callback called with an error after a failure to retrieve data.
+ * @return void
+ */
 
 + (void)authenticateUserWithToken:(NSString *)userToken
                           article:(NSString *)articleId
                              site:(NSString *)siteId
                           network:(NSString *)networkDomain
                         onSuccess:(void (^)(NSDictionary *))success
-                        onFailure:(void (^)(NSError *))failure
-{
-    NSParameterAssert(networkDomain != nil);
-    NSParameterAssert(userToken != nil);
-    NSParameterAssert(siteId != nil);
-    NSParameterAssert(articleId != nil);
-    
-    NSDictionary *parameters = @{@"lftoken": userToken,
-                                 @"siteId": siteId,
-                                 @"articleId":[articleId base64String]};
-    
-    NSString *host = [NSString stringWithFormat:@"%@.%@",
-                      kLFSAdminDomain, networkDomain];
-    [self requestWithHost:host
-                     path:@"/api/v3.0/auth/"
-                   params:parameters
-                   method:@"GET"
-                onSuccess:success
-                onFailure:failure];
-}
+                        onFailure:(void (^)(NSError *))failure;
 @end

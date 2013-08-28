@@ -97,7 +97,7 @@
     __block NSDictionary *coll = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    [LFBootstrapClient getInitForArticle:[LFSConfig objectForKey:@"article"]
+    [LFOldBootstrapClient getInitForArticle:[LFSConfig objectForKey:@"article"]
                                     site:[LFSConfig objectForKey:@"site"]
                                  network:[LFSConfig objectForKey:@"domain"]
                              environment:[LFSConfig objectForKey:@"environment"]
@@ -207,7 +207,7 @@
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    [LFBootstrapClient getHottestCollectionsForTag:@"tag"
+    [LFOldBootstrapClient getHottestCollectionsForTag:@"tag"
                                               site:[LFSConfig objectForKey:@"site"]
                                            network:[LFSConfig objectForKey:@"domain"]
                                     desiredResults:10u
@@ -252,7 +252,7 @@
 - (void)testUserDataRetrieval {
     __block NSArray *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    [LFBootstrapClient getUserContentForUser:[LFSConfig objectForKey:@"system user"]
+    [LFOldBootstrapClient getUserContentForUser:[LFSConfig objectForKey:@"system user"]
                                    withToken:nil
                                   forNetwork:[LFSConfig objectForKey:@"labs network"]
                                     statuses:nil
@@ -299,7 +299,7 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     NSString *userToken = [LFSConfig objectForKey:@"moderator user auth token"];
     
-    [LFAdminClient authenticateUserWithToken:userToken
+    [LFOldAdminClient authenticateUserWithToken:userToken
                                      article:[LFSConfig objectForKey:@"article"]
                                         site:[LFSConfig objectForKey:@"site"]
                                      network:[LFSConfig objectForKey:@"domain"]
@@ -348,7 +348,7 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     NSString *userToken = [LFSConfig objectForKey:@"moderator user auth token"];
     
-    [LFAdminClient authenticateUserWithToken:userToken
+    [LFOldAdminClient authenticateUserWithToken:userToken
                                   collection:[LFSConfig objectForKey:@"collection"]
                                      network:[LFSConfig objectForKey:@"domain"]
                                    onSuccess:^(NSDictionary *gotUserData) {
@@ -393,7 +393,7 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     NSString *userToken = [LFSConfig objectForKey:@"moderator user auth token"];
     
-    [LFWriteClient likeContent:[LFSConfig objectForKey:@"content"]
+    [LFOldWriteClient likeContent:[LFSConfig objectForKey:@"content"]
                        forUser:userToken
                     collection:[LFSConfig objectForKey:@"collection"]
                        network:[LFSConfig objectForKey:@"domain"]
@@ -438,7 +438,7 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     NSString *userToken = [LFSConfig objectForKey:@"moderator user auth token"];
     
-    [LFWriteClient unlikeContent:[LFSConfig objectForKey:@"content"]
+    [LFOldWriteClient unlikeContent:[LFSConfig objectForKey:@"content"]
                          forUser:userToken
                       collection:[LFSConfig objectForKey:@"collection"]
                          network:[LFSConfig objectForKey:@"domain"]
@@ -483,7 +483,7 @@
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
     NSString *content = [NSString stringWithFormat:@"test post, %d", arc4random()];
-    [LFWriteClient postContent:content
+    [LFOldWriteClient postContent:content
                        forUser:[LFSConfig objectForKey:@"moderator user auth token"]
                      inReplyTo:nil
                  forCollection:[LFSConfig objectForKey:@"collection"]
@@ -538,7 +538,7 @@
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     NSString *parent = [LFSConfig objectForKey:@"content"];
-    [LFWriteClient postContent:[NSString stringWithFormat:@"test reply, %d", arc4random()]
+    [LFOldWriteClient postContent:[NSString stringWithFormat:@"test reply, %d", arc4random()]
                        forUser:[LFSConfig objectForKey:@"moderator user auth token"]
                      inReplyTo:parent
                  forCollection:[LFSConfig objectForKey:@"collection"]
@@ -597,7 +597,7 @@
     __block NSDictionary *res = nil;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    [LFWriteClient flagContent:[LFSConfig objectForKey:@"content"]
+    [LFOldWriteClient flagContent:[LFSConfig objectForKey:@"content"]
                  forCollection:[LFSConfig objectForKey:@"collection"]
                        network:[LFSConfig objectForKey:@"domain"]
                       withFlag:LFSFlagOfftopic

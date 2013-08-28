@@ -19,17 +19,17 @@
 		1CF061FC16B098C500CFA905 /* LFSRC4Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF061FB16B098C500CFA905 /* LFSRC4Tests.m */; };
 		1CF0622616B0A39800CFA905 /* NSDate+RelativePast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0622116B0A39800CFA905 /* NSDate+RelativePast.m */; };
 		1CF0622716B0A39800CFA905 /* NSDate+RelativePast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0622116B0A39800CFA905 /* NSDate+RelativePast.m */; };
-		1CF0624016B0A3A900CFA905 /* LFAdminClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0622E16B0A3A900CFA905 /* LFAdminClient.m */; };
-		1CF0624116B0A3A900CFA905 /* LFAdminClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0622E16B0A3A900CFA905 /* LFAdminClient.m */; };
-		1CF0624416B0A3A900CFA905 /* LFBootstrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623216B0A3A900CFA905 /* LFBootstrapClient.m */; };
-		1CF0624516B0A3A900CFA905 /* LFBootstrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623216B0A3A900CFA905 /* LFBootstrapClient.m */; };
-		1CF0624816B0A3A900CFA905 /* LFClientBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623716B0A3A900CFA905 /* LFClientBase.m */; };
-		1CF0624916B0A3A900CFA905 /* LFClientBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623716B0A3A900CFA905 /* LFClientBase.m */; };
+		1CF0624016B0A3A900CFA905 /* LFOldAdminClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0622E16B0A3A900CFA905 /* LFOldAdminClient.m */; };
+		1CF0624116B0A3A900CFA905 /* LFOldAdminClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0622E16B0A3A900CFA905 /* LFOldAdminClient.m */; };
+		1CF0624416B0A3A900CFA905 /* LFOldBootstrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623216B0A3A900CFA905 /* LFOldBootstrapClient.m */; };
+		1CF0624516B0A3A900CFA905 /* LFOldBootstrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623216B0A3A900CFA905 /* LFOldBootstrapClient.m */; };
+		1CF0624816B0A3A900CFA905 /* LFOldClientBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623716B0A3A900CFA905 /* LFOldClientBase.m */; };
+		1CF0624916B0A3A900CFA905 /* LFOldClientBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623716B0A3A900CFA905 /* LFOldClientBase.m */; };
 		1CF0624A16B0A3A900CFA905 /* LFSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623916B0A3A900CFA905 /* LFSConstants.m */; };
 		1CF0624B16B0A3A900CFA905 /* LFSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623916B0A3A900CFA905 /* LFSConstants.m */; };
-		1CF0624F16B0A3A900CFA905 /* LFStreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623D16B0A3A900CFA905 /* LFStreamClient.m */; };
-		1CF0625016B0A3A900CFA905 /* LFWriteClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623F16B0A3A900CFA905 /* LFWriteClient.m */; };
-		1CF0625116B0A3A900CFA905 /* LFWriteClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623F16B0A3A900CFA905 /* LFWriteClient.m */; };
+		1CF0624F16B0A3A900CFA905 /* LFOldStreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623D16B0A3A900CFA905 /* LFOldStreamClient.m */; };
+		1CF0625016B0A3A900CFA905 /* LFOldWriteClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623F16B0A3A900CFA905 /* LFOldWriteClient.m */; };
+		1CF0625116B0A3A900CFA905 /* LFOldWriteClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623F16B0A3A900CFA905 /* LFOldWriteClient.m */; };
 		1CF0625616B1BD5B00CFA905 /* like-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0625316B1BD5B00CFA905 /* like-sample.json */; };
 		1CF0625716B1BD5B00CFA905 /* post-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0625416B1BD5B00CFA905 /* post-sample.json */; };
 		1CF0625816B1BD5B00CFA905 /* stream-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0625516B1BD5B00CFA905 /* stream-sample.json */; };
@@ -69,14 +69,14 @@
 		EF3F1E5617C487ED004E61A4 /* LFSJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3F1E5317C487ED004E61A4 /* LFSJSONRequestOperation.m */; };
 		EF56AF8D17C6CEB50086127D /* LFSJSONKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF56AF8C17C6CEB50086127D /* LFSJSONKitTests.m */; };
 		EF86E60C17C2C24B0061E773 /* NSDate+RelativePast.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0622016B0A39800CFA905 /* NSDate+RelativePast.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EF9FD3CC17B40897009FE59D /* LFStreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623D16B0A3A900CFA905 /* LFStreamClient.m */; };
+		EF9FD3CC17B40897009FE59D /* LFOldStreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623D16B0A3A900CFA905 /* LFOldStreamClient.m */; };
 		EF9FD45217B4476B009FE59D /* LFClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623416B0A3A900CFA905 /* LFClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF9FD45417B4476B009FE59D /* LFSConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623816B0A3A900CFA905 /* LFSConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EF9FD45517B4476B009FE59D /* LFClientBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623616B0A3A900CFA905 /* LFClientBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EF9FD45617B4476B009FE59D /* LFAdminClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0622D16B0A3A900CFA905 /* LFAdminClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EF9FD45717B4476B009FE59D /* LFBootstrapClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623116B0A3A900CFA905 /* LFBootstrapClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EF9FD45917B4476B009FE59D /* LFStreamClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623C16B0A3A900CFA905 /* LFStreamClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EF9FD45A17B4476B009FE59D /* LFWriteClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623E16B0A3A900CFA905 /* LFWriteClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF9FD45517B4476B009FE59D /* LFOldClientBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623616B0A3A900CFA905 /* LFOldClientBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF9FD45617B4476B009FE59D /* LFOldAdminClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0622D16B0A3A900CFA905 /* LFOldAdminClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF9FD45717B4476B009FE59D /* LFOldBootstrapClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623116B0A3A900CFA905 /* LFOldBootstrapClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF9FD45917B4476B009FE59D /* LFOldStreamClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623C16B0A3A900CFA905 /* LFOldStreamClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF9FD45A17B4476B009FE59D /* LFOldWriteClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623E16B0A3A900CFA905 /* LFOldWriteClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EFA2AADF17B5AE870022DC8E /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EFA2AADD17B5AE870022DC8E /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EFA2AAE017B5AE870022DC8E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA2AADE17B5AE870022DC8E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
 		EFA2AAE117B5AE870022DC8E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA2AADE17B5AE870022DC8E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
@@ -127,19 +127,19 @@
 		1CF061FB16B098C500CFA905 /* LFSRC4Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSRC4Tests.m; sourceTree = "<group>"; };
 		1CF0622016B0A39800CFA905 /* NSDate+RelativePast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+RelativePast.h"; sourceTree = "<group>"; };
 		1CF0622116B0A39800CFA905 /* NSDate+RelativePast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+RelativePast.m"; sourceTree = "<group>"; };
-		1CF0622D16B0A3A900CFA905 /* LFAdminClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFAdminClient.h; sourceTree = "<group>"; };
-		1CF0622E16B0A3A900CFA905 /* LFAdminClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFAdminClient.m; sourceTree = "<group>"; };
-		1CF0623116B0A3A900CFA905 /* LFBootstrapClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFBootstrapClient.h; sourceTree = "<group>"; };
-		1CF0623216B0A3A900CFA905 /* LFBootstrapClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFBootstrapClient.m; sourceTree = "<group>"; };
+		1CF0622D16B0A3A900CFA905 /* LFOldAdminClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFOldAdminClient.h; sourceTree = "<group>"; };
+		1CF0622E16B0A3A900CFA905 /* LFOldAdminClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFOldAdminClient.m; sourceTree = "<group>"; };
+		1CF0623116B0A3A900CFA905 /* LFOldBootstrapClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFOldBootstrapClient.h; sourceTree = "<group>"; };
+		1CF0623216B0A3A900CFA905 /* LFOldBootstrapClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFOldBootstrapClient.m; sourceTree = "<group>"; };
 		1CF0623416B0A3A900CFA905 /* LFClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFClient.h; path = Classes/LFClient.h; sourceTree = "<group>"; };
-		1CF0623616B0A3A900CFA905 /* LFClientBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFClientBase.h; sourceTree = "<group>"; };
-		1CF0623716B0A3A900CFA905 /* LFClientBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFClientBase.m; sourceTree = "<group>"; };
+		1CF0623616B0A3A900CFA905 /* LFOldClientBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFOldClientBase.h; sourceTree = "<group>"; };
+		1CF0623716B0A3A900CFA905 /* LFOldClientBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFOldClientBase.m; sourceTree = "<group>"; };
 		1CF0623816B0A3A900CFA905 /* LFSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSConstants.h; path = Classes/LFSConstants.h; sourceTree = "<group>"; };
 		1CF0623916B0A3A900CFA905 /* LFSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSConstants.m; path = Classes/LFSConstants.m; sourceTree = "<group>"; };
-		1CF0623C16B0A3A900CFA905 /* LFStreamClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFStreamClient.h; sourceTree = "<group>"; };
-		1CF0623D16B0A3A900CFA905 /* LFStreamClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFStreamClient.m; sourceTree = "<group>"; };
-		1CF0623E16B0A3A900CFA905 /* LFWriteClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFWriteClient.h; sourceTree = "<group>"; };
-		1CF0623F16B0A3A900CFA905 /* LFWriteClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFWriteClient.m; sourceTree = "<group>"; };
+		1CF0623C16B0A3A900CFA905 /* LFOldStreamClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFOldStreamClient.h; sourceTree = "<group>"; };
+		1CF0623D16B0A3A900CFA905 /* LFOldStreamClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFOldStreamClient.m; sourceTree = "<group>"; };
+		1CF0623E16B0A3A900CFA905 /* LFOldWriteClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFOldWriteClient.h; sourceTree = "<group>"; };
+		1CF0623F16B0A3A900CFA905 /* LFOldWriteClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFOldWriteClient.m; sourceTree = "<group>"; };
 		1CF0625216B0A64F00CFA905 /* LFClient-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LFClient-Prefix.pch"; sourceTree = "<group>"; };
 		1CF0625316B1BD5B00CFA905 /* like-sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "like-sample.json"; sourceTree = "<group>"; };
 		1CF0625416B1BD5B00CFA905 /* post-sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "post-sample.json"; sourceTree = "<group>"; };
@@ -328,16 +328,16 @@
 		1CF0622C16B0A3A900CFA905 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				1CF0623616B0A3A900CFA905 /* LFClientBase.h */,
-				1CF0623716B0A3A900CFA905 /* LFClientBase.m */,
-				1CF0622D16B0A3A900CFA905 /* LFAdminClient.h */,
-				1CF0622E16B0A3A900CFA905 /* LFAdminClient.m */,
-				1CF0623116B0A3A900CFA905 /* LFBootstrapClient.h */,
-				1CF0623216B0A3A900CFA905 /* LFBootstrapClient.m */,
-				1CF0623C16B0A3A900CFA905 /* LFStreamClient.h */,
-				1CF0623D16B0A3A900CFA905 /* LFStreamClient.m */,
-				1CF0623E16B0A3A900CFA905 /* LFWriteClient.h */,
-				1CF0623F16B0A3A900CFA905 /* LFWriteClient.m */,
+				1CF0623616B0A3A900CFA905 /* LFOldClientBase.h */,
+				1CF0623716B0A3A900CFA905 /* LFOldClientBase.m */,
+				1CF0622D16B0A3A900CFA905 /* LFOldAdminClient.h */,
+				1CF0622E16B0A3A900CFA905 /* LFOldAdminClient.m */,
+				1CF0623116B0A3A900CFA905 /* LFOldBootstrapClient.h */,
+				1CF0623216B0A3A900CFA905 /* LFOldBootstrapClient.m */,
+				1CF0623C16B0A3A900CFA905 /* LFOldStreamClient.h */,
+				1CF0623D16B0A3A900CFA905 /* LFOldStreamClient.m */,
+				1CF0623E16B0A3A900CFA905 /* LFOldWriteClient.h */,
+				1CF0623F16B0A3A900CFA905 /* LFOldWriteClient.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -404,13 +404,13 @@
 				EF3D39BB17C702940014807D /* LFSWriteClient.h in Headers */,
 				EF9FD45217B4476B009FE59D /* LFClient.h in Headers */,
 				EF9FD45417B4476B009FE59D /* LFSConstants.h in Headers */,
-				EF9FD45517B4476B009FE59D /* LFClientBase.h in Headers */,
-				EF9FD45617B4476B009FE59D /* LFAdminClient.h in Headers */,
-				EF9FD45717B4476B009FE59D /* LFBootstrapClient.h in Headers */,
-				EF9FD45917B4476B009FE59D /* LFStreamClient.h in Headers */,
+				EF9FD45517B4476B009FE59D /* LFOldClientBase.h in Headers */,
+				EF9FD45617B4476B009FE59D /* LFOldAdminClient.h in Headers */,
+				EF9FD45717B4476B009FE59D /* LFOldBootstrapClient.h in Headers */,
+				EF9FD45917B4476B009FE59D /* LFOldStreamClient.h in Headers */,
 				EF263C4017CD4077008BA219 /* NSString+LFSEref.h in Headers */,
 				EF3D39AF17C6F5400014807D /* LFSAdminClient.h in Headers */,
-				EF9FD45A17B4476B009FE59D /* LFWriteClient.h in Headers */,
+				EF9FD45A17B4476B009FE59D /* LFOldWriteClient.h in Headers */,
 				EF3F1E5417C487ED004E61A4 /* LFSJSONRequestOperation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -595,17 +595,17 @@
 				1CF0622616B0A39800CFA905 /* NSDate+RelativePast.m in Sources */,
 				EF3F1E4C17C4879D004E61A4 /* LFSBoostrapClient.m in Sources */,
 				EFA2AAE017B5AE870022DC8E /* JSONKit.m in Sources */,
-				1CF0624016B0A3A900CFA905 /* LFAdminClient.m in Sources */,
+				1CF0624016B0A3A900CFA905 /* LFOldAdminClient.m in Sources */,
 				EF35D0F617CD58A200E47161 /* LFSBaseClient.m in Sources */,
-				EF9FD3CC17B40897009FE59D /* LFStreamClient.m in Sources */,
+				EF9FD3CC17B40897009FE59D /* LFOldStreamClient.m in Sources */,
 				EF263C4117CD4077008BA219 /* NSString+LFSEref.m in Sources */,
-				1CF0624416B0A3A900CFA905 /* LFBootstrapClient.m in Sources */,
+				1CF0624416B0A3A900CFA905 /* LFOldBootstrapClient.m in Sources */,
 				EF3F1E5517C487ED004E61A4 /* LFSJSONRequestOperation.m in Sources */,
-				1CF0624816B0A3A900CFA905 /* LFClientBase.m in Sources */,
+				1CF0624816B0A3A900CFA905 /* LFOldClientBase.m in Sources */,
 				1CF0624A16B0A3A900CFA905 /* LFSConstants.m in Sources */,
 				EF3D39B017C6F5400014807D /* LFSAdminClient.m in Sources */,
 				EF3D39BC17C702940014807D /* LFSWriteClient.m in Sources */,
-				1CF0625016B0A3A900CFA905 /* LFWriteClient.m in Sources */,
+				1CF0625016B0A3A900CFA905 /* LFOldWriteClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,16 +625,16 @@
 				EFE0CB1317C535EF00775C9C /* LFSClientTests.m in Sources */,
 				1CF0622716B0A39800CFA905 /* NSDate+RelativePast.m in Sources */,
 				EF3D39BD17C702940014807D /* LFSWriteClient.m in Sources */,
-				1CF0624116B0A3A900CFA905 /* LFAdminClient.m in Sources */,
-				1CF0624516B0A3A900CFA905 /* LFBootstrapClient.m in Sources */,
-				1CF0624916B0A3A900CFA905 /* LFClientBase.m in Sources */,
+				1CF0624116B0A3A900CFA905 /* LFOldAdminClient.m in Sources */,
+				1CF0624516B0A3A900CFA905 /* LFOldBootstrapClient.m in Sources */,
+				1CF0624916B0A3A900CFA905 /* LFOldClientBase.m in Sources */,
 				EFDF081817CE756500C7D6C0 /* LFSConfig.m in Sources */,
 				EF263C4217CD4077008BA219 /* NSString+LFSEref.m in Sources */,
 				1CF0624B16B0A3A900CFA905 /* LFSConstants.m in Sources */,
-				1CF0624F16B0A3A900CFA905 /* LFStreamClient.m in Sources */,
+				1CF0624F16B0A3A900CFA905 /* LFOldStreamClient.m in Sources */,
 				EF35D0F717CD58A200E47161 /* LFSBaseClient.m in Sources */,
 				EF3D39B117C6F5400014807D /* LFSAdminClient.m in Sources */,
-				1CF0625116B0A3A900CFA905 /* LFWriteClient.m in Sources */,
+				1CF0625116B0A3A900CFA905 /* LFOldWriteClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

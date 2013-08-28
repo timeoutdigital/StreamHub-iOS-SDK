@@ -29,14 +29,14 @@
 
 #import <AFHTTPClient.h>
 #import <AFHTTPRequestOperation.h>
-#import "LFClientBase.h"
+#import "LFOldClientBase.h"
 #import "JSONKit.h"
 //#import "NSDictionary+QueryString.h"
 
 static NSOperationQueue *_LFQueue;
 static AFHTTPClient *_httpClient;
 
-@implementation LFClientBase
+@implementation LFOldClientBase
 //We need our own queue so that our callbacks to do not block the main queue, which executes on the main thread.
 //Main thread is main.
 + (NSOperationQueue *)LFQueue

@@ -29,9 +29,9 @@
 
 #import <Foundation/Foundation.h>
 #import "LFSConstants.h"
-#import "LFClientBase.h"
+#import "LFOldClientBase.h"
 
-@interface LFStreamClient : LFClientBase
+@interface LFOldStreamClient : LFOldClientBase
 /**
  * For successive polls, we want to build the stream endpoint once and only update the eventId going forward.
  *

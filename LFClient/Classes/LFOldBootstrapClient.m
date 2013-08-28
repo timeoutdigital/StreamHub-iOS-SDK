@@ -27,12 +27,12 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-#import "LFBootstrapClient.h"
+#import "LFOldBootstrapClient.h"
 #import "MF_Base64Additions.h"
 
 static const NSString* const kLFSBootstrapDomain = @"bootstrap";
 
-@implementation LFBootstrapClient
+@implementation LFOldBootstrapClient
 + (void)getInitForArticle:(NSString *)articleId
                      site:(NSString *)siteId
                   network:(NSString *)networkDomain

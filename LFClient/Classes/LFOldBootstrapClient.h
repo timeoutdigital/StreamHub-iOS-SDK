@@ -29,9 +29,9 @@
 
 #import <Foundation/Foundation.h>
 #import "LFSConstants.h"
-#import "LFClientBase.h"
+#import "LFOldClientBase.h"
 
-@interface LFBootstrapClient : LFClientBase
+@interface LFOldBootstrapClient : LFOldClientBase
 /** @name Collection Initialization */
 
 /**
