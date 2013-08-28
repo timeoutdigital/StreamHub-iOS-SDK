@@ -34,7 +34,6 @@
 #import "NSString+LFSEref.h"
 
 #import "LFSConstants.h"
-#import "LFConfig.h"
 
 #import "LFClientBase.h"
 #import "LFAdminClient.h"

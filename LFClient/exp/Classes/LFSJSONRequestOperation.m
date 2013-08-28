@@ -129,7 +129,6 @@ static dispatch_queue_t json_request_operation_processing_queue() {
                                              userInfo:@{NSLocalizedDescriptionKey:errorMsg}];
         }
     }
-    
     else if ([responseJSON objectForKey:LFSNetworkSettings] &&
              [responseJSON objectForKey:LFSHeadDocument] &&
              [responseJSON objectForKey:LFSCollectionSettings] &&

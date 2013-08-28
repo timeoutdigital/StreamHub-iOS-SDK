@@ -27,10 +27,10 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-#import "LFTestingURLProtocol.h"
+#import "LFSTestingURLProtocol.h"
 #import "LFClient.h"
 
-@implementation LFTestingURLProtocol
+@implementation LFSTestingURLProtocol
 + (BOOL)canInitWithRequest:(NSURLRequest *)request
 {
     return [[[request URL] scheme] isEqualToString:LFSScheme];

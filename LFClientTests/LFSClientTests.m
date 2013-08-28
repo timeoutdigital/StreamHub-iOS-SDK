@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "LFNetworkingTests.h"
+#import "AFNetworkingTests.h"
 #import "LFSBoostrapClient.h"
 #import "LFSJSONRequestOperation.h"
 

@@ -1,8 +1,10 @@
 //
-//  LFConfig.m
-//  LivefyreClient
+//  LFTestingURLProtocol.h
+//  LFClient
 //
-//  Created by Thomas Goyne on 5/27/12.
+//  Created by zjj on 1/23/13.
+//
+//  Copyright (c) 2013 Livefyre
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation
@@ -25,28 +27,8 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-#import "LFConfig.h"
+#import <Foundation/Foundation.h>
 
-@implementation LFConfig
-+ (NSDictionary *)ConfigDictionary {
-    static NSDictionary *configDictionary = nil;
-    if (!configDictionary) {
-        NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"LFConfig" ofType:@"plist"];
-        configDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
-    }
+@interface LFSTestingURLProtocol : NSURLProtocol
 
-    return configDictionary;
-}
-
-+ (id)objectForKey:(id)key {
-    return [[self ConfigDictionary] objectForKey:key];
-}
-
-/*
-- (NSCondition *)condition
-{
-    if (!self.condition)
-        self.condition = [NSCondition new];
-    return self.condition;
-}*/
 @end

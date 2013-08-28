@@ -1,5 +1,5 @@
 //
-//  LFConfig.h
+//  LFConfig.m
 //  LivefyreClient
 //
 //  Created by Thomas Goyne on 5/27/12.
@@ -25,9 +25,27 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "LFSConfig.h"
 
-@interface LFConfig : NSObject
-+ (id)objectForKey:(id)key;
-//@property (strong, nonatomic) NSCondition *condition;
+@implementation LFSConfig
++ (NSDictionary *)ConfigDictionary {
+    static NSDictionary *configDictionary = nil;
+    if (!configDictionary) {
+        NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"LFSTestConfig" ofType:@"plist"];
+        configDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
+    }
+    return configDictionary;
+}
+
++ (id)objectForKey:(id)key {
+    return [[self ConfigDictionary] objectForKey:key];
+}
+
+/*
+- (NSCondition *)condition
+{
+    if (!self.condition)
+        self.condition = [NSCondition new];
+    return self.condition;
+}*/
 @end

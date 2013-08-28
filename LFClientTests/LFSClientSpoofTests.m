@@ -29,9 +29,9 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-#import "LFTestingURLProtocol.h"
+#import "LFSTestingURLProtocol.h"
 #import "LFClient.h"
-#import "LFConfig.h"
+#import "LFSConfig.h"
 #import "LFSBoostrapClient.h"
 #import "LFSAdminClient.h"
 #import "LFSWriteClient.h"
@@ -58,7 +58,7 @@
 {
     [super setUp];
     //These tests are nominal.
-    [NSURLProtocol registerClass:[LFTestingURLProtocol class]];
+    [NSURLProtocol registerClass:[LFSTestingURLProtocol class]];
     
     self.client = [LFSBoostrapClient clientWithEnvironment:nil network:@"init-sample"];
     self.clientHottest = [LFSBoostrapClient clientWithEnvironment:nil network:@"hottest-sample"];
@@ -77,7 +77,7 @@
 - (void)tearDown
 {
     // Tear-down code here.
-    [NSURLProtocol unregisterClass:[LFTestingURLProtocol class]];
+    [NSURLProtocol unregisterClass:[LFSTestingURLProtocol class]];
     
     // cancelling all operations just in case (not strictly required)
     for (NSOperation *operation in self.client.operationQueue.operations) {

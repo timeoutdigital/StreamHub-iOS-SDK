@@ -1,10 +1,8 @@
 //
-//  LFTestingURLProtocol.h
-//  LFClient
+//  LFConfig.h
+//  LivefyreClient
 //
-//  Created by zjj on 1/23/13.
-//
-//  Copyright (c) 2013 Livefyre
+//  Created by Thomas Goyne on 5/27/12.
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation
@@ -29,6 +27,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LFTestingURLProtocol : NSURLProtocol
-
+@interface LFSConfig : NSObject
++ (id)objectForKey:(id)key;
+//@property (strong, nonatomic) NSCondition *condition;
 @end
