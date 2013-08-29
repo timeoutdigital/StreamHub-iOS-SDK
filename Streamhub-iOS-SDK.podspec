@@ -52,7 +52,7 @@ Pod::Spec.new do |s|
   #
 
   #s.author       = { "Eugene Scherba" => "escherba@livefyre.com" }
-  s.authors      = { i"JJ Weber" => "jj@livefyre.com", "Eugene Scherba" => "escherba@livefyre.com" }
+  s.authors      = { "JJ Weber" => "jj@livefyre.com", "Eugene Scherba" => "escherba@livefyre.com" }
   # s.author       = 'Eugene Scherba', 'other author'
 
 
@@ -76,7 +76,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, svn and HTTP.
   #
 
-  #s.source       = { :git => "https://github.com/Livefyre/Streamhub-iOS-SDK.git", :tag => "0.2.0" }
+  s.source       = { :git => "https://github.com/escherba/StreamHub-iOS-SDK/commits/master", :tag => "0.2.0" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
