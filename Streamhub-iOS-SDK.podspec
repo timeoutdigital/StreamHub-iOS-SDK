@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
                    DESC
 
   # s.prefix_header_file = LFSClient/LFSClient-Prefix.pch
-  #s.homepage     = "https://github.com/Livefyre/Streamhub-iOS-SDK"
+  s.homepage     = "https://github.com/escherba/Streamhub-iOS-SDK"
   # s.screenshots  = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
 
 
@@ -40,8 +40,8 @@ Pod::Spec.new do |s|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  s.license      = 'MIT (example)'
-  # s.license      = { :type => 'MIT', :file => 'FILE_LICENSE' }
+  #s.license      = 'MIT (example)'
+  s.license      = { :type => 'MIT', :file => 'LICENSE' }
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -130,6 +130,9 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   # s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
-  # s.dependency 'JSONKit', '~> 1.4'
+  s.dependency 'AFNetworking', '~> 1.4'
+  s.dependency 'JWT', '~> 1.0.3'
+  s.dependency 'Base64', '~> 1.0.1'
+  s.dependency 'NSString-Hashes', '~> 1.2.0'
 
 end
