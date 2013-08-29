@@ -77,9 +77,9 @@
 		EF9FD45717B4476B009FE59D /* LFOldBootstrapClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623116B0A3A900CFA905 /* LFOldBootstrapClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF9FD45917B4476B009FE59D /* LFOldStreamClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623C16B0A3A900CFA905 /* LFOldStreamClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF9FD45A17B4476B009FE59D /* LFOldWriteClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623E16B0A3A900CFA905 /* LFOldWriteClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EFA2AADF17B5AE870022DC8E /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EFA2AADD17B5AE870022DC8E /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EFA2AAE017B5AE870022DC8E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA2AADE17B5AE870022DC8E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
-		EFA2AAE117B5AE870022DC8E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA2AADE17B5AE870022DC8E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
+		EFD499F917CFD4BC002A09EE /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EFD499F717CFD4BC002A09EE /* JSONKit.h */; };
+		EFD499FA17CFD4BC002A09EE /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFD499F817CFD4BC002A09EE /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EFD499FB17CFD4BC002A09EE /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFD499F817CFD4BC002A09EE /* JSONKit.m */; };
 		EFDD477617CA3771009AEE9E /* livefyre-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EFDD477417CA3771009AEE9E /* livefyre-logo.png */; };
 		EFDD477717CA3771009AEE9E /* livefyre-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EFDD477517CA3771009AEE9E /* livefyre-logo@2x.png */; };
 		EFDF081817CE756500C7D6C0 /* LFSConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDF081717CE756500C7D6C0 /* LFSConfig.m */; };
@@ -172,8 +172,8 @@
 		EF3F1E5317C487ED004E61A4 /* LFSJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSJSONRequestOperation.m; path = LFSClient/exp/Classes/LFSJSONRequestOperation.m; sourceTree = "<group>"; };
 		EF56AF8C17C6CEB50086127D /* LFSJSONKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSJSONKitTests.m; sourceTree = "<group>"; };
 		EF77732617CE8D0A0007A4D8 /* LFSAdminClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LFSAdminClient.h; path = LFSClient/exp/Classes/LFSAdminClient.h; sourceTree = "<group>"; };
-		EFA2AADD17B5AE870022DC8E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = vendor/JSONKit/JSONKit.h; sourceTree = "<group>"; };
-		EFA2AADE17B5AE870022DC8E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = vendor/JSONKit/JSONKit.m; sourceTree = "<group>"; };
+		EFD499F717CFD4BC002A09EE /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = LFSClient/JSONKit/JSONKit.h; sourceTree = "<group>"; };
+		EFD499F817CFD4BC002A09EE /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = LFSClient/JSONKit/JSONKit.m; sourceTree = "<group>"; };
 		EFDD477417CA3771009AEE9E /* livefyre-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "livefyre-logo.png"; path = "Resources/livefyre-logo.png"; sourceTree = "<group>"; };
 		EFDD477517CA3771009AEE9E /* livefyre-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "livefyre-logo@2x.png"; path = "Resources/livefyre-logo@2x.png"; sourceTree = "<group>"; };
 		EFDF081617CE756500C7D6C0 /* LFSConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFSConfig.h; sourceTree = "<group>"; };
@@ -369,8 +369,8 @@
 		EFA2AAD917B5A6C30022DC8E /* JSONKit */ = {
 			isa = PBXGroup;
 			children = (
-				EFA2AADD17B5AE870022DC8E /* JSONKit.h */,
-				EFA2AADE17B5AE870022DC8E /* JSONKit.m */,
+				EFD499F717CFD4BC002A09EE /* JSONKit.h */,
+				EFD499F817CFD4BC002A09EE /* JSONKit.m */,
 			);
 			name = JSONKit;
 			sourceTree = "<group>";
@@ -399,7 +399,6 @@
 				EF3F1E4B17C4879D004E61A4 /* LFSBoostrapClient.h in Headers */,
 				EF35D0F517CD58A200E47161 /* LFSBaseClient.h in Headers */,
 				EF3D39B317C6FCD00014807D /* lftypes.h in Headers */,
-				EFA2AADF17B5AE870022DC8E /* JSONKit.h in Headers */,
 				EF3F1E5417C487ED004E61A4 /* LFSJSONRequestOperation.h in Headers */,
 				EF3D39BB17C702940014807D /* LFSWriteClient.h in Headers */,
 				EF9FD45217B4476B009FE59D /* LFSClient.h in Headers */,
@@ -409,6 +408,7 @@
 				EF9FD45717B4476B009FE59D /* LFOldBootstrapClient.h in Headers */,
 				EF9FD45917B4476B009FE59D /* LFOldStreamClient.h in Headers */,
 				EF9FD45A17B4476B009FE59D /* LFOldWriteClient.h in Headers */,
+				EFD499F917CFD4BC002A09EE /* JSONKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,7 +597,6 @@
 			files = (
 				1CF0622616B0A39800CFA905 /* NSDate+RelativePast.m in Sources */,
 				EF3F1E4C17C4879D004E61A4 /* LFSBoostrapClient.m in Sources */,
-				EFA2AAE017B5AE870022DC8E /* JSONKit.m in Sources */,
 				1CF0624016B0A3A900CFA905 /* LFOldAdminClient.m in Sources */,
 				EF35D0F617CD58A200E47161 /* LFSBaseClient.m in Sources */,
 				EF9FD3CC17B40897009FE59D /* LFOldStreamClient.m in Sources */,
@@ -608,6 +607,7 @@
 				1CF0624A16B0A3A900CFA905 /* LFSConstants.m in Sources */,
 				EF3D39B017C6F5400014807D /* LFSAdminClient.m in Sources */,
 				EF3D39BC17C702940014807D /* LFSWriteClient.m in Sources */,
+				EFD499FA17CFD4BC002A09EE /* JSONKit.m in Sources */,
 				1CF0625016B0A3A900CFA905 /* LFOldWriteClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -623,10 +623,10 @@
 				EF03D34D17C53A7D0097FDD3 /* AFNetworkingTests.m in Sources */,
 				EF56AF8D17C6CEB50086127D /* LFSJSONKitTests.m in Sources */,
 				1CF061F616B093B500CFA905 /* LFSClientSpoofTests.m in Sources */,
-				EFA2AAE117B5AE870022DC8E /* JSONKit.m in Sources */,
 				1CF061FC16B098C500CFA905 /* LFSRC4Tests.m in Sources */,
 				EFE0CB1317C535EF00775C9C /* LFSClientTests.m in Sources */,
 				1CF0622716B0A39800CFA905 /* NSDate+RelativePast.m in Sources */,
+				EFD499FB17CFD4BC002A09EE /* JSONKit.m in Sources */,
 				EF3D39BD17C702940014807D /* LFSWriteClient.m in Sources */,
 				1CF0624116B0A3A900CFA905 /* LFOldAdminClient.m in Sources */,
 				1CF0624516B0A3A900CFA905 /* LFOldBootstrapClient.m in Sources */,

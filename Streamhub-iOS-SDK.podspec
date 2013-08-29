@@ -1,5 +1,5 @@
 #
-#  Be sure to run `pod spec lint Streamhub-iOS-SDK.podspec' to ensure this is a
+#  Be sure to run `pod spec lint StreamHub-iOS-SDK.podspec' to ensure this is a
 #  valid spec and to remove all comments including this before submitting the spec.
 #
 #  To learn more about Podspec attributes see http://docs.cocoapods.org/specification.html
@@ -15,12 +15,12 @@ Pod::Spec.new do |s|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  s.name         = "Streamhub-iOS-SDK"
+  s.name         = "StreamHub-iOS-SDK"
   s.version      = "0.2.0"
   s.summary      = "A client library for Livefyre's API"
 
   s.description  = <<-DESC
-                   A longer description of Streamhub-iOS-SDK in Markdown format.
+                   A longer description of StreamHub-iOS-SDK in Markdown format.
 
                    * Think: Why did you write this? What is the focus? What does it do?
                    * CocoaPods will be using this to generate tags, and improve search results.
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
                    * Finally, don't worry about the indent, CocoaPods strips it!
                    DESC
 
-  s.homepage     = "https://github.com/escherba/Streamhub-iOS-SDK"
+  s.homepage     = "https://github.com/escherba/StreamHub-iOS-SDK"
   # s.screenshots  = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
 
 
