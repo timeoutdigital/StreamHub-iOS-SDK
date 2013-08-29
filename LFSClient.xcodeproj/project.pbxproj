@@ -77,14 +77,14 @@
 		EF9FD45717B4476B009FE59D /* LFOldBootstrapClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623116B0A3A900CFA905 /* LFOldBootstrapClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF9FD45917B4476B009FE59D /* LFOldStreamClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623C16B0A3A900CFA905 /* LFOldStreamClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF9FD45A17B4476B009FE59D /* LFOldWriteClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623E16B0A3A900CFA905 /* LFOldWriteClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EFD499F917CFD4BC002A09EE /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EFD499F717CFD4BC002A09EE /* JSONKit.h */; };
-		EFD499FA17CFD4BC002A09EE /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFD499F817CFD4BC002A09EE /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		EFD499FB17CFD4BC002A09EE /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFD499F817CFD4BC002A09EE /* JSONKit.m */; };
 		EFDD477617CA3771009AEE9E /* livefyre-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EFDD477417CA3771009AEE9E /* livefyre-logo.png */; };
 		EFDD477717CA3771009AEE9E /* livefyre-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EFDD477517CA3771009AEE9E /* livefyre-logo@2x.png */; };
 		EFDF081817CE756500C7D6C0 /* LFSConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDF081717CE756500C7D6C0 /* LFSConfig.m */; };
 		EFE0420E17C3154B0011DD6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFE0420D17C3154B0011DD6A /* UIKit.framework */; };
 		EFE0CB1317C535EF00775C9C /* LFSClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE0CB1117C535EF00775C9C /* LFSClientTests.m */; };
+		EFF98AE417CFF19B0017DE73 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EFF98AE217CFF19B0017DE73 /* JSONKit.h */; };
+		EFF98AE517CFF19B0017DE73 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF98AE317CFF19B0017DE73 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		EFF98AE617CFF19B0017DE73 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF98AE317CFF19B0017DE73 /* JSONKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,8 +172,6 @@
 		EF3F1E5317C487ED004E61A4 /* LFSJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSJSONRequestOperation.m; path = LFSClient/exp/Classes/LFSJSONRequestOperation.m; sourceTree = "<group>"; };
 		EF56AF8C17C6CEB50086127D /* LFSJSONKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSJSONKitTests.m; sourceTree = "<group>"; };
 		EF77732617CE8D0A0007A4D8 /* LFSAdminClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LFSAdminClient.h; path = LFSClient/exp/Classes/LFSAdminClient.h; sourceTree = "<group>"; };
-		EFD499F717CFD4BC002A09EE /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = LFSClient/JSONKit/JSONKit.h; sourceTree = "<group>"; };
-		EFD499F817CFD4BC002A09EE /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = LFSClient/JSONKit/JSONKit.m; sourceTree = "<group>"; };
 		EFDD477417CA3771009AEE9E /* livefyre-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "livefyre-logo.png"; path = "Resources/livefyre-logo.png"; sourceTree = "<group>"; };
 		EFDD477517CA3771009AEE9E /* livefyre-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "livefyre-logo@2x.png"; path = "Resources/livefyre-logo@2x.png"; sourceTree = "<group>"; };
 		EFDF081617CE756500C7D6C0 /* LFSConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFSConfig.h; sourceTree = "<group>"; };
@@ -181,6 +179,8 @@
 		EFE0420D17C3154B0011DD6A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EFE0CB1117C535EF00775C9C /* LFSClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSClientTests.m; sourceTree = "<group>"; };
 		EFE0CB1217C535EF00775C9C /* AFNetworkingTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkingTests.h; sourceTree = "<group>"; };
+		EFF98AE217CFF19B0017DE73 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = JSONKit/JSONKit.h; sourceTree = "<group>"; };
+		EFF98AE317CFF19B0017DE73 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = JSONKit/JSONKit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -369,8 +369,8 @@
 		EFA2AAD917B5A6C30022DC8E /* JSONKit */ = {
 			isa = PBXGroup;
 			children = (
-				EFD499F717CFD4BC002A09EE /* JSONKit.h */,
-				EFD499F817CFD4BC002A09EE /* JSONKit.m */,
+				EFF98AE217CFF19B0017DE73 /* JSONKit.h */,
+				EFF98AE317CFF19B0017DE73 /* JSONKit.m */,
 			);
 			name = JSONKit;
 			sourceTree = "<group>";
@@ -408,7 +408,7 @@
 				EF9FD45717B4476B009FE59D /* LFOldBootstrapClient.h in Headers */,
 				EF9FD45917B4476B009FE59D /* LFOldStreamClient.h in Headers */,
 				EF9FD45A17B4476B009FE59D /* LFOldWriteClient.h in Headers */,
-				EFD499F917CFD4BC002A09EE /* JSONKit.h in Headers */,
+				EFF98AE417CFF19B0017DE73 /* JSONKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,7 +607,7 @@
 				1CF0624A16B0A3A900CFA905 /* LFSConstants.m in Sources */,
 				EF3D39B017C6F5400014807D /* LFSAdminClient.m in Sources */,
 				EF3D39BC17C702940014807D /* LFSWriteClient.m in Sources */,
-				EFD499FA17CFD4BC002A09EE /* JSONKit.m in Sources */,
+				EFF98AE517CFF19B0017DE73 /* JSONKit.m in Sources */,
 				1CF0625016B0A3A900CFA905 /* LFOldWriteClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -626,7 +626,7 @@
 				1CF061FC16B098C500CFA905 /* LFSRC4Tests.m in Sources */,
 				EFE0CB1317C535EF00775C9C /* LFSClientTests.m in Sources */,
 				1CF0622716B0A39800CFA905 /* NSDate+RelativePast.m in Sources */,
-				EFD499FB17CFD4BC002A09EE /* JSONKit.m in Sources */,
+				EFF98AE617CFF19B0017DE73 /* JSONKit.m in Sources */,
 				EF3D39BD17C702940014807D /* LFSWriteClient.m in Sources */,
 				1CF0624116B0A3A900CFA905 /* LFOldAdminClient.m in Sources */,
 				1CF0624516B0A3A900CFA905 /* LFOldBootstrapClient.m in Sources */,
