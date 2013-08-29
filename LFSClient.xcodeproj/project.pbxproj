@@ -82,7 +82,7 @@
 		EFDF081817CE756500C7D6C0 /* LFSConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDF081717CE756500C7D6C0 /* LFSConfig.m */; };
 		EFE0420E17C3154B0011DD6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFE0420D17C3154B0011DD6A /* UIKit.framework */; };
 		EFE0CB1317C535EF00775C9C /* LFSClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE0CB1117C535EF00775C9C /* LFSClientTests.m */; };
-		EFF98AE417CFF19B0017DE73 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EFF98AE217CFF19B0017DE73 /* JSONKit.h */; };
+		EFF98AE417CFF19B0017DE73 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EFF98AE217CFF19B0017DE73 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EFF98AE517CFF19B0017DE73 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF98AE317CFF19B0017DE73 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EFF98AE617CFF19B0017DE73 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF98AE317CFF19B0017DE73 /* JSONKit.m */; };
 /* End PBXBuildFile section */
@@ -394,6 +394,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFF98AE417CFF19B0017DE73 /* JSONKit.h in Headers */,
 				EF86E60C17C2C24B0061E773 /* NSDate+RelativePast.h in Headers */,
 				EF263C4017CD4077008BA219 /* NSString+LFSEref.h in Headers */,
 				EF3F1E4B17C4879D004E61A4 /* LFSBoostrapClient.h in Headers */,
@@ -408,7 +409,6 @@
 				EF9FD45717B4476B009FE59D /* LFOldBootstrapClient.h in Headers */,
 				EF9FD45917B4476B009FE59D /* LFOldStreamClient.h in Headers */,
 				EF9FD45A17B4476B009FE59D /* LFOldWriteClient.h in Headers */,
-				EFF98AE417CFF19B0017DE73 /* JSONKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
