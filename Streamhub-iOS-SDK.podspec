@@ -28,7 +28,6 @@ Pod::Spec.new do |s|
                    * Finally, don't worry about the indent, CocoaPods strips it!
                    DESC
 
-  # s.prefix_header_file = LFSClient/LFSClient-Prefix.pch
   s.homepage     = "https://github.com/escherba/Streamhub-iOS-SDK"
   # s.screenshots  = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
 
@@ -88,7 +87,8 @@ Pod::Spec.new do |s|
   #
 
   #s.source_files  = 'Classes', 'Classes/**/*.{h,m}'
-  s.source_files  = 'LFSClient/LFSClient-Prefix.pch', 'LFSClient/**/*.{h,m}'
+  s.source_files  = 'vendor/JSONKit/**/*.{h,m}', 'LFSClient/**/*.{h,m}'
+  s.ios.prefix_header_file = 'LFSClient/LFSClient-Prefix.pch'
   #s.exclude_files = 'Classes/Exclude'
 
   # s.public_header_files = 'Classes/**/*.h'
