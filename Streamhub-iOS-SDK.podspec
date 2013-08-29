@@ -76,7 +76,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/escherba/StreamHub-iOS-SDK/commits/master", :tag => "0.2.0" }
+  s.source       = { :git => "https://github.com/escherba/StreamHub-iOS-SDK.git", :tag => "0.2.0" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
