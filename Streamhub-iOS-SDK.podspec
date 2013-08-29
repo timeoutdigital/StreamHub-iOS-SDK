@@ -87,8 +87,14 @@ Pod::Spec.new do |s|
   #
 
   #s.source_files  = 'Classes', 'Classes/**/*.{h,m}'
-  s.source_files  = 'vendor/JSONKit/**/*.{h,m}', 'LFSClient/**/*.{h,m}'
   s.ios.prefix_header_file = 'LFSClient/LFSClient-Prefix.pch'
+  s.source_files  = 'LFSClient/**/*.{h,m}'
+  s.requires_arc = true
+  s.subspec 'no-arc' do |sp|
+    sp.source_files = 'JSONKit/**/*.{h,m}'
+    sp.requires_arc = false
+  end
+
   #s.exclude_files = 'Classes/Exclude'
 
   # s.public_header_files = 'Classes/**/*.h'
@@ -127,7 +133,6 @@ Pod::Spec.new do |s|
   #  where they will only apply to your library. If you depend on other Podspecs
   #  you can include multiple dependencies to ensure it works.
 
-  s.requires_arc = true
 
   # s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
   s.dependency 'AFNetworking', '~> 1.3.2'
