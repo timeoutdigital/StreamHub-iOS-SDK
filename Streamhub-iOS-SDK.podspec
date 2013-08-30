@@ -12,6 +12,7 @@ It lets you create apps that obtain user-generated content through Livefyre, pol
   s.platform     = :ios
   s.ios.deployment_target = '6.0'
   s.source       = { :git => "https://github.com/escherba/StreamHub-iOS-SDK.git", :tag => "0.2.0" }
+  s.resources    = 'LFSClient/Resources/*'
   s.subspec 'arc' do |sp|
     s.ios.prefix_header_file = 'LFSClient/LFSClient-Prefix.pch'
     s.source_files  = 'LFSClient/**/*.{h,m}'

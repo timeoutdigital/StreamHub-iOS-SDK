@@ -131,7 +131,7 @@ def MakeRelativePathsInFlagsAbsolute( flags, working_directory ):
     return flags
   new_flags = []
   make_next_absolute = False
-  path_flags = [ '-isystem', '-I', '-iquote', '--sysroot=' ]
+  path_flags = [ '-isystem', '-I', '-F', '-iquote', '--sysroot=' ]
   for flag in flags:
     new_flag = flag
 
