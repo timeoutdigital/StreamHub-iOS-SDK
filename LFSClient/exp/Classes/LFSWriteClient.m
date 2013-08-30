@@ -7,8 +7,8 @@
 //
 
 #import "LFSWriteClient.h"
-#import "JWT.h"
-#import "NSString+Hashes.h"
+#import <JWT/JWT.h>
+#import <NSString-Hashes/NSString+Hashes.h>
 
 static const NSString* const LFSOpinionString[] = {
     @"like",

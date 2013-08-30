@@ -28,7 +28,6 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "LFSConstants.h"
 #import "LFOldClientBase.h"
 
 @interface LFOldStreamClient : LFOldClientBase

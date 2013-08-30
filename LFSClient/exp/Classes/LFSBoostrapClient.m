@@ -7,7 +7,7 @@
 //
 
 #import "LFSBoostrapClient.h"
-#import "MF_Base64Additions.h"
+#import <Base64/MF_Base64Additions.h>
 
 @interface LFSBoostrapClient ()
 @end

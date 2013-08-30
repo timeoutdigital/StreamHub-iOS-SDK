@@ -30,17 +30,14 @@
 
 
 #import <SenTestingKit/SenTestingKit.h>
+#import <Base64/MF_Base64Additions.h>
 
 #import "LFSClient.h"
 #import "LFSConfig.h"
 #import "LFSBoostrapClient.h"
 #import "LFSAdminClient.h"
 #import "LFSWriteClient.h"
-
 #import "LFSJSONRequestOperation.h"
-#import "MF_Base64Additions.h"
-
-#import <AFJSONRequestOperation.h>
 
 #define EXP_SHORTHAND YES
 #import "Expecta.h"

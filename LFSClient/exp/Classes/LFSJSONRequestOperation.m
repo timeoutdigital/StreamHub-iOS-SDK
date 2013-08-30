@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Livefyre. All rights reserved.
 //
 
-#import "LFSConstants.h"
 #import "LFSJSONRequestOperation.h"
 #import "JSONKit.h"
 

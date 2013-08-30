@@ -56,7 +56,6 @@
 		EF35D0F717CD58A200E47161 /* LFSBaseClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF35D0F417CD58A200E47161 /* LFSBaseClient.m */; };
 		EF3D39B017C6F5400014807D /* LFSAdminClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3D39AE17C6F5400014807D /* LFSAdminClient.m */; };
 		EF3D39B117C6F5400014807D /* LFSAdminClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3D39AE17C6F5400014807D /* LFSAdminClient.m */; };
-		EF3D39B317C6FCD00014807D /* lftypes.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3D39B217C6FCD00014807D /* lftypes.h */; };
 		EF3D39BB17C702940014807D /* LFSWriteClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3D39B917C702940014807D /* LFSWriteClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF3D39BC17C702940014807D /* LFSWriteClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3D39BA17C702940014807D /* LFSWriteClient.m */; };
 		EF3D39BD17C702940014807D /* LFSWriteClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3D39BA17C702940014807D /* LFSWriteClient.m */; };
@@ -163,7 +162,6 @@
 		EF35D0F317CD58A200E47161 /* LFSBaseClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSBaseClient.h; path = LFSClient/exp/Classes/LFSBaseClient.h; sourceTree = "<group>"; };
 		EF35D0F417CD58A200E47161 /* LFSBaseClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSBaseClient.m; path = LFSClient/exp/Classes/LFSBaseClient.m; sourceTree = "<group>"; };
 		EF3D39AE17C6F5400014807D /* LFSAdminClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSAdminClient.m; path = LFSClient/exp/Classes/LFSAdminClient.m; sourceTree = "<group>"; };
-		EF3D39B217C6FCD00014807D /* lftypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lftypes.h; path = LFSClient/exp/Classes/lftypes.h; sourceTree = SOURCE_ROOT; };
 		EF3D39B917C702940014807D /* LFSWriteClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSWriteClient.h; path = LFSClient/exp/Classes/LFSWriteClient.h; sourceTree = "<group>"; };
 		EF3D39BA17C702940014807D /* LFSWriteClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSWriteClient.m; path = LFSClient/exp/Classes/LFSWriteClient.m; sourceTree = "<group>"; };
 		EF3F1E4917C4879D004E61A4 /* LFSBoostrapClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSBoostrapClient.h; path = LFSClient/exp/Classes/LFSBoostrapClient.h; sourceTree = "<group>"; };
@@ -256,7 +254,6 @@
 			isa = PBXGroup;
 			children = (
 				1CF0623416B0A3A900CFA905 /* LFSClient.h */,
-				EF3D39B217C6FCD00014807D /* lftypes.h */,
 				1CF0623816B0A3A900CFA905 /* LFSConstants.h */,
 				1CF0623916B0A3A900CFA905 /* LFSConstants.m */,
 				EF3F1E4117C45E8E004E61A4 /* exp */,
@@ -399,7 +396,6 @@
 				EF263C4017CD4077008BA219 /* NSString+LFSEref.h in Headers */,
 				EF3F1E4B17C4879D004E61A4 /* LFSBoostrapClient.h in Headers */,
 				EF35D0F517CD58A200E47161 /* LFSBaseClient.h in Headers */,
-				EF3D39B317C6FCD00014807D /* lftypes.h in Headers */,
 				EF3F1E5417C487ED004E61A4 /* LFSJSONRequestOperation.h in Headers */,
 				EF3D39BB17C702940014807D /* LFSWriteClient.h in Headers */,
 				EF9FD45217B4476B009FE59D /* LFSClient.h in Headers */,

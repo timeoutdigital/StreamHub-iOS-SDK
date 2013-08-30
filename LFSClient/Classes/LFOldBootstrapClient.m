@@ -28,7 +28,7 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 #import "LFOldBootstrapClient.h"
-#import "MF_Base64Additions.h"
+#import <Base64/MF_Base64Additions.h>
 
 static const NSString* const kLFSBootstrapDomain = @"bootstrap";
 

@@ -27,13 +27,18 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+//#import <Foundation/Foundation.h>
 
 // one header to rule them all
 #import "NSDate+RelativePast.h"
 #import "NSString+LFSEref.h"
 
 #import "LFSConstants.h"
+#import "LFSJSONRequestOperation.h"
+#import "LFSBaseClient.h"
+#import "LFSBoostrapClient.h"
+#import "LFSAdminClient.h"
+#import "LFSWriteClient.h"
 
 #import "LFOldClientBase.h"
 #import "LFOldAdminClient.h"

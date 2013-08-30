@@ -7,7 +7,7 @@
 //
 
 #import "LFSAdminClient.h"
-#import "MF_Base64Additions.h"
+#import <Base64/MF_Base64Additions.h>
 
 @implementation LFSAdminClient
 

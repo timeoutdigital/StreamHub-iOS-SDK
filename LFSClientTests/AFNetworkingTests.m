@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 #import "AFNetworkingTests.h"
-#import "AFHTTPRequestOperationLogger.h"
+#import <AFHTTPRequestOperationLogger/AFHTTPRequestOperationLogger.h>
 
 NSString * const AFNetworkingTestsBaseURLString = @"http://httpbin.org/";
 

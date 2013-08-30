@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Livefyre. All rights reserved.
 //
 
-#import "AFHTTPRequestOperation.h"
+#import <AFNetworking/AFHTTPRequestOperation.h>
 
 /**
  `LFJSONRequestOperation` is a subclass of `AFHTTPRequestOperation` for downloading and working with JSON response data.

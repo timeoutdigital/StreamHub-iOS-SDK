@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Livefyre. All rights reserved.
 //
 
-#import "lftypes.h"
-#import "AFHTTPClient.h"
+#import <AFNetworking/AFHTTPClient.h>
+#import "LFSConstants.h"
 #import "LFSJSONRequestOperation.h"
 #import "JSONKit.h"
 

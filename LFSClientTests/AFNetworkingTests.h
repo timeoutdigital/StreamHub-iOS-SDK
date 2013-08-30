@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "AFNetworking.h"
+#import <AFNetworking/AFNetworking.h>
 
 #define EXP_SHORTHAND YES
 #import "Expecta.h"

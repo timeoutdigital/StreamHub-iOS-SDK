@@ -27,6 +27,18 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
+#ifndef LFSClient_types_h
+#define LFSClient_types_h
+
+#import <AFNetworking/AFHTTPRequestOperation.h>
+
+typedef void (^LFSuccessBlock) (NSOperation *operation, id responseObject);
+typedef void (^LFFailureBlock) (NSOperation *operation, NSError *error);
+typedef void (^AFSuccessBlock) (AFHTTPRequestOperation *operation, id responseObject);
+typedef void (^AFFailureBlock) (AFHTTPRequestOperation *operation, NSError *error);
+
+#endif
+
 
 @interface LFSConstants : NSObject
 
