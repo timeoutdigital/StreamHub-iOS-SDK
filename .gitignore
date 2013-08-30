@@ -33,3 +33,10 @@ tags
 
 # Vim plugins
 .build
+
+# Python
+*.pyc
+
+# Clang dependencies
+*.d
+
