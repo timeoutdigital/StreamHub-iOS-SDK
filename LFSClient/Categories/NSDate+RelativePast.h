@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Livefyre. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 @interface NSDate (RelativePast)
 // Returns fuzzy, human readable, time deltas.
 - (NSString *)relativePastTime;
