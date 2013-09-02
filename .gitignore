@@ -31,12 +31,11 @@ tags
 # Vim
 *.swp
 
-# Vim plugins
-.build
-
 # Python
 *.pyc
 
 # Clang dependencies
 *.d
 
+# Our custom build script intermediates
+DerivedData/
