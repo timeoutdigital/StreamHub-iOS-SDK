@@ -7,6 +7,7 @@
 //
 
 #import <AFNetworking/AFHTTPRequestOperation.h>
+#import "LFSConstants.h"
 
 /**
  `LFJSONRequestOperation` is a subclass of `AFHTTPRequestOperation` for downloading and working with JSON response data.

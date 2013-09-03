@@ -29,6 +29,7 @@
 //
 #import <Foundation/Foundation.h>
 #import "LFOldClientBase.h"
+#import "LFSConstants.h"
 
 @interface LFOldAdminClient : LFOldClientBase
 /** @name User Authentication */
