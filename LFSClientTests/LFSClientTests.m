@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 #import "AFNetworkingTests.h"
-#import "LFSBoostrapClient.h"
+#import "LFSBootstrapClient.h"
 #import "LFSJSONRequestOperation.h"
 
 @interface LFSBufferedInputStreamProvider : NSObject <NSStreamDelegate>
@@ -109,24 +109,24 @@
 #pragma mark - Test setup
 
 @interface LFSClientTests : SenTestCase
-@property (readwrite, nonatomic, strong) LFSBoostrapClient *client;
+@property (readwrite, nonatomic, strong) LFSBootstrapClient *client;
 @end
 
 @implementation LFSClientTests
 @synthesize client = _client;
 
 - (void)setUp {
-    self.client = [LFSBoostrapClient clientWithBaseURL:[NSURL URLWithString:AFNetworkingTestsBaseURLString]];
+    self.client = [LFSBootstrapClient clientWithBaseURL:[NSURL URLWithString:AFNetworkingTestsBaseURLString]];
 }
 
 #pragma mark - Test cases
 
 - (void)testInitRaisesException {
-    expect(^{ (void)[[LFSBoostrapClient alloc] init]; }).to.raiseAny();
+    expect(^{ (void)[[LFSBootstrapClient alloc] init]; }).to.raiseAny();
 }
 
 - (void)testInitAppendsTerminatingSlashToPath {
-    LFSBoostrapClient *client = [[LFSBoostrapClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://httpbin.org/test"]];
+    LFSBootstrapClient *client = [[LFSBootstrapClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://httpbin.org/test"]];
     expect([[client baseURL] absoluteString]).to.equal(@"http://httpbin.org/test/");
 }
 
@@ -423,7 +423,7 @@
 }
 
 - (void)testMultipartUploadDoesNotFailDueToStreamSentAnEventBeforeBeingOpenedError {
-    NSString *pathToImage = [[NSBundle bundleForClass:[LFSBoostrapClient class]] pathForResource:@"livefyre-logo" ofType:@"png"];
+    NSString *pathToImage = [[NSBundle bundleForClass:[LFSBootstrapClient class]] pathForResource:@"livefyre-logo" ofType:@"png"];
     NSData *imageData = [NSData dataWithContentsOfFile:pathToImage];
     NSMutableURLRequest *request = [self.client multipartFormRequestWithMethod:@"POST" path:@"/post" parameters:@{ @"foo": @"bar" } constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imageData name:@"icon[image]" fileName:@"livefyre-logo.png" mimeType:@"image/png"];
