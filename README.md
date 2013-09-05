@@ -17,7 +17,7 @@ so you should specify Github repository when adding it to your pods. Here is an 
 
     platform :ios, :deployment_target => '6.0'
 
-    pod 'StreamHub-iOS-SDK', :git => 'https://github.com/escherba/StreamHub-iOS-SDK', :commit => 'b1bba9b4ed1faffdca5522801bb2fa813af4766c'
+    pod 'StreamHub-iOS-SDK', :git => 'https://github.com/Livefyre/StreamHub-iOS-SDK', :commit => '834670942a7c095cf681cf4a3458083558e26736'
 
 Once your Podfile is placed in your app project root, simply run:
 
