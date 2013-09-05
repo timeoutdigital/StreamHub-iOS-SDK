@@ -9,6 +9,9 @@
 #import "LFSJSONRequestOperation.h"
 #import "JSONKit.h"
 
+static const NSString *const kLFSResponseTimeout = @"timeout";
+static const NSString *const kLFSResponseHost = @"h";
+
 static dispatch_queue_t json_request_operation_processing_queue() {
     static dispatch_queue_t lf_json_request_operation_processing_queue;
     static dispatch_once_t onceToken;
@@ -82,8 +85,8 @@ static dispatch_queue_t json_request_operation_processing_queue() {
     {
         // Empty payload
         _responseJSON = nil;
-        self.JSONError = [NSError errorWithDomain:LFSErrorDomain
-                                             code:0
+        self.JSONError = [NSError errorWithDomain:NSURLErrorDomain
+                                             code:NSURLErrorZeroByteResource
                                          userInfo:@{NSLocalizedDescriptionKey:@"Response failed to return data."}];
     }
     else if (![responseJSON respondsToSelector:@selector(objectForKey:)])
@@ -93,8 +96,8 @@ static dispatch_queue_t json_request_operation_processing_queue() {
         NSString *errorDescription = [NSString stringWithFormat:errorTemplate,
                                       NSStringFromClass([responseJSON class])];
         _responseJSON = nil;
-        self.JSONError = [NSError errorWithDomain:LFSErrorDomain
-                                             code:0
+        self.JSONError = [NSError errorWithDomain:NSURLErrorDomain
+                                             code:NSURLErrorCannotParseResponse
                                          userInfo:@{NSLocalizedDescriptionKey:errorDescription}];
     }
     else if ((status = [responseJSON objectForKey:@"status"]) &&
@@ -136,8 +139,14 @@ static dispatch_queue_t json_request_operation_processing_queue() {
         // Pass whole response (no unwrapping)
         _responseJSON = responseJSON;
     }
-    else
-    {
+    else if ([responseJSON objectForKey:kLFSResponseTimeout] && [[responseJSON objectForKey:kLFSResponseTimeout] boolValue]) {
+        // timeout
+        NSString *host = [responseJSON objectForKey:kLFSResponseHost];
+        _responseJSON = nil;
+        self.JSONError = [NSError errorWithDomain:NSURLErrorDomain
+                                             code:NSURLErrorTimedOut
+                                         userInfo:@{NSURLErrorFailingURLStringErrorKey:host}];
+    } else {
         // Unknown response type
         NSString *errorText = @"Unexpected response.";
         _responseJSON = nil;
@@ -158,7 +167,7 @@ static dispatch_queue_t json_request_operation_processing_queue() {
 #pragma mark - LFHTTPRequestOperation
 
 + (NSSet *)acceptableContentTypes {
-    return [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", nil];
+    return [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"application/x-javascript", nil];
 }
 
 + (BOOL)canProcessRequest:(NSURLRequest *)request {

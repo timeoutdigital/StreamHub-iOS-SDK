@@ -34,6 +34,7 @@
 
 typedef void (^LFSuccessBlock) (NSOperation *operation, id responseObject);
 typedef void (^LFFailureBlock) (NSOperation *operation, NSError *error);
+typedef void (^LFHandleBlock) (id responseObject);
 typedef void (^AFSuccessBlock) (AFHTTPRequestOperation *operation, id responseObject);
 typedef void (^AFFailureBlock) (AFHTTPRequestOperation *operation, NSError *error);
 

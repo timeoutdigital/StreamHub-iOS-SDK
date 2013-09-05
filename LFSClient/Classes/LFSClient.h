@@ -39,9 +39,3 @@
 #import "LFSBoostrapClient.h"
 #import "LFSAdminClient.h"
 #import "LFSWriteClient.h"
-
-#import "LFOldClientBase.h"
-#import "LFOldAdminClient.h"
-#import "LFOldBootstrapClient.h"
-#import "LFOldStreamClient.h"
-#import "LFOldWriteClient.h"

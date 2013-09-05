@@ -83,6 +83,7 @@
  *                  existing site Id) correspond to the newly created collection
  * @param siteId    site Id
  * @param secretSiteKey (optional) Site Key to sign JWT token with
+ *                  If nil, so-called "unsigned collection creation" will take place
  * @param title     User-provided title (up to 255 characters)
  * @param tagArray  User-assigned Tag array
  * @param success   Success callback

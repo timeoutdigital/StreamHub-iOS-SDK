@@ -89,76 +89,13 @@
 }
 
 #pragma mark - Test Bootstrap Client
-- (void)testBootstrapClientGetPages {
-    // Get Init
-    __block NSDictionary *bootstrapInitInfo = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    [LFOldBootstrapClient getInitForArticle:@"fakeArticle"
-                                    site:@"fakeSite"
-                                 network:@"init-sample"
-                             environment:nil
-                               onSuccess:^(NSDictionary *collection) {
-                                   bootstrapInitInfo = collection;
-                                   dispatch_semaphore_signal(sema);
-                               }
-                               onFailure:^(NSError *error) {
-                                   NSLog(@"Error code %d, with description %@",
-                                         error.code,
-                                         [error localizedDescription]);
-                                   dispatch_semaphore_signal(sema);
-                               }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertEquals([bootstrapInitInfo count], 4u, @"Collection dictionary should have 4 keys");
-    
-    // Get Content
-    __block NSDictionary *contentInfo = nil;
-    sema = dispatch_semaphore_create(0);
-    
-    [LFOldBootstrapClient getContentForPage:0
-                            withInitInfo:bootstrapInitInfo
-                               onSuccess:^(NSDictionary *content) {
-                                   contentInfo = content;
-                                   dispatch_semaphore_signal(sema);
-                               }
-                               onFailure:^(NSError *error) {
-                                   NSLog(@"Error code %d, with description %@",
-                                         error.code,
-                                         [error localizedDescription]);
-                                   dispatch_semaphore_signal(sema);
-                               }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertNotNil(contentInfo, @"Content head document fail");
-    
-    sema = dispatch_semaphore_create(0);
-    
-    [LFOldBootstrapClient getContentForPage:1
-                            withInitInfo:bootstrapInitInfo
-                               onSuccess:^(NSDictionary *content) {
-                                   contentInfo = content;
-                                   dispatch_semaphore_signal(sema);
-                               }
-                               onFailure:^(NSError *error) {
-                                   NSLog(@"Error code %d, with description %@",
-                                         error.code,
-                                         [error localizedDescription]);
-                                   dispatch_semaphore_signal(sema);
-                               }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertNotNil(contentInfo, @"Content fetch fail");
-}
-
-
 - (void)testLFHTTPClient
 {
     // Get Init
-    __block NSDictionary *bootstrapInitInfo = nil;
     __block LFSJSONRequestOperation *op0 = nil;
     
     // This is the easiest way to use LFHTTPClient
+    __block NSDictionary *bootstrapInitInfo = nil;
     [self.client getInitForSite:@"fakeSite"
                         article:@"fakeArticle"
                       onSuccess:^(NSOperation *operation, id JSON){
@@ -184,18 +121,17 @@
     // Get Page 1
     __block NSDictionary *contentInfo1 = nil;
     __block LFSJSONRequestOperation *op1 = nil;
-    [self.client getContentWithInit:bootstrapInitInfo
-                               page:0
-                          onSuccess:^(NSOperation *operation, id JSON){
-                              op1 = (LFSJSONRequestOperation*)operation;
-                              contentInfo1 = JSON;
-                          }
-                          onFailure:^(NSOperation *operation, NSError *error) {
-                              op1 = (LFSJSONRequestOperation*)operation;
-                              NSLog(@"Error code %d, with description %@",
-                                    error.code,
-                                    [error localizedDescription]);
-                          }];
+    [self.client getContentForPage:0
+                         onSuccess:^(NSOperation *operation, id JSON){
+                             op1 = (LFSJSONRequestOperation*)operation;
+                             contentInfo1 = JSON;
+                         }
+                         onFailure:^(NSOperation *operation, NSError *error) {
+                             op1 = (LFSJSONRequestOperation*)operation;
+                             NSLog(@"Error code %d, with description %@",
+                                   error.code,
+                                   [error localizedDescription]);
+                         }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op1.isFinished).will.beTruthy();
@@ -206,18 +142,17 @@
     // Get Page 2
     __block NSDictionary *contentInfo2 = nil;
     __block LFSJSONRequestOperation *op2 = nil;
-    [self.client getContentWithInit:bootstrapInitInfo
-                               page:1
-                          onSuccess:^(NSOperation *operation, id JSON){
-                              op2 = (LFSJSONRequestOperation*)operation;
-                              contentInfo2 = JSON;
-                          }
-                          onFailure:^(NSOperation *operation, NSError *error) {
-                              op2 = (LFSJSONRequestOperation*)operation;
-                              NSLog(@"Error code %d, with description %@",
-                                    error.code,
-                                    [error localizedDescription]);
-                          }];
+    [self.client getContentForPage:1
+                         onSuccess:^(NSOperation *operation, id JSON){
+                             op2 = (LFSJSONRequestOperation*)operation;
+                             contentInfo2 = JSON;
+                         }
+                         onFailure:^(NSOperation *operation, NSError *error) {
+                             op2 = (LFSJSONRequestOperation*)operation;
+                             NSLog(@"Error code %d, with description %@",
+                                   error.code,
+                                   [error localizedDescription]);
+                         }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op2.isFinished).will.beTruthy();
@@ -227,29 +162,6 @@
 }
 
 #pragma mark -
-- (void)testPublicAPIGetTrending
-{
-    __block NSArray *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    [LFOldBootstrapClient getHottestCollectionsForTag:@"taggy"
-                                              site:@"site"
-                                           network:@"hottest-sample"
-                                    desiredResults:10u
-                                         onSuccess:^(NSArray *results) {
-                                             res = results;
-                                             dispatch_semaphore_signal(sema);
-                                         } onFailure:^(NSError *error) {
-                                             NSLog(@"Error code %d, with description %@",
-                                                   error.code,
-                                                   [error localizedDescription]);
-                                             dispatch_semaphore_signal(sema);
-                                         }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertEquals([res count], 10u, @"Heat API should return 10 items");
-}
-
 - (void)testHeatAPIWithGetHottestCollections
 {
     __block LFSJSONRequestOperation *op = nil;
@@ -280,29 +192,6 @@
 
 
 #pragma mark -
-- (void)testUserDataRetrieval
-{
-    __block NSArray *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    [LFOldBootstrapClient getUserContentForUser:@"fakeUser"
-                                   withToken:nil
-                                  forNetwork:@"usercontent-sample"
-                                    statuses:nil
-                                      offset:nil
-                                   onSuccess:^(NSArray *results) {
-                                       res = results;
-                                       dispatch_semaphore_signal(sema);
-                                   } onFailure:^(NSError *error) {
-                                       NSLog(@"Error code %d, with description %@",
-                                             error.code,
-                                             [error localizedDescription]);
-                                       dispatch_semaphore_signal(sema);
-                                   }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertEquals([res count], 12u, @"User content API should return 12 items");
-}
-
 - (void)testUserDataWithGetContentForUser
 {
     __block LFSJSONRequestOperation *op = nil;
@@ -333,29 +222,7 @@
 }
 
 #pragma mark - Test Admin Client
-- (void)testUserAuthentication1 {
-    //with collection
-    __block NSDictionary *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    [LFOldAdminClient authenticateUserWithToken:@"fakeToken"
-                                  collection:@"fakeColl"
-                                     network:@"auth-sample"
-                                   onSuccess:^(NSDictionary *gotUserData) {
-                                       res = gotUserData;
-                                       dispatch_semaphore_signal(sema);
-                                   } onFailure:^(NSError *error) {
-                                       NSLog(@"Error code %d, with description %@",
-                                             error.code,
-                                             [error localizedDescription]);
-                                       dispatch_semaphore_signal(sema);
-                                   }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertEquals([res count], 3u, @"User auth should return 3 items");
-}
-
-- (void)testUserAuthentication1a
+- (void)testUserAuthentication1
 {
     __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
@@ -382,30 +249,7 @@
 }
 
 #pragma mark -
-- (void)testUserAuthentication2 {
-    //with collection
-    __block NSDictionary *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    [LFOldAdminClient authenticateUserWithToken:@"fakeToken"
-                                     article:@"fakeArticle"
-                                        site:@"fakeSite"
-                                     network:@"auth-sample"
-                                   onSuccess:^(NSDictionary *gotUserData) {
-                                       res = gotUserData;
-                                       dispatch_semaphore_signal(sema);
-                                   } onFailure:^(NSError *error) {
-                                       NSLog(@"Error code %d, with description %@",
-                                             error.code,
-                                             [error localizedDescription]);
-                                       dispatch_semaphore_signal(sema);
-                                   }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertEquals([res count], 3u, @"User auth should return 3 items");
-}
-
-- (void)testUserAuthentication2a
+- (void)testUserAuthentication2
 {
     __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
@@ -433,30 +277,7 @@
 }
 
 #pragma mark - Test Write Client
-- (void)testLikes {
-    __block NSDictionary *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    [LFOldWriteClient likeContent:@"fakeContent"
-                       forUser:@"fakeUserToken"
-                    collection:@"fakeColl"
-                       network:@"like-sample"
-                     onSuccess:^(NSDictionary *content) {
-                         res = content;
-                         dispatch_semaphore_signal(sema);
-                     }
-                     onFailure:^(NSError *error) {
-                         NSLog(@"Error code %d, with description %@",
-                               error.code,
-                               [error localizedDescription]);
-                         dispatch_semaphore_signal(sema);
-                     }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertEquals([res count], 3u, @"Like action should return 3 items");
-}
-
-- (void)testLikes2
+- (void)testLikes
 {
     __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
@@ -485,33 +306,7 @@
 }
 
 #pragma mark -
-- (void)testPost {
-    __block NSDictionary *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    NSUInteger ran = arc4random();
-    
-    [LFOldWriteClient postContent:[NSString stringWithFormat:@"test post, %d", ran]
-                       forUser:@"fakeUser"
-                     inReplyTo:nil
-                 forCollection:@"fakeColl"
-                       network:@"post-sample"
-                     onSuccess:^(NSDictionary *content) {
-                         res = content;
-                         dispatch_semaphore_signal(sema);
-                     }
-                     onFailure:^(NSError *error) {
-                         NSLog(@"Error code %d, with description %@",
-                               error.code,
-                               [error localizedDescription]);
-                         dispatch_semaphore_signal(sema);
-                     }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertEquals([res count], 3u, @"Post content should return 3 items");
-}
-
-
-- (void)testPost2
+- (void)testPost
 {
     __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
@@ -543,33 +338,7 @@
 }
 
 #pragma mark -
-- (void)testFlag {
-    __block NSDictionary *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    [LFOldWriteClient flagContent:@"fakeContent"
-                 forCollection:@"fakeCollection"
-                       network:@"flag-sample"
-                      withFlag:LFSFlagOfftopic
-                          user:@"fakeUser"
-                         notes:@"fakeNotes"
-                         email:@"fakeEmail"
-                     onSuccess:^(NSDictionary *opineData) {
-                         res = opineData;
-                         dispatch_semaphore_signal(sema);
-                     }
-                     onFailure:^(NSError *error) {
-                         NSLog(@"Error code %d, with description %@",
-                               error.code,
-                               [error localizedDescription]);
-                         dispatch_semaphore_signal(sema);
-                     }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertEquals([res count], 3u, @"Post content should return 3 items");
-}
-
-- (void)testFlag2
+- (void)testFlag
 {
     __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;

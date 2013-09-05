@@ -34,6 +34,7 @@
 
 #import "LFSClient.h"
 #import "LFSConfig.h"
+#import "LFSStreamClient.h"
 #import "LFSBoostrapClient.h"
 #import "LFSAdminClient.h"
 #import "LFSWriteClient.h"
@@ -48,6 +49,8 @@
 @interface LFSClientNetworkTests()
 @property (nonatomic) NSString *event;
 @property (readwrite, nonatomic, strong) LFSBoostrapClient *client;
+@property (readwrite, nonatomic, strong) LFSStreamClient *clientStream;
+@property (readwrite, nonatomic, strong) LFSBoostrapClient *clientStreamBootstrap;
 @property (readwrite, nonatomic, strong) LFSBoostrapClient *clientLabs;
 @property (readwrite, nonatomic, strong) LFSAdminClient *clientAdmin;
 @property (readwrite, nonatomic, strong) LFSWriteClient *clientWrite;
@@ -66,6 +69,10 @@
     
     self.client = [LFSBoostrapClient clientWithEnvironment:[LFSConfig objectForKey:@"environment"]
                                                    network:[LFSConfig objectForKey:@"domain"]];
+    self.clientStream = [LFSStreamClient clientWithEnvironment:@"t402.livefyre.com"
+                                                   network:@"livefyre.com"];
+    self.clientStreamBootstrap = [LFSBoostrapClient clientWithEnvironment:@"t402.livefyre.com"
+                                                                  network:@"livefyre.com"];
     self.clientLabs = [LFSBoostrapClient clientWithEnvironment:[LFSConfig objectForKey:@"environment"] network:[LFSConfig objectForKey:@"labs network"]];
     
     self.clientAdmin = [LFSAdminClient clientWithEnvironment:nil network:[LFSConfig objectForKey:@"domain"]];
@@ -73,7 +80,7 @@
     self.clientWrite = [LFSWriteClient clientWithEnvironment:nil network:[LFSConfig objectForKey:@"domain"]];
     
     // set timeout to 60 seconds
-    [Expecta setAsynchronousTestTimeout:60.0f];
+    [Expecta setAsynchronousTestTimeout:600.0f];
 }
 
 - (void)tearDown
@@ -90,30 +97,6 @@
 }
 
 #pragma mark - Get init
-- (void)testCollectionRetrieval {
-    __block NSDictionary *coll = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    [LFOldBootstrapClient getInitForArticle:[LFSConfig objectForKey:@"article"]
-                                    site:[LFSConfig objectForKey:@"site"]
-                                 network:[LFSConfig objectForKey:@"domain"]
-                             environment:[LFSConfig objectForKey:@"environment"]
-                               onSuccess:^(NSDictionary *collection) {
-                                   coll = collection;
-                                   dispatch_semaphore_signal(sema);
-                               }
-                               onFailure:^(NSError *error) {
-                                   NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                   dispatch_semaphore_signal(sema);
-                               }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    
-    //Need status code from backend
-    self.event = [[coll objectForKey:LFSCollectionSettings] objectForKey:@"event"];
-    STAssertNotNil(self.event, @"Should have fetched a head document");
-}
-
 - (void)testInitWithLFJSONRequestOperation
 {
     __block id result = nil;
@@ -199,27 +182,6 @@
 }
 
 #pragma mark - Retrieve Hottest Collections
-- (void)testHeatAPIResultRetrieval
-{
-    __block NSArray *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    [LFOldBootstrapClient getHottestCollectionsForTag:@"tag"
-                                              site:[LFSConfig objectForKey:@"site"]
-                                           network:[LFSConfig objectForKey:@"domain"]
-                                    desiredResults:10u
-                                         onSuccess:^(NSArray *results) {
-                                             res = results;
-                                             dispatch_semaphore_signal(sema);
-                                         } onFailure:^(NSError *error) {
-                                             NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                             dispatch_semaphore_signal(sema);
-                                         }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertNotNil(res, @"Should have returned results");
-}
-
 - (void)testHeatAPIWithGetHottestCollections
 {
     //Note: this test fails when the URL is wrong (the way it's meant to be)
@@ -246,27 +208,7 @@
 }
 
 #pragma mark - Retrieve User Data
-- (void)testUserDataRetrieval {
-    __block NSArray *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    [LFOldBootstrapClient getUserContentForUser:[LFSConfig objectForKey:@"system user"]
-                                   withToken:nil
-                                  forNetwork:[LFSConfig objectForKey:@"labs network"]
-                                    statuses:nil
-                                      offset:nil
-                                   onSuccess:^(NSArray *results) {
-                                       res = results;
-                                       dispatch_semaphore_signal(sema);
-                                   } onFailure:^(NSError *error) {
-                                       NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                       dispatch_semaphore_signal(sema);
-                                   }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertNotNil(res, @"Should have returned results");
-}
-
-- (void)testUserDataRetrievalHTTP
+- (void)testUserDataRetrieval
 {
     //Note: this test fails when the URL is wrong (the way it's meant to be)
     __block LFSJSONRequestOperation *op = nil;
@@ -291,28 +233,6 @@
 
 #pragma mark - Test user authentication
 - (void)testUserAuthenticationSiteArticle {
-    //with article and site ids
-    __block NSDictionary *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    NSString *userToken = [LFSConfig objectForKey:@"moderator user auth token"];
-    
-    [LFOldAdminClient authenticateUserWithToken:userToken
-                                     article:[LFSConfig objectForKey:@"article"]
-                                        site:[LFSConfig objectForKey:@"site"]
-                                     network:[LFSConfig objectForKey:@"domain"]
-                                   onSuccess:^(NSDictionary *gotUserData) {
-                                       res = gotUserData;
-                                       dispatch_semaphore_signal(sema);
-                                   } onFailure:^(NSError *error) {
-                                       NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                       dispatch_semaphore_signal(sema);
-                                   }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
-}
-
-- (void)testUserAuthenticationSiteArticleHTTP {
     //with collection id
     __block LFSJSONRequestOperation *op = nil;
     __block NSDictionary *result = nil;
@@ -341,27 +261,6 @@
 #pragma mark -
 - (void)testUserAuthenticationCollection {
     //with collection id
-    __block NSDictionary *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    NSString *userToken = [LFSConfig objectForKey:@"moderator user auth token"];
-    
-    [LFOldAdminClient authenticateUserWithToken:userToken
-                                  collection:[LFSConfig objectForKey:@"collection"]
-                                     network:[LFSConfig objectForKey:@"domain"]
-                                   onSuccess:^(NSDictionary *gotUserData) {
-                                       res = gotUserData;
-                                       dispatch_semaphore_signal(sema);
-                                   } onFailure:^(NSError *error) {
-                                       NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                                       dispatch_semaphore_signal(sema);
-                                   }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
-}
-
-- (void)testUserAuthenticationCollectionHTTP {
-    //with collection id
     __block LFSJSONRequestOperation *op = nil;
     __block NSDictionary *result = nil;
     
@@ -386,27 +285,6 @@
 
 #pragma mark -
 - (void)testLikes {
-    __block NSDictionary *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    NSString *userToken = [LFSConfig objectForKey:@"moderator user auth token"];
-    
-    [LFOldWriteClient likeContent:[LFSConfig objectForKey:@"content"]
-                       forUser:userToken
-                    collection:[LFSConfig objectForKey:@"collection"]
-                       network:[LFSConfig objectForKey:@"domain"]
-                     onSuccess:^(NSDictionary *content) {
-                         res = content;
-                         dispatch_semaphore_signal(sema);
-                     } onFailure:^(NSError *error) {
-                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                         dispatch_semaphore_signal(sema);
-                     }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
-}
-
-- (void)testLikesHTTP {
     __block LFSJSONRequestOperation *op = nil;
     __block NSDictionary *result = nil;
     
@@ -431,27 +309,6 @@
 
 #pragma mark -
 - (void)testUnlikes {
-    __block NSDictionary *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    NSString *userToken = [LFSConfig objectForKey:@"moderator user auth token"];
-    
-    [LFOldWriteClient unlikeContent:[LFSConfig objectForKey:@"content"]
-                         forUser:userToken
-                      collection:[LFSConfig objectForKey:@"collection"]
-                         network:[LFSConfig objectForKey:@"domain"]
-                       onSuccess:^(NSDictionary *content) {
-                           res = content;
-                           dispatch_semaphore_signal(sema);
-                       } onFailure:^(NSError *error) {
-                           NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                           dispatch_semaphore_signal(sema);
-                       }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
-}
-
-- (void)testUnlikesHTTP {
     __block LFSJSONRequestOperation *op = nil;
     __block NSDictionary *result = nil;
     
@@ -475,32 +332,7 @@
 }
 
 #pragma mark -
-- (void)testPost {
-    __block NSDictionary *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    NSString *content = [NSString stringWithFormat:@"test post, %d", arc4random()];
-    [LFOldWriteClient postContent:content
-                       forUser:[LFSConfig objectForKey:@"moderator user auth token"]
-                     inReplyTo:nil
-                 forCollection:[LFSConfig objectForKey:@"collection"]
-                       network:[LFSConfig objectForKey:@"domain"]
-                     onSuccess:^(NSDictionary *content) {
-                         res = content;
-                         dispatch_semaphore_signal(sema);
-                     }
-                     onFailure:^(NSError *error) {
-                         NSLog(@"Error code %d, with description %@",
-                               error.code,
-                               [error localizedDescription]);
-                         dispatch_semaphore_signal(sema);
-                     }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
-}
-
-- (void)testPostHTTP
+- (void)testPost
 {
     //Note: this test fails when the URL is wrong (the way it's meant to be)
     __block LFSJSONRequestOperation *op = nil;
@@ -530,32 +362,7 @@
 }
 
 #pragma mark -
-- (void)testPostInReplyTo {
-    //in reply to
-    __block NSDictionary *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    NSString *parent = [LFSConfig objectForKey:@"content"];
-    [LFOldWriteClient postContent:[NSString stringWithFormat:@"test reply, %d", arc4random()]
-                       forUser:[LFSConfig objectForKey:@"moderator user auth token"]
-                     inReplyTo:parent
-                 forCollection:[LFSConfig objectForKey:@"collection"]
-                       network:[LFSConfig objectForKey:@"domain"]
-                     onSuccess:^(NSDictionary *content) {
-                         res = content;
-                         dispatch_semaphore_signal(sema);
-                     } onFailure:^(NSError *error) {
-                         NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-                         dispatch_semaphore_signal(sema);
-                     }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    
-    NSString *parent1 = [[[res valueForKeyPath:@"data.messages"] objectAtIndex:0]
-                         valueForKeyPath:@"content.parentId"];
-    STAssertEqualObjects(parent1, parent, @"This response should have been a child.");
-}
-
-- (void)testPostInReplyToHTTP
+- (void)testPostInReplyTo
 {
     //Note: this test fails when the URL is wrong (the way it's meant to be)
     __block LFSJSONRequestOperation *op = nil;
@@ -590,32 +397,7 @@
 }
 
 #pragma mark -
-- (void)testFlag {
-    __block NSDictionary *res = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    [LFOldWriteClient flagContent:[LFSConfig objectForKey:@"content"]
-                 forCollection:[LFSConfig objectForKey:@"collection"]
-                       network:[LFSConfig objectForKey:@"domain"]
-                      withFlag:LFSFlagOfftopic
-                          user:[LFSConfig objectForKey:@"moderator user auth token"]
-                         notes:@"fakeNotes"
-                         email:@"fakeEmail"
-                     onSuccess:^(NSDictionary *opineData) {
-                         res = opineData;
-                         dispatch_semaphore_signal(sema);
-                     } onFailure:^(NSError *error) {
-                         NSLog(@"Error code %d, with description %@",
-                               error.code,
-                               [error localizedDescription]);
-                         dispatch_semaphore_signal(sema);
-                     }];
-    
-    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-    STAssertEqualObjects([res objectForKey:@"status"], @"ok", @"This response should have been ok");
-}
-
-- (void)testFlagHTTP
+- (void)testFlag
 {
     //Note: this test fails when the URL is wrong (the way it's meant to be)
     __block LFSJSONRequestOperation *op = nil;
@@ -646,7 +428,7 @@
 }
 
 #pragma mark -
-- (void)testCreateCollectionWithSecretHTTP
+- (void)testCreateCollectionWithSecret
 {
     //Note: this test fails when the URL is wrong (the way it's meant to be)
     __block LFSJSONRequestOperation *op = nil;
@@ -684,7 +466,7 @@
     }
 }
 
-- (void)testCreateCollectionUnsignedHTTP
+- (void)testCreateCollectionUnsigned
 {
     //Note: this test fails when the URL is wrong (the way it's meant to be)
     __block LFSJSONRequestOperation *op = nil;
@@ -722,46 +504,51 @@
     }
 }
 
-//share to
-//    ran = arc4random();
-//    [LFWriteClient postContent:[NSString stringWithFormat:@"test reply, %d", ran]
-//                       forUser:userToken
-//                     inReplyTo:nil
-//                       shareTo:@[kShareTypeTwitter]
-//                  inCollection:@"10665123"
-//                     onNetwork:[Config objectForKey:@"domain"]
-//                       success:^(NSDictionary *content) {
-//                           res = content;
-//                           dispatch_semaphore_signal(sema);
-//                       } failure:^(NSError *error) {
-//                           NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-//                           dispatch_semaphore_signal(sema);
-//                       }];
-//    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-//    STAssertEqualObjects(prent, parent, @"This response should have been a child.");
-//    NSLog(@"Successfully posted w/ shareTo");
-
-//- (void)testStream {
-//    __block NSDictionary *res = nil;
-//    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-//
-//    LFStreamClient *streamer = [LFStreamClient new];
-//    [streamer startStreamForCollection:[Config objectForKey:@"collection"]
-//                             fromEvent:@"2648462675" //the past
-//                             onNetwork:[Config objectForKey:@"domain"]
-//                               success:^(NSDictionary *updates) {
-//                                   res = updates;
-//                                   dispatch_semaphore_signal(sema);
-//                               } failure:^(NSError *error) {
-//                                   NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-//                                   dispatch_semaphore_signal(sema);
-//                               }];
-//
-//    dispatch_semaphore_wait(sema, 10 * NSEC_PER_SEC);
-//    NSLog(@"Successfully streamed");
-//
-//    [streamer stopStreamForCollection:[Config objectForKey:@"collection"]];
-//}
-
+/*
+- (void)testStream {
+    // Get Init
+    __block LFSJSONRequestOperation *op0 = nil;
+    
+    // This is the easiest way to use LFHTTPClient
+    __block NSDictionary *bootstrapInitInfo = nil;
+    [self.clientStreamBootstrap getInitForSite:@"303613"
+                              article:@"215"
+                            onSuccess:^(NSOperation *operation, id JSON){
+                                op0 = (LFSJSONRequestOperation*)operation;
+                                bootstrapInitInfo = JSON;
+                            }
+                            onFailure:^(NSOperation *operation, NSError *error) {
+                                op0 = (LFSJSONRequestOperation*)operation;
+                                NSLog(@"Error code %d, with description %@",
+                                      error.code,
+                                      [error localizedDescription]);
+                            }
+     ];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op0.isFinished).will.beTruthy();
+    expect(op0).to.beInstanceOf([LFSJSONRequestOperation class]);
+    expect(op0.error).notTo.equal(NSURLErrorTimedOut);
+    // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
+    expect(bootstrapInitInfo).to.haveCountOf(4);
+    
+    NSDictionary *collectionSettings = [bootstrapInitInfo objectForKey:@"collectionSettings"];
+    NSString *collectionId = [collectionSettings objectForKey:@"collectionId"];
+    NSNumber *eventId = [collectionSettings objectForKey:@"event"];
+    
+    __block id result = nil;
+    [self.clientStream setCollectionId:collectionId];
+    
+    
+    [self.clientStream setResultHandler:^(id responseObject) {
+        NSLog(@"%@", responseObject);
+        result = nil;
+    } success:nil failure:nil];
+    [self.clientStream startStreamWithEventId:eventId];
+    
+    expect(result).will.beTruthy();
+    NSLog(@"%@", result);
+}
+*/
 
 @end

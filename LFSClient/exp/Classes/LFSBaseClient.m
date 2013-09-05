@@ -34,27 +34,28 @@
                                  userInfo:nil];
 }
 
+// this is the designated initializer
 - (id)initWithEnvironment:(NSString *)environment
                   network:(NSString *)network
 {
     //NSParameterAssert(environment != nil);
     NSParameterAssert(network != nil);
-    
+
     // cache passed parameters into readonly properties
     _lfEnvironment = environment;
     _lfNetwork = network;
-    
+
     NSString *hostname = [network isEqualToString:@"livefyre.com"] ? environment : network;
     NSString *urlString = [NSString stringWithFormat:@"%@://%@.%@/",
                            LFSScheme, [self subdomain], hostname];
-    
+
     self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
     if (!self) {
         return nil;
     }
-    
+
     [self registerHTTPOperationClass:[LFSJSONRequestOperation class]];
-    
+
     // Accept HTTP Header;
     // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
     [self setDefaultHeader:@"Accept" value:@"application/json"];
@@ -70,12 +71,12 @@ parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
         success:(AFSuccessBlock)success
         failure:(AFFailureBlock)failure
 {
-    
-	NSURLRequest *request = [self requestWithMethod:@"POST"
+
+    NSURLRequest *request = [self requestWithMethod:@"POST"
                                                 url:url
                                          parameters:parameters
                                   parameterEncoding:parameterEncoding];
-	
+
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
     [self enqueueHTTPRequestOperation:operation];
 }
@@ -87,11 +88,11 @@ parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
                          parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
 {
     NSParameterAssert(method);
-    
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request setHTTPMethod:method];
     [request setAllHTTPHeaderFields:self.defaultHeaders];
-    
+
     if (parameters) {
         if ([method isEqualToString:@"GET"] || [method isEqualToString:@"HEAD"] || [method isEqualToString:@"DELETE"]) {
             url = [url URLByAppendingPathComponent:[NSString stringWithFormat:
@@ -101,7 +102,7 @@ parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
         } else {
             NSString *charset = (__bridge NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(self.stringEncoding));
             NSError *error = nil;
-            
+
             switch (parameterEncoding) {
                 case AFFormURLParameterEncoding:;
                     [request setValue:[NSString stringWithFormat:@"application/x-www-form-urlencoded; charset=%@", charset] forHTTPHeaderField:@"Content-Type"];
@@ -119,12 +120,12 @@ parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
                     [request setHTTPBody:[NSPropertyListSerialization dataWithPropertyList:parameters format:NSPropertyListXMLFormat_v1_0 options:0 error:&error]];
                     break;
             }
-            
+
             if (error) {
                 NSLog(@"%@ %@: %@", [self class], NSStringFromSelector(_cmd), error);
             }
         }
     }
-	return request;
+    return request;
 }
 @end

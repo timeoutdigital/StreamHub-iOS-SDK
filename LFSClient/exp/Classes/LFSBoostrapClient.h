@@ -10,6 +10,13 @@
 
 @interface LFSBoostrapClient : LFSBaseClient
 
+
+
+/**
+ * @property init - caching Init response
+ */
+@property (nonatomic, strong) NSDictionary *infoInit;
+
 /**
  * Get the initial bootstrap data for a collection.
  *
@@ -32,16 +39,14 @@
 /**
  * The init data for a collection contains information about that collection's number of pages and where to fetch the content for those pages.
  *
- * @param initInfo A pointer to a bootstrap's init data as returned by the bootstrap init endpoint and parsed from JSON into a dictionary.
  * @param pageIndex The page to fetch content for. The pages are numbered from zero. If the page index provided is outside the bounds of what the init data knows about the error callback will convey that failure.
  * @param success   Success callback
  * @param failure   Failure callback
  * @return void
  */
-- (void)getContentWithInit:(NSDictionary *)initInfo
-                      page:(NSInteger)pageIndex
-                 onSuccess:(LFSuccessBlock)success
-                 onFailure:(LFFailureBlock)failure;
+- (void)getContentForPage:(NSInteger)pageIndex
+                onSuccess:(LFSuccessBlock)success
+                onFailure:(LFFailureBlock)failure;
 
 /** @name User Information */
 

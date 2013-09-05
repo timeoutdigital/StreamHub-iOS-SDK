@@ -14,8 +14,20 @@
 
 @implementation LFSBoostrapClient
 
+@synthesize infoInit = _infoInit;
+
 #pragma mark - Overrides
 -(NSString*)subdomain { return @"bootstrap"; }
+
+- (id)initWithEnvironment:(NSString *)environment
+                  network:(NSString *)network
+{
+    self = [super initWithEnvironment:environment network:network];
+    if (self) {
+        _infoInit = nil;
+    }
+    return self;
+}
 
 #pragma mark - Instance Methods
 - (void)getInitForSite:(NSString *)siteId
@@ -29,19 +41,24 @@
                       self.lfNetwork, siteId, [articleId base64String]];
     [self getPath:path
        parameters:nil
-          success:(AFSuccessBlock)success
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              // intercept responseObject and assign it to infoInit
+              self.infoInit = (NSDictionary*)responseObject;
+              if (success) {
+                  success(operation, responseObject);
+              }
+          }
           failure:(AFFailureBlock)failure];
 }
 
-- (void)getContentWithInit:(NSDictionary *)info
-                      page:(NSInteger)pageIndex
-                 onSuccess:(LFSuccessBlock)success
-                 onFailure:(LFFailureBlock)failure
+- (void)getContentForPage:(NSInteger)pageIndex
+                onSuccess:(LFSuccessBlock)success
+                onFailure:(LFFailureBlock)failure
 {
-    NSParameterAssert(info != nil);
+    NSAssert(self.infoInit != nil, @"infoInit cannot be nil");
     NSParameterAssert(pageIndex != NSNotFound); // is NSNotFound actually useful in this context?
     
-    NSDictionary *collectionSettings = [info objectForKey:LFSCollectionSettings];
+    NSDictionary *collectionSettings = [self.infoInit objectForKey:LFSCollectionSettings];
     NSDictionary *archiveInfo = [collectionSettings objectForKey:@"archiveInfo"];
     
     // Note: in this SDK allow for negative indexes (for enumerating pages in reverse order)
@@ -52,29 +69,33 @@
     
     // If page index is zero we already have the content as part of the init data.
     if (pageIndex == 0) {
-        NSBlockOperation *opSuccess = [[NSBlockOperation alloc] init];
-        __weak NSBlockOperation *opSuccess1 = opSuccess;
-        [opSuccess addExecutionBlock:^{
-            success(opSuccess1,
-                    [info objectForKey:LFSHeadDocument]
-                    );
-        }];
-        [self.operationQueue addOperation:opSuccess];
+        if (success) {
+            NSBlockOperation *opSuccess = [[NSBlockOperation alloc] init];
+            __weak NSBlockOperation *opSuccess1 = opSuccess;
+            [opSuccess addExecutionBlock:^{
+                success(opSuccess1,
+                        [self.infoInit objectForKey:LFSHeadDocument]
+                        );
+            }];
+            [self.operationQueue addOperation:opSuccess];
+        }
         return;
     }
     
     if (pageIndex < 0 || pageIndex >= count) {
-        // HTTP index code 416 seems to describe range error better than HTTP 400
-        NSBlockOperation *opFailure = [[NSBlockOperation alloc] init];
-        __weak NSBlockOperation *opFailure1 = opFailure;
-        [opFailure addExecutionBlock:^{
-            failure(opFailure1,
-                    [NSError errorWithDomain:LFSErrorDomain
-                                        code:416u
-                                    userInfo:@{NSLocalizedDescriptionKey:@"Page index outside of collection page bounds."}]
-                    );
-        }];
-        [self.operationQueue addOperation:opFailure];
+        if (failure) {
+            // HTTP index code 416 seems to describe range error better than HTTP 400
+            NSBlockOperation *opFailure = [[NSBlockOperation alloc] init];
+            __weak NSBlockOperation *opFailure1 = opFailure;
+            [opFailure addExecutionBlock:^{
+                failure(opFailure1,
+                        [NSError errorWithDomain:LFSErrorDomain
+                                            code:416
+                                        userInfo:@{NSLocalizedDescriptionKey:@"Page index outside of collection page bounds."}]
+                        );
+            }];
+            [self.operationQueue addOperation:opFailure];
+        }
         return;
     }
     
@@ -122,6 +143,7 @@
                            onSuccess:(LFSuccessBlock)success
                            onFailure:(LFFailureBlock)failure
 {
+    //TODO: move optional arguments to "parameters" dictionary argument?
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     if (tag) {
         [parameters setObject:tag forKey:@"tag"];
