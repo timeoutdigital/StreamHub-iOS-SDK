@@ -32,7 +32,7 @@
 #import "LFSTestingURLProtocol.h"
 #import "LFSClient.h"
 #import "LFSConfig.h"
-#import "LFSBoostrapClient.h"
+#import "LFSBootstrapClient.h"
 #import "LFSAdminClient.h"
 #import "LFSWriteClient.h"
 
@@ -44,9 +44,9 @@
 @end
 
 @interface LFSClientSpoofTests()
-@property (readwrite, nonatomic, strong) LFSBoostrapClient *client;
-@property (readwrite, nonatomic, strong) LFSBoostrapClient *clientHottest;
-@property (readwrite, nonatomic, strong) LFSBoostrapClient *clientUserContent;
+@property (readwrite, nonatomic, strong) LFSBootstrapClient *client;
+@property (readwrite, nonatomic, strong) LFSBootstrapClient *clientHottest;
+@property (readwrite, nonatomic, strong) LFSBootstrapClient *clientUserContent;
 @property (readwrite, nonatomic, strong) LFSAdminClient *clientAdmin;
 @property (readwrite, nonatomic, strong) LFSWriteClient *clientLike;
 @property (readwrite, nonatomic, strong) LFSWriteClient *clientPost;
@@ -60,9 +60,9 @@
     //These tests are nominal.
     [NSURLProtocol registerClass:[LFSTestingURLProtocol class]];
     
-    self.client = [LFSBoostrapClient clientWithEnvironment:nil network:@"init-sample"];
-    self.clientHottest = [LFSBoostrapClient clientWithEnvironment:nil network:@"hottest-sample"];
-    self.clientUserContent = [LFSBoostrapClient clientWithEnvironment:nil network:@"usercontent-sample"];
+    self.client = [LFSBootstrapClient clientWithEnvironment:nil network:@"init-sample"];
+    self.clientHottest = [LFSBootstrapClient clientWithEnvironment:nil network:@"hottest-sample"];
+    self.clientUserContent = [LFSBootstrapClient clientWithEnvironment:nil network:@"usercontent-sample"];
     
     self.clientAdmin = [LFSAdminClient clientWithEnvironment:nil network:@"usercontent-sample"];
     

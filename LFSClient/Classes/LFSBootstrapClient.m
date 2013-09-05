@@ -1,18 +1,18 @@
 //
-//  LFSBoostrapClient.m
+//  LFSBootstrapClient.m
 //
 //
 //  Created by Eugene Scherba on 8/20/13.
 //
 //
 
-#import "LFSBoostrapClient.h"
+#import "LFSBootstrapClient.h"
 #import <Base64/MF_Base64Additions.h>
 
-@interface LFSBoostrapClient ()
+@interface LFSBootstrapClient ()
 @end
 
-@implementation LFSBoostrapClient
+@implementation LFSBootstrapClient
 
 @synthesize infoInit = _infoInit;
 

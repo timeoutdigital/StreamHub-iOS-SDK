@@ -54,9 +54,9 @@
 		EFA0456117D806130012CD31 /* LFSBaseClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EFA0455417D806130012CD31 /* LFSBaseClient.h */; };
 		EFA0456217D806130012CD31 /* LFSBaseClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA0455517D806130012CD31 /* LFSBaseClient.m */; };
 		EFA0456317D806130012CD31 /* LFSBaseClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA0455517D806130012CD31 /* LFSBaseClient.m */; };
-		EFA0456417D806130012CD31 /* LFSBoostrapClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EFA0455617D806130012CD31 /* LFSBoostrapClient.h */; };
-		EFA0456517D806130012CD31 /* LFSBoostrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA0455717D806130012CD31 /* LFSBoostrapClient.m */; };
-		EFA0456617D806130012CD31 /* LFSBoostrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA0455717D806130012CD31 /* LFSBoostrapClient.m */; };
+		EFA0456417D806130012CD31 /* LFSBootstrapClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EFA0455617D806130012CD31 /* LFSBootstrapClient.h */; };
+		EFA0456517D806130012CD31 /* LFSBootstrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA0455717D806130012CD31 /* LFSBootstrapClient.m */; };
+		EFA0456617D806130012CD31 /* LFSBootstrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA0455717D806130012CD31 /* LFSBootstrapClient.m */; };
 		EFA0456717D806130012CD31 /* LFSJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = EFA0455817D806130012CD31 /* LFSJSONRequestOperation.h */; };
 		EFA0456817D806130012CD31 /* LFSJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA0455917D806130012CD31 /* LFSJSONRequestOperation.m */; };
 		EFA0456917D806130012CD31 /* LFSJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA0455917D806130012CD31 /* LFSJSONRequestOperation.m */; };
@@ -144,8 +144,8 @@
 		EFA0455317D806130012CD31 /* LFSAdminClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSAdminClient.m; path = LFSClient/Classes/LFSAdminClient.m; sourceTree = "<group>"; };
 		EFA0455417D806130012CD31 /* LFSBaseClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSBaseClient.h; path = LFSClient/Classes/LFSBaseClient.h; sourceTree = "<group>"; };
 		EFA0455517D806130012CD31 /* LFSBaseClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSBaseClient.m; path = LFSClient/Classes/LFSBaseClient.m; sourceTree = "<group>"; };
-		EFA0455617D806130012CD31 /* LFSBoostrapClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSBoostrapClient.h; path = LFSClient/Classes/LFSBoostrapClient.h; sourceTree = "<group>"; };
-		EFA0455717D806130012CD31 /* LFSBoostrapClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSBoostrapClient.m; path = LFSClient/Classes/LFSBoostrapClient.m; sourceTree = "<group>"; };
+		EFA0455617D806130012CD31 /* LFSBootstrapClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSBootstrapClient.h; path = LFSClient/Classes/LFSBootstrapClient.h; sourceTree = "<group>"; };
+		EFA0455717D806130012CD31 /* LFSBootstrapClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSBootstrapClient.m; path = LFSClient/Classes/LFSBootstrapClient.m; sourceTree = "<group>"; };
 		EFA0455817D806130012CD31 /* LFSJSONRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSJSONRequestOperation.h; path = LFSClient/Classes/LFSJSONRequestOperation.h; sourceTree = "<group>"; };
 		EFA0455917D806130012CD31 /* LFSJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSJSONRequestOperation.m; path = LFSClient/Classes/LFSJSONRequestOperation.m; sourceTree = "<group>"; };
 		EFA0455A17D806130012CD31 /* LFSStreamClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSStreamClient.h; path = LFSClient/Classes/LFSStreamClient.h; sourceTree = "<group>"; };
@@ -309,8 +309,8 @@
 				EFA0455317D806130012CD31 /* LFSAdminClient.m */,
 				EFA0455417D806130012CD31 /* LFSBaseClient.h */,
 				EFA0455517D806130012CD31 /* LFSBaseClient.m */,
-				EFA0455617D806130012CD31 /* LFSBoostrapClient.h */,
-				EFA0455717D806130012CD31 /* LFSBoostrapClient.m */,
+				EFA0455617D806130012CD31 /* LFSBootstrapClient.h */,
+				EFA0455717D806130012CD31 /* LFSBootstrapClient.m */,
 				EFA0455817D806130012CD31 /* LFSJSONRequestOperation.h */,
 				EFA0455917D806130012CD31 /* LFSJSONRequestOperation.m */,
 				EFA0455A17D806130012CD31 /* LFSStreamClient.h */,
@@ -357,7 +357,7 @@
 				EFA0456117D806130012CD31 /* LFSBaseClient.h in Headers */,
 				EF9FD45217B4476B009FE59D /* LFSClient.h in Headers */,
 				EF9FD45417B4476B009FE59D /* LFSConstants.h in Headers */,
-				EFA0456417D806130012CD31 /* LFSBoostrapClient.h in Headers */,
+				EFA0456417D806130012CD31 /* LFSBootstrapClient.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,7 +546,7 @@
 				1CF0622616B0A39800CFA905 /* NSDate+RelativePast.m in Sources */,
 				EFA0456217D806130012CD31 /* LFSBaseClient.m in Sources */,
 				EFA0455F17D806130012CD31 /* LFSAdminClient.m in Sources */,
-				EFA0456517D806130012CD31 /* LFSBoostrapClient.m in Sources */,
+				EFA0456517D806130012CD31 /* LFSBootstrapClient.m in Sources */,
 				EFA0456B17D806130012CD31 /* LFSStreamClient.m in Sources */,
 				EF263C4117CD4077008BA219 /* NSString+LFSEref.m in Sources */,
 				EFA0456817D806130012CD31 /* LFSJSONRequestOperation.m in Sources */,
@@ -569,7 +569,7 @@
 				1CF061FC16B098C500CFA905 /* LFSRC4Tests.m in Sources */,
 				EFE0CB1317C535EF00775C9C /* LFSClientTests.m in Sources */,
 				EFA0456F17D806130012CD31 /* LFSWriteClient.m in Sources */,
-				EFA0456617D806130012CD31 /* LFSBoostrapClient.m in Sources */,
+				EFA0456617D806130012CD31 /* LFSBootstrapClient.m in Sources */,
 				EFA0456317D806130012CD31 /* LFSBaseClient.m in Sources */,
 				1CF0622716B0A39800CFA905 /* NSDate+RelativePast.m in Sources */,
 				EFF98AE617CFF19B0017DE73 /* JSONKit.m in Sources */,

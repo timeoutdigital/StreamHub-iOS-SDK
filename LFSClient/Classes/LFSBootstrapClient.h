@@ -1,5 +1,5 @@
 //
-//  LFSBoostrapClient.h
+//  LFSBootstrapClient.h
 //  
 //
 //  Created by Eugene Scherba on 8/20/13.
@@ -8,7 +8,7 @@
 
 #import "LFSBaseClient.h"
 
-@interface LFSBoostrapClient : LFSBaseClient
+@interface LFSBootstrapClient : LFSBaseClient
 
 
 

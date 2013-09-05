@@ -35,7 +35,7 @@
 #import "LFSClient.h"
 #import "LFSConfig.h"
 #import "LFSStreamClient.h"
-#import "LFSBoostrapClient.h"
+#import "LFSBootstrapClient.h"
 #import "LFSAdminClient.h"
 #import "LFSWriteClient.h"
 #import "LFSJSONRequestOperation.h"
@@ -48,10 +48,10 @@
 
 @interface LFSClientNetworkTests()
 @property (nonatomic) NSString *event;
-@property (readwrite, nonatomic, strong) LFSBoostrapClient *client;
+@property (readwrite, nonatomic, strong) LFSBootstrapClient *client;
 @property (readwrite, nonatomic, strong) LFSStreamClient *clientStream;
-@property (readwrite, nonatomic, strong) LFSBoostrapClient *clientStreamBootstrap;
-@property (readwrite, nonatomic, strong) LFSBoostrapClient *clientLabs;
+@property (readwrite, nonatomic, strong) LFSBootstrapClient *clientStreamBootstrap;
+@property (readwrite, nonatomic, strong) LFSBootstrapClient *clientLabs;
 @property (readwrite, nonatomic, strong) LFSAdminClient *clientAdmin;
 @property (readwrite, nonatomic, strong) LFSWriteClient *clientWrite;
 @end
@@ -67,13 +67,13 @@
         STFail(@"No test settings");
     }
     
-    self.client = [LFSBoostrapClient clientWithEnvironment:[LFSConfig objectForKey:@"environment"]
+    self.client = [LFSBootstrapClient clientWithEnvironment:[LFSConfig objectForKey:@"environment"]
                                                    network:[LFSConfig objectForKey:@"domain"]];
     self.clientStream = [LFSStreamClient clientWithEnvironment:@"t402.livefyre.com"
                                                    network:@"livefyre.com"];
-    self.clientStreamBootstrap = [LFSBoostrapClient clientWithEnvironment:@"t402.livefyre.com"
+    self.clientStreamBootstrap = [LFSBootstrapClient clientWithEnvironment:@"t402.livefyre.com"
                                                                   network:@"livefyre.com"];
-    self.clientLabs = [LFSBoostrapClient clientWithEnvironment:[LFSConfig objectForKey:@"environment"] network:[LFSConfig objectForKey:@"labs network"]];
+    self.clientLabs = [LFSBootstrapClient clientWithEnvironment:[LFSConfig objectForKey:@"environment"] network:[LFSConfig objectForKey:@"labs network"]];
     
     self.clientAdmin = [LFSAdminClient clientWithEnvironment:nil network:[LFSConfig objectForKey:@"domain"]];
     

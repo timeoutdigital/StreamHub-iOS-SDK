@@ -36,6 +36,7 @@
 #import "LFSConstants.h"
 #import "LFSJSONRequestOperation.h"
 #import "LFSBaseClient.h"
-#import "LFSBoostrapClient.h"
+#import "LFSBootstrapClient.h"
 #import "LFSAdminClient.h"
 #import "LFSWriteClient.h"
+#import "LFSStreamClient.h"
