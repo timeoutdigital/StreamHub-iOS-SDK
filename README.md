@@ -17,13 +17,13 @@ so you should specify Github repository when adding it to your pods. Here is an 
 
     platform :ios, :deployment_target => '6.0'
 
-    pod 'StreamHub-iOS-SDK', :git => 'https://github.com/Livefyre/StreamHub-iOS-SDK', :commit => '834670942a7c095cf681cf4a3458083558e26736'
+    pod 'StreamHub-iOS-SDK', :git => 'https://github.com/Livefyre/StreamHub-iOS-SDK', :commit => 'bec9627553f454ed3538449ac3d53e0b572a292c'
 
 Once your Podfile is placed in your app project root, simply run:
 
     pod install
 
-This will download all the dependencies and create a file called `MyApp.xcworkspace' which you should 
+This will download all the dependencies and create a file called `MyApp.xcworkspace` which you should
 use to open your app project in Xcode in the future.
 
 ## Subproject
