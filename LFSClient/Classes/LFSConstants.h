@@ -40,7 +40,6 @@ typedef void (^AFFailureBlock) (AFHTTPRequestOperation *operation, NSError *erro
 
 #endif
 
-
 @interface LFSConstants : NSObject
 
 extern NSString *const LFSScheme;

@@ -99,9 +99,6 @@
     }
     
     NSString *pathBase = [archiveInfo objectForKey:@"pathBase"];
-    //NSString *networkDomain = [collectionSettings objectForKey:@"networkId"];
-    //NSAssert([networkDomain isEqualToString:_lfNetwork], @"Init network does not match stored network");
-    
     NSString *path = [NSString stringWithFormat:@"/bs3%@%d.json", pathBase, pageIndex];
     [self getPath:path
        parameters:nil

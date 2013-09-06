@@ -10,8 +10,6 @@
 
 @interface LFSBootstrapClient : LFSBaseClient
 
-
-
 /**
  * @property init - caching Init response
  */
