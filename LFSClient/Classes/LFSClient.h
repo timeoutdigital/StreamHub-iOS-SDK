@@ -30,7 +30,7 @@
 //#import <Foundation/Foundation.h>
 
 // one header to rule them all
-#import "NSDate+RelativePast.h"
+#import "NSDateFormatter+RelativeTo.h"
 #import "NSString+LFSEref.h"
 
 #import "LFSConstants.h"
