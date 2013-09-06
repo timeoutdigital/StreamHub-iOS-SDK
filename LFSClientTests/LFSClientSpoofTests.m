@@ -367,35 +367,4 @@
     expect(result).to.beTruthy();
 }
 
-
-//- (void)testStream {
-//    __block NSDictionary *res = nil;
-//    __block NSUInteger trips = 2;
-//    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-//
-//    LFStreamClient *streamer = [LFStreamClient new];
-//    [streamer startStreamForCollection:@"fakeColl"
-//                             fromEvent:@"fakeId"
-//                             onNetwork:@"stream-sample"
-//                               success:^(NSDictionary *updates) {
-//                                   res = updates;
-//                                   trips--;
-//                                   if (trips == 0)
-//                                       dispatch_semaphore_signal(sema);
-//                               } failure:^(NSError *error) {
-//                                   NSLog(@"Error code %d, with description %@", error.code, [error localizedDescription]);
-//                                   dispatch_semaphore_signal(sema);
-//                               }];
-//
-//    dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-//    STAssertEquals([res count], 3u, @"Stream should return 3 items");
-//
-//    [streamer stopStreamForCollection:@"fakeColl"];
-//    res = nil;
-//    //Stop stream will stop, but due to async magic there is no gaurantee when it will stop.
-//    //dispatch_semaphore_wait(sema, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-//    STAssertNil(res, @"Stop stream should stop the stream");
-//}
-
-
 @end

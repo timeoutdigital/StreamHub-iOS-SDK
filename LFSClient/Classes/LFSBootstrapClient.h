@@ -31,8 +31,8 @@
  */
 - (void)getInitForSite:(NSString *)siteId
                article:(NSString *)articleId
-             onSuccess:(LFSuccessBlock)success
-             onFailure:(LFFailureBlock)failure;
+             onSuccess:(LFSSuccessBlock)success
+             onFailure:(LFSFailureBlock)failure;
 
 /** @name Content Retrieval */
 
@@ -45,8 +45,8 @@
  * @return void
  */
 - (void)getContentForPage:(NSInteger)pageIndex
-                onSuccess:(LFSuccessBlock)success
-                onFailure:(LFFailureBlock)failure;
+                onSuccess:(LFSSuccessBlock)success
+                onFailure:(LFSFailureBlock)failure;
 
 /** @name User Information */
 
@@ -68,8 +68,8 @@
                         token:(NSString *)userToken
                      statuses:(NSArray*)statuses
                        offset:(NSInteger)offset
-                    onSuccess:(LFSuccessBlock)success
-                    onFailure:(LFFailureBlock)failure;
+                    onSuccess:(LFSSuccessBlock)success
+                    onFailure:(LFSFailureBlock)failure;
 
 /** @name Heat Index Trends */
 
@@ -89,7 +89,7 @@
 - (void)getHottestCollectionsForSite:(NSString *)siteId
                                  tag:(NSString *)tag
                       desiredResults:(NSUInteger)number
-                           onSuccess:(LFSuccessBlock)success
-                           onFailure:(LFFailureBlock)failure;
+                           onSuccess:(LFSSuccessBlock)success
+                           onFailure:(LFSFailureBlock)failure;
 
 @end

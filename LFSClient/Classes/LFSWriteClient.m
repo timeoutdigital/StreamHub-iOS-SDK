@@ -33,8 +33,8 @@ static const NSString* const LFSUserFlagString[] = {
             forUser:(NSString*)userToken
          forContent:(NSString *)contentId
        inCollection:(NSString *)collectionId
-          onSuccess:(LFSuccessBlock)success
-          onFailure:(LFFailureBlock)failure
+          onSuccess:(LFSSuccessBlock)success
+          onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(contentId != nil);
     
@@ -56,8 +56,8 @@ static const NSString* const LFSUserFlagString[] = {
       forContent:(NSString *)contentId
     inCollection:(NSString *)collectionId
       parameters:(NSDictionary*)parameters
-       onSuccess:(LFSuccessBlock)success
-       onFailure:(LFFailureBlock)failure
+       onSuccess:(LFSSuccessBlock)success
+       onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(contentId != nil);
     
@@ -84,8 +84,8 @@ static const NSString* const LFSUserFlagString[] = {
                forUser:(NSString*)userToken
          forCollection:(NSString *)collectionId
              inReplyTo:(NSString *)parentId
-             onSuccess:(LFSuccessBlock)success
-             onFailure:(LFFailureBlock)failure
+             onSuccess:(LFSSuccessBlock)success
+             onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(body != nil);
     NSParameterAssert(collectionId != nil);
@@ -115,8 +115,8 @@ static const NSString* const LFSUserFlagString[] = {
                  title:(NSString*)title
                   tags:(NSArray*)tagArray
                withURL:(NSURL *)newURL
-             onSuccess:(LFSuccessBlock)success
-             onFailure:(LFFailureBlock)failure
+             onSuccess:(LFSSuccessBlock)success
+             onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(articleId != nil);
     NSParameterAssert(newURL != nil);

@@ -32,8 +32,8 @@
 #pragma mark - Instance Methods
 - (void)getInitForSite:(NSString *)siteId
                article:(NSString *)articleId
-             onSuccess:(LFSuccessBlock)success
-             onFailure:(LFFailureBlock)failure
+             onSuccess:(LFSSuccessBlock)success
+             onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(siteId != nil);
     NSParameterAssert(articleId != nil);
@@ -52,11 +52,10 @@
 }
 
 - (void)getContentForPage:(NSInteger)pageIndex
-                onSuccess:(LFSuccessBlock)success
-                onFailure:(LFFailureBlock)failure
+                onSuccess:(LFSSuccessBlock)success
+                onFailure:(LFSFailureBlock)failure
 {
     NSAssert(self.infoInit != nil, @"infoInit cannot be nil");
-    NSParameterAssert(pageIndex != NSNotFound); // is NSNotFound actually useful in this context?
     
     NSDictionary *collectionSettings = [self.infoInit objectForKey:LFSCollectionSettings];
     NSDictionary *archiveInfo = [collectionSettings objectForKey:@"archiveInfo"];
@@ -114,8 +113,8 @@
                         token:(NSString *)userToken
                      statuses:(NSArray*)statuses
                        offset:(NSInteger)offset
-                    onSuccess:(LFSuccessBlock)success
-                    onFailure:(LFFailureBlock)failure
+                    onSuccess:(LFSSuccessBlock)success
+                    onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(userId != nil);
     
@@ -140,8 +139,8 @@
 - (void)getHottestCollectionsForSite:(NSString *)siteId
                                  tag:(NSString *)tag
                       desiredResults:(NSUInteger)number
-                           onSuccess:(LFSuccessBlock)success
-                           onFailure:(LFFailureBlock)failure
+                           onSuccess:(LFSSuccessBlock)success
+                           onFailure:(LFSFailureBlock)failure
 {
     //TODO: move optional arguments to "parameters" dictionary argument?
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];

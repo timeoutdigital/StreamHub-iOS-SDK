@@ -13,8 +13,8 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 
 @interface LFSStreamClient ()
 
-@property (nonatomic, strong) LFSuccessBlock successBlock;
-@property (nonatomic, strong) LFFailureBlock failureBlock;
+@property (nonatomic, strong) LFSSuccessBlock successBlock;
+@property (nonatomic, strong) LFSFailureBlock failureBlock;
 @property (nonatomic, strong) LFHandleBlock resultHandler;
 
 @end
@@ -68,8 +68,8 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 
 #pragma mark - Public methods
 - (void)setResultHandler:(LFHandleBlock)handler
-                 success:(LFSuccessBlock)success
-                 failure:(LFFailureBlock)failure
+                 success:(LFSSuccessBlock)success
+                 failure:(LFSFailureBlock)failure
 {
     self.resultHandler = handler;
     self.successBlock = success;

@@ -15,8 +15,8 @@
 @property (nonatomic, strong) NSNumber *eventId;
 
 - (void)setResultHandler:(LFHandleBlock)handler
-                 success:(LFSuccessBlock)success
-                 failure:(LFFailureBlock)failure;
+                 success:(LFSSuccessBlock)success
+                 failure:(LFSFailureBlock)failure;
 
 - (void)startStream;
 

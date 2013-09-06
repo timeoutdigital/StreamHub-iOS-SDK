@@ -16,15 +16,16 @@
 
 #pragma mark - Methods
 
-- (void)authenticateUserWithToken:(NSString *)userToken // JWT
+- (void)authenticateUserWithToken:(NSString *)userToken
                        collection:(NSString *)collectionId
-                        onSuccess:(LFSuccessBlock)success
-                        onFailure:(LFFailureBlock)failure
+                        onSuccess:(LFSSuccessBlock)success
+                        onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(userToken != nil);
     NSParameterAssert(collectionId != nil);
     
-    // Note: changing path still results in tests being passed
+    // TODO: changing path still results in tests being passed
+    // Figure out why
     [self getPath:@"/api/v3.0/auth/"
        parameters:@{@"lftoken": userToken,
                     @"collectionId": collectionId}
@@ -32,17 +33,18 @@
           failure:(AFFailureBlock)failure];
 }
 
-- (void)authenticateUserWithToken:(NSString *)userToken // JWT
+- (void)authenticateUserWithToken:(NSString *)userToken
                              site:(NSString *)siteId
                           article:(NSString *)articleId
-                        onSuccess:(LFSuccessBlock)success
-                        onFailure:(LFFailureBlock)failure
+                        onSuccess:(LFSSuccessBlock)success
+                        onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(userToken != nil);
     NSParameterAssert(siteId != nil);
     NSParameterAssert(articleId != nil);
     
-    // Note: changing path still results in tests being passed
+    // TODO: changing path still results in tests being passed
+    // Figure out why
     [self getPath:@"/api/v3.0/auth/"
        parameters:@{@"lftoken": userToken,
                     @"siteId": siteId,

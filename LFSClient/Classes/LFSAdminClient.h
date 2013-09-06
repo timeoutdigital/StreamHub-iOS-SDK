@@ -17,7 +17,7 @@
  *
  * It is necessary to provide either a collectionId or a siteId combined with an articleId.
  *
- * @param userToken The lftoken representing a user.
+ * @param userToken A JWT-encoded token representing a user.
  * @param collectionId The Id of the collection to auth against.
  * @param success   Success callback
  * @param failure   Failure callback
@@ -26,8 +26,8 @@
 
 - (void)authenticateUserWithToken:(NSString *)userToken
                        collection:(NSString *)collectionId
-                        onSuccess:(LFSuccessBlock)success
-                        onFailure:(LFFailureBlock)failure;
+                        onSuccess:(LFSSuccessBlock)success
+                        onFailure:(LFSFailureBlock)failure;
 
 
 /**
@@ -35,7 +35,7 @@
  *
  * It is necessary to provide either a collectionId or a siteId combined with an articleId.
  *
- * @param userToken The lftoken representing a user.
+ * @param userToken A JWT-encoded token representing a user.
  * @param siteId The Id of the article's site.
  * @param articleId The Id of the collection's article.
  * @param success   Success callback
@@ -46,7 +46,7 @@
 - (void)authenticateUserWithToken:(NSString *)userToken
                              site:(NSString *)siteId
                           article:(NSString *)articleId
-                        onSuccess:(LFSuccessBlock)success
-                        onFailure:(LFFailureBlock)failure;
+                        onSuccess:(LFSSuccessBlock)success
+                        onFailure:(LFSFailureBlock)failure;
 
 @end

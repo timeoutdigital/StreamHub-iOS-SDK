@@ -29,8 +29,8 @@
             forUser:(NSString *)userToken
          forContent:(NSString *)contentId
        inCollection:(NSString *)collectionId
-          onSuccess:(LFSuccessBlock)success
-          onFailure:(LFFailureBlock)failure;
+          onSuccess:(LFSSuccessBlock)success
+          onFailure:(LFSFailureBlock)failure;
 
 /**
  * Flag content with one of the flag types.
@@ -51,8 +51,8 @@
       forContent:(NSString *)contentId
     inCollection:(NSString *)collectionId
       parameters:(NSDictionary *)parameters
-       onSuccess:(LFSuccessBlock)success
-       onFailure:(LFFailureBlock)failure;
+       onSuccess:(LFSSuccessBlock)success
+       onFailure:(LFSFailureBlock)failure;
 
 /**
  * Create a new comment in a collection.
@@ -71,8 +71,8 @@
                forUser:(NSString *)userToken
          forCollection:(NSString *)collectionId
              inReplyTo:(NSString *)parentId
-             onSuccess:(LFSuccessBlock)success
-             onFailure:(LFFailureBlock)failure;
+             onSuccess:(LFSSuccessBlock)success
+             onFailure:(LFSFailureBlock)failure;
 
 /**
  * Create a new collection.
@@ -96,7 +96,7 @@
                  title:(NSString *)title
                   tags:(NSArray *)tagArray
                withURL:(NSURL *)newURL
-             onSuccess:(LFSuccessBlock)success
-             onFailure:(LFFailureBlock)failure;
+             onSuccess:(LFSSuccessBlock)success
+             onFailure:(LFSFailureBlock)failure;
 
 @end
