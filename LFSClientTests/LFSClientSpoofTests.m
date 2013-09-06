@@ -161,7 +161,6 @@
     expect(contentInfo2).to.beTruthy();
 }
 
-#pragma mark -
 - (void)testHeatAPIWithGetHottestCollections
 {
     __block LFSJSONRequestOperation *op = nil;
@@ -190,8 +189,6 @@
     expect(result).to.haveCountOf(10u);
 }
 
-
-#pragma mark -
 - (void)testUserDataWithGetContentForUser
 {
     __block LFSJSONRequestOperation *op = nil;
@@ -222,7 +219,7 @@
 }
 
 #pragma mark - Test Admin Client
-- (void)testUserAuthentication1
+- (void)testUserAuthenticationCollection
 {
     __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
@@ -248,8 +245,7 @@
     expect(result).to.beTruthy();
 }
 
-#pragma mark -
-- (void)testUserAuthentication2
+- (void)testUserAuthenticationSiteArticle
 {
     __block LFSJSONRequestOperation *op = nil;
     __block id result = nil;
@@ -305,7 +301,6 @@
     expect(result).to.beTruthy();
 }
 
-#pragma mark -
 - (void)testPost
 {
     __block LFSJSONRequestOperation *op = nil;
@@ -337,7 +332,6 @@
     expect(result).to.beTruthy();
 }
 
-#pragma mark -
 - (void)testFlag
 {
     __block LFSJSONRequestOperation *op = nil;

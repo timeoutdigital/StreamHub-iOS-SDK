@@ -32,8 +32,8 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 // TODO: implement ring with consistent hashing for managing streams
 -(NSString*)subdomain { return @"stream1"; }
 
-- (id)initWithEnvironment:(NSString *)environment
-                  network:(NSString *)network
+- (instancetype)initWithEnvironment:(NSString *)environment
+                            network:(NSString *)network
 {
     self = [super initWithEnvironment:environment network:network];
     if (self) {
@@ -121,7 +121,7 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
                                                                      [self startStreamWithEventId:maxEventId];
                                                                  }
                                                              }
-                                                             failure:^(NSOperation *operation, NSError *error) {
+                                                             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                  
                                                                  if (self.failureBlock) {
                                                                      // developer can choose to restart

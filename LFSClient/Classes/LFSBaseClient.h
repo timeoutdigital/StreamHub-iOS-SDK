@@ -20,7 +20,7 @@
  * Initialize Livefyre client
  *
  * @param networkDomain network as identified by domain, i.e. livefyre.com.
- * @param environment (optional) Where collection(s) are hosted, i.e. t-402. 
+ * @param environment (optional) Where collection(s) are hosted, i.e. t-402.
  *        Used for development/testing purposes.
  * @return LFSClient instance
  */
@@ -28,8 +28,8 @@
 + (instancetype)clientWithEnvironment:(NSString *)environment
                               network:(NSString *)network;
 
-- (id)initWithEnvironment:(NSString *)environment
-                  network:(NSString *)network;
+- (instancetype)initWithEnvironment:(NSString *)environment
+                            network:(NSString *)network;
 
 
 // abstract (to be overriden) subdomain of the baseURL

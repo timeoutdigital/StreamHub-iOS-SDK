@@ -691,10 +691,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LFSClient/LFSClient-Prefix.pch";
 				INFOPLIST_FILE = "LFSClientTests/LFSClientTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/escherba/dev/StreamHub-iOS-SDK/Pods/build/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = LFSClientTests;
 				WRAPPER_EXTENSION = octest;
 			};
@@ -711,10 +708,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LFSClient/LFSClient-Prefix.pch";
 				INFOPLIST_FILE = "LFSClientTests/LFSClientTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/escherba/dev/StreamHub-iOS-SDK/Pods/build/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = LFSClientTests;
 				WRAPPER_EXTENSION = octest;
 			};

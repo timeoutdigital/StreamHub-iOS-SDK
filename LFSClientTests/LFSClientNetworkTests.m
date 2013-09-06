@@ -257,8 +257,6 @@
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
 }
 
-
-#pragma mark -
 - (void)testUserAuthenticationCollection {
     //with collection id
     __block LFSJSONRequestOperation *op = nil;
@@ -283,7 +281,7 @@
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
 }
 
-#pragma mark -
+#pragma mark - test opines
 - (void)testLikes {
     __block LFSJSONRequestOperation *op = nil;
     __block NSDictionary *result = nil;
@@ -307,7 +305,6 @@
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
 }
 
-#pragma mark -
 - (void)testUnlikes {
     __block LFSJSONRequestOperation *op = nil;
     __block NSDictionary *result = nil;
@@ -331,7 +328,7 @@
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
 }
 
-#pragma mark -
+#pragma mark - test posts
 - (void)testPost
 {
     //Note: this test fails when the URL is wrong (the way it's meant to be)
@@ -361,7 +358,6 @@
     expect(result).to.beTruthy();
 }
 
-#pragma mark -
 - (void)testPostInReplyTo
 {
     //Note: this test fails when the URL is wrong (the way it's meant to be)
@@ -396,7 +392,7 @@
     expect(parent1).to.equal(parent);
 }
 
-#pragma mark -
+#pragma mark - test flagging
 - (void)testFlag
 {
     //Note: this test fails when the URL is wrong (the way it's meant to be)
@@ -427,7 +423,7 @@
     expect(result).to.beTruthy();
 }
 
-#pragma mark -
+#pragma mark - test collection creation
 - (void)testCreateCollectionWithSecret
 {
     //Note: this test fails when the URL is wrong (the way it's meant to be)
@@ -458,10 +454,12 @@
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     if (op.error) {
-        // HTTP 409: Collection already exists for site_id ... and article_id .... Use update instead.
+        // HTTP 409:
+        // Collection already exists for site_id ... and article_id ... Use update instead
         expect(op.response.statusCode).to.equal(409);
     } else {
-        // HTTP 202: This request is being processed.
+        // HTTP 202:
+        // This request is being processed
         expect(op.response.statusCode).to.equal(202);
     }
 }

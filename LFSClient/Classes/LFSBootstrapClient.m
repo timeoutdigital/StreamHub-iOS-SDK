@@ -19,8 +19,8 @@
 #pragma mark - Overrides
 -(NSString*)subdomain { return @"bootstrap"; }
 
-- (id)initWithEnvironment:(NSString *)environment
-                  network:(NSString *)network
+- (instancetype)initWithEnvironment:(NSString *)environment
+                            network:(NSString *)network
 {
     self = [super initWithEnvironment:environment network:network];
     if (self) {

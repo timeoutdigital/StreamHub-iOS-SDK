@@ -77,6 +77,7 @@ static dispatch_queue_t json_request_operation_processing_queue() {
     }
 }
 
+// TODO: better to unwrap JSON envelopes in appropriate methods in LFSBaseClient subclasses
 - (void)setResponseJSON:(id)responseJSON
 {
     NSString *status = nil;
