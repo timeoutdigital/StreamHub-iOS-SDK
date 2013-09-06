@@ -24,8 +24,6 @@
     NSParameterAssert(userToken != nil);
     NSParameterAssert(collectionId != nil);
     
-    // FIXME: changing path still results in tests being passed
-    // Figure out why
     [self getPath:@"/api/v3.0/auth/"
        parameters:@{@"lftoken": userToken,
                     @"collectionId": collectionId}
@@ -43,8 +41,6 @@
     NSParameterAssert(siteId != nil);
     NSParameterAssert(articleId != nil);
     
-    // FIXME: changing path still results in tests being passed
-    // Figure out why
     [self getPath:@"/api/v3.0/auth/"
        parameters:@{@"lftoken": userToken,
                     @"siteId": siteId,

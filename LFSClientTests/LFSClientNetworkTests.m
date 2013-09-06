@@ -255,6 +255,8 @@
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).to.beTruthy();
+    expect([result valueForKeyPath:@"auth_token.value"]).to.equal(userToken);
 }
 
 - (void)testUserAuthenticationCollection {
@@ -279,6 +281,8 @@
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).to.beTruthy();
+    expect([result valueForKeyPath:@"auth_token.value"]).to.equal(userToken);
 }
 
 #pragma mark - test opines
