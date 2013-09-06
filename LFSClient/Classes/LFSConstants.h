@@ -66,22 +66,8 @@ typedef NS_ENUM(NSUInteger, LFSUserFlag) {
     LFSFlagOfftopic
 };
 
+// Not used for now...
 
-/*
-extern NSString *const kShareTypeTwitter;
-extern NSString *const kShareTypeFacebook;
-extern NSString *const kShareTypeLinkedin;
-//
-extern NSString *const kCommentStatusActive;
-extern NSString *const kCommentStatusBozo;
-extern NSString *const kCommentStatusPending;
-extern NSString *const kCommentStatusSpam;
-extern NSString *const kCommentStatusHidden;
-extern NSString *const kCommentStatusDeleted;
-*/
-
-
-/*
 typedef NS_ENUM(NSUInteger, LFSContentType) {
     LFSContentTypeMessage = 0u, //A message posted by a user in reply to an article or another comment
     LFSContentTypeOpine, // An opinion from a user indicating that they like a comment or an embed
@@ -96,12 +82,12 @@ typedef NS_ENUM(NSUInteger, LFSContentVisibility) {
     // collection, usually meaning that it's waiting for approval
 };
 
-typedef NS_ENUM(NSUInteger, LFSPermissions) {
-    LFSPermissionsNone = 0u,
-    LFSPermissionsWhitelist,
-    LFSPermissionsBlacklist,
-    LFSPermissionsGraylist,
-    LFSPermissionsModerator
+typedef NS_ENUM(NSUInteger, LFSPermission) {
+    LFSPermissionNone = 0u,
+    LFSPermissionWhitelist,
+    LFSPermissionBlacklist,
+    LFSPermissionGraylist,
+    LFSPermissionModerator
 };
 
 typedef NS_ENUM(NSUInteger, LFSPermissionScope) {
@@ -111,6 +97,5 @@ typedef NS_ENUM(NSUInteger, LFSPermissionScope) {
     LFSPermissionScopeCollection,
     LFSPermissionScopeCollectionRule
 };
-*/
 
 @end
