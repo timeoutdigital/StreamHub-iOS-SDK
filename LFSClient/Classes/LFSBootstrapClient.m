@@ -22,7 +22,7 @@
 - (instancetype)initWithEnvironment:(NSString *)environment
                             network:(NSString *)network
 {
-    self = [super initWithEnvironment:environment network:network];
+    self = [super initWithNetwork:network environment:environment];
     if (self) {
         _infoInit = nil;
     }

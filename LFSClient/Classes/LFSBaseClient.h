@@ -39,8 +39,8 @@
  * @see -initWithEnvironment:network:
  */
 
-+ (instancetype)clientWithEnvironment:(NSString *)environment
-                              network:(NSString *)network;
++ (instancetype)clientWithNetwork:(NSString *)network
+                      environment:(NSString *)environment;
 
 /**
  * Initialize Livefyre client
@@ -50,8 +50,8 @@
  *        Used for development/testing purposes.
  * @return LFSClient instance
  */
-- (instancetype)initWithEnvironment:(NSString *)environment
-                            network:(NSString *)network;
+- (instancetype)initWithNetwork:(NSString *)network
+                    environment:(NSString *)environment;
 
 
 /**

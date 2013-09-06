@@ -67,17 +67,18 @@
         STFail(@"No test settings");
     }
     
-    self.client = [LFSBootstrapClient clientWithEnvironment:[LFSConfig objectForKey:@"environment"]
-                                                   network:[LFSConfig objectForKey:@"domain"]];
-    self.clientStream = [LFSStreamClient clientWithEnvironment:@"t402.livefyre.com"
-                                                   network:@"livefyre.com"];
-    self.clientStreamBootstrap = [LFSBootstrapClient clientWithEnvironment:@"t402.livefyre.com"
-                                                                  network:@"livefyre.com"];
-    self.clientLabs = [LFSBootstrapClient clientWithEnvironment:[LFSConfig objectForKey:@"environment"] network:[LFSConfig objectForKey:@"labs network"]];
-    
-    self.clientAdmin = [LFSAdminClient clientWithEnvironment:nil network:[LFSConfig objectForKey:@"domain"]];
-    
-    self.clientWrite = [LFSWriteClient clientWithEnvironment:nil network:[LFSConfig objectForKey:@"domain"]];
+    self.client = [LFSBootstrapClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                            environment:[LFSConfig objectForKey:@"environment"]];
+    self.clientStream = [LFSStreamClient clientWithNetwork:@"livefyre.com"
+                                               environment:@"t402.livefyre.com"];
+    self.clientStreamBootstrap = [LFSBootstrapClient clientWithNetwork:@"livefyre.com"
+                                                           environment:@"t402.livefyre.com"];
+    self.clientLabs = [LFSBootstrapClient clientWithNetwork:[LFSConfig objectForKey:@"labs network"]
+                                                environment:[LFSConfig objectForKey:@"environment"] ];
+    self.clientAdmin = [LFSAdminClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                             environment:nil ];
+    self.clientWrite = [LFSWriteClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                             environment:nil ];
     
     // set timeout to 60 seconds
     [Expecta setAsynchronousTestTimeout:600.0f];

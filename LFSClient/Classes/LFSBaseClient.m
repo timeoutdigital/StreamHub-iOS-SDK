@@ -21,10 +21,10 @@
 
 #pragma mark - Initialization
 
-+ (instancetype)clientWithEnvironment:(NSString *)environment
-                              network:(NSString *)network
++ (instancetype)clientWithNetwork:(NSString*)network
+                      environment:(NSString *)environment
 {
-    return [[self alloc] initWithEnvironment:environment network:network];
+    return [[self alloc] initWithNetwork:network environment:environment];
 }
 
 - (instancetype)init {
@@ -34,22 +34,20 @@
 }
 
 // this is the designated initializer
-- (instancetype)initWithEnvironment:(NSString *)environment
-                            network:(NSString *)network
+- (instancetype)initWithNetwork:(NSString *)network
+                    environment:(NSString *)environment
 {
-    //NSParameterAssert(environment != nil);
     NSParameterAssert(network != nil);
     
     // cache passed parameters into readonly properties
     _lfEnvironment = environment;
     _lfNetwork = network;
     
-    // TODO: it seems desirable to support cases when environment is nil
-    // and network is livefyre.com. Figure out what to do then.
-    NSString *hostname = [network isEqualToString:@"livefyre.com"] ? environment : network;
     NSString *urlString = [NSString stringWithFormat:@"%@://%@.%@/",
-                           LFSScheme, [self subdomain], hostname];
-    
+                           LFSScheme, 
+                           [self subdomain], 
+                           ((environment && [network isEqualToString:@"livefyre.com"]) ? environment : network)];
+
     self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
     if (!self) {
         return nil;

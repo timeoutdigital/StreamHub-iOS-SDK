@@ -60,15 +60,13 @@
     //These tests are nominal.
     [NSURLProtocol registerClass:[LFSTestingURLProtocol class]];
     
-    self.client = [LFSBootstrapClient clientWithEnvironment:nil network:@"init-sample"];
-    self.clientHottest = [LFSBootstrapClient clientWithEnvironment:nil network:@"hottest-sample"];
-    self.clientUserContent = [LFSBootstrapClient clientWithEnvironment:nil network:@"usercontent-sample"];
-    
-    self.clientAdmin = [LFSAdminClient clientWithEnvironment:nil network:@"usercontent-sample"];
-    
-    self.clientLike = [LFSWriteClient clientWithEnvironment:nil network:@"like-sample"];
-    self.clientPost = [LFSWriteClient clientWithEnvironment:nil network:@"post-sample"];
-    self.clientFlag = [LFSWriteClient clientWithEnvironment:nil network:@"flag-sample"];
+    self.client = [LFSBootstrapClient clientWithNetwork:@"init-sample" environment:nil ];
+    self.clientHottest = [LFSBootstrapClient clientWithNetwork:@"hottest-sample" environment:nil];
+    self.clientUserContent = [LFSBootstrapClient clientWithNetwork:@"usercontent-sample" environment:nil ];
+    self.clientAdmin = [LFSAdminClient clientWithNetwork:@"usercontent-sample" environment:nil];
+    self.clientLike = [LFSWriteClient clientWithNetwork:@"like-sample" environment:nil ];
+    self.clientPost = [LFSWriteClient clientWithNetwork:@"post-sample" environment:nil ];
+    self.clientFlag = [LFSWriteClient clientWithNetwork:@"flag-sample" environment:nil ];
     
     // set timeout to 60 seconds
     [Expecta setAsynchronousTestTimeout:60.0f];
@@ -311,19 +309,19 @@
                          stringWithFormat:@"test post, %d",
                          arc4random()];
     [self.clientPost postNewContent:content
-                         forUser:@"fakeUser"
-                   forCollection:@"fakeColl"
-                       inReplyTo:nil
-                       onSuccess:^(NSOperation *operation, id responseObject) {
-                           op = (LFSJSONRequestOperation*)operation;
-                           result = responseObject;
-                       }
-                       onFailure:^(NSOperation *operation, NSError *error) {
-                           op = (LFSJSONRequestOperation*)operation;
-                           NSLog(@"Error code %d, with description %@",
-                                 error.code,
-                                 [error localizedDescription]);
-                       }];
+                            forUser:@"fakeUser"
+                      forCollection:@"fakeColl"
+                          inReplyTo:nil
+                          onSuccess:^(NSOperation *operation, id responseObject) {
+                              op = (LFSJSONRequestOperation*)operation;
+                              result = responseObject;
+                          }
+                          onFailure:^(NSOperation *operation, NSError *error) {
+                              op = (LFSJSONRequestOperation*)operation;
+                              NSLog(@"Error code %d, with description %@",
+                                    error.code,
+                                    [error localizedDescription]);
+                          }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();

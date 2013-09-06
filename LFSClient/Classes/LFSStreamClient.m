@@ -35,7 +35,7 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 - (instancetype)initWithEnvironment:(NSString *)environment
                             network:(NSString *)network
 {
-    self = [super initWithEnvironment:environment network:network];
+    self = [super initWithNetwork:network environment:environment];
     if (self) {
         _collectionId = nil;
         _collectionStreamURLString = nil;
