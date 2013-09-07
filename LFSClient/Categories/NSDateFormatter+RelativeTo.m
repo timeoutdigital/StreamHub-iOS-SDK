@@ -24,10 +24,10 @@
     } else if (diffSs < 60) {
         // Less than 60s ago -> e.g. 5s
         return [NSString stringWithFormat:@"%ds", (int)diffSs];
-    } else if (diffSs < 3600) {
+    } else if (diffSs < 60 * 60) {
         // Less than 1h ago -> e.g. 5m
         return [NSString stringWithFormat:@"%dm", (int)diffSs / 60];
-    } else if (diffSs < 86400) {
+    } else if (diffSs < 60 * 60 * 24) {
         // Less than 24h ago -> e.g. 5h
         return [NSString stringWithFormat:@"%dh", (int)diffSs / 3600];
     } else {

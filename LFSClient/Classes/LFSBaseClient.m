@@ -27,15 +27,15 @@
     return [[self alloc] initWithNetwork:network environment:environment];
 }
 
-- (instancetype)init {
+- (id)init {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"%@ Failed to call designated initializer. Invoke `initWithEnvironment:network:` instead.", NSStringFromClass([self class])]
                                  userInfo:nil];
 }
 
 // this is the designated initializer
-- (instancetype)initWithNetwork:(NSString *)network
-                    environment:(NSString *)environment
+- (id)initWithNetwork:(NSString *)network
+          environment:(NSString *)environment
 {
     NSParameterAssert(network != nil);
     
@@ -63,7 +63,6 @@
 }
 
 
-// extend standard operation to parametrize by parameter encoding
 - (void)postURL:(NSURL *)url
      parameters:(NSDictionary *)parameters
 parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
@@ -80,7 +79,7 @@ parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
     [self enqueueHTTPRequestOperation:operation];
 }
 
-// extend standard operation to parametrize by parameter encoding
+
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method
                                        url:(NSURL *)url
                                 parameters:(NSDictionary *)parameters

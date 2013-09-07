@@ -29,6 +29,8 @@
 
 #import <Foundation/Foundation.h>
 
+// erefs are used for premoderated content that is unapproved.
+
 @interface NSString (LFSEref)
 
 /** @name eref decoding. */

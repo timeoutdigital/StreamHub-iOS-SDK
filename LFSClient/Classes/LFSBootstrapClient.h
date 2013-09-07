@@ -11,7 +11,8 @@
 @interface LFSBootstrapClient : LFSBaseClient
 
 /**
- * @property init - caching Init response
+ * @property init - Init response object (JSON)
+ * @see -getInitForSite:article:onSuccess:onFailure:
  */
 @property (nonatomic, strong) NSDictionary *infoInit;
 

@@ -28,6 +28,7 @@
 #import "LFSConfig.h"
 
 @implementation LFSConfig
+
 + (NSDictionary *)ConfigDictionary {
     static NSDictionary *configDictionary = nil;
     if (!configDictionary) {
@@ -41,11 +42,4 @@
     return [[self ConfigDictionary] objectForKey:key];
 }
 
-/*
-- (NSCondition *)condition
-{
-    if (!self.condition)
-        self.condition = [NSCondition new];
-    return self.condition;
-}*/
 @end

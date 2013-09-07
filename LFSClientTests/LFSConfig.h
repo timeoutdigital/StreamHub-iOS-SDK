@@ -29,5 +29,4 @@
 
 @interface LFSConfig : NSObject
 + (id)objectForKey:(id)key;
-//@property (strong, nonatomic) NSCondition *condition;
 @end

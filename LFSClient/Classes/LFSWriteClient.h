@@ -77,7 +77,7 @@
 /**
  * Create a new collection.
  *
- * "signed" create
+ * "signed" create has secretSiteKey that is non-nil
  *
  * @param articleId User-assigned article Id that will (together with
  *                  existing site Id) correspond to the newly created collection
