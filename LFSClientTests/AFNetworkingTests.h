@@ -24,8 +24,8 @@
 #import <AFNetworking/AFNetworking.h>
 
 #define EXP_SHORTHAND YES
-#import "Expecta.h"
-#import "OCMock.h"
+#import <Expecta/Expecta.h>
+#import <OCMock/OCMock.h>
 
 extern NSString * const AFNetworkingTestsBaseURLString;
 

@@ -11,7 +11,7 @@
 #import "JSONKit.h"
 
 #define EXP_SHORTHAND YES
-#import "Expecta.h"
+#import <Expecta/Expecta.h>
 
 @interface LFSJSONKitTests : SenTestCase
 @end

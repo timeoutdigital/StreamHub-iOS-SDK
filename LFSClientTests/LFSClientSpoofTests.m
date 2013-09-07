@@ -37,7 +37,7 @@
 #import "LFSWriteClient.h"
 
 #define EXP_SHORTHAND YES
-#import "Expecta.h"
+#import <Expecta/Expecta.h>
 
 
 @interface LFSClientSpoofTests : SenTestCase
