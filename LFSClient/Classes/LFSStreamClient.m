@@ -60,7 +60,7 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
     if (_collectionStreamURLString != nil) {
         return _collectionStreamURLString;
     } else {
-        NSString *component = [NSString stringWithFormat:@"v3.0/collection/%@", _collectionId];
+        NSString *component = [NSString stringWithFormat:@"v3.0/collection/%@", self.collectionId];
         _collectionStreamURLString = [self.baseURL URLByAppendingPathComponent:component];
         return _collectionStreamURLString;
     }

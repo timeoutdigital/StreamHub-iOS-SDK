@@ -34,7 +34,7 @@
         // >= 24 hours ago -> e.g. 6 Jul
         NSCalendar *calendar = self.calendar;
         NSDateComponents *components =
-        [calendar components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
+        [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
                     fromDate:date];
         NSDateComponents *anotherDateComponents =
         [calendar components:NSYearCalendarUnit

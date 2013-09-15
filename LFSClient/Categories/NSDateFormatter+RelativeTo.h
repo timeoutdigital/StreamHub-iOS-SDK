@@ -13,9 +13,8 @@
 /** @name eref decoding. */
 
 /**
- * Foramt date as relative to now
+ * Format date as relative to now
  *
- * @self   Date Formatter
  * @param  date target date
  * @return NSString
  */
@@ -26,7 +25,6 @@
 /**
  * Format date as relative to specified date
  *
- * @self   Date Formatter
  * @param  date target date
  * @param  anotherDate Date to use as baseline
  * @return NSString
