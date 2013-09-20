@@ -42,3 +42,6 @@ DerivedData/
 
 #Experimental stuff
 examples/exp_*
+
+#apppledoc directory
+AppleDoc/
