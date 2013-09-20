@@ -169,6 +169,13 @@ th {
 	position: absolute;
 }
 
+<<<<<<< HEAD
+=======
+#libraryTitle {
+        left: 0;
+}
+
+>>>>>>> 19a3ee2d96da948fd34bf3392b1017451be908be
 #top_header #library #developerHome {
 	color: #92979E;
 	right: 15px;
