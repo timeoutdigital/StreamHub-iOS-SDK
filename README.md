@@ -30,7 +30,7 @@ use to open your app project in Xcode in the future.
 
 Alternatively, clone the repository:
 
-    git clone git@github.com:Livefyre/StreamHub-iOS-SDK.git
+    git clone https://github.com/Livefyre/StreamHub-iOS-SDK.git
 
 And then add the Xcode project (LFSClient.xcodeproj) to your app as a subproject (easily done 
 by simply dragging the LFSClient.xcodeproj file into Project Navigator pane in Xcode).
