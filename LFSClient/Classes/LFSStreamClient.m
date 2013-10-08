@@ -155,6 +155,7 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
         // try using cached event id if nil
         eventId = self.eventId;
     }
+    NSAssert(eventId != nil, @"eventId cannot be nil");
     NSURL *streamURL = (eventId == nil)
     ? self.collectionStreamURLString
     : [self.collectionStreamURLString URLByAppendingPathComponent:[eventId stringValue]];
