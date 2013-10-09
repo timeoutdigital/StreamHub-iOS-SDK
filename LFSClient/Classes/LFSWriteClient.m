@@ -10,15 +10,32 @@
 #import <JWT/JWT.h>
 #import <NSString-Hashes/NSString+Hashes.h>
 
-#define LFS_OPINE_ENDPOINTS_LENGTH 2u
-static const NSString* const LFSOpineEndpoints[LFS_OPINE_ENDPOINTS_LENGTH] =
+// (for internal use):
+// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L75
+#define LFS_OPINE_ENDPOINTS_LENGTH 14u
+static const NSString* const LFSMessageEndpoints[LFS_OPINE_ENDPOINTS_LENGTH] =
 {
+    @"edit",
+    @"approve",
+    @"unapprove",
+    @"hide",
+    @"delete",
+    @"bozo",
+    @"ignore-flags",
+    @"add-note",
+    
     @"like",
-    @"unlike"
+    @"unlike",
+    @"flag",
+    @"mention",
+    @"share",
+    @"vote"
 };
 
-#define LFS_USER_FLAGS_LENGTH 4u
-static const NSString* const LFSUserFlags[LFS_USER_FLAGS_LENGTH] =
+// (for internal use):
+// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L87
+#define LFS_CONTENT_FLAGS_LENGTH 4u
+static const NSString* const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH] =
 {
     @"spam",
     @"offensive",
@@ -33,65 +50,72 @@ static const NSString* const LFSUserFlags[LFS_USER_FLAGS_LENGTH] =
 
 #pragma mark - Methods
 
-- (void)postOpinion:(LFSOpine)action
-            forUser:(NSString*)userToken
-         forContent:(NSString *)contentId
-       inCollection:(NSString *)collectionId
-          onSuccess:(LFSSuccessBlock)success
-          onFailure:(LFSFailureBlock)failure
+-(void)postMessage:(LFSMessageAction)action
+        forContent:(NSString *)contentId
+      inCollection:(NSString *)collectionId
+              user:(NSString *)userToken
+        parameters:(NSDictionary *)parameters
+         onSuccess:(LFSSuccessBlock)success
+         onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(contentId != nil);
     NSParameterAssert((NSUInteger)action < LFS_OPINE_ENDPOINTS_LENGTH);
+
+    const NSString *actionEndpoint = LFSMessageEndpoints[action];
     
-    const NSString *actionEndpoint = LFSOpineEndpoints[action];
-    NSDictionary *parameters = @{@"collection_id":collectionId,
-                                 @"lftoken": userToken};
+    NSMutableDictionary *parameters1 =
+    [NSMutableDictionary
+     dictionaryWithObjects:@[contentId, collectionId, userToken]
+     forKeys:@[@"message_id", @"collection_id", @"lftoken"]];
+    
+    // parameters passed in can be @{ notes: @"...", email: @"..." }
+    [parameters1 addEntriesFromDictionary:parameters];
+    
     NSString *path = [NSString
                       stringWithFormat:@"/api/v3.0/message/%@/%@/",
                       contentId, actionEndpoint];
     
     [self postPath:path
-        parameters:parameters
+        parameters:parameters1
            success:success
            failure:failure];
 }
 
-- (void)postFlag:(LFSUserFlag)flag
-         forUser:(NSString*)userToken
+- (void)postFlag:(LFSContentFlag)flag
       forContent:(NSString *)contentId
     inCollection:(NSString *)collectionId
+            user:(NSString*)userToken
       parameters:(NSDictionary*)parameters
        onSuccess:(LFSSuccessBlock)success
        onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(contentId != nil);
-    NSParameterAssert((NSUInteger)flag < LFS_USER_FLAGS_LENGTH);
+    NSParameterAssert((NSUInteger)flag < LFS_CONTENT_FLAGS_LENGTH);
     
-    const NSString *flagString = LFSUserFlags[flag];
     NSMutableDictionary *parameters1 =
     [NSMutableDictionary
-     dictionaryWithObjects:@[contentId, collectionId, flagString, userToken]
-     forKeys:@[@"message_id", @"collection_id", @"flag", @"lftoken"]];
+     dictionaryWithObjects:@[contentId, collectionId, userToken]
+     forKeys:@[@"message_id", @"collection_id", @"lftoken"]];
     
-    // parameters passed in can be { notes: @"...", email: @"..." }
+    // parameters passed in can be @{ notes: @"...", email: @"..." }
     [parameters1 addEntriesFromDictionary:parameters];
+    
     NSString *path = [NSString
                       stringWithFormat:@"/api/v3.0/message/%@/flag/%@/",
-                      contentId, flagString];
+                      contentId, LFSContentFlags[flag]];
     
     [self postPath:path
         parameters:parameters1
            success:success
            failure:failure];
-    
 }
 
-- (void)postNewContent:(NSString *)body
-               forUser:(NSString*)userToken
-         forCollection:(NSString *)collectionId
-             inReplyTo:(NSString *)parentId
-             onSuccess:(LFSSuccessBlock)success
-             onFailure:(LFSFailureBlock)failure
+- (void)postContent:(NSString *)body
+       inCollection:(NSString *)collectionId
+               user:(NSString*)userToken
+          inReplyTo:(NSString *)parentId
+          onSuccess:(LFSSuccessBlock)success
+          onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(body != nil);
     NSParameterAssert(collectionId != nil);
@@ -120,14 +144,14 @@ static const NSString* const LFSUserFlags[LFS_USER_FLAGS_LENGTH] =
            failure:failure];
 }
 
-- (void)postNewArticle:(NSString*)articleId
-               forSite:(NSString*)siteId
-         secretSiteKey:(NSString*)secretSiteKey
-                 title:(NSString*)title
-                  tags:(NSArray*)tagArray
-               withURL:(NSURL *)newURL
-             onSuccess:(LFSSuccessBlock)success
-             onFailure:(LFSFailureBlock)failure
+- (void)postArticle:(NSString*)articleId
+            forSite:(NSString*)siteId
+      secretSiteKey:(NSString*)secretSiteKey
+              title:(NSString*)title
+               tags:(NSArray*)tagArray
+            withURL:(NSURL *)newURL
+          onSuccess:(LFSSuccessBlock)success
+          onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(articleId != nil);
     NSParameterAssert(newURL != nil);
