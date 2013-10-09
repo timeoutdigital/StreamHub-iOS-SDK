@@ -289,7 +289,7 @@
     [clientWrite postMessage:LFSMessageLike
                   forContent:[LFSConfig objectForKey:@"content"]
                 inCollection:[LFSConfig objectForKey:@"collection"]
-                        user:[LFSConfig objectForKey:@"moderator user auth token"]
+                   userToken:[LFSConfig objectForKey:@"moderator user auth token"]
                   parameters:nil
                    onSuccess:^(NSOperation *operation, id responseObject) {
                        op = (LFSJSONRequestOperation *)operation;
@@ -315,7 +315,7 @@
     [clientWrite postMessage:LFSMessageUnlike
                   forContent:[LFSConfig objectForKey:@"content"]
                 inCollection:[LFSConfig objectForKey:@"collection"]
-                        user:[LFSConfig objectForKey:@"moderator user auth token"]
+                   userToken:[LFSConfig objectForKey:@"moderator user auth token"]
                   parameters:nil
                    onSuccess:^(NSOperation *operation, id responseObject) {
                        op = (LFSJSONRequestOperation *)operation;
@@ -344,7 +344,7 @@
                                                         environment:nil ];
     [clientWrite postContent:[NSString stringWithFormat:@"test post, %d", arc4random()]
                 inCollection:[LFSConfig objectForKey:@"collection"]
-                        user:[LFSConfig objectForKey:@"moderator user auth token"]
+                   userToken:[LFSConfig objectForKey:@"moderator user auth token"]
                    inReplyTo:nil
                    onSuccess:^(NSOperation *operation, id responseObject) {
                        op = (LFSJSONRequestOperation*)operation;
@@ -370,7 +370,7 @@
     [clientWrite postMessage:LFSMessageDelete
                   forContent:contentId
                 inCollection:[LFSConfig objectForKey:@"collection"]
-                        user:[LFSConfig objectForKey:@"moderator user auth token"]
+                   userToken:[LFSConfig objectForKey:@"moderator user auth token"]
                   parameters:nil
                    onSuccess:^(NSOperation *operation, id responseObject) {
                        op = (LFSJSONRequestOperation*)operation;
@@ -405,7 +405,7 @@
                             arc4random()];
     [clientWrite postContent:testString
                 inCollection:[LFSConfig objectForKey:@"collection"]
-                        user:[LFSConfig objectForKey:@"moderator user auth token"]
+                   userToken:[LFSConfig objectForKey:@"moderator user auth token"]
                    inReplyTo:nil
                    onSuccess:^(NSOperation *operation, id responseObject) {
                        op = (LFSJSONRequestOperation*)operation;
@@ -443,7 +443,7 @@
                                                         environment:nil ];
     [clientWrite postContent:[NSString stringWithFormat:@"test reply, %d", arc4random()]
                 inCollection:[LFSConfig objectForKey:@"collection"]
-                        user:[LFSConfig objectForKey:@"moderator user auth token"]
+                   userToken:[LFSConfig objectForKey:@"moderator user auth token"]
                    inReplyTo:parent
                    onSuccess:^(NSOperation *operation, id responseObject) {
                        op = (LFSJSONRequestOperation*)operation;
@@ -479,7 +479,7 @@
     [clientWrite postFlag:LFSFlagOfftopic
                forContent:[LFSConfig objectForKey:@"content"]
              inCollection:[LFSConfig objectForKey:@"collection"]
-                     user:[LFSConfig objectForKey:@"moderator user auth token"]
+                userToken:[LFSConfig objectForKey:@"moderator user auth token"]
                parameters:@{@"notes":@"fakeNotes", @"email":@"fakeEmail"}
                 onSuccess:^(NSOperation *operation, id responseObject) {
                     op = (LFSJSONRequestOperation*)operation;

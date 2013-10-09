@@ -31,7 +31,7 @@
 -(void)postMessage:(LFSMessageAction)action
         forContent:(NSString *)contentId
       inCollection:(NSString *)collectionId
-              user:(NSString *)userToken
+         userToken:(NSString *)userToken
         parameters:(NSDictionary *)parameters
          onSuccess:(LFSSuccessBlock)success
          onFailure:(LFSFailureBlock)failure;
@@ -52,7 +52,7 @@
 - (void)postFlag:(LFSContentFlag)flag
       forContent:(NSString *)contentId
     inCollection:(NSString *)collectionId
-            user:(NSString*)userToken
+       userToken:(NSString*)userToken
       parameters:(NSDictionary*)parameters
        onSuccess:(LFSSuccessBlock)success
        onFailure:(LFSFailureBlock)failure;
@@ -71,7 +71,7 @@
  */
 - (void)postContent:(NSString *)body
        inCollection:(NSString *)collectionId
-               user:(NSString*)userToken
+          userToken:(NSString*)userToken
           inReplyTo:(NSString *)parentId
           onSuccess:(LFSSuccessBlock)success
           onFailure:(LFSFailureBlock)failure;

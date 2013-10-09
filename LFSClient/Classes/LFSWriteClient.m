@@ -53,14 +53,14 @@ static const NSString* const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH] =
 -(void)postMessage:(LFSMessageAction)action
         forContent:(NSString *)contentId
       inCollection:(NSString *)collectionId
-              user:(NSString *)userToken
+         userToken:(NSString *)userToken
         parameters:(NSDictionary *)parameters
          onSuccess:(LFSSuccessBlock)success
          onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(contentId != nil);
     NSParameterAssert((NSUInteger)action < LFS_OPINE_ENDPOINTS_LENGTH);
-
+    
     const NSString *actionEndpoint = LFSMessageEndpoints[action];
     
     NSMutableDictionary *parameters1 =
@@ -84,7 +84,7 @@ static const NSString* const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH] =
 - (void)postFlag:(LFSContentFlag)flag
       forContent:(NSString *)contentId
     inCollection:(NSString *)collectionId
-            user:(NSString*)userToken
+       userToken:(NSString*)userToken
       parameters:(NSDictionary*)parameters
        onSuccess:(LFSSuccessBlock)success
        onFailure:(LFSFailureBlock)failure
@@ -112,7 +112,7 @@ static const NSString* const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH] =
 
 - (void)postContent:(NSString *)body
        inCollection:(NSString *)collectionId
-               user:(NSString*)userToken
+          userToken:(NSString*)userToken
           inReplyTo:(NSString *)parentId
           onSuccess:(LFSSuccessBlock)success
           onFailure:(LFSFailureBlock)failure

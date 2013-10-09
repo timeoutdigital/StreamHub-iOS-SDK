@@ -270,7 +270,7 @@
     [clientLike postMessage:LFSMessageLike
                  forContent:@"fakeContent"
                inCollection:@"fakeColl"
-                       user:@"fakeUserToken"
+                  userToken:@"fakeUserToken"
                  parameters:nil
                   onSuccess:^(NSOperation *operation, id responseObject) {
                       op = (LFSJSONRequestOperation*)operation;
@@ -303,7 +303,7 @@
     LFSWriteClient *clientPost = [LFSWriteClient clientWithNetwork:@"post-sample" environment:nil ];
     [clientPost postContent:content
                inCollection:@"fakeColl"
-                       user:@"fakeUser"
+                  userToken:@"fakeUser"
                   inReplyTo:nil
                   onSuccess:^(NSOperation *operation, id responseObject) {
                       op = (LFSJSONRequestOperation*)operation;
@@ -333,7 +333,7 @@
     [clientFlag postFlag:LFSFlagOfftopic
               forContent:@"fakeContent"
             inCollection:@"fakeCollection"
-                    user:@"fakeUserToken"
+               userToken:@"fakeUserToken"
               parameters:@{@"notes":@"fakeNotes", @"email":@"fakeEmail"}
                onSuccess:^(NSOperation *operation, id responseObject) {
                    op = (LFSJSONRequestOperation*)operation;
