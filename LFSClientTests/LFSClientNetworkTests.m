@@ -83,8 +83,9 @@
                       [LFSConfig objectForKey:@"site"],
                       [[LFSConfig objectForKey:@"article"] base64String]];
     
-    LFSBootstrapClient *client = [LFSBootstrapClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
-                                                           environment:[LFSConfig objectForKey:@"environment"]];
+    LFSBootstrapClient *client = [LFSBootstrapClient
+                                  clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                  environment:[LFSConfig objectForKey:@"environment"]];
     NSURLRequest *request = [client requestWithMethod:@"GET" path:path parameters:nil];
     LFSJSONRequestOperation *op = [LFSJSONRequestOperation
                                    JSONRequestOperationWithRequest:request
@@ -115,8 +116,9 @@
                       [LFSConfig objectForKey:@"site"],
                       [[LFSConfig objectForKey:@"article"] base64String]];
     
-    LFSBootstrapClient *client = [LFSBootstrapClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
-                                                           environment:[LFSConfig objectForKey:@"environment"]];
+    LFSBootstrapClient *client = [LFSBootstrapClient
+                                  clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                  environment:[LFSConfig objectForKey:@"environment"]];
     [client getPath:path
          parameters:nil
             success:^(AFHTTPRequestOperation *operation, id JSON){
@@ -143,8 +145,9 @@
     __block id result = nil;
     
     // This is the easiest way to use LFHTTPClient
-    LFSBootstrapClient *client = [LFSBootstrapClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
-                                                           environment:[LFSConfig objectForKey:@"environment"]];
+    LFSBootstrapClient *client = [LFSBootstrapClient
+                                  clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                  environment:[LFSConfig objectForKey:@"environment"]];
     [client getInitForSite:[LFSConfig objectForKey:@"site"]
                    article:[LFSConfig objectForKey:@"article"]
                  onSuccess:^(NSOperation *operation, id JSON){
@@ -173,8 +176,9 @@
     __block NSArray *result = nil;
     
     // Actual call would look something like this:
-    LFSBootstrapClient *client = [LFSBootstrapClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
-                                                           environment:[LFSConfig objectForKey:@"environment"]];
+    LFSBootstrapClient *client = [LFSBootstrapClient
+                                  clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                  environment:[LFSConfig objectForKey:@"environment"]];
     [client getHottestCollectionsForSite:[LFSConfig objectForKey:@"site"]
                                      tag:@"tag"
                           desiredResults:10u
@@ -201,7 +205,9 @@
     __block NSArray *result = nil;
     
     // Actual call would look something like this:
-    LFSBootstrapClient *clientLabs = [LFSBootstrapClient clientWithNetwork:[LFSConfig objectForKey:@"labs network"] environment:[LFSConfig objectForKey:@"environment"]];
+    LFSBootstrapClient *clientLabs = [LFSBootstrapClient
+                                      clientWithNetwork:[LFSConfig objectForKey:@"labs network"]
+                                      environment:[LFSConfig objectForKey:@"environment"]];
     [clientLabs getUserContentForUser:[LFSConfig objectForKey:@"system user"]
                                 token:nil
                              statuses:nil
@@ -229,8 +235,9 @@
     
     NSString *userToken = [LFSConfig objectForKey:@"moderator user auth token"];
     
-    LFSAdminClient *clientAdmin = [LFSAdminClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
-                                                        environment:nil ];
+    LFSAdminClient *clientAdmin = [LFSAdminClient
+                                   clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                   environment:nil ];
     [clientAdmin authenticateUserWithToken:userToken
                                       site:[LFSConfig objectForKey:@"site"]
                                    article:[LFSConfig objectForKey:@"article"]
@@ -258,8 +265,9 @@
     
     NSString *userToken = [LFSConfig objectForKey:@"moderator user auth token"];
     
-    LFSAdminClient *clientAdmin = [LFSAdminClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
-                                                        environment:nil ];
+    LFSAdminClient *clientAdmin = [LFSAdminClient
+                                   clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                   environment:nil ];
     [clientAdmin authenticateUserWithToken:userToken
                                 collection:[LFSConfig objectForKey:@"collection"]
                                  onSuccess:^(NSOperation *operation, id responseObject) {
@@ -284,8 +292,9 @@
     __block LFSJSONRequestOperation *op = nil;
     __block NSDictionary *result = nil;
     
-    LFSWriteClient *clientWrite = [LFSWriteClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
-                                                        environment:nil ];
+    LFSWriteClient *clientWrite = [LFSWriteClient
+                                   clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                   environment:nil ];
     [clientWrite postMessage:LFSMessageLike
                   forContent:[LFSConfig objectForKey:@"content"]
                 inCollection:[LFSConfig objectForKey:@"collection"]
@@ -310,8 +319,9 @@
     __block LFSJSONRequestOperation *op = nil;
     __block NSDictionary *result = nil;
     
-    LFSWriteClient *clientWrite = [LFSWriteClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
-                                                        environment:nil ];
+    LFSWriteClient *clientWrite = [LFSWriteClient
+                                   clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                   environment:nil ];
     [clientWrite postMessage:LFSMessageUnlike
                   forContent:[LFSConfig objectForKey:@"content"]
                 inCollection:[LFSConfig objectForKey:@"collection"]
@@ -340,8 +350,9 @@
     __block id result = nil;
     
     // Actual call would look something like this:
-    LFSWriteClient *clientWrite = [LFSWriteClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
-                                                        environment:nil ];
+    LFSWriteClient *clientWrite = [LFSWriteClient
+                                   clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                   environment:nil ];
     [clientWrite postContent:[NSString stringWithFormat:@"test post, %d", arc4random()]
                 inCollection:[LFSConfig objectForKey:@"collection"]
                    userToken:[LFSConfig objectForKey:@"moderator user auth token"]
@@ -399,8 +410,9 @@
     __block id result = nil;
     
     // Actual call would look something like this:
-    LFSWriteClient *clientWrite = [LFSWriteClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
-                                                        environment:nil ];
+    LFSWriteClient *clientWrite = [LFSWriteClient
+                                   clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                   environment:nil ];
     NSString *testString = [NSString stringWithFormat:@"Chars -):&@;));&(@ 1536495@ &$)((/ %d",
                             arc4random()];
     [clientWrite postContent:testString
@@ -439,8 +451,9 @@
     NSString *parent = [LFSConfig objectForKey:@"content"];
     
     // Actual call would look something like this:
-    LFSWriteClient *clientWrite = [LFSWriteClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
-                                                        environment:nil ];
+    LFSWriteClient *clientWrite = [LFSWriteClient
+                                   clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                   environment:nil ];
     [clientWrite postContent:[NSString stringWithFormat:@"test reply, %d", arc4random()]
                 inCollection:[LFSConfig objectForKey:@"collection"]
                    userToken:[LFSConfig objectForKey:@"moderator user auth token"]
@@ -474,8 +487,9 @@
     __block id result = nil;
     
     // Actual call would look something like this:
-    LFSWriteClient *clientWrite = [LFSWriteClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
-                                                        environment:nil ];
+    LFSWriteClient *clientWrite = [LFSWriteClient
+                                   clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                   environment:nil ];
     [clientWrite postFlag:LFSFlagOfftopic
                forContent:[LFSConfig objectForKey:@"content"]
              inCollection:[LFSConfig objectForKey:@"collection"]
@@ -507,8 +521,9 @@
     __block id result = nil;
     
     // Modify article Id to a unique one to avoid error 409
-    LFSWriteClient *clientWrite = [LFSWriteClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
-                                                        environment:nil ];
+    LFSWriteClient *clientWrite = [LFSWriteClient
+                                   clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                   environment:nil ];
     [clientWrite postArticle:@"justTesting7"
                      forSite:[LFSConfig objectForKey:@"site"]
                secretSiteKey:[LFSConfig objectForKey:@"site key"]
@@ -549,8 +564,9 @@
     __block id result = nil;
     
     // Modify article Id to a unique one to avoid error 409
-    LFSWriteClient *clientWrite = [LFSWriteClient clientWithNetwork:[LFSConfig objectForKey:@"domain"]
-                                                        environment:nil ];
+    LFSWriteClient *clientWrite = [LFSWriteClient
+                                   clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                   environment:nil ];
     [clientWrite postArticle:@"justTesting8"
                      forSite:[LFSConfig objectForKey:@"site"]
                secretSiteKey:nil

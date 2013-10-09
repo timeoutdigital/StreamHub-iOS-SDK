@@ -60,6 +60,8 @@ static const NSString* const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH] =
          onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(contentId != nil);
+    NSParameterAssert(collectionId != nil);
+    NSParameterAssert(userToken != nil);
     NSParameterAssert((NSUInteger)action < LFS_OPINE_ENDPOINTS_LENGTH);
     
     const NSString *actionEndpoint = LFSMessageEndpoints[action];
@@ -91,6 +93,8 @@ static const NSString* const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH] =
        onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(contentId != nil);
+    NSParameterAssert(collectionId != nil);
+    NSParameterAssert(userToken != nil);
     NSParameterAssert((NSUInteger)flag < LFS_CONTENT_FLAGS_LENGTH);
     
     NSMutableDictionary *parameters1 =
@@ -119,6 +123,7 @@ static const NSString* const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH] =
           onFailure:(LFSFailureBlock)failure
 {
     NSParameterAssert(body != nil);
+    NSParameterAssert(userToken != nil);
     NSParameterAssert(collectionId != nil);
     
     // TODO: figure out whether to use defaults like this throughout
@@ -157,6 +162,7 @@ static const NSString* const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH] =
     NSParameterAssert(articleId != nil);
     NSParameterAssert(newURL != nil);
     NSParameterAssert(siteId != nil);
+    NSParameterAssert(title != nil);
     NSParameterAssert([title length] <= 255);
     NSParameterAssert([articleId length] <= 255);
     
