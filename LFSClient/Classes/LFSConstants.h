@@ -63,30 +63,30 @@ extern NSString *const LFSSiteSettings;
 // https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L75
 typedef NS_ENUM(NSUInteger, LFSMessageAction) {
     LFSMessageEdit = 0u
-    ,LFSMessageApprove
-    ,LFSMessageUnapprove
-    ,LFSMessageHide
-    ,LFSMessageUnhide
-    ,LFSMessageDelete
-    ,LFSMessageBozo
-    ,LFSMessageIgnoreFlags
-    ,LFSMessageAddNote
+    ,LFSMessageApprove      // 1
+    ,LFSMessageUnapprove    // 2
+    ,LFSMessageHide         // 3
+    ,LFSMessageUnhide       // 4
+    ,LFSMessageDelete       // 5
+    ,LFSMessageBozo         // 6
+    ,LFSMessageIgnoreFlags  // 7
+    ,LFSMessageAddNote      // 8
     
-    ,LFSMessageLike
-    ,LFSMessageUnlike
-    ,LFSMessageFlag
-    ,LFSMessageMention
-    ,LFSMessageShare
-    ,LFSMessageVote
+    ,LFSMessageLike         // 9
+    ,LFSMessageUnlike       // 10
+    ,LFSMessageFlag         // 11
+    ,LFSMessageMention      // 12
+    ,LFSMessageShare        // 13
+    ,LFSMessageVote         // 14
 };
 
 // moderator content flags
 // https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L87
 typedef NS_ENUM(NSUInteger, LFSContentFlag) {
-    LFSFlagSpam = 0u,
-    LFSFlagOffensive,
-    LFSFlagDisagree,
-    LFSFlagOfftopic
+    LFSFlagSpam = 0u,       // 0
+    LFSFlagOffensive,       // 1
+    LFSFlagDisagree,        // 2
+    LFSFlagOfftopic         // 3
 };
 
 // https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/publishing/models.proto#L74
