@@ -103,8 +103,9 @@ typedef NS_ENUM(NSUInteger, LFSContentVisibility) {
     LFSContentVisibilityNone = 0u, //content is visible to no one, usually due to being deleted
     LFSContentVisibilityEveryone, //content is visible to everyone
     LFSContentVisibilityOwner, //content is visible to only the author due to bozoing
-    LFSContentVisibilityGroup //content is visible to the author and any moderators for the
-    // collection, usually meaning that it's waiting for approval
+    LFSContentVisibilityGroup, //content is visible to the author and any moderators for the
+                               // collection, usually meaning that it's waiting for approval
+    LFSContentVisibilityPendingDelete = NSUIntegerMax // SDK-only addition to facilitate certain app features
 };
 
 // https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/publishing/models.proto#L179
