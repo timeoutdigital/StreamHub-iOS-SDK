@@ -116,7 +116,7 @@ static dispatch_queue_t json_request_operation_processing_queue() {
         {
             // Report error with message
             NSInteger codeValue = [code integerValue];
-            NSString *errorMsg = [NSString stringWithFormat:@"Error %d: %@", codeValue, msg];
+            NSString *errorMsg = [NSString stringWithFormat:@"Error %zd: %@", codeValue, msg];
             _responseJSON = nil;
             self.JSONError = [NSError errorWithDomain:LFSErrorDomain
                                                  code:codeValue
@@ -126,7 +126,7 @@ static dispatch_queue_t json_request_operation_processing_queue() {
         {
             // Report error with error code
             NSInteger codeValue = [code integerValue];
-            NSString *errorMsg = [NSString stringWithFormat:@"Error %d (No Description Available)", codeValue];
+            NSString *errorMsg = [NSString stringWithFormat:@"Error %zd (No Description Available)", codeValue];
             _responseJSON = nil;
             self.JSONError = [NSError errorWithDomain:LFSErrorDomain
                                                  code:codeValue

@@ -86,7 +86,7 @@
                  }
                  onFailure:^(NSOperation *operation, NSError *error) {
                      op0 = (LFSJSONRequestOperation*)operation;
-                     NSLog(@"Error code %d, with description %@",
+                     NSLog(@"Error code %zd, with description %@",
                            error.code,
                            [error localizedDescription]);
                  }
@@ -110,7 +110,7 @@
                     }
                     onFailure:^(NSOperation *operation, NSError *error) {
                         op1 = (LFSJSONRequestOperation*)operation;
-                        NSLog(@"Error code %d, with description %@",
+                        NSLog(@"Error code %zd, with description %@",
                               error.code,
                               [error localizedDescription]);
                     }];
@@ -131,7 +131,7 @@
                     }
                     onFailure:^(NSOperation *operation, NSError *error) {
                         op2 = (LFSJSONRequestOperation*)operation;
-                        NSLog(@"Error code %d, with description %@",
+                        NSLog(@"Error code %zd, with description %@",
                               error.code,
                               [error localizedDescription]);
                     }];
@@ -159,7 +159,7 @@
                                           result = (NSArray *)responseObject;
                                       } onFailure:^(NSOperation *operation, NSError *error) {
                                           op = (LFSJSONRequestOperation *)operation;
-                                          NSLog(@"Error code %d, with description %@",
+                                          NSLog(@"Error code %zd, with description %@",
                                                 error.code,
                                                 [error localizedDescription]);
                                       }];
@@ -189,7 +189,7 @@
                             result = (NSArray *)responseObject;
                         } onFailure:^(NSOperation *operation, NSError *error) {
                             op = (LFSJSONRequestOperation *)operation;
-                            NSLog(@"Error code %d, with description %@",
+                            NSLog(@"Error code %zd, with description %@",
                                   error.code,
                                   [error localizedDescription]);
                         }];
@@ -219,7 +219,7 @@
                                  }
                                  onFailure:^(NSOperation *operation, NSError *error) {
                                      op = (LFSJSONRequestOperation *)operation;
-                                     NSLog(@"Error code %d, with description %@",
+                                     NSLog(@"Error code %zd, with description %@",
                                            error.code,
                                            [error localizedDescription]);
                                  }];
@@ -247,7 +247,7 @@
                                  }
                                  onFailure:^(NSOperation *operation, NSError *error) {
                                      op = (LFSJSONRequestOperation *)operation;
-                                     NSLog(@"Error code %d, with description %@",
+                                     NSLog(@"Error code %zd, with description %@",
                                            error.code,
                                            [error localizedDescription]);
                                  }];
@@ -278,7 +278,7 @@
                   }
                   onFailure:^(NSOperation *operation, NSError *error) {
                       op = (LFSJSONRequestOperation*)operation;
-                      NSLog(@"Error code %d, with description %@",
+                      NSLog(@"Error code %zd, with description %@",
                             error.code,
                             [error localizedDescription]);
                   }];
@@ -297,7 +297,7 @@
     
     // Actual call would look something like this:
     NSString *content = [NSString
-                         stringWithFormat:@"test post, %d",
+                         stringWithFormat:@"test post, %zd",
                          arc4random()];
     
     LFSWriteClient *clientPost = [LFSWriteClient clientWithNetwork:@"post-sample" environment:nil ];
@@ -311,7 +311,7 @@
                   }
                   onFailure:^(NSOperation *operation, NSError *error) {
                       op = (LFSJSONRequestOperation*)operation;
-                      NSLog(@"Error code %d, with description %@",
+                      NSLog(@"Error code %zd, with description %@",
                             error.code,
                             [error localizedDescription]);
                   }];
@@ -341,7 +341,7 @@
                }
                onFailure:^(NSOperation *operation, NSError *error) {
                    op = (LFSJSONRequestOperation*)operation;
-                   NSLog(@"Error code %d, with description %@",
+                   NSLog(@"Error code %zd, with description %@",
                          error.code,
                          [error localizedDescription]);
                }];
