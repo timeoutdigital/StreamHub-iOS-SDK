@@ -21,8 +21,6 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 
 @implementation LFSStreamClient
 
-@synthesize collectionId = _collectionId;
-@synthesize collectionStreamURLString = _collectionStreamURLString;
 @synthesize successBlock = _successBlock;
 @synthesize failureBlock = _failureBlock;
 @synthesize resultHandler = _resultHandler;
@@ -38,7 +36,7 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
     self = [super initWithNetwork:network environment:environment];
     if (self) {
         _collectionId = nil;
-        _collectionStreamURLString = nil;
+        _collectionStreamURL = nil;
         _successBlock = nil;
         _failureBlock = nil;
         _resultHandler = nil;
@@ -49,21 +47,24 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 
 #pragma mark - Properties
 
+@synthesize collectionId = _collectionId;
 - (void)setCollectionId:(NSString *)collectionId
 {
     _collectionId = collectionId;
-    _collectionStreamURLString = nil;
+    _collectionStreamURL = nil;
 }
 
-- (NSURL*)collectionStreamURLString
+#pragma mark -
+@synthesize collectionStreamURL = _collectionStreamURL;
+- (NSURL*)collectionStreamURL
 {
-    if (_collectionStreamURLString != nil) {
-        return _collectionStreamURLString;
-    } else {
+    if (_collectionStreamURL == nil)
+    {
         NSString *component = [NSString stringWithFormat:@"v3.0/collection/%@", self.collectionId];
-        _collectionStreamURLString = [self.baseURL URLByAppendingPathComponent:component];
-        return _collectionStreamURLString;
+        _collectionStreamURL = [self.baseURL URLByAppendingPathComponent:component];
+        
     }
+    return _collectionStreamURL;
 }
 
 #pragma mark - Public methods
@@ -146,22 +147,22 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 
 #pragma mark - Private methods
 
-- (NSURLRequest*)buildRequestWithEventId:(NSNumber*)eventId
+- (NSMutableURLRequest*)buildRequestWithEventId:(NSNumber*)eventId
 {
-    if (eventId != nil) {
-        // cache current value
-        self.eventId = eventId;
-    } else {
+    if (eventId == nil) {
         // try using cached event id if nil
         eventId = self.eventId;
+    } else {
+        // cache current value
+        self.eventId = eventId;
     }
     NSAssert(eventId != nil, @"eventId cannot be nil");
-    NSURL *streamURL = (eventId == nil)
-    ? self.collectionStreamURLString
-    : [self.collectionStreamURLString URLByAppendingPathComponent:[eventId stringValue]];
-    return [self requestWithMethod:@"GET"
-                              path:[streamURL absoluteString]
-                        parameters:nil];
+    NSURL *streamURL = [self.collectionStreamURL URLByAppendingPathComponent:[eventId stringValue]];
+    NSMutableURLRequest *request = [self requestWithMethod:@"GET"
+                                                      path:[streamURL absoluteString]
+                                                parameters:nil];
+    [request setTimeoutInterval:50.0];
+    return request;
 }
 
 

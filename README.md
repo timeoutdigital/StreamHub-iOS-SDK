@@ -2,12 +2,12 @@ StreamHub-iOS-SDK
 =================
 
 Use this open-source library to integrate Livefyre services into your native iOS
-app.  This SDK provides an AFNetworking-compatible layer for common API
-mechanisms.
+app.  This SDK provides a thin layer for common API mechanisms, based on the
+excellent AFNetworking library.
 
-Also see the sample app project at
-https://github.com/Livefyre/StreamHub-iOS-Example-App For information about the
-Livefyre API, visit
+For reference on sample implemntation, see the sample app project:
+https://github.com/Livefyre/StreamHub-iOS-Example-App
+For more info about the Livefyre API, visit
 https://github.com/Livefyre/livefyre-docs/wiki/StreamHub-API-Reference
 
 # Getting Started

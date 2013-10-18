@@ -99,7 +99,7 @@
     }
     
     NSString *pathBase = [archiveInfo objectForKey:@"pathBase"];
-    NSString *path = [NSString stringWithFormat:@"/bs3%@%d.json", pathBase, pageIndex];
+    NSString *path = [NSString stringWithFormat:@"/bs3%@%zd.json", pathBase, pageIndex];
     [self getPath:path
        parameters:nil
           success:(AFSuccessBlock)success

@@ -59,19 +59,34 @@ extern NSString *const LFSHeadDocument;
 extern NSString *const LFSNetworkSettings;
 extern NSString *const LFSSiteSettings;
 
-// user content preferences (like, unlike, etc)
-typedef NS_ENUM(NSUInteger, LFSOpine) {
-    LFSOpineLike = 0u,
-    LFSOpineUnlike
+// (for internal use):
+// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L75
+typedef NS_ENUM(NSUInteger, LFSMessageAction) {
+    LFSMessageEdit = 0u
+    ,LFSMessageApprove      // 1
+    ,LFSMessageUnapprove    // 2
+    ,LFSMessageHide         // 3
+    ,LFSMessageUnhide       // 4
+    ,LFSMessageDelete       // 5
+    ,LFSMessageBozo         // 6
+    ,LFSMessageIgnoreFlags  // 7
+    ,LFSMessageAddNote      // 8
+    
+    ,LFSMessageLike         // 9
+    ,LFSMessageUnlike       // 10
+    ,LFSMessageFlag         // 11
+    ,LFSMessageMention      // 12
+    ,LFSMessageShare        // 13
+    ,LFSMessageVote         // 14
 };
 
 // moderator content flags
-// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/msg/opine.py#L168
-typedef NS_ENUM(NSUInteger, LFSUserFlag) {
-    LFSFlagSpam = 0u,
-    LFSFlagOffensive,
-    LFSFlagDisagree,
-    LFSFlagOfftopic
+// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L87
+typedef NS_ENUM(NSUInteger, LFSContentFlag) {
+    LFSFlagSpam = 0u,       // 0
+    LFSFlagOffensive,       // 1
+    LFSFlagDisagree,        // 2
+    LFSFlagOfftopic         // 3
 };
 
 // https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/publishing/models.proto#L74
@@ -83,13 +98,14 @@ typedef NS_ENUM(NSUInteger, LFSContentType) {
     LFSContentTypeStruct //A primitive structure which the engine treats as an opaque object.
 };
 
-// https://github.com/Livefyre/lfdj/blob/rc/lfcore/lfcore/v2/fulfillment/bootstrap/models.proto#L106
+// https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/fulfillment/bootstrap/models.proto#L106
 typedef NS_ENUM(NSUInteger, LFSContentVisibility) {
     LFSContentVisibilityNone = 0u, //content is visible to no one, usually due to being deleted
     LFSContentVisibilityEveryone, //content is visible to everyone
     LFSContentVisibilityOwner, //content is visible to only the author due to bozoing
-    LFSContentVisibilityGroup //content is visible to the author and any moderators for the
-    // collection, usually meaning that it's waiting for approval
+    LFSContentVisibilityGroup, //content is visible to the author and any moderators for the
+                               // collection, usually meaning that it's waiting for approval
+    LFSContentVisibilityPendingDelete = NSUIntegerMax // SDK-only addition to facilitate certain app features
 };
 
 // https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/publishing/models.proto#L179

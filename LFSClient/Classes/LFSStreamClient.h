@@ -13,7 +13,7 @@
 /**
  @property eventId Current streaming URL
  */
-@property (nonatomic, readonly) NSURL *collectionStreamURLString;
+@property (nonatomic, readonly) NSURL *collectionStreamURL;
 
 /**
  @property eventId current collection Id

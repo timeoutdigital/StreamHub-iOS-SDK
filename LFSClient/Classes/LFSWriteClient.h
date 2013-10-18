@@ -9,6 +9,7 @@
 #import "LFSBaseClient.h"
 
 @interface LFSWriteClient : LFSBaseClient
+
 /** @name Content Interaction */
 
 /**
@@ -21,34 +22,38 @@
  * @param userToken    JWT-encoded user token
  * @param contentId    id of content which is being liked/unliked
  * @param collectionId The collection in which the content appears.
- * @param success      Success callback
- * @param failure      Failure callback
- */
-- (void)postOpinion:(LFSOpine)action
-            forUser:(NSString *)userToken
-         forContent:(NSString *)contentId
-       inCollection:(NSString *)collectionId
-          onSuccess:(LFSSuccessBlock)success
-          onFailure:(LFSFailureBlock)failure;
-
-/**
- * Flag content with one of the flag types.
- *
- * @param flag         One of the following: LFSFlagOffensive, LFSFlagSpam, LFSFlagDisagree, LFSFlagOfftopic
- * @param userToken    JWT-encoded user token
- * @param contentId    The is of the content to flag.
- * @param collectionId The Id of the collection where the content appears.
- * @param parameters (optional)   Dictionary containing optional parameters:
+ * @param parameters   (Optional) A dictionary containing the following parameters:
  *        @"notes" (optional) Any additional comment the user provided.
  *        @"email" (optional) The email of the user.
  * @param success      Success callback
  * @param failure      Failure callback
  */
-- (void)postFlag:(LFSUserFlag)flag
-         forUser:(NSString *)userToken
+-(void)postMessage:(LFSMessageAction)action
+        forContent:(NSString *)contentId
+      inCollection:(NSString *)collectionId
+         userToken:(NSString *)userToken
+        parameters:(NSDictionary *)parameters
+         onSuccess:(LFSSuccessBlock)success
+         onFailure:(LFSFailureBlock)failure;
+
+/**
+ * Flag content with one of the flag types.
+ *
+ * @param flag         Either one of the following: LFSFlagSpam|LFSFlagOffensive|LFSFlagDisagree|LFSFlagOfftopic
+ * @param userToken    JWT-encoded user token
+ * @param contentId    The is of the content to flag.
+ * @param collectionId The Id of the collection where the content appears.
+ * @param parameters   A dictionary containing the following parameters:
+ *        @"notes" (optional) Any additional comment the user provided.
+ *        @"email" (optional) The email of the user.
+ * @param success      Success callback
+ * @param failure      Failure callback
+ */
+- (void)postFlag:(LFSContentFlag)flag
       forContent:(NSString *)contentId
     inCollection:(NSString *)collectionId
-      parameters:(NSDictionary *)parameters
+       userToken:(NSString*)userToken
+      parameters:(NSDictionary*)parameters
        onSuccess:(LFSSuccessBlock)success
        onFailure:(LFSFailureBlock)failure;
 
@@ -64,12 +69,12 @@
  * @param success Success callback
  * @param failure Failure callback
  */
-- (void)postNewContent:(NSString *)body
-               forUser:(NSString *)userToken
-         forCollection:(NSString *)collectionId
-             inReplyTo:(NSString *)parentId
-             onSuccess:(LFSSuccessBlock)success
-             onFailure:(LFSFailureBlock)failure;
+- (void)postContent:(NSString *)body
+       inCollection:(NSString *)collectionId
+          userToken:(NSString*)userToken
+          inReplyTo:(NSString *)parentId
+          onSuccess:(LFSSuccessBlock)success
+          onFailure:(LFSFailureBlock)failure;
 
 /**
  * Create a new collection.
@@ -86,13 +91,13 @@
  * @param success   Success callback
  * @param failure   Failure callback
  */
-- (void)postNewArticle:(NSString *)articleId
-               forSite:(NSString *)siteId
-         secretSiteKey:(NSString *)secretSiteKey
-                 title:(NSString *)title
-                  tags:(NSArray *)tagArray
-               withURL:(NSURL *)newURL
-             onSuccess:(LFSSuccessBlock)success
-             onFailure:(LFSFailureBlock)failure;
+- (void)postArticle:(NSString *)articleId
+            forSite:(NSString *)siteId
+      secretSiteKey:(NSString *)secretSiteKey
+              title:(NSString *)title
+               tags:(NSArray *)tagArray
+            withURL:(NSURL *)newURL
+          onSuccess:(LFSSuccessBlock)success
+          onFailure:(LFSFailureBlock)failure;
 
 @end
