@@ -10,39 +10,6 @@
 #import <JWT/JWT.h>
 #import <NSString-Hashes/NSString+Hashes.h>
 
-// (for internal use):
-// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L75
-#define LFS_OPINE_ENDPOINTS_LENGTH 15u
-static const NSString* const LFSMessageEndpoints[LFS_OPINE_ENDPOINTS_LENGTH] =
-{
-    @"edit",            // 0
-    @"approve",         // 1
-    @"unapprove",       // 2
-    @"hide",            // 3
-    @"unhide",          // 4
-    @"delete",          // 5
-    @"bozo",            // 6
-    @"ignore-flags",    // 7
-    @"add-note",        // 8
-    
-    @"like",            // 9
-    @"unlike",          // 10
-    @"flag",            // 11
-    @"mention",         // 12
-    @"share",           // 13
-    @"vote"             // 14
-};
-
-// (for internal use):
-// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L87
-#define LFS_CONTENT_FLAGS_LENGTH 4u
-static const NSString* const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH] =
-{
-    @"spam",            // 0
-    @"offensive",       // 1
-    @"disagree",        // 2
-    @"off-topic"        // 3
-};
 
 @implementation LFSWriteClient
 

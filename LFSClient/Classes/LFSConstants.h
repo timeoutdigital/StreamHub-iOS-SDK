@@ -59,10 +59,14 @@ extern NSString *const LFSHeadDocument;
 extern NSString *const LFSNetworkSettings;
 extern NSString *const LFSSiteSettings;
 
+// {{{
+#define LFS_OPINE_ENDPOINTS_LENGTH 15u
+extern const NSString *const LFSMessageEndpoints[LFS_OPINE_ENDPOINTS_LENGTH];
+
 // (for internal use):
 // https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L75
 typedef NS_ENUM(NSUInteger, LFSMessageAction) {
-    LFSMessageEdit = 0u
+    LFSMessageEdit = 0u     // 0
     ,LFSMessageApprove      // 1
     ,LFSMessageUnapprove    // 2
     ,LFSMessageHide         // 3
@@ -79,15 +83,22 @@ typedef NS_ENUM(NSUInteger, LFSMessageAction) {
     ,LFSMessageShare        // 13
     ,LFSMessageVote         // 14
 };
+// }}}
+
+
+// {{{
+#define LFS_CONTENT_FLAGS_LENGTH 4u
+extern const NSString *const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH];
 
 // moderator content flags
 // https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L87
 typedef NS_ENUM(NSUInteger, LFSContentFlag) {
-    LFSFlagSpam = 0u,       // 0
-    LFSFlagOffensive,       // 1
-    LFSFlagDisagree,        // 2
-    LFSFlagOfftopic         // 3
+    LFSFlagSpam = 0u        // 0
+    ,LFSFlagOffensive       // 1
+    ,LFSFlagDisagree        // 2
+    ,LFSFlagOfftopic        // 3
 };
+// }}}
 
 // https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/publishing/models.proto#L74
 typedef NS_ENUM(NSUInteger, LFSContentType) {
