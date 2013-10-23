@@ -162,7 +162,23 @@ static dispatch_queue_t json_request_operation_processing_queue() {
     if (_JSONError) {
         return _JSONError;
     } else {
-        return [super error];
+        NSError *error = super.error;
+        if (error.code == -1011) {
+            // Expected status code in (200-299), got 403
+            NSDictionary *object = error.localizedRecoverySuggestion.objectFromJSONString;
+            NSInteger errorCode = [[object objectForKey:@"code"] integerValue];
+            NSString *errorMessage = [NSString stringWithFormat:@"Error %zd: %@", errorCode, [object objectForKey:@"msg"]];
+            NSString *errorType = [object objectForKey:@"error_type"];
+            
+            NSMutableDictionary *dictionary = [error.userInfo mutableCopy];
+            [dictionary setObject:errorMessage forKey:NSLocalizedDescriptionKey];
+            [dictionary setObject:errorType forKey:NSLocalizedFailureReasonErrorKey];
+            return [NSError errorWithDomain:NSURLErrorDomain
+                                       code:errorCode
+                                   userInfo:dictionary];
+        } else {
+            return error;
+        }
     }
 }
 
