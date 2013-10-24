@@ -524,23 +524,25 @@
     LFSWriteClient *clientWrite = [LFSWriteClient
                                    clientWithNetwork:[LFSConfig objectForKey:@"domain"]
                                    environment:nil ];
-    [clientWrite postArticle:@"justTesting7"
-                     forSite:[LFSConfig objectForKey:@"site"]
-               secretSiteKey:[LFSConfig objectForKey:@"site key"]
-                       title:@"La la la la"
-                        tags:@[@"hey", @"hello"]
-                     withURL:[NSURL URLWithString:@"http://erere.com/ererereer"]
-                   onSuccess:^(NSOperation *operation, id responseObject) {
-                       op = (LFSJSONRequestOperation*)operation;
-                       result = responseObject;
-                   }
-                   onFailure:^(NSOperation *operation, NSError *error) {
-                       op = (LFSJSONRequestOperation*)operation;
-                       NSLog(@"Error code %zd. Description: %@. Recovery Suggestion: %@",
-                             error.code,
-                             [error localizedDescription],
-                             [error localizedRecoverySuggestion]);
-                   }];
+    
+    
+    [clientWrite postArticleForSite:[LFSConfig objectForKey:@"site"]
+                        withSiteKey:[LFSConfig objectForKey:@"site key"]
+                     collectionMeta:@{LFSCollectionMetaArticleIdKey:@"justTesting12",
+                                      LFSCollectionMetaURLKey:@"http://erere.com/ererereer",
+                                      LFSCollectionMetaTitleKey:@"La la la la",
+                                      LFSCollectionMetaTagsKey:@[@"hey", @"hello"]}
+                          onSuccess:^(NSOperation *operation, id responseObject) {
+                              op = (LFSJSONRequestOperation*)operation;
+                              result = responseObject;
+                          }
+                          onFailure:^(NSOperation *operation, NSError *error) {
+                              op = (LFSJSONRequestOperation*)operation;
+                              NSLog(@"Error code %zd. Description: %@. Recovery Suggestion: %@",
+                                    error.code,
+                                    [error localizedDescription],
+                                    [error localizedRecoverySuggestion]);
+                          }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
@@ -567,24 +569,23 @@
     LFSWriteClient *clientWrite = [LFSWriteClient
                                    clientWithNetwork:[LFSConfig objectForKey:@"domain"]
                                    environment:nil ];
-    [clientWrite postArticle:@"justTesting8"
-                     forSite:[LFSConfig objectForKey:@"site"]
-               secretSiteKey:nil
-                       title:@"La la la la"
-                        tags:@[@"hey", @"hello"]
-                     withURL:[NSURL URLWithString:@"http://erere.com/ererereer"]
-                   onSuccess:^(NSOperation *operation, id responseObject) {
-                       op = (LFSJSONRequestOperation*)operation;
-                       result = responseObject;
-                   }
-                   onFailure:^(NSOperation *operation, NSError *error) {
-                       op = (LFSJSONRequestOperation*)operation;
-                       NSLog(@"Error code %zd. Description: %@. Recovery Suggestion: %@",
-                             error.code,
-                             [error localizedDescription],
-                             [error localizedRecoverySuggestion]);
-                   }];
     
+    [clientWrite postArticleForSite:[LFSConfig objectForKey:@"site"]
+                        withSiteKey:nil
+                     collectionMeta:@{LFSCollectionMetaArticleIdKey:@"justTesting11",
+                                      LFSCollectionMetaURLKey:@"http://erere.com/ererereer"}
+                          onSuccess:^(NSOperation *operation, id responseObject) {
+                              op = (LFSJSONRequestOperation*)operation;
+                              result = responseObject;
+                          }
+                          onFailure:^(NSOperation *operation, NSError *error) {
+                              op = (LFSJSONRequestOperation*)operation;
+                              NSLog(@"Error code %zd. Description: %@. Recovery Suggestion: %@",
+                                    error.code,
+                                    [error localizedDescription],
+                                    [error localizedRecoverySuggestion]);
+                          }];
+
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);

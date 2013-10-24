@@ -59,12 +59,10 @@ extern NSString *const LFSHeadDocument;
 extern NSString *const LFSNetworkSettings;
 extern NSString *const LFSSiteSettings;
 
-// {{{
+// {{{ Message action types
+// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L75
 #define LFS_OPINE_ENDPOINTS_LENGTH 15u
 extern const NSString *const LFSMessageEndpoints[LFS_OPINE_ENDPOINTS_LENGTH];
-
-// (for internal use):
-// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L75
 typedef NS_ENUM(NSUInteger, LFSMessageAction) {
     LFSMessageEdit = 0u     // 0
     ,LFSMessageApprove      // 1
@@ -85,19 +83,38 @@ typedef NS_ENUM(NSUInteger, LFSMessageAction) {
 };
 // }}}
 
-
-// {{{
+// {{{ moderator content flags
+// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L87
 #define LFS_CONTENT_FLAGS_LENGTH 4u
 extern const NSString *const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH];
-
-// moderator content flags
-// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L87
 typedef NS_ENUM(NSUInteger, LFSContentFlag) {
     LFSFlagSpam = 0u        // 0
     ,LFSFlagOffensive       // 1
     ,LFSFlagDisagree        // 2
     ,LFSFlagOfftopic        // 3
 };
+// }}}
+
+// {{{ Collection stream types
+// https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/network/steps.py#L538
+extern NSString *const LFSStreamTypeThreaded;
+extern NSString *const LFSStreamTypeLiveComments;
+extern NSString *const LFSStreamTypeLiveChat;
+extern NSString *const LFSStreamTypeLiveBlog;
+extern NSString *const LFSStreamTypeReviews;
+extern NSString *const LFSStreamTypeLiveReviews;
+extern NSString *const LFSStreamTypeRatings;
+extern NSString *const LFSStreamTypeStory;
+extern NSString *const LFSStreamTypeCounting;
+// }}}
+
+// {{{ Collection meta keys
+// https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/network/steps.py#L478
+extern NSString *const LFSCollectionMetaArticleIdKey;
+extern NSString *const LFSCollectionMetaURLKey;
+extern NSString *const LFSCollectionMetaTitleKey;
+extern NSString *const LFSCollectionMetaTagsKey;
+extern NSString *const LFSCollectionMetaTypeKey;
 // }}}
 
 // https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/publishing/models.proto#L74

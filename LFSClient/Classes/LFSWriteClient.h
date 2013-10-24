@@ -77,27 +77,27 @@
           onFailure:(LFSFailureBlock)failure;
 
 /**
- * Create a new collection.
+ * Create a collection on the given site.
+ * Note: to create an unsigned collection, pass nil as the siteKey parameter
  *
- * "signed" create has secretSiteKey that is non-nil
- *
- * @param articleId User-assigned article Id that will (together with
- *                  existing site Id) correspond to the newly created collection
  * @param siteId    site Id
- * @param secretSiteKey (optional) Site Key to sign JWT token with
+ * @param siteKey (optional) Site Key to sign JWT token with
  *                  If nil, so-called "unsigned collection creation" will take place
- * @param title     User-provided title (up to 255 characters)
- * @param tagArray  User-assigned Tag array
+ * @param collectionMeta   A dictionary containing the following parameters:
+ *        @LFSCollectionMetaArticleIdKey (required) A string (<=255 characters) representing user-assigned article id
+ *        @LFSCollectionMetaURLKey (required)       A string representing user-assigned URL article URL
+ *                                Note: a pair consisting of siteId and articleId correponds to a collection entity.
+ *        @LFSCollectionMetaTitleKey (required for signed collections)     A string (<=255 characters) representing article title
+ *
+ *        @LFSCollectionMetaTagsKey  (optional)     An array of user-assigned tags (strings)
+ *        @LFSCollectionMetaTypeKey (optional)      A type of stream to be created. One of the following: LFSStreamTypeThreaded|LFSStreamTypeLiveComments|LFSStreamTypeLiveChat|LFSStreamTypeLiveBlog|LFSStreamTypeReviews|LFSStreamTypeLiveReviews|LFSStreamTypeRatings|LFSStreamTypeStory|LFSStreamTypeCounting
  * @param success   Success callback
  * @param failure   Failure callback
  */
-- (void)postArticle:(NSString *)articleId
-            forSite:(NSString *)siteId
-      secretSiteKey:(NSString *)secretSiteKey
-              title:(NSString *)title
-               tags:(NSArray *)tagArray
-            withURL:(NSURL *)newURL
-          onSuccess:(LFSSuccessBlock)success
-          onFailure:(LFSFailureBlock)failure;
+-(void)postArticleForSite:(NSString*)siteId
+              withSiteKey:(NSString*)siteKey
+           collectionMeta:(NSDictionary*)collectionMeta
+                onSuccess:(LFSSuccessBlock)success
+                onFailure:(LFSFailureBlock)failure;
 
 @end

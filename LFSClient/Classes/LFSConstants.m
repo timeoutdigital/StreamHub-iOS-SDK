@@ -74,4 +74,27 @@ const NSString* const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH] =
     @"off-topic"        // 3
 };
 
+// {{{ Collection stream types
+// https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/network/steps.py#L538
+NSString *const LFSStreamTypeThreaded = @"threaded";
+NSString *const LFSStreamTypeLiveComments = @"livecomments";
+NSString *const LFSStreamTypeLiveChat = @"livechat";
+NSString *const LFSStreamTypeLiveBlog = @"liveblog";
+NSString *const LFSStreamTypeReviews = @"reviews";
+NSString *const LFSStreamTypeLiveReviews = @"livereviews";
+NSString *const LFSStreamTypeRatings = @"ratings";
+NSString *const LFSStreamTypeStory = @"story";
+NSString *const LFSStreamTypeCounting = @"counting";
+// }}}
+
+// {{{ Collection meta keys
+// https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/network/steps.py#L478
+NSString *const LFSCollectionMetaArticleIdKey = @"articleId";
+NSString *const LFSCollectionMetaURLKey = @"url";
+NSString *const LFSCollectionMetaTitleKey = @"title";
+NSString *const LFSCollectionMetaTagsKey = @"tags";
+NSString *const LFSCollectionMetaTypeKey = @"type";
+// }}}
+
+
 @end

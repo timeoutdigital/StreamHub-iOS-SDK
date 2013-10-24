@@ -117,36 +117,45 @@
            failure:failure];
 }
 
-- (void)postArticle:(NSString*)articleId
-            forSite:(NSString*)siteId
-      secretSiteKey:(NSString*)secretSiteKey
-              title:(NSString*)title
-               tags:(NSArray*)tagArray
-            withURL:(NSURL *)newURL
-          onSuccess:(LFSSuccessBlock)success
-          onFailure:(LFSFailureBlock)failure
+-(void)postArticleForSite:(NSString*)siteId
+              withSiteKey:(NSString*)siteKey
+           collectionMeta:(NSDictionary*)collectionMeta
+                onSuccess:(LFSSuccessBlock)success
+                onFailure:(LFSFailureBlock)failure
 {
-    NSParameterAssert(articleId != nil);
-    NSParameterAssert(newURL != nil);
-    NSParameterAssert(siteId != nil);
-    NSParameterAssert(title != nil);
-    NSParameterAssert([title length] <= 255);
-    NSParameterAssert([articleId length] <= 255);
+    // https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/site/collection.py#L26
+    // https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/network/steps.py#L476
+    //
+    static NSString *const LFSCollectionMetaParameterKey = @"collectionMeta";
+    static NSString *const LFSCollectionChecksumParameterKey = @"checksum";
     
-    NSDictionary *dict = @{@"title":title,
-                           @"url":[newURL absoluteString],
-                           @"tags":[tagArray componentsJoinedByString:@","],
-                           @"articleId":articleId,
-                           @"signed":[NSNumber numberWithBool:(secretSiteKey != nil)]};
+    NSString *articleId = [collectionMeta objectForKey:LFSCollectionMetaArticleIdKey];
+    NSString *urlString = [collectionMeta objectForKey:LFSCollectionMetaURLKey];
+    NSString *title = [collectionMeta objectForKey:LFSCollectionMetaTitleKey];
+
+    NSParameterAssert(articleId != nil && [articleId length] <= 255);
+    NSParameterAssert(urlString != nil);
+    NSParameterAssert(siteId != nil);
+    NSParameterAssert(siteKey == nil || (title != nil && [title length] <= 255));
+
+    NSMutableDictionary *mutableMeta = [collectionMeta mutableCopy];
+    
+    // tags are optional and have to be stringified
+    NSArray *tagArray = [collectionMeta objectForKey:LFSCollectionMetaTagsKey];
+    if (tagArray != nil) {
+        [mutableMeta setObject:[tagArray componentsJoinedByString:@","]
+                        forKey:LFSCollectionMetaTagsKey];
+    }
     
     NSDictionary *parameters;
-    if (secretSiteKey != nil) {
-        NSString *collectionMeta = [JWT encodePayload:dict
-                                           withSecret:secretSiteKey];
-        parameters = @{@"collectionMeta":collectionMeta,
-                       @"checksum":[collectionMeta md5]};
+    if (siteKey != nil) {
+        // signed request
+        NSString *collectionMetaString = [JWT encodePayload:mutableMeta withSecret:siteKey];
+        parameters = @{LFSCollectionMetaParameterKey     : collectionMetaString,
+                       LFSCollectionChecksumParameterKey : [collectionMetaString md5]};
     } else {
-        parameters = @{@"collectionMeta":dict};
+        // unsigned request
+        parameters = @{LFSCollectionMetaParameterKey     : mutableMeta};
     }
     
     NSURL *fullURL = [self.baseURL
