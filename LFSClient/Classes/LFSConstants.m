@@ -50,18 +50,17 @@ const NSString* const LFSMessageEndpoints[LFS_OPINE_ENDPOINTS_LENGTH] =
     @"approve",         // 1
     @"unapprove",       // 2
     @"hide",            // 3
-    @"unhide",          // 4
-    @"delete",          // 5
-    @"bozo",            // 6
-    @"ignore-flags",    // 7
-    @"add-note",        // 8
+    @"delete",          // 4
+    @"bozo",            // 5
+    @"ignore-flags",    // 6
+    @"add-note",        // 7
     
-    @"like",            // 9
-    @"unlike",          // 10
-    @"flag",            // 11
-    @"mention",         // 12
-    @"share",           // 13
-    @"vote"             // 14
+    @"like",            // 8
+    @"unlike",          // 9
+    @"flag",            // 10
+    @"mention",         // 11
+    @"share",           // 12
+    @"vote"             // 13
 };
 
 // (for internal use):
@@ -72,6 +71,16 @@ const NSString* const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH] =
     @"offensive",       // 1
     @"disagree",        // 2
     @"off-topic"        // 3
+};
+
+// {{{ types of content that can be posted
+// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L68
+const NSString *const LFSPostTypes[LFS_POST_TYPE_LENGTH] =
+{
+    @"",                // 0
+    @"tweet",           // 1
+    @"review",          // 2
+    @"rating"           // 3
 };
 
 // {{{ Collection stream types
@@ -96,5 +105,17 @@ NSString *const LFSCollectionMetaTagsKey = @"tags";
 NSString *const LFSCollectionMetaTypeKey = @"type";
 // }}}
 
+// {{{ Comment and Review content post requests
+// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/col/post.py#L181
+NSString *const LFSCollectionPostBodyKey = @"body";
+NSString *const LFSCollectionPostTitleKey = @"title";
+NSString *const LFSCollectionPostRatingKey = @"rating";
+NSString *const LFSCollectionPostParentIdKey = @"parent_id";
+NSString *const LFSCollectionPostMIMETypeKey = @"mimetype";
+NSString *const LFSCollectionPostShareTypesKey= @"share_types";
+NSString *const LFSCollectionPostAttachmentsKey = @"attachments";
+NSString *const LFSCollectionPostMediaKey = @"media";
+NSString *const LFSCollectionPostUserTokenKey = @"lftoken";
+// }}}
 
 @end

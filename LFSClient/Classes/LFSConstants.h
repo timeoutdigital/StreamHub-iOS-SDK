@@ -61,25 +61,24 @@ extern NSString *const LFSSiteSettings;
 
 // {{{ Message action types
 // https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L75
-#define LFS_OPINE_ENDPOINTS_LENGTH 15u
+#define LFS_OPINE_ENDPOINTS_LENGTH 14u
 extern const NSString *const LFSMessageEndpoints[LFS_OPINE_ENDPOINTS_LENGTH];
 typedef NS_ENUM(NSUInteger, LFSMessageAction) {
     LFSMessageEdit = 0u     // 0
     ,LFSMessageApprove      // 1
     ,LFSMessageUnapprove    // 2
     ,LFSMessageHide         // 3
-    ,LFSMessageUnhide       // 4
-    ,LFSMessageDelete       // 5
-    ,LFSMessageBozo         // 6
-    ,LFSMessageIgnoreFlags  // 7
-    ,LFSMessageAddNote      // 8
+    ,LFSMessageDelete       // 4
+    ,LFSMessageBozo         // 5
+    ,LFSMessageIgnoreFlags  // 6
+    ,LFSMessageAddNote      // 7
     
-    ,LFSMessageLike         // 9
-    ,LFSMessageUnlike       // 10
-    ,LFSMessageFlag         // 11
-    ,LFSMessageMention      // 12
-    ,LFSMessageShare        // 13
-    ,LFSMessageVote         // 14
+    ,LFSMessageLike         // 8
+    ,LFSMessageUnlike       // 9
+    ,LFSMessageFlag         // 10
+    ,LFSMessageMention      // 11
+    ,LFSMessageShare        // 12
+    ,LFSMessageVote         // 13
 };
 // }}}
 
@@ -92,6 +91,18 @@ typedef NS_ENUM(NSUInteger, LFSContentFlag) {
     ,LFSFlagOffensive       // 1
     ,LFSFlagDisagree        // 2
     ,LFSFlagOfftopic        // 3
+};
+// }}}
+
+// {{{ types of content that can be posted
+// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L68
+#define LFS_POST_TYPE_LENGTH 4u
+extern const NSString *const LFSPostTypes[LFS_POST_TYPE_LENGTH];
+typedef NS_ENUM(NSUInteger, LFSPostType) {
+    LFSPostTypeDefault = 0u // 0
+    ,LFSPostTypeTweet       // 1
+    ,LFSPostTypeReview      // 2
+    ,LFSPostTypeRating      // 3
 };
 // }}}
 
@@ -115,6 +126,19 @@ extern NSString *const LFSCollectionMetaURLKey;
 extern NSString *const LFSCollectionMetaTitleKey;
 extern NSString *const LFSCollectionMetaTagsKey;
 extern NSString *const LFSCollectionMetaTypeKey;
+// }}}
+
+// {{{ Comment and Review content post requests
+// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/col/post.py
+extern NSString *const LFSCollectionPostBodyKey;
+extern NSString *const LFSCollectionPostTitleKey;
+extern NSString *const LFSCollectionPostRatingKey;
+extern NSString *const LFSCollectionPostParentIdKey;
+extern NSString *const LFSCollectionPostMIMETypeKey;
+extern NSString *const LFSCollectionPostShareTypesKey;
+extern NSString *const LFSCollectionPostAttachmentsKey;
+extern NSString *const LFSCollectionPostMediaKey;
+extern NSString *const LFSCollectionPostUserTokenKey;
 // }}}
 
 // https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/publishing/models.proto#L74

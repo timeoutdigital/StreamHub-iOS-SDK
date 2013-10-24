@@ -171,8 +171,12 @@ static dispatch_queue_t json_request_operation_processing_queue() {
             NSString *errorType = [object objectForKey:@"error_type"];
             
             NSMutableDictionary *dictionary = [error.userInfo mutableCopy];
-            [dictionary setObject:errorMessage forKey:NSLocalizedDescriptionKey];
-            [dictionary setObject:errorType forKey:NSLocalizedFailureReasonErrorKey];
+            if (errorMessage != nil) {
+                [dictionary setObject:errorMessage forKey:NSLocalizedDescriptionKey];
+            }
+            if (errorType != nil) {
+                [dictionary setObject:errorType forKey:NSLocalizedFailureReasonErrorKey];
+            }
             return [NSError errorWithDomain:NSURLErrorDomain
                                        code:errorCode
                                    userInfo:dictionary];

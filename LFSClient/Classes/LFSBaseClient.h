@@ -58,6 +58,24 @@
  Creates an `LFSJSONRequestOperation` with a `POST` request, and enqueues it to the HTTP client's operation queue.
  Let developer specify the particular parameter encoding to use.
  
+ @param path relative path
+ @param parameters The parameters to be encoded and set in the request HTTP body.
+ @param parameterEncoding The `AFHTTPClientParameterEncoding` value corresponding to how parameters are encoded into a request body
+ @param success A block object to be executed when the request operation finishes successfully. This block has no return value and takes two arguments: the created request operation and the object created from the response data of request.
+ @param failure A block object to be executed when the request operation finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the response data. This block has no return value and takes two arguments: the created request operation and the `NSError` object describing the network or parsing error that occurred.
+ 
+ @see -HTTPRequestOperationWithRequest:success:failure:
+ */
+- (void)postPath:(NSString *)path
+      parameters:(NSDictionary *)parameters
+parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
+         success:(AFSuccessBlock)success
+         failure:(AFFailureBlock)failure;
+
+/**
+ Creates an `LFSJSONRequestOperation` with a `POST` request, and enqueues it to the HTTP client's operation queue.
+ Let developer specify the particular parameter encoding to use.
+ 
  @param url URL to be used as request URL
  @param parameters The parameters to be encoded and set in the request HTTP body.
  @param parameterEncoding The `AFHTTPClientParameterEncoding` value corresponding to how parameters are encoded into a request body

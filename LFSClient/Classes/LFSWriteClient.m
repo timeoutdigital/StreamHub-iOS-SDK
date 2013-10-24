@@ -10,7 +10,6 @@
 #import <JWT/JWT.h>
 #import <NSString-Hashes/NSString+Hashes.h>
 
-
 @implementation LFSWriteClient
 
 #pragma mark - Overrides
@@ -82,6 +81,7 @@
            failure:failure];
 }
 
+
 - (void)postContent:(NSString *)body
        inCollection:(NSString *)collectionId
           userToken:(NSString*)userToken
@@ -89,33 +89,59 @@
           onSuccess:(LFSSuccessBlock)success
           onFailure:(LFSFailureBlock)failure
 {
-    NSParameterAssert(body != nil);
+    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    if (body != nil) {
+        [parameters setObject:body forKey:LFSCollectionPostBodyKey];
+    }
+    if (userToken != nil) {
+        [parameters setObject:userToken forKey:LFSCollectionPostUserTokenKey];
+    }
+    if (parentId != nil) {
+        [parameters setObject:parentId forKey:LFSCollectionPostParentIdKey];
+    }
+    
+    [self postContentType:LFSPostTypeDefault
+            forCollection:collectionId
+               parameters:parameters
+                onSuccess:success
+                onFailure:failure];
+}
+
+- (void)postContentType:(LFSPostType)postType
+          forCollection:(NSString *)collectionId
+             parameters:(NSDictionary*)parameters
+              onSuccess:(LFSSuccessBlock)success
+              onFailure:(LFSFailureBlock)failure
+{
+    NSString *contentBody = [parameters objectForKey:LFSCollectionPostBodyKey];
+    NSString *userToken = [parameters objectForKey:LFSCollectionPostUserTokenKey];
+    
+    NSParameterAssert(contentBody != nil);
     NSParameterAssert(userToken != nil);
     NSParameterAssert(collectionId != nil);
+    NSParameterAssert((NSUInteger)postType < LFS_POST_TYPE_LENGTH);
     
-    // TODO: figure out whether to use defaults like this throughout
-    if (userToken == nil) {
-        userToken = @"";
+    NSString *path;
+    if (postType == LFSPostTypeDefault) {
+        path = [NSString stringWithFormat:@"/api/v3.0/collection/%@/post/",
+                  collectionId];
+    } else {
+        path = [NSString stringWithFormat:@"/api/v3.0/collection/%@/post/%@/",
+           collectionId, LFSPostTypes[postType]];
     }
-    
-    NSMutableDictionary *parameters =
-    [NSMutableDictionary
-     dictionaryWithObjects:@[body, userToken]
-     forKeys:@[@"body", @"lftoken"]];
-    
-    if (parentId) {
-        [parameters setObject:parentId forKey:@"parent_id"];
+    NSMutableDictionary *mutableParameters = [parameters mutableCopy];
+    id rating = [mutableParameters objectForKey:LFSCollectionPostRatingKey];
+    if (rating != nil && ![rating isKindOfClass:[NSString class]]) {
+        [mutableParameters setObject:[rating JSONString] forKey:LFSCollectionPostRatingKey];
     }
-    
-    NSString *path = [NSString
-                      stringWithFormat:@"/api/v3.0/collection/%@/post/",
-                      collectionId];
     
     [self postPath:path
-        parameters:parameters
+        parameters:mutableParameters
            success:success
            failure:failure];
 }
+
 
 -(void)postArticleForSite:(NSString*)siteId
               withSiteKey:(NSString*)siteKey
@@ -158,16 +184,13 @@
         parameters = @{LFSCollectionMetaParameterKey     : mutableMeta};
     }
     
-    NSURL *fullURL = [self.baseURL
-                      URLByAppendingPathComponent:
-                      [NSString stringWithFormat:@"/api/v3.0/site/%@/collection/create",
-                       siteId]];
+    NSString *path = [NSString stringWithFormat:@"/api/v3.0/site/%@/collection/create", siteId];
     
-    [self postURL:fullURL
-       parameters:parameters
-parameterEncoding:AFJSONParameterEncoding
-          success:success
-          failure:failure];
+    [self postPath:path
+        parameters:parameters
+ parameterEncoding:AFJSONParameterEncoding
+           success:success
+           failure:failure];
 }
 
 @end

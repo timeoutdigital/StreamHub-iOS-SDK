@@ -62,6 +62,18 @@
     return self;
 }
 
+- (void)postPath:(NSString *)path
+      parameters:(NSDictionary *)parameters
+parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
+         success:(AFSuccessBlock)success
+         failure:(AFFailureBlock)failure
+{
+    [self postURL:[self.baseURL URLByAppendingPathComponent:path]
+       parameters:parameters
+parameterEncoding:parameterEncoding
+          success:success
+          failure:failure];
+}
 
 - (void)postURL:(NSURL *)url
      parameters:(NSDictionary *)parameters
@@ -102,18 +114,18 @@ parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
             NSError *error = nil;
             
             switch (parameterEncoding) {
-                case AFFormURLParameterEncoding:;
+                case AFFormURLParameterEncoding:
                     [request setValue:[NSString stringWithFormat:@"application/x-www-form-urlencoded; charset=%@", charset] forHTTPHeaderField:@"Content-Type"];
                     [request setHTTPBody:[AFQueryStringFromParametersWithEncoding(parameters, self.stringEncoding) dataUsingEncoding:self.stringEncoding]];
                     break;
-                case AFJSONParameterEncoding:;
+                case AFJSONParameterEncoding:
                     [request setValue:[NSString stringWithFormat:@"application/json; charset=%@", charset] forHTTPHeaderField:@"Content-Type"];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wassign-enum"
                     [request setHTTPBody:[parameters JSONDataWithOptions:JKSerializeOptionNone error:&error]];
 #pragma clang diagnostic pop
                     break;
-                case AFPropertyListParameterEncoding:;
+                case AFPropertyListParameterEncoding:
                     [request setValue:[NSString stringWithFormat:@"application/x-plist; charset=%@", charset] forHTTPHeaderField:@"Content-Type"];
                     [request setHTTPBody:[NSPropertyListSerialization dataWithPropertyList:parameters format:NSPropertyListXMLFormat_v1_0 options:0 error:&error]];
                     break;

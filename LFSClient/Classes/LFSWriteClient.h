@@ -58,7 +58,7 @@
        onFailure:(LFSFailureBlock)failure;
 
 /**
- * Create a new comment in a collection.
+ * Convenience method to reate a new comment in a collection.
  *
  * Creating new posts requires that the user has permission to post in the collection.
  *
@@ -75,6 +75,33 @@
           inReplyTo:(NSString *)parentId
           onSuccess:(LFSSuccessBlock)success
           onFailure:(LFSFailureBlock)failure;
+
+/**
+ * Post new content (comments, reviews, tweets, etc) to a collection
+ *
+ * Creating new posts requires that the user has permission to post in the collection.
+ *
+ * @param postType  One of the following:
+ * @param collectionId Collection to add the post to.
+ * @param parameters  A dictionary containing the following:
+ *        @LFSCollectionPostBodyKey (required)   HTML body
+ *        @LFSCollectionPostUserTokenKey (required) user token
+ *
+ *        @LFSCollectionPostTitleKey (for LiveReviews only)
+ *        @LFSCollectionPostRatingKey (for LiveReviews only)
+ *        @LFSCollectionPostParentIdKey parent content id (for threaded content)
+ *        @LFSCollectionPostMIMETypeKey MIME type
+ *        @LFSCollectionPostShareTypesKey share types
+ *        @LFSCollectionPostAttachmentsKey attachment
+ *        @LFSCollectionPostMediaKey   media
+ * @param success Success callback
+ * @param failure Failure callback
+ */
+- (void)postContentType:(LFSPostType)postType
+          forCollection:(NSString *)collectionId
+             parameters:(NSDictionary*)parameters
+              onSuccess:(LFSSuccessBlock)success
+              onFailure:(LFSFailureBlock)failure;
 
 /**
  * Create a collection on the given site.

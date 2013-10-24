@@ -300,21 +300,23 @@
                          stringWithFormat:@"test post, %zd",
                          arc4random()];
     
-    LFSWriteClient *clientPost = [LFSWriteClient clientWithNetwork:@"post-sample" environment:nil ];
-    [clientPost postContent:content
-               inCollection:@"fakeColl"
-                  userToken:@"fakeUser"
-                  inReplyTo:nil
-                  onSuccess:^(NSOperation *operation, id responseObject) {
-                      op = (LFSJSONRequestOperation*)operation;
-                      result = responseObject;
-                  }
-                  onFailure:^(NSOperation *operation, NSError *error) {
-                      op = (LFSJSONRequestOperation*)operation;
-                      NSLog(@"Error code %zd, with description %@",
-                            error.code,
-                            [error localizedDescription]);
-                  }];
+    LFSWriteClient *clientWrite = [LFSWriteClient clientWithNetwork:@"post-sample" environment:nil ];
+    
+    [clientWrite postContentType:LFSPostTypeDefault
+                   forCollection:@"fakeColl"
+                      parameters:
+     @{LFSCollectionPostUserTokenKey:@"fakeUser",
+       LFSCollectionPostBodyKey:content}
+                       onSuccess:^(NSOperation *operation, id responseObject) {
+                           op = (LFSJSONRequestOperation*)operation;
+                           result = responseObject;
+                       }
+                       onFailure:^(NSOperation *operation, NSError *error) {
+                           op = (LFSJSONRequestOperation*)operation;
+                           NSLog(@"Error code %zd, with description %@",
+                                 error.code,
+                                 [error localizedDescription]);
+                       }];
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
