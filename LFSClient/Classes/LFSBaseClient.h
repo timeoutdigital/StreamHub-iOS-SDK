@@ -36,7 +36,7 @@
  * @param environment (optional) Where collection(s) are hosted, i.e. t-402.
  *        Used for development/testing purposes.
  * @return LFSClient instance
- * @see -initWithEnvironment:network:
+ * @see -initWithNetwork:environment:
  */
 
 + (instancetype)clientWithNetwork:(NSString *)network
@@ -63,8 +63,6 @@
  @param parameterEncoding The `AFHTTPClientParameterEncoding` value corresponding to how parameters are encoded into a request body
  @param success A block object to be executed when the request operation finishes successfully. This block has no return value and takes two arguments: the created request operation and the object created from the response data of request.
  @param failure A block object to be executed when the request operation finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the response data. This block has no return value and takes two arguments: the created request operation and the `NSError` object describing the network or parsing error that occurred.
- 
- @see -HTTPRequestOperationWithRequest:success:failure:
  */
 - (void)postPath:(NSString *)path
       parameters:(NSDictionary *)parameters
@@ -81,8 +79,6 @@ parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
  @param parameterEncoding The `AFHTTPClientParameterEncoding` value corresponding to how parameters are encoded into a request body
  @param success A block object to be executed when the request operation finishes successfully. This block has no return value and takes two arguments: the created request operation and the object created from the response data of request.
  @param failure A block object to be executed when the request operation finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the response data. This block has no return value and takes two arguments: the created request operation and the `NSError` object describing the network or parsing error that occurred.
- 
- @see -HTTPRequestOperationWithRequest:success:failure:
  */
 - (void)postURL:(NSURL *)url
      parameters:(NSDictionary *)parameters

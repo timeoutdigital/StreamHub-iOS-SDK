@@ -23,7 +23,7 @@
  * https://github.com/Livefyre/livefyre-docs/wiki/StreamHub-API-Reference#wiki-init
  *
  * @param articleId The Id of the collection's article.
- * @param siteId The Id of the article's site.
+ * @param siteId    The Id of the article's site.
  * @param success   Success callback
  * @param failure   Failure callback
  */
