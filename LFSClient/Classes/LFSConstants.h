@@ -93,7 +93,7 @@ extern const NSString *const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH];
  @since Available since 0.2.0 and later
  */
 typedef NS_ENUM(NSUInteger, LFSContentFlag) {
-    /*! Unsolicited advertising (will delete content whan flagged by moderator) */
+    /*! Unsolicited advertising (flagging will delete content when performed by moderator) */
     LFSFlagSpam = 0u,           // 0
     /*! Offensive language */
     LFSFlagOffensive,           // 1
