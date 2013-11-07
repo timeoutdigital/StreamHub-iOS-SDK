@@ -99,8 +99,10 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    expect(op.response.statusCode).to.equal(200);
+    if (op) {
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+        expect(op.response.statusCode).to.equal(200);
+    }
     // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
     expect(result).to.haveCountOf(4);
 }
@@ -132,8 +134,10 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
     // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
     expect(result).to.haveCountOf(4);
 }
@@ -162,8 +166,10 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
     // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
     expect(result).to.haveCountOf(4);
 }
@@ -192,8 +198,10 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
     // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
     expect(result).to.haveCountOf(4);
 }
@@ -222,8 +230,10 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
     expect(result).to.beTruthy();
 }
 
@@ -252,8 +262,10 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
     expect(result).to.beTruthy();
 }
 
@@ -282,10 +294,14 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
     expect(result).to.beTruthy();
-    expect([result valueForKeyPath:@"auth_token.value"]).to.equal(userToken);
+    if (result) {
+        expect([result valueForKeyPath:@"auth_token.value"]).to.equal(userToken);
+    }
 }
 
 - (void)testUserAuthenticationCollection {
@@ -311,10 +327,14 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
     expect(result).to.beTruthy();
-    expect([result valueForKeyPath:@"auth_token.value"]).to.equal(userToken);
+    if (result) {
+        expect([result valueForKeyPath:@"auth_token.value"]).to.equal(userToken);
+    }
 }
 
 #pragma mark - test opines
@@ -341,8 +361,11 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    expect(result).to.beTruthy();
 }
 
 - (void)testUnlikes {
@@ -368,8 +391,11 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    expect(result).to.beTruthy();
 }
 
 #pragma mark - test posts
@@ -405,15 +431,19 @@
 
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
     expect(result).to.beTruthy();
     
-    // check that response body matches the comment we posted
-    NSDictionary *message = [[result objectForKey:@"messages"] objectAtIndex:0u];
-    NSString *responseString = [[message objectForKey:@"content"] objectForKey:@"bodyHtml"];
-    NSString *expectedString = [NSString stringWithFormat:@"<p>%@</p>", testString];
-    expect(responseString).to.equal(expectedString);
+    if (result) {
+        // check that response body matches the comment we posted
+        NSDictionary *message = [[result objectForKey:@"messages"] objectAtIndex:0u];
+        NSString *responseString = [[message objectForKey:@"content"] objectForKey:@"bodyHtml"];
+        NSString *expectedString = [NSString stringWithFormat:@"<p>%@</p>", testString];
+        expect(responseString).to.equal(expectedString);
+    }
     
     NSString *contentId = [[result valueForKeyPath:@"messages.content.id"] objectAtIndex:0u];
     
@@ -437,11 +467,15 @@
 
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
     expect(result).to.beTruthy();
-    NSString *idOfDeletedComment = [result objectForKey:@"comment_id"];
-    expect(idOfDeletedComment).to.equal(contentId);
+    if (result) {
+        NSString *idOfDeletedComment = [result objectForKey:@"comment_id"];
+        expect(idOfDeletedComment).to.equal(contentId);
+    }
 }
 
 - (void)testPostReview
@@ -477,8 +511,10 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error.code).to.equal(403); // only one review can be posted per user to a given collection
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error.code).to.equal(403); // only one review can be posted per user to a given collection
+    }
     
     //expect(op.error).notTo.equal(NSURLErrorTimedOut);
     //expect(result).to.beTruthy();
@@ -522,12 +558,16 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
     expect(result).to.beTruthy();
-    NSString *parent1 = [[[result objectForKey:@"messages"] objectAtIndex:0]
-                         valueForKeyPath:@"content.parentId"];
-    expect(parent1).to.equal(parent);
+    if (result) {
+        NSString *parent1 = [[[result objectForKey:@"messages"] objectAtIndex:0]
+                             valueForKeyPath:@"content.parentId"];
+        expect(parent1).to.equal(parent);
+    }
 }
 
 #pragma mark - test flagging
@@ -559,8 +599,10 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
     expect(result).to.beTruthy();
 }
 
@@ -597,16 +639,18 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    if (op.error) {
-        // HTTP 409:
-        // Collection already exists for site_id ... and article_id ... Use update instead
-        expect(op.response.statusCode).to.equal(409);
-    } else {
-        // HTTP 202:
-        // This request is being processed
-        expect(op.response.statusCode).to.equal(202);
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+        if (op.error) {
+            // HTTP 409:
+            // Collection already exists for site_id ... and article_id ... Use update instead
+            expect(op.response.statusCode).to.equal(409);
+        } else {
+            // HTTP 202:
+            // This request is being processed
+            expect(op.response.statusCode).to.equal(202);
+        }
     }
 }
 
@@ -639,14 +683,16 @@
 
     // Wait 'til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    if (op.error) {
-        // HTTP 409: Collection already exists for site_id ... and article_id .... Use update instead.
-        expect(op.response.statusCode).to.equal(409);
-    } else {
-        // HTTP 202: This request is being processed.
-        expect(op.response.statusCode).to.equal(202);
+    if (op) {
+        expect(op).to.beInstanceOf([LFSJSONRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+        if (op.error) {
+            // HTTP 409: Collection already exists for site_id ... and article_id .... Use update instead.
+            expect(op.response.statusCode).to.equal(409);
+        } else {
+            // HTTP 202: This request is being processed.
+            expect(op.response.statusCode).to.equal(202);
+        }
     }
 }
 
