@@ -21,7 +21,7 @@ to your pods. An example Podfile:
 
     platform :ios, :deployment_target => '6.0'
 
-    pod 'StreamHub-iOS-SDK', :git => 'https://github.com/Livefyre/StreamHub-iOS-SDK', :commit => '73642375688f1300a6f66021f5e0448cbabd09fe'
+    pod 'StreamHub-iOS-SDK', :git => 'https://github.com/Livefyre/StreamHub-iOS-SDK', :commit => '2523e6f500bab738d04ff68bae1545869ad2543a'
 
 Once your Podfile is placed in your app project root, simply run:
 
