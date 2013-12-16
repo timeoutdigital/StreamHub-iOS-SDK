@@ -42,23 +42,22 @@
     // cache passed parameters into readonly properties
     _lfEnvironment = environment;
     _lfNetwork = network;
-    
-    NSString *urlString = [NSString stringWithFormat:@"%@://%@.%@/",
-                           LFSScheme, 
-                           [self subdomain], 
-                           ((environment && [network isEqualToString:@"livefyre.com"]) ? environment : network)];
 
-    self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
-    if (!self) {
-        return nil;
+    NSString *hostname = [NSString stringWithFormat:@"%@.%@",
+                          [self subdomain],
+                          ((environment && [network isEqualToString:@"livefyre.com"]) ? environment : network)];
+    NSURL *baseURL = [[NSURL alloc] initWithScheme:LFSScheme
+                            host:hostname
+                            path:@"/"];
+    self = [super initWithBaseURL:baseURL];
+    if (self) {
+        [self registerHTTPOperationClass:[LFSJSONRequestOperation class]];
+    
+        // Accept HTTP Header;
+        // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
+        [self setDefaultHeader:@"Accept" value:@"application/json"];
+        [self setParameterEncoding:AFFormURLParameterEncoding];
     }
-    
-    [self registerHTTPOperationClass:[LFSJSONRequestOperation class]];
-    
-    // Accept HTTP Header;
-    // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
-    [self setDefaultHeader:@"Accept" value:@"application/json"];
-    [self setParameterEncoding:AFFormURLParameterEncoding];
     return self;
 }
 
