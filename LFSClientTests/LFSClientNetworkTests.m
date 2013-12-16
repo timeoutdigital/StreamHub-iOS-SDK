@@ -732,7 +732,7 @@
     
     __block id resultStream = nil;
     
-    // generate string that we will post early on
+    // generate the string that will be posted to this collection post early on
     NSString *testString = [NSString stringWithFormat:@"testing streaming API %zd",
                             arc4random()];
     
@@ -740,9 +740,8 @@
                                                            environment:[LFSConfig objectForKey:@"writableEnvironment"]];
     
     [clientStream setCollectionId:collectionId];
-    
-    
     [clientStream setResultHandler:^(id responseObject) {
+        // cycle through response objects until we find one that contains the string posted
         NSString *bodyHtml = [[responseObject objectForKey:@"content"] objectForKey:@"bodyHtml"];
         if ([bodyHtml rangeOfString:testString].location != NSNotFound) {
             resultStream = responseObject;
@@ -751,14 +750,14 @@
     } success:nil failure:nil];
     [clientStream startStreamWithEventId:eventId];
     
-    // now actually post the string we generated
+
+    // now actually post the string we generated above
     __block LFSJSONRequestOperation *op = nil;
     __block id resultPost = nil;
     
     LFSWriteClient *clientWrite = [LFSWriteClient
                                    clientWithNetwork:[LFSConfig objectForKey:@"writableNetwork"]
                                    environment:[LFSConfig objectForKey:@"writableEnvironment"]];
-    
     
     [clientWrite postContentType:LFSPostTypeDefault
                    forCollection:collectionId
