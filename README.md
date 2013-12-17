@@ -12,7 +12,22 @@ https://github.com/Livefyre/livefyre-docs/wiki/StreamHub-API-Reference
 
 # Getting Started
 
-## Installation: Cocoa Pods
+## Playing with the SDK and the CommentStream example app
+
+If you just want to download the SDK and take a look at the sample app(s),
+follow these steps:
+
+    cd ~/dev
+    git clone https://github.com/Livefyre/StreamHub-iOS-SDK.git
+    cd StreamHub-iOS-SDK
+    git submodule init
+    git submodule update
+    pod install
+    cd examples/CommentStream
+    pod install
+    open CommentStream.xcworkspace
+
+## Integrating StreamHub-iOS-SDK into your project
 
 The easiest way to add StreamHub SDK to your project is to use CocoaPods (if you
 aren't using CocoaPods already, you should!). StreamHub SDK does not yet have a
@@ -23,6 +38,7 @@ to your pods. An example Podfile:
 
     pod 'StreamHub-iOS-SDK', :git => 'https://github.com/Livefyre/StreamHub-iOS-SDK', :commit => '2523e6f500bab738d04ff68bae1545869ad2543a'
 
+(Note: check that the commit hash above actually refers to the commit/release you want to install)
 Once your Podfile is placed in your app project root, simply run:
 
     pod install
@@ -30,8 +46,6 @@ Once your Podfile is placed in your app project root, simply run:
 This will download all the dependencies and create a file called
 `MyApp.xcworkspace` which you should use to open your app project in Xcode in
 the future.
-
-## Installation: Subproject
 
 Alternatively, clone the repository:
 
