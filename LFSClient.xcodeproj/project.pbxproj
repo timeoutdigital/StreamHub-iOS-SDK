@@ -436,6 +436,7 @@
 		1C4CC87816A48B3800C33DEC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = Livefyre;
 				TargetAttributes = {
