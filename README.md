@@ -25,7 +25,7 @@ follow these steps:
     pod install
     open CommentStream.xcworkspace
 
-## Integrating StreamHub-iOS-SDK into your project
+## Integrating the SDK into your project
 
 The easiest way to add StreamHub SDK to your project is to use CocoaPods (if you
 aren't using CocoaPods already, you should!). StreamHub SDK does not yet have a
