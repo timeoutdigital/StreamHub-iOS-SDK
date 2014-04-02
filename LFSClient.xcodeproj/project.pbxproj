@@ -78,9 +78,6 @@
 		EFDF081817CE756500C7D6C0 /* LFSConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDF081717CE756500C7D6C0 /* LFSConfig.m */; };
 		EFE0420E17C3154B0011DD6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFE0420D17C3154B0011DD6A /* UIKit.framework */; };
 		EFE0CB1317C535EF00775C9C /* LFSClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE0CB1117C535EF00775C9C /* LFSClientTests.m */; };
-		EFF3048C17E68944005358F5 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EFF3048A17E68944005358F5 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EFF3048D17E68944005358F5 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF3048B17E68944005358F5 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		EFF3048E17E68944005358F5 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF3048B17E68944005358F5 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EFF3049417E68961005358F5 /* NSDateFormatter+RelativeTo.h in Headers */ = {isa = PBXBuildFile; fileRef = EFF3049017E68961005358F5 /* NSDateFormatter+RelativeTo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EFF3049517E68961005358F5 /* NSDateFormatter+RelativeTo.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF3049117E68961005358F5 /* NSDateFormatter+RelativeTo.m */; };
 		EFF3049617E68961005358F5 /* NSDateFormatter+RelativeTo.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF3049117E68961005358F5 /* NSDateFormatter+RelativeTo.m */; };
@@ -169,8 +166,6 @@
 		EFE0420D17C3154B0011DD6A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EFE0CB1117C535EF00775C9C /* LFSClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSClientTests.m; sourceTree = "<group>"; };
 		EFE0CB1217C535EF00775C9C /* AFNetworkingTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkingTests.h; sourceTree = "<group>"; };
-		EFF3048A17E68944005358F5 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = JSONKit/Classes/JSONKit.h; sourceTree = "<group>"; };
-		EFF3048B17E68944005358F5 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = JSONKit/Classes/JSONKit.m; sourceTree = "<group>"; };
 		EFF3049017E68961005358F5 /* NSDateFormatter+RelativeTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+RelativeTo.h"; sourceTree = "<group>"; };
 		EFF3049117E68961005358F5 /* NSDateFormatter+RelativeTo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+RelativeTo.m"; sourceTree = "<group>"; };
 		EFF3049217E68961005358F5 /* NSString+LFSEref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LFSEref.h"; sourceTree = "<group>"; };
@@ -210,7 +205,6 @@
 		1C4CC87616A48B3800C33DEC = {
 			isa = PBXGroup;
 			children = (
-				EFA2AAD917B5A6C30022DC8E /* JSONKit */,
 				1C4CC88616A48B3800C33DEC /* LFSClient */,
 				1C4CC89B16A48B3800C33DEC /* LFSClientTests */,
 				1C4CC88316A48B3800C33DEC /* Frameworks */,
@@ -348,23 +342,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		EFA2AAD917B5A6C30022DC8E /* JSONKit */ = {
-			isa = PBXGroup;
-			children = (
-				EFF3048F17E68948005358F5 /* Classes */,
-			);
-			name = JSONKit;
-			sourceTree = "<group>";
-		};
-		EFF3048F17E68948005358F5 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				EFF3048A17E68944005358F5 /* JSONKit.h */,
-				EFF3048B17E68944005358F5 /* JSONKit.m */,
-			);
-			name = Classes;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -372,7 +349,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFF3048C17E68944005358F5 /* JSONKit.h in Headers */,
 				EFF3049717E68961005358F5 /* NSString+LFSEref.h in Headers */,
 				EFF3049417E68961005358F5 /* NSDateFormatter+RelativeTo.h in Headers */,
 				EFA0455E17D806130012CD31 /* LFSAdminClient.h in Headers */,
@@ -436,6 +412,7 @@
 		1C4CC87816A48B3800C33DEC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = Livefyre;
 				TargetAttributes = {
@@ -586,7 +563,6 @@
 				EFA0455F17D806130012CD31 /* LFSAdminClient.m in Sources */,
 				EFA0456517D806130012CD31 /* LFSBootstrapClient.m in Sources */,
 				EFA0456B17D806130012CD31 /* LFSStreamClient.m in Sources */,
-				EFF3048D17E68944005358F5 /* JSONKit.m in Sources */,
 				EFF3049517E68961005358F5 /* NSDateFormatter+RelativeTo.m in Sources */,
 				EFA0456817D806130012CD31 /* LFSJSONRequestOperation.m in Sources */,
 				EFF3049817E68961005358F5 /* NSString+LFSEref.m in Sources */,
@@ -615,7 +591,6 @@
 				EFDF081817CE756500C7D6C0 /* LFSConfig.m in Sources */,
 				EFA0456917D806130012CD31 /* LFSJSONRequestOperation.m in Sources */,
 				EFF3049617E68961005358F5 /* NSDateFormatter+RelativeTo.m in Sources */,
-				EFF3048E17E68944005358F5 /* JSONKit.m in Sources */,
 				1CF0624B16B0A3A900CFA905 /* LFSConstants.m in Sources */,
 				EFA0456017D806130012CD31 /* LFSAdminClient.m in Sources */,
 			);

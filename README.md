@@ -10,9 +10,7 @@ https://github.com/Livefyre/StreamHub-iOS-Example-App
 For more info about the Livefyre API, visit
 https://github.com/Livefyre/livefyre-docs/wiki/StreamHub-API-Reference
 
-# Getting Started
-
-## Playing with the SDK and the CommentStream example app
+## Getting Started
 
 If you just want to download the SDK and take a look at the sample app(s),
 follow these steps:

@@ -13,6 +13,7 @@ target :test do
     pod 'Base64', '~> 1.0.1'
     pod 'NSString-Hashes', '~> 1.2.0'
     pod 'AFHTTPRequestOperationLogger'
+    pod 'JSONKit', :git => 'https://github.com/escherba/JSONKit.git'
     pod 'OCMock', '~> 2.1.1' # mock objects
     pod 'Expecta', '~> 0.2.1' # readable pass conditions
 end
