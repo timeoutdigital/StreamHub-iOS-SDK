@@ -5,10 +5,8 @@ Use this open-source library to integrate Livefyre services into your native iOS
 app.  This SDK provides a thin layer for common API mechanisms, based on the
 excellent AFNetworking library.
 
-For reference on sample implemntation, see the sample app project:
-https://github.com/Livefyre/StreamHub-iOS-Example-App
-For more info about the Livefyre API, visit
-https://github.com/Livefyre/livefyre-docs/wiki/StreamHub-API-Reference
+For more information, please see the CommentStream sample app [1] or Livefyre
+HTTP API documentation [2].
 
 ## Getting Started
 
@@ -60,13 +58,19 @@ http://livefyre.github.com/StreamHub-iOS-SDK/ or you can build the
 "Documentation" target in your Xcode (requires `appledoc` to be installed) on
 your system.
 
-# Requirements
+## References
+
+[1]: https://github.com/Livefyre/StreamHub-iOS-Example-App
+[2]: http://answers.livefyre.com/developers/reference/http-reference/
+
+
+## Requirements
 
 At present, StreamHub-SDK v0.2.0 requires iOS 6.0 (mostly due to external
 dependencies). If you would like to use this SDK with iOS versions prior to 6.0,
 please contact Livefyre and we'll be happy to help.
 
-# License
+## License
 
 This software is licensed under the MIT License.
 
