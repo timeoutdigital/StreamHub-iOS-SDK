@@ -34,7 +34,6 @@
 #import "NSString+LFSEref.h"
 
 #import "LFSConstants.h"
-#import "LFSJSONRequestOperation.h"
 #import "LFSBaseClient.h"
 #import "LFSBootstrapClient.h"
 #import "LFSAdminClient.h"

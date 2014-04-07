@@ -30,7 +30,7 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 // TODO: implement ring with consistent hashing for managing streams
 -(NSString*)subdomain { return @"stream1"; }
 
-- (instancetype)initWithEnvironment:(NSString *)environment
+- (id)initWithEnvironment:(NSString *)environment
                             network:(NSString *)network
 {
     self = [super initWithNetwork:network environment:environment];
@@ -61,7 +61,7 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
     if (_collectionStreamURL == nil)
     {
         NSString *component = [NSString stringWithFormat:@"v3.0/collection/%@", self.collectionId];
-        _collectionStreamURL = [self.baseURL URLByAppendingPathComponent:component];
+        _collectionStreamURL = [self.reqOpManager.baseURL URLByAppendingPathComponent:component];
         
     }
     return _collectionStreamURL;
@@ -79,17 +79,17 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 
 - (void)stopStream
 {
-    [self.operationQueue cancelAllOperations];
+    [self.reqOpManager.operationQueue cancelAllOperations];
 }
 
 - (void)pauseStream
 {
-    [self.operationQueue setSuspended:YES];
+    [self.reqOpManager.operationQueue setSuspended:YES];
 }
 
 -(void)resumeStream
 {
-    [self.operationQueue setSuspended:NO];
+    [self.reqOpManager.operationQueue setSuspended:NO];
     [self startStreamWithEventId:nil];
 }
 
@@ -100,11 +100,12 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 
 - (void)startStreamWithEventId:(NSNumber*)eventId
 {
-    if ([self.operationQueue isSuspended]) {
+    if ([self.reqOpManager.operationQueue isSuspended]) {
         return;
     }
-    LFSJSONRequestOperation *op =
-    (LFSJSONRequestOperation *)[self HTTPRequestOperationWithRequest:
+    
+    AFHTTPRequestOperation *op =
+    (AFHTTPRequestOperation *)[self.reqOpManager HTTPRequestOperationWithRequest:
                                 [self buildRequestWithEventId:eventId]
                                                              success:
                                 ^(AFHTTPRequestOperation *operation, id responseObject)
@@ -142,7 +143,7 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
                                     }
                                 }];
     
-    [self enqueueHTTPRequestOperation:op];
+    [self.reqOpManager.operationQueue addOperation:op];
 }
 
 #pragma mark - Private methods
@@ -158,9 +159,15 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
     }
     NSAssert(eventId != nil, @"eventId cannot be nil");
     NSURL *streamURL = [self.collectionStreamURL URLByAppendingPathComponent:[eventId stringValue]];
-    NSMutableURLRequest *request = [self requestWithMethod:@"GET"
-                                                      path:[streamURL absoluteString]
-                                                parameters:nil];
+    
+    AFHTTPRequestSerializer* requestSerializer =
+    [self.requestSerializers objectForKey:[NSNumber numberWithInteger:AFFormURLParameterEncoding]];
+    
+    NSMutableURLRequest *request = [requestSerializer
+                                    requestWithMethod:@"GET"
+                                    URLString:[streamURL absoluteString]
+                                    parameters:nil
+                                    error:nil];
     [request setTimeoutInterval:50.0];
     return request;
 }

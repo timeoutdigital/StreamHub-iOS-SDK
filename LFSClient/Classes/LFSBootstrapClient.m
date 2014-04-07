@@ -19,7 +19,7 @@
 #pragma mark - Overrides
 -(NSString*)subdomain { return @"bootstrap"; }
 
-- (instancetype)initWithEnvironment:(NSString *)environment
+- (id)initWithEnvironment:(NSString *)environment
                             network:(NSString *)network
 {
     self = [super initWithNetwork:network environment:environment];
@@ -41,6 +41,7 @@
                       self.lfNetwork, siteId, [articleId base64String]];
     [self getPath:path
        parameters:nil
+parameterEncoding:AFFormURLParameterEncoding
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               // intercept responseObject and assign it to infoInit
               self.infoInit = (NSDictionary*)responseObject;
@@ -76,7 +77,7 @@
                         [self.infoInit objectForKey:LFSHeadDocument]
                         );
             }];
-            [self.operationQueue addOperation:opSuccess];
+            [self.reqOpManager.operationQueue addOperation:opSuccess];
         }
         return;
     }
@@ -93,7 +94,7 @@
                                         userInfo:@{NSLocalizedDescriptionKey:@"Page index outside of collection page bounds."}]
                         );
             }];
-            [self.operationQueue addOperation:opFailure];
+            [self.reqOpManager.operationQueue addOperation:opFailure];
         }
         return;
     }
@@ -102,6 +103,7 @@
     NSString *path = [NSString stringWithFormat:@"/bs3%@%zd.json", pathBase, pageIndex];
     [self getPath:path
        parameters:nil
+parameterEncoding:AFFormURLParameterEncoding
           success:(AFSuccessBlock)success
           failure:(AFFailureBlock)failure];
 }
@@ -129,6 +131,7 @@
     }
     [self getPath:[NSString stringWithFormat:@"/api/v3.0/author/%@/comments/", userId]
        parameters:parameters
+parameterEncoding:AFFormURLParameterEncoding
           success:(AFSuccessBlock)success
           failure:(AFFailureBlock)failure];
 }
@@ -153,6 +156,7 @@
     }
     [self getPath:@"/api/v3.0/hottest/"
        parameters:parameters
+parameterEncoding:AFFormURLParameterEncoding
           success:(AFSuccessBlock)success
           failure:(AFFailureBlock)failure];
 }

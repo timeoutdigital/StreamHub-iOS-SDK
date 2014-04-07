@@ -53,6 +53,9 @@
 		EF21AB9D17C3E26500094CC2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */; };
 		EF21AB9E17C3E26B00094CC2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */; };
 		EF56AF8D17C6CEB50086127D /* LFSJSONKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF56AF8C17C6CEB50086127D /* LFSJSONKitTests.m */; };
+		EF860D4618F280EE0015431B /* LFSJSONResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = EF860D4418F280EE0015431B /* LFSJSONResponseSerializer.h */; };
+		EF860D4718F280EE0015431B /* LFSJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = EF860D4518F280EE0015431B /* LFSJSONResponseSerializer.m */; };
+		EF894D7118F315F900D4F2CF /* LFSJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = EF860D4518F280EE0015431B /* LFSJSONResponseSerializer.m */; };
 		EF96CB4C17D15D780019AA82 /* livefyre-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EF96CB4A17D15D780019AA82 /* livefyre-logo.png */; };
 		EF96CB4D17D15D780019AA82 /* livefyre-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF96CB4B17D15D780019AA82 /* livefyre-logo@2x.png */; };
 		EF9FD45217B4476B009FE59D /* LFSClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623416B0A3A900CFA905 /* LFSClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -66,9 +69,6 @@
 		EFA0456417D806130012CD31 /* LFSBootstrapClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EFA0455617D806130012CD31 /* LFSBootstrapClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EFA0456517D806130012CD31 /* LFSBootstrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA0455717D806130012CD31 /* LFSBootstrapClient.m */; };
 		EFA0456617D806130012CD31 /* LFSBootstrapClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA0455717D806130012CD31 /* LFSBootstrapClient.m */; };
-		EFA0456717D806130012CD31 /* LFSJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = EFA0455817D806130012CD31 /* LFSJSONRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EFA0456817D806130012CD31 /* LFSJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA0455917D806130012CD31 /* LFSJSONRequestOperation.m */; };
-		EFA0456917D806130012CD31 /* LFSJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA0455917D806130012CD31 /* LFSJSONRequestOperation.m */; };
 		EFA0456A17D806130012CD31 /* LFSStreamClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EFA0455A17D806130012CD31 /* LFSStreamClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EFA0456B17D806130012CD31 /* LFSStreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA0455B17D806130012CD31 /* LFSStreamClient.m */; };
 		EFA0456C17D806130012CD31 /* LFSStreamClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA0455B17D806130012CD31 /* LFSStreamClient.m */; };
@@ -77,7 +77,6 @@
 		EFA0456F17D806130012CD31 /* LFSWriteClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA0455D17D806130012CD31 /* LFSWriteClient.m */; };
 		EFDF081817CE756500C7D6C0 /* LFSConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDF081717CE756500C7D6C0 /* LFSConfig.m */; };
 		EFE0420E17C3154B0011DD6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFE0420D17C3154B0011DD6A /* UIKit.framework */; };
-		EFE0CB1317C535EF00775C9C /* LFSClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EFE0CB1117C535EF00775C9C /* LFSClientTests.m */; };
 		EFF3049417E68961005358F5 /* NSDateFormatter+RelativeTo.h in Headers */ = {isa = PBXBuildFile; fileRef = EFF3049017E68961005358F5 /* NSDateFormatter+RelativeTo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EFF3049517E68961005358F5 /* NSDateFormatter+RelativeTo.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF3049117E68961005358F5 /* NSDateFormatter+RelativeTo.m */; };
 		EFF3049617E68961005358F5 /* NSDateFormatter+RelativeTo.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF3049117E68961005358F5 /* NSDateFormatter+RelativeTo.m */; };
@@ -147,6 +146,8 @@
 		EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EF56AF8C17C6CEB50086127D /* LFSJSONKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSJSONKitTests.m; sourceTree = "<group>"; };
+		EF860D4418F280EE0015431B /* LFSJSONResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSJSONResponseSerializer.h; path = LFSClient/Classes/LFSJSONResponseSerializer.h; sourceTree = "<group>"; };
+		EF860D4518F280EE0015431B /* LFSJSONResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSJSONResponseSerializer.m; path = LFSClient/Classes/LFSJSONResponseSerializer.m; sourceTree = "<group>"; };
 		EF96CB4A17D15D780019AA82 /* livefyre-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "livefyre-logo.png"; sourceTree = "<group>"; };
 		EF96CB4B17D15D780019AA82 /* livefyre-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "livefyre-logo@2x.png"; sourceTree = "<group>"; };
 		EFA0455217D806130012CD31 /* LFSAdminClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSAdminClient.h; path = LFSClient/Classes/LFSAdminClient.h; sourceTree = "<group>"; };
@@ -155,8 +156,6 @@
 		EFA0455517D806130012CD31 /* LFSBaseClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSBaseClient.m; path = LFSClient/Classes/LFSBaseClient.m; sourceTree = "<group>"; };
 		EFA0455617D806130012CD31 /* LFSBootstrapClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSBootstrapClient.h; path = LFSClient/Classes/LFSBootstrapClient.h; sourceTree = "<group>"; };
 		EFA0455717D806130012CD31 /* LFSBootstrapClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSBootstrapClient.m; path = LFSClient/Classes/LFSBootstrapClient.m; sourceTree = "<group>"; };
-		EFA0455817D806130012CD31 /* LFSJSONRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSJSONRequestOperation.h; path = LFSClient/Classes/LFSJSONRequestOperation.h; sourceTree = "<group>"; };
-		EFA0455917D806130012CD31 /* LFSJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSJSONRequestOperation.m; path = LFSClient/Classes/LFSJSONRequestOperation.m; sourceTree = "<group>"; };
 		EFA0455A17D806130012CD31 /* LFSStreamClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSStreamClient.h; path = LFSClient/Classes/LFSStreamClient.h; sourceTree = "<group>"; };
 		EFA0455B17D806130012CD31 /* LFSStreamClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSStreamClient.m; path = LFSClient/Classes/LFSStreamClient.m; sourceTree = "<group>"; };
 		EFA0455C17D806130012CD31 /* LFSWriteClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSWriteClient.h; path = LFSClient/Classes/LFSWriteClient.h; sourceTree = "<group>"; };
@@ -164,7 +163,6 @@
 		EFDF081617CE756500C7D6C0 /* LFSConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFSConfig.h; sourceTree = "<group>"; };
 		EFDF081717CE756500C7D6C0 /* LFSConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSConfig.m; sourceTree = "<group>"; };
 		EFE0420D17C3154B0011DD6A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		EFE0CB1117C535EF00775C9C /* LFSClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSClientTests.m; sourceTree = "<group>"; };
 		EFE0CB1217C535EF00775C9C /* AFNetworkingTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkingTests.h; sourceTree = "<group>"; };
 		EFF3049017E68961005358F5 /* NSDateFormatter+RelativeTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+RelativeTo.h"; sourceTree = "<group>"; };
 		EFF3049117E68961005358F5 /* NSDateFormatter+RelativeTo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+RelativeTo.m"; sourceTree = "<group>"; };
@@ -267,7 +265,6 @@
 				EFDF081717CE756500C7D6C0 /* LFSConfig.m */,
 				1CF061FB16B098C500CFA905 /* LFSRC4Tests.m */,
 				EF56AF8C17C6CEB50086127D /* LFSJSONKitTests.m */,
-				EFE0CB1117C535EF00775C9C /* LFSClientTests.m */,
 				1C4CC8A216A48B3800C33DEC /* LFSClientNetworkTests.m */,
 				1CF061F516B093B500CFA905 /* LFSClientSpoofTests.m */,
 				EF03F9DF17DA665D00FE4C23 /* LFSRelativeToDateTest.m */,
@@ -316,10 +313,10 @@
 				1CF0623416B0A3A900CFA905 /* LFSClient.h */,
 				1CF0623816B0A3A900CFA905 /* LFSConstants.h */,
 				1CF0623916B0A3A900CFA905 /* LFSConstants.m */,
-				EFA0455817D806130012CD31 /* LFSJSONRequestOperation.h */,
-				EFA0455917D806130012CD31 /* LFSJSONRequestOperation.m */,
 				EFA0455417D806130012CD31 /* LFSBaseClient.h */,
 				EFA0455517D806130012CD31 /* LFSBaseClient.m */,
+				EF860D4418F280EE0015431B /* LFSJSONResponseSerializer.h */,
+				EF860D4518F280EE0015431B /* LFSJSONResponseSerializer.m */,
 				EFA0455217D806130012CD31 /* LFSAdminClient.h */,
 				EFA0455317D806130012CD31 /* LFSAdminClient.m */,
 				EFA0455617D806130012CD31 /* LFSBootstrapClient.h */,
@@ -350,9 +347,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFF3049717E68961005358F5 /* NSString+LFSEref.h in Headers */,
+				EF860D4618F280EE0015431B /* LFSJSONResponseSerializer.h in Headers */,
 				EFF3049417E68961005358F5 /* NSDateFormatter+RelativeTo.h in Headers */,
 				EFA0455E17D806130012CD31 /* LFSAdminClient.h in Headers */,
-				EFA0456717D806130012CD31 /* LFSJSONRequestOperation.h in Headers */,
 				EFA0456D17D806130012CD31 /* LFSWriteClient.h in Headers */,
 				EFA0456A17D806130012CD31 /* LFSStreamClient.h in Headers */,
 				EFA0456117D806130012CD31 /* LFSBaseClient.h in Headers */,
@@ -561,10 +558,10 @@
 			files = (
 				EFA0456217D806130012CD31 /* LFSBaseClient.m in Sources */,
 				EFA0455F17D806130012CD31 /* LFSAdminClient.m in Sources */,
+				EF860D4718F280EE0015431B /* LFSJSONResponseSerializer.m in Sources */,
 				EFA0456517D806130012CD31 /* LFSBootstrapClient.m in Sources */,
 				EFA0456B17D806130012CD31 /* LFSStreamClient.m in Sources */,
 				EFF3049517E68961005358F5 /* NSDateFormatter+RelativeTo.m in Sources */,
-				EFA0456817D806130012CD31 /* LFSJSONRequestOperation.m in Sources */,
 				EFF3049817E68961005358F5 /* NSString+LFSEref.m in Sources */,
 				1CF0624A16B0A3A900CFA905 /* LFSConstants.m in Sources */,
 				EFA0456E17D806130012CD31 /* LFSWriteClient.m in Sources */,
@@ -575,6 +572,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF894D7118F315F900D4F2CF /* LFSJSONResponseSerializer.m in Sources */,
 				1C4CC8A316A48B3800C33DEC /* LFSClientNetworkTests.m in Sources */,
 				1CF061F316B0936F00CFA905 /* LFSTestingURLProtocol.m in Sources */,
 				EF03D34D17C53A7D0097FDD3 /* AFNetworkingTests.m in Sources */,
@@ -583,13 +581,11 @@
 				EFA0456C17D806130012CD31 /* LFSStreamClient.m in Sources */,
 				1CF061F616B093B500CFA905 /* LFSClientSpoofTests.m in Sources */,
 				1CF061FC16B098C500CFA905 /* LFSRC4Tests.m in Sources */,
-				EFE0CB1317C535EF00775C9C /* LFSClientTests.m in Sources */,
 				EFA0456F17D806130012CD31 /* LFSWriteClient.m in Sources */,
 				EFA0456617D806130012CD31 /* LFSBootstrapClient.m in Sources */,
 				EFA0456317D806130012CD31 /* LFSBaseClient.m in Sources */,
 				EFF3049917E68961005358F5 /* NSString+LFSEref.m in Sources */,
 				EFDF081817CE756500C7D6C0 /* LFSConfig.m in Sources */,
-				EFA0456917D806130012CD31 /* LFSJSONRequestOperation.m in Sources */,
 				EFF3049617E68961005358F5 /* NSDateFormatter+RelativeTo.m in Sources */,
 				1CF0624B16B0A3A900CFA905 /* LFSConstants.m in Sources */,
 				EFA0456017D806130012CD31 /* LFSAdminClient.m in Sources */,
