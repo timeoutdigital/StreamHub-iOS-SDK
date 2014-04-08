@@ -20,10 +20,6 @@
 
 @synthesize readingOptions = _readingOptions;
 
-+ (NSSet *)acceptableContentTypes {
-    return [NSSet setWithObjects:@"application/json", @"application/javascript", @"application/x-javascript", @"text/json", @"text/javascript", @"text/x-javascript", nil];
-}
-
 static NSError * AFErrorWithUnderlyingError(NSError *error, NSError *underlyingError) {
     if (!error) {
         return underlyingError;
@@ -57,6 +53,7 @@ static BOOL AFErrorOrUnderlyingErrorHasCode(NSError *error, NSInteger code) {
 -(id)initWithReadingOptions:(JKFlags)jkflags {
     self = [super init];
     if (self) {
+        self.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"application/javascript", @"application/x-javascript", @"text/json", @"text/javascript", @"text/x-javascript", nil];
         self.decoder = [JSONDecoder decoderWithParseOptions:(JKParseOptionTruncateNumbers | jkflags)];
         
         NSMutableSet* acceptableContentTypes = [self.acceptableContentTypes mutableCopy];

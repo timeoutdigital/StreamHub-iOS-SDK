@@ -751,7 +751,6 @@
 
 #pragma mark - Test Streaming API
 
-/*
 - (void)testStreamAndPost {
     // Get Init
     __block AFHTTPRequestOperation *op0 = nil;
@@ -835,6 +834,6 @@
     expect(resultPost).will.beTruthy();
     expect(resultStream).will.beTruthy();
 }
-*/
+
 
 @end

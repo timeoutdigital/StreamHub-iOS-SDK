@@ -142,7 +142,7 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
                                                    afterDelay:2.0];
                                     }
                                 }];
-    
+    op.responseSerializer = self.responseSerializer;
     [self.reqOpManager.operationQueue addOperation:op];
 }
 
