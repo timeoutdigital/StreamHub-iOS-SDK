@@ -304,7 +304,7 @@
     
     // Actual call would look something like this:
     NSString *content = [NSString
-                         stringWithFormat:@"test post, %zd",
+                         stringWithFormat:@"test post freie_plätze, %zd",
                          arc4random()];
     
     LFSWriteClient *clientWrite = [LFSWriteClient clientWithNetwork:@"post-sample" environment:nil ];
