@@ -97,7 +97,10 @@ static BOOL AFErrorOrUnderlyingErrorHasCode(NSError *error, NSInteger code) {
             
             if (data) {
                 if ([data length] > 0) {
-                    //responseObject = [NSJSONSerialization JSONObjectWithData:data options:self.readingOptions error:&serializationError];
+                    // To use NSJSONSerialization instead of JSONKit simply replace
+                    // the line below with (note that this may cause failure on some endpoints
+                    // because of the large numbers problem):
+                    // responseObject = [NSJSONSerialization JSONObjectWithData:data options:self.readingOptions error:&serializationError];
                     responseObject = [self.decoder objectWithData:data error:&serializationError];
                 } else {
                     return nil;

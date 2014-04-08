@@ -97,9 +97,11 @@
     expect(op0).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op0.error).notTo.equal(NSURLErrorTimedOut);
     // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
-    expect(bootstrapInitInfo).to.beKindOf([NSDictionary class]);
-    expect(bootstrapInitInfo).to.haveCountOf(4);
-    
+    expect(bootstrapInitInfo).to.beTruthy();
+    if (bootstrapInitInfo) {
+        expect(bootstrapInitInfo).to.beKindOf([NSDictionary class]);
+        expect(bootstrapInitInfo).to.haveCountOf(4);
+    }
     
     // Get Page 1
     __block NSDictionary *contentInfo1 = nil;
@@ -170,8 +172,10 @@
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
-    expect(result).to.beKindOf([NSArray class]);
-    expect(result).to.haveCountOf(10u);
+    if (result) {
+        expect(result).to.beKindOf([NSArray class]);
+        expect(result).to.haveCountOf(10u);
+    }
 }
 
 - (void)testUserDataWithGetContentForUser
@@ -200,8 +204,10 @@
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).to.beTruthy();
-    expect(result).to.beKindOf([NSArray class]);
-    expect(result).to.haveCountOf(12u);
+    if (result) {
+        expect(result).to.beKindOf([NSArray class]);
+        expect(result).to.haveCountOf(12u);
+    }
 }
 
 #pragma mark - Test Admin Client
