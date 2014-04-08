@@ -24,17 +24,17 @@ follow these steps:
 
 ### As a Cocoa Pod (recommended)
 
-The most convenient way to add StreamHub SDK to your project is to use CocoaPods. StreamHub SDK does not yet have a spec on CocoaPods.org, so for now just specify the Github repository when adding it to your pods. An example Podfile:
+The most convenient way to add StreamHub-iOS SDK to your project is to use CocoaPods. Since StreamHub SDK does not have a spec listed on CocoaPods.org, just specify the Github repository when adding it to your pods. Here is an example Podfile:
 
     platform :ios, :deployment_target => '6.0'
 
     pod 'StreamHub-iOS-SDK', :git => 'https://github.com/Livefyre/StreamHub-iOS-SDK'
 
-Note that the above command will use the latest commit from master branch on GitHub. You can force CocoaPods to use a particular commit by appending to the command above the following: `:commit => '2523e6f500bab738d04ff68bae1545869ad2543a'`. Once your Podfile is placed in your app project root, simply run:
+Note that the above command will pull the latest commit from master branch on GitHub. You can force CocoaPods to use a specific commit by adding the following modifier to the last command above: `:commit => '2523e6f500bab738d04ff68bae1545869ad2543a'`. Once your Podfile is created in your app project root, simply run:
 
     pod install
 
-This will download all the dependencies and create a file called `MyApp.xcworkspace` which you should use to open your app project in Xcode in the future.
+This will download all the dependencies and create a file called `MyApp.xcworkspace`, which you should use to open your app project in Xcode in the future.
 
 ### As an Xcode subproject
 
@@ -51,6 +51,10 @@ You can browse the documentation online [[3]] or you can build the "Documentatio
 ## Requirements
 
 StreamHub iOS SDK versions since v0.2.0 require iOS 6.0 or higher.
+
+## Appendix (JSON support)
+
+For those looking at StreamHub-iOS SDK internals, note that we use a modified version of JSONKit as its default JSON parser (and not native NSJSONSerialization) because NSJSONSerialization does not support decoding JSON files that contain integers or floating point numbers that are larger than those that can be represented by the system. We use a modified version of JSONKit that truncates very large numbers to system maximum (instead of throwing an exception).
 
 ## License
 
