@@ -59,7 +59,7 @@ StreamHub iOS SDK versions since v0.2.0 require iOS 6.0 or higher.
 
 ## Appendix (JSON support)
 
-For those looking at StreamHub-iOS SDK internals, please note that we use a modified version of JSONKit [[4]] as the default JSON parser (instead of Apple-provided NSJSONSerialization) because NSJSONSerialization does not support decoding JSON files that contain integers or floating point numbers that are larger than those that can be represented by the system. Our modified version of JSONKit truncates very large numbers to corresponding system maximum, instead of throwing an exception.
+For those looking at StreamHub-iOS SDK internals, please note that we use a modified version of JSONKit [[4]] as the default JSON parser (instead of Apple-provided NSJSONSerialization). We had to do this because the Apple-provided parser does not support decoding JSON files that contain integers or floating point numbers that are larger than those that can be represented by the system. Our modified version of JSONKit truncates very large numbers to corresponding system maximum, instead of throwing an exception.
 
 ## License
 
