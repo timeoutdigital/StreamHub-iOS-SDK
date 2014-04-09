@@ -6,12 +6,12 @@ Pod::Spec.new do |s|
 The StreamHub-iOS-SDK is a framework for building native iOS apps that interact with Livefyre services.
 It lets you create apps that obtain user-generated content through Livefyre, poll for updates, and modify content.
                    DESC
-  s.homepage     = "https://github.com/escherba/StreamHub-iOS-SDK"
+  s.homepage     = "https://github.com/Livefyre/StreamHub-iOS-SDK"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.authors      = { "JJ Weber" => "jj@livefyre.com", "Eugene Scherba" => "escherba@livefyre.com" }
   s.platform     = :ios
   s.ios.deployment_target = '6.0'
-  s.source       = { :git => "https://github.com/escherba/StreamHub-iOS-SDK.git", :tag => "0.2.0" }
+  s.source       = { :git => "https://github.com/Livefyre/StreamHub-iOS-SDK.git", :tag => "0.2.0" }
   s.resources    = 'LFSClient/Resources/*'
   s.subspec 'arc' do |sp|
     s.ios.prefix_header_file = 'LFSClient/LFSClient-Prefix.pch'
@@ -24,6 +24,6 @@ It lets you create apps that obtain user-generated content through Livefyre, pol
   end
   s.subspec 'no-arc' do |sp|
     sp.requires_arc = false
-    s.dependency 'JSONKit', 'https://github.com/escherba/JSONKit.git'
+    s.dependency 'JSONKit', '~> 1.4'
   end
 end
