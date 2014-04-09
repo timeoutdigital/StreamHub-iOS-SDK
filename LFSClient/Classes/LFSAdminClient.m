@@ -24,7 +24,7 @@
     NSParameterAssert(userToken != nil);
     NSParameterAssert(collectionId != nil);
     
-    [self getPath:@"/api/v3.0/auth/"
+    [self.reqOpManager GET:@"/api/v3.0/auth/"
        parameters:@{@"lftoken": userToken,
                     @"collectionId": collectionId}
           success:(AFSuccessBlock)success
@@ -41,7 +41,7 @@
     NSParameterAssert(siteId != nil);
     NSParameterAssert(articleId != nil);
     
-    [self getPath:@"/api/v3.0/auth/"
+    [self.reqOpManager GET:@"/api/v3.0/auth/"
        parameters:@{@"lftoken": userToken,
                     @"siteId": siteId,
                     @"articleId":[articleId base64String]}

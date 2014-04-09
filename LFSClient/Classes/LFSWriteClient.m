@@ -10,6 +10,7 @@
 #import <JWT/JWT.h>
 #import <NSString-Hashes/NSString+Hashes.h>
 
+// Requires HTTP request encoding
 @implementation LFSWriteClient
 
 #pragma mark - Overrides
@@ -46,6 +47,7 @@
     
     [self postPath:path
         parameters:parameters1
+ parameterEncoding:AFFormURLParameterEncoding
            success:success
            failure:failure];
 }
@@ -77,6 +79,7 @@
     
     [self postPath:path
         parameters:parameters1
+ parameterEncoding:AFFormURLParameterEncoding
            success:success
            failure:failure];
 }
@@ -138,6 +141,7 @@
     
     [self postPath:path
         parameters:mutableParameters
+ parameterEncoding:AFFormURLParameterEncoding
            success:success
            failure:failure];
 }
