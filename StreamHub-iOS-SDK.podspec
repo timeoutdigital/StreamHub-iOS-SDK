@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "StreamHub-iOS-SDK"
-  s.version      = "0.2.0"
+  s.version      = "0.2.3"
   s.summary      = "A client library for Livefyre's API"
   s.description  = <<-DESC
 The StreamHub-iOS-SDK is a framework for building native iOS apps that interact with Livefyre services.
@@ -11,7 +11,7 @@ It lets you create apps that obtain user-generated content through Livefyre, pol
   s.authors      = { "JJ Weber" => "jj@livefyre.com", "Eugene Scherba" => "escherba@livefyre.com" }
   s.platform     = :ios
   s.ios.deployment_target = '6.0'
-  s.source       = { :git => "https://github.com/Livefyre/StreamHub-iOS-SDK.git", :tag => "0.2.0" }
+  s.source       = { :git => "https://github.com/Livefyre/StreamHub-iOS-SDK.git", :tag => "0.2.3" }
   s.resources    = 'LFSClient/Resources/*'
   s.subspec 'arc' do |sp|
     s.ios.prefix_header_file = 'LFSClient/LFSClient-Prefix.pch'
