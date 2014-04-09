@@ -24,6 +24,6 @@ It lets you create apps that obtain user-generated content through Livefyre, pol
   end
   s.subspec 'no-arc' do |sp|
     sp.requires_arc = false
-    s.dependency 'JSONKit', '~> 1.4'
+    s.dependency 'LFJSONKit', '~> 1.6a'
   end
 end

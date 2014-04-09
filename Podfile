@@ -6,7 +6,7 @@ pod 'AFNetworking', '~> 1.3.2'
 pod 'JWT', '~> 1.0.3'
 pod 'Base64', '~> 1.0.1'
 pod 'NSString-Hashes', '~> 1.2.0'
-pod 'JSONKit', '~> 1.4'
+pod 'LFJSONKit', '~> 1.6a'
 
 target :test do
     link_with 'LFSClientTests'
@@ -14,7 +14,7 @@ target :test do
     pod 'Base64', '~> 1.0.1'
     pod 'NSString-Hashes', '~> 1.2.0'
     pod 'AFHTTPRequestOperationLogger', '~> 1.0.0'
-    pod 'JSONKit', '~> 1.4'
+    pod 'LFJSONKit', '~> 1.6a'
     pod 'OCMock', '~> 2.1.1' # mock objects
     pod 'Expecta', '~> 0.2.1' # readable pass conditions
 end
