@@ -49,9 +49,11 @@ Alternatively, clone the repository:
 
 Next, add the Xcode project (LFSClient.xcodeproj) to your app as a subproject (easily done by simply dragging the LFSClient.xcodeproj file into Project Navigator pane in Xcode).
 
+You will also need to do the same with any of the dependencies (AFNetworking [[3]], JSONKit [[4]]).
+
 ## Xcode Documentation
 
-You can browse the documentation online [[3]] or you can build the "Documentation" target in your Xcode (requires `appledoc` to be installed) on your system.
+You can browse the documentation online [[5]] or you can build the "Documentation" target in your Xcode (requires `appledoc` to be installed) on your system.
 
 ## Requirements
 
@@ -90,5 +92,6 @@ SOFTWARE.
 
 [1]: https://github.com/Livefyre/StreamHub-iOS-Example-App
 [2]: http://answers.livefyre.com/developers/reference/http-reference/
-[3]: http://livefyre.github.com/StreamHub-iOS-SDK/
+[3]: https://github.com/mattt/AFNetworking
 [4]: https://github.com/escherba/JSONKit
+[5]: http://livefyre.github.com/StreamHub-iOS-SDK/
