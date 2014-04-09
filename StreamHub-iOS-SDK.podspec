@@ -20,7 +20,6 @@ StreamHub-iOS is the official Livefyre SDK for building real-time native iOS app
     s.dependency 'JWT', '~> 1.0.3'
     s.dependency 'Base64', '~> 1.0.1'
     s.dependency 'NSString-Hashes', '~> 1.2.0'
-    s.dependency 'AFHTTPRequestOperationLogger', '~> 2.0.0'
   end
   s.subspec 'no-arc' do |sp|
     sp.requires_arc = false
