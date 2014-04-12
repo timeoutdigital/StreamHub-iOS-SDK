@@ -65,12 +65,13 @@ typedef NS_ENUM(NSUInteger, AFHTTPClientParameterEncoding) {
 
 /**
  * Initialize Livefyre client
- *
- * @param network network as identified by domain, i.e. livefyre.com.
- * @param environment (optional) Where collection(s) are hosted, i.e. t-402.
- *        Used for development/testing purposes.
- * @return LFSClient instance
- * @see -initWithNetwork:environment:
+ @abstract Initialize Livefyre client
+ @discussion Initialize Livefyre client
+ @param network network as identified by domain, i.e. livefyre.com.
+ @param environment (optional) Where collection(s) are hosted, i.e. t-402.
+         Used for development/testing purposes.
+ @return LFSClient instance
+ @see -initWithNetwork:environment:
  */
 
 + (instancetype)clientWithNetwork:(NSString *)network
@@ -79,10 +80,10 @@ typedef NS_ENUM(NSUInteger, AFHTTPClientParameterEncoding) {
 /*!
  @abstract Initialize Livefyre client with client and network
  @discussion Initialize Livefyre client with client and network
- * @param network network as identified by domain, i.e. livefyre.com.
- * @param environment (optional) Where collection(s) are hosted, i.e. t-402.
- *        Used for development/testing purposes.
- * @return LFSClient instance
+ @param network network as identified by domain, i.e. livefyre.com.
+ @param environment (optional) Where collection(s) are hosted, i.e. t-402.
+         Used for development/testing purposes.
+ @return LFSClient instance
  */
 - (id)initWithNetwork:(NSString *)network
           environment:(NSString *)environment;
