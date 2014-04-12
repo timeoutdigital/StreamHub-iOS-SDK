@@ -76,9 +76,9 @@ typedef NS_ENUM(NSUInteger, AFHTTPClientParameterEncoding) {
 + (instancetype)clientWithNetwork:(NSString *)network
                       environment:(NSString *)environment;
 
-/**
- * Initialize Livefyre client with client and network
- *
+/*!
+ @abstract Initialize Livefyre client with client and network
+ @discussion Initialize Livefyre client with client and network
  * @param network network as identified by domain, i.e. livefyre.com.
  * @param environment (optional) Where collection(s) are hosted, i.e. t-402.
  *        Used for development/testing purposes.
@@ -88,25 +88,26 @@ typedef NS_ENUM(NSUInteger, AFHTTPClientParameterEncoding) {
           environment:(NSString *)environment;
 
 
-/**
- Creates and returns Livefyre client with base URL 
- 
+/*!
+ @abstract Creates and returns Livefyre client with base URL
+ @discussion Creates and returns Livefyre client with base URL
  @param baseURL The base URL
+ @return LFSBaseClient instance
  */
 
 + (instancetype)clientWithBaseURL:(NSURL *)baseURL;
 
-/**
- Initialize Livefyre client with base URL
- 
+/*!
+ @abstract Initialize Livefyre client with base URL
+ @discussion Initialize Livefyre client with base URL
  @param baseURL The base URL
+ @return LFSBaseClient instance
  */
 - (id)initWithBaseURL:(NSURL *)baseURL;
 
-/**
- Creates an `LFSJSONRequestOperation` with a `POST` request, and enqueues it to the HTTP client's operation queue.
- Let developer specify the particular parameter encoding to use.
- 
+/*!
+ @abstract Creates an `LFSJSONRequestOperation` with a `POST` request, and enqueues it to the HTTP client's operation queue
+ @discussion Creates an `LFSJSONRequestOperation` with a `POST` request, and enqueues it to the HTTP client's operation queue. Lets developer specify the particular parameter encoding to use.
  @param path relative path
  @param parameters The parameters to be encoded and set in the request HTTP body.
  @param parameterEncoding The `AFHTTPClientParameterEncoding` value corresponding to how parameters are encoded into a request body
@@ -119,10 +120,9 @@ parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
          success:(AFSuccessBlock)success
          failure:(AFFailureBlock)failure;
 
-/**
- Creates an `LFSJSONRequestOperation` with a `POST` request, and enqueues it to the HTTP client's operation queue.
- Let developer specify the particular parameter encoding to use.
- 
+/*!
+ @abstract Creates an `LFSJSONRequestOperation` with a `POST` request, and enqueues it to the HTTP client's operation queue
+ @discussion Creates an `LFSJSONRequestOperation` with a `POST` request, and enqueues it to the HTTP client's operation queue. Let developer specify the particular parameter encoding to use.
  @param url URL to be used as request URL
  @param parameters The parameters to be encoded and set in the request HTTP body.
  @param parameterEncoding The `AFHTTPClientParameterEncoding` value corresponding to how parameters are encoded into a request body
@@ -135,10 +135,9 @@ parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
         success:(AFSuccessBlock)success
         failure:(AFFailureBlock)failure;
 
-/**
- Creates an `LFSJSONRequestOperation` with a `GET` request, and enqueues it to the HTTP client's operation queue.
- Let developer specify the particular parameter encoding to use.
- 
+/*!
+ @abstract Creates an `LFSJSONRequestOperation` with a `GET` request, and enqueues it to the HTTP client's operation queue
+ @discussion Creates an `LFSJSONRequestOperation` with a `GET` request, and enqueues it to the HTTP client's operation queue. Let developer specify the particular parameter encoding to use.
  @param path relative path
  @param parameters The parameters to be encoded and set in the request HTTP body.
  @param parameterEncoding The `AFHTTPClientParameterEncoding` value corresponding to how parameters are encoded into a request body

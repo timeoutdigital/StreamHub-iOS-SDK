@@ -25,14 +25,12 @@
  */
 @property (nonatomic, strong) NSNumber *eventId;
 
-/** Prepare for streaming */
-
-/**
- * Set result, success, and failure handlers
- *
- * @param handler   Callback to handle response data
- * @param success   Success callback (if provided, invalidates handler)
- * @param failure   Failure callback
+/*!
+ @abstract Set result, success, and failure handlers
+ @discussion Set result, success, and failure handlers
+ @param handler   Callback to handle response data
+ @param success   Success callback (if provided, invalidates handler)
+ @param failure   Failure callback
  */
 
 - (void)setResultHandler:(LFHandleBlock)handler

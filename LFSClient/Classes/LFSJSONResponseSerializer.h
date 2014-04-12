@@ -16,10 +16,11 @@
  */
 @property (nonatomic, assign) JKFlags readingOptions;
 
-/**
- Creates and returns a JSON serializer with specified reading and writing options.
- 
+/*!
+ @abstract Creates and returns a JSON serializer with specified reading and writing options.
+ @discussion Creates and returns a JSON serializer with specified reading and writing options.
  @param readingOptions The specified JSON reading flags.
+ @return LFSJSONResponseSerializer instance
  */
 + (instancetype)serializerWithReadingOptions:(JKFlags)readingOptions;
 
