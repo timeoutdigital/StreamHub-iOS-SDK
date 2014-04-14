@@ -8,6 +8,26 @@
 
 #import "LFSJSONResponseSerializer.h"
 
+NSError* getErrorFromObject(NSDictionary* object)
+{
+    NSInteger errorCode = [[object objectForKey:@"code"] integerValue];
+    NSString *errorMessage = [NSString stringWithFormat:@"Error %zd: %@",
+                              errorCode,
+                              [object objectForKey:@"msg"]];
+    NSString *errorType = [object objectForKey:@"error_type"];
+    
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    if (errorMessage != nil) {
+        [dictionary setObject:errorMessage forKey:NSLocalizedDescriptionKey];
+    }
+    if (errorType != nil) {
+        [dictionary setObject:errorType forKey:NSLocalizedFailureReasonErrorKey];
+    }
+    NSError *error = [NSError errorWithDomain:NSURLErrorDomain
+                                         code:errorCode
+                                     userInfo:dictionary];
+    return error;
+}
 
 @interface LFSJSONResponseSerializer ()
 
@@ -63,7 +83,9 @@ static BOOL AFErrorOrUnderlyingErrorHasCode(NSError *error, NSInteger code) {
     return self;
 }
 
--(id)responseObjectForResponse:(NSURLResponse *)response data:(NSData *)data error:(NSError **)error
+- (id)responseObjectForResponse:(NSURLResponse *)response
+                           data:(NSData *)data
+                          error:(NSError *__autoreleasing *)error
 {
     if (![self validateResponse:(NSHTTPURLResponse *)response data:data error:error]) {
         if (AFErrorOrUnderlyingErrorHasCode(*error, NSURLErrorCannotDecodeContentData)) {
@@ -122,7 +144,7 @@ static BOOL AFErrorOrUnderlyingErrorHasCode(NSError *error, NSInteger code) {
             responseObject = [responseObject objectForKey:@"data"];
         }
         else if ([status isEqualToString:@"error"]) {
-            NSError *lfserror = [self getErrorFromObject:responseObject];
+            NSError *lfserror = getErrorFromObject(responseObject);
             *error = lfserror;
         }
     } else if (error) {
@@ -131,25 +153,5 @@ static BOOL AFErrorOrUnderlyingErrorHasCode(NSError *error, NSInteger code) {
 
     return responseObject;
 }
-
--(NSError*)getErrorFromObject:(NSDictionary*)object
-{
-    NSInteger errorCode = [[object objectForKey:@"code"] integerValue];
-    NSString *errorMessage = [NSString stringWithFormat:@"Error %zd: %@", errorCode, [object objectForKey:@"msg"]];
-    NSString *errorType = [object objectForKey:@"error_type"];
-
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    if (errorMessage != nil) {
-        [dictionary setObject:errorMessage forKey:NSLocalizedDescriptionKey];
-    }
-    if (errorType != nil) {
-        [dictionary setObject:errorType forKey:NSLocalizedFailureReasonErrorKey];
-    }
-    NSError *error = [NSError errorWithDomain:NSURLErrorDomain
-                           code:errorCode
-                       userInfo:dictionary];
-    return error;
-}
-
 
 @end
