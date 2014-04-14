@@ -26,38 +26,39 @@ typedef NS_ENUM(NSUInteger, AFHTTPClientParameterEncoding) {
 @interface LFSBaseClient : NSObject
 
 /**
-  @property lfEnvironment Environment with which this class instance was initialized
+  @abstract lfEnvironment Environment with which this class instance was initialized
  */
 @property (nonatomic, readonly) NSString* lfEnvironment;
 
 /**
- @property lfNetwork Network with which this class instance was initialized
+ @abstract lfNetwork Network with which this class instance was initialized
  */
 @property (nonatomic, readonly) NSString* lfNetwork;
 
 /**
- @property subdomain abstract (to be overriden) subdomain of the baseURL
+ @abstract subdomain abstract (to be overriden) subdomain of the baseURL
  */
 @property (nonatomic, readonly) NSString *subdomain;
 
 /**
- @property subdomain abstract (to be overriden) subdomain of the baseURL
+ @abstract subdomain abstract (to be overriden) subdomain of the baseURL
  */
 @property (nonatomic, readonly) AFHTTPRequestOperationManager *reqOpManager;
 
 /**
- @property request serializer
+ @abstract request serializer
  */
 @property (nonatomic, strong) NSDictionary *requestSerializers;
 
 /**
- @property response serializer
+ @abstract response serializer
  */
 @property (nonatomic, strong) AFHTTPResponseSerializer *responseSerializer;
 
 /**
- Returns AFHTTPRequestSerializer-compatible serializer instance
- 
+ @abstract Creates AFHTTPRequestSerializer-compatible serializer instance
+ @discussion Creates AFHTTPRequestSerializer-compatible serializer instance
+ @return Object conforming to AFURLRequestSerialization protocol
  @param encoding Which encoding to use for request parameters (form, JSON, or property-list)
  */
 

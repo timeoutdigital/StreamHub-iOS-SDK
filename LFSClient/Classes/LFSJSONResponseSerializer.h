@@ -12,7 +12,7 @@
 @interface LFSJSONResponseSerializer : AFJSONResponseSerializer
 
 /**
- @property readingOptions flags that can be passed to JSON decoder
+ @abstract flags that can be passed to JSON decoder
  */
 @property (nonatomic, assign) JKFlags readingOptions;
 

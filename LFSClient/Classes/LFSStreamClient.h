@@ -11,17 +11,17 @@
 @interface LFSStreamClient : LFSBaseClient
 
 /**
- @property eventId Current streaming URL
+ @abstract eventId Current streaming URL
  */
 @property (nonatomic, readonly) NSURL *collectionStreamURL;
 
 /**
- @property eventId current collection Id
+ @abstract eventId current collection Id
  */
 @property (nonatomic, strong) NSString *collectionId;
 
 /**
- @property eventId last seen event id
+ @abstract eventId last seen event id
  */
 @property (nonatomic, strong) NSNumber *eventId;
 
