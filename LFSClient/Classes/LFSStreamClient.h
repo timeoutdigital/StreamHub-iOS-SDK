@@ -10,18 +10,20 @@
 
 @interface LFSStreamClient : LFSBaseClient
 
+/** @name Streaming Interface */
+
 /**
- @abstract eventId Current streaming URL
+ @abstract Current streaming URL
  */
 @property (nonatomic, readonly) NSURL *collectionStreamURL;
 
 /**
- @abstract eventId current collection Id
+ @abstract current collection Id
  */
 @property (nonatomic, strong) NSString *collectionId;
 
 /**
- @abstract eventId last seen event id
+ @abstract last seen event id
  */
 @property (nonatomic, strong) NSNumber *eventId;
 
@@ -37,45 +39,34 @@
                  success:(LFSSuccessBlock)success
                  failure:(LFSFailureBlock)failure;
 
-/** Start streaming */
-
-/**
- * Start stream reusing the stored event Id
+/*!
+ @abstract Start stream reusing the stored event Id
  */
 
 - (void)startStream;
 
-/** Start streaming */
-
-/**
- * Start stream with event Id
- *
- * @param eventId event Id (only events with event Ids larger than the given one
- * will be streamed)
+/*!
+ @abstract Start stream with event Id
+ @param eventId event Id (only events with event Ids larger than the given one
+        will be streamed)
  */
 
 - (void)startStreamWithEventId:(NSNumber*)eventId;
 
-/** Pause streaming */
-
-/**
- * Pause streaming
+/*!
+ @abstract Pause streaming
  */
 
 - (void)pauseStream;
 
-/** Resume streaming */
-
-/**
- * Resume streaming
+/*!
+ @abstract Resume streaming
  */
 
 - (void)resumeStream;
 
-/** Stop streaming */
-
-/**
- * stop streaming
+/*!
+ @abstract stop streaming
  */
 - (void)stopStream;
 

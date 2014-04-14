@@ -10,11 +10,16 @@
 
 @interface LFSBootstrapClient : LFSBaseClient
 
-/**
- * @abstract infoInit - Init response object (JSON)
- * @see -getInitForSite:article:onSuccess:onFailure:
+/*!
+ @name Content Retrieval
  */
+
+/**
+* @abstract infoInit - Init response object (JSON)
+* @see -getInitForSite:article:onSuccess:onFailure:
+*/
 @property (nonatomic, strong) NSDictionary *infoInit;
+
 
 /*!
  @abstract Get the initial bootstrap data for a collection
@@ -29,8 +34,6 @@
                article:(NSString *)articleId
              onSuccess:(LFSSuccessBlock)success
              onFailure:(LFSFailureBlock)failure;
-
-/** @name Content Retrieval */
 
 /*!
  @abstract Get content for page

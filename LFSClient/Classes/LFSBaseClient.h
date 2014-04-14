@@ -10,7 +10,7 @@
 #import "LFSConstants.h"
 #import "JSONKit.h"
 
-/**
+/*!
  @since Available since 0.3.0 and later
  */
 typedef NS_ENUM(NSUInteger, AFHTTPClientParameterEncoding) {
@@ -25,37 +25,37 @@ typedef NS_ENUM(NSUInteger, AFHTTPClientParameterEncoding) {
 
 @interface LFSBaseClient : NSObject
 
-/**
-  @abstract lfEnvironment Environment with which this class instance was initialized
+/*!
+  @abstract Environment with which this class instance was initialized
  */
 @property (nonatomic, readonly) NSString* lfEnvironment;
 
-/**
- @abstract lfNetwork Network with which this class instance was initialized
+/*!
+ @abstract Network with which this class instance was initialized
  */
 @property (nonatomic, readonly) NSString* lfNetwork;
 
-/**
- @abstract subdomain abstract (to be overriden) subdomain of the baseURL
+/*!
+ @abstract abstract (to be overriden) subdomain of the baseURL
  */
 @property (nonatomic, readonly) NSString *subdomain;
 
-/**
- @abstract subdomain abstract (to be overriden) subdomain of the baseURL
+/*!
+ @abstract abstract (to be overriden) subdomain of the baseURL
  */
 @property (nonatomic, readonly) AFHTTPRequestOperationManager *reqOpManager;
 
-/**
+/*!
  @abstract request serializer
  */
 @property (nonatomic, strong) NSDictionary *requestSerializers;
 
-/**
+/*!
  @abstract response serializer
  */
 @property (nonatomic, strong) AFHTTPResponseSerializer *responseSerializer;
 
-/**
+/*!
  @abstract Creates AFHTTPRequestSerializer-compatible serializer instance
  @discussion Creates AFHTTPRequestSerializer-compatible serializer instance
  @return Object conforming to AFURLRequestSerialization protocol
@@ -64,8 +64,7 @@ typedef NS_ENUM(NSUInteger, AFHTTPClientParameterEncoding) {
 
 -(NSObject<AFURLRequestSerialization>*)requestSerializerWithEncoding:(AFHTTPClientParameterEncoding)encoding;
 
-/**
- * Initialize Livefyre client
+/*!
  @abstract Initialize Livefyre client
  @discussion Initialize Livefyre client
  @param network network as identified by domain, i.e. livefyre.com.
