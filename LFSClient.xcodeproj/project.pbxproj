@@ -23,12 +23,10 @@
 /* Begin PBXBuildFile section */
 		1C0ADC3916A6238900ACC0EA /* init-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 1C0ADC3816A6238900ACC0EA /* init-sample.json */; };
 		1C4CC88516A48B3800C33DEC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C4CC88416A48B3800C33DEC /* Foundation.framework */; };
-		1C4CC89416A48B3800C33DEC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C4CC89316A48B3800C33DEC /* SenTestingKit.framework */; };
 		1C4CC89716A48B3800C33DEC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C4CC88416A48B3800C33DEC /* Foundation.framework */; };
 		1C4CC8A016A48B3800C33DEC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1C4CC89E16A48B3800C33DEC /* InfoPlist.strings */; };
 		1C4CC8A316A48B3800C33DEC /* LFSClientNetworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C4CC8A216A48B3800C33DEC /* LFSClientNetworkTests.m */; };
 		1CD5686E17A05DFC008ECF55 /* flag-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CD5686D17A05DFC008ECF55 /* flag-sample.json */; };
-		1CF061F316B0936F00CFA905 /* LFSTestingURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF061F216B0936F00CFA905 /* LFSTestingURLProtocol.m */; };
 		1CF061F616B093B500CFA905 /* LFSClientSpoofTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF061F516B093B500CFA905 /* LFSClientSpoofTests.m */; };
 		1CF061FC16B098C500CFA905 /* LFSRC4Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF061FB16B098C500CFA905 /* LFSRC4Tests.m */; };
 		1CF0624A16B0A3A900CFA905 /* LFSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0623916B0A3A900CFA905 /* LFSConstants.m */; };
@@ -113,14 +111,11 @@
 		1C0ADC3816A6238900ACC0EA /* init-sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "init-sample.json"; sourceTree = "<group>"; };
 		1C4CC88116A48B3800C33DEC /* libLFSClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLFSClient.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C4CC88416A48B3800C33DEC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1C4CC89216A48B3800C33DEC /* LFSClientTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LFSClientTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1C4CC89316A48B3800C33DEC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		1C4CC89216A48B3800C33DEC /* LFSClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LFSClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C4CC89D16A48B3800C33DEC /* LFSClientTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LFSClientTests-Info.plist"; sourceTree = "<group>"; };
 		1C4CC89F16A48B3800C33DEC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1C4CC8A216A48B3800C33DEC /* LFSClientNetworkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFSClientNetworkTests.m; sourceTree = "<group>"; };
 		1CD5686D17A05DFC008ECF55 /* flag-sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "flag-sample.json"; sourceTree = "<group>"; };
-		1CF061F116B0936F00CFA905 /* LFSTestingURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFSTestingURLProtocol.h; sourceTree = "<group>"; };
-		1CF061F216B0936F00CFA905 /* LFSTestingURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSTestingURLProtocol.m; sourceTree = "<group>"; };
 		1CF061F516B093B500CFA905 /* LFSClientSpoofTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSClientSpoofTests.m; sourceTree = "<group>"; };
 		1CF061FB16B098C500CFA905 /* LFSRC4Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSRC4Tests.m; sourceTree = "<group>"; };
 		1CF0623416B0A3A900CFA905 /* LFSClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSClient.h; path = LFSClient/Classes/LFSClient.h; sourceTree = "<group>"; };
@@ -145,6 +140,7 @@
 		EF1AD63C17CC3D71008D157F /* LFSTestConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LFSTestConfig.plist; sourceTree = "<group>"; };
 		EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EF2F994318F8A1D5002D83FF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		EF56AF8C17C6CEB50086127D /* LFSJSONKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSJSONKitTests.m; sourceTree = "<group>"; };
 		EF860D4418F280EE0015431B /* LFSJSONResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSJSONResponseSerializer.h; path = LFSClient/Classes/LFSJSONResponseSerializer.h; sourceTree = "<group>"; };
 		EF860D4518F280EE0015431B /* LFSJSONResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSJSONResponseSerializer.m; path = LFSClient/Classes/LFSJSONResponseSerializer.m; sourceTree = "<group>"; };
@@ -192,7 +188,6 @@
 				EF03D34917C539060097FDD3 /* Security.framework in Frameworks */,
 				EF03D34717C538F20097FDD3 /* CoreGraphics.framework in Frameworks */,
 				EFE0420E17C3154B0011DD6A /* UIKit.framework in Frameworks */,
-				1C4CC89416A48B3800C33DEC /* SenTestingKit.framework in Frameworks */,
 				1C4CC89716A48B3800C33DEC /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,7 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				1C4CC88116A48B3800C33DEC /* libLFSClient.a */,
-				1C4CC89216A48B3800C33DEC /* LFSClientTests.octest */,
+				1C4CC89216A48B3800C33DEC /* LFSClientTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -225,13 +220,13 @@
 		1C4CC88316A48B3800C33DEC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EF2F994318F8A1D5002D83FF /* XCTest.framework */,
 				EF03D34817C539060097FDD3 /* Security.framework */,
 				EF03D34617C538F20097FDD3 /* CoreGraphics.framework */,
 				EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */,
 				EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */,
 				1C4CC88416A48B3800C33DEC /* Foundation.framework */,
 				EFE0420D17C3154B0011DD6A /* UIKit.framework */,
-				1C4CC89316A48B3800C33DEC /* SenTestingKit.framework */,
 				093ED4A404DF430CB8D560C5 /* libPods-test.a */,
 				59C0EABAA1D1406582C1062E /* libPods.a */,
 			);
@@ -270,8 +265,6 @@
 				EF03F9DF17DA665D00FE4C23 /* LFSRelativeToDateTest.m */,
 				EFE0CB1217C535EF00775C9C /* AFNetworkingTests.h */,
 				EF03D34C17C53A7D0097FDD3 /* AFNetworkingTests.m */,
-				1CF061F116B0936F00CFA905 /* LFSTestingURLProtocol.h */,
-				1CF061F216B0936F00CFA905 /* LFSTestingURLProtocol.m */,
 				1C4CC89C16A48B3800C33DEC /* Supporting Files */,
 			);
 			path = LFSClientTests;
@@ -400,8 +393,8 @@
 			);
 			name = LFSClientTests;
 			productName = LFSClientTests;
-			productReference = 1C4CC89216A48B3800C33DEC /* LFSClientTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 1C4CC89216A48B3800C33DEC /* LFSClientTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -574,7 +567,6 @@
 			files = (
 				EF894D7118F315F900D4F2CF /* LFSJSONResponseSerializer.m in Sources */,
 				1C4CC8A316A48B3800C33DEC /* LFSClientNetworkTests.m in Sources */,
-				1CF061F316B0936F00CFA905 /* LFSTestingURLProtocol.m in Sources */,
 				EF03D34D17C53A7D0097FDD3 /* AFNetworkingTests.m in Sources */,
 				EF03F9E017DA665D00FE4C23 /* LFSRelativeToDateTest.m in Sources */,
 				EF56AF8D17C6CEB50086127D /* LFSJSONKitTests.m in Sources */,
@@ -704,7 +696,6 @@
 				INFOPLIST_FILE = "LFSClientTests/LFSClientTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = LFSClientTests;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -721,7 +712,6 @@
 				INFOPLIST_FILE = "LFSClientTests/LFSClientTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = LFSClientTests;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
