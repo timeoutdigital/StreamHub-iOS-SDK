@@ -27,7 +27,7 @@
 /*!
  @abstract Creates and returns a JSON serializer with specified reading and writing options.
  @discussion Creates and returns a JSON serializer with specified reading and writing options.
- @param readingOptions The specified JSON reading flags.
+ @param jkflags The specified JSON reading flags.
  @return LFSJSONResponseSerializer instance
  */
 -(id)initWithReadingOptions:(JKFlags)jkflags;
