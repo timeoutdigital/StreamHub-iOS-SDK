@@ -31,7 +31,7 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 -(NSString*)subdomain { return @"stream1"; }
 
 - (id)initWithEnvironment:(NSString *)environment
-                            network:(NSString *)network
+                  network:(NSString *)network
 {
     self = [super initWithNetwork:network environment:environment];
     if (self) {

@@ -10,9 +10,17 @@
 #import "LFSBaseClient.h"
 #import "LFSJSONResponseSerializer.h"
 
-@interface LFSBaseClient ()
-@property (readwrite, nonatomic, strong) NSMutableDictionary *defaultHeaders;
-@end
+NSDictionary* createRequestSerializerMap() {
+    // Map AFN-v1 encoding parameters to serializer objects
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setObject:[AFHTTPRequestSerializer serializer]
+             forKey:[NSNumber numberWithInteger:AFFormURLParameterEncoding]];
+    [dict setObject:[AFJSONRequestSerializer serializer]
+             forKey:[NSNumber numberWithInteger:AFJSONParameterEncoding]];
+    [dict setObject:[AFPropertyListRequestSerializer serializer]
+             forKey:[NSNumber numberWithInteger:AFPropertyListParameterEncoding]];
+    return [dict copy];
+}
 
 @implementation LFSBaseClient
 
@@ -22,7 +30,6 @@
 @synthesize responseSerializer = _responseSerializer;
 
 @dynamic subdomain; // implemented by subclass
-@dynamic defaultHeaders; // implemented by superclass
 
 #pragma mark - Initialization
 
@@ -36,18 +43,6 @@
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"%@ Failed to call designated initializer. Invoke `initWithEnvironment:network:` instead.", NSStringFromClass([self class])]
                                  userInfo:nil];
-}
-
--(NSDictionary*)createRequestSerializerMap {
-    // Map AFN-v1 encoding parameters to serializer objects
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setObject:[AFHTTPRequestSerializer serializer]
-             forKey:[NSNumber numberWithInteger:AFFormURLParameterEncoding]];
-    [dict setObject:[AFJSONRequestSerializer serializer]
-             forKey:[NSNumber numberWithInteger:AFJSONParameterEncoding]];
-    [dict setObject:[AFPropertyListRequestSerializer serializer]
-             forKey:[NSNumber numberWithInteger:AFPropertyListParameterEncoding]];
-    return [dict copy];
 }
 
 -(NSObject<AFURLRequestSerialization>*)requestSerializerWithEncoding:(AFHTTPClientParameterEncoding)encoding
@@ -64,7 +59,7 @@
     if (self) {
         _lfEnvironment = environment;
         _lfNetwork = network;
-        _requestSerializers = [self createRequestSerializerMap];
+        _requestSerializers = createRequestSerializerMap();
         _responseSerializer = [LFSJSONResponseSerializer serializerWithReadingOptions:0];
         
         NSString *hostname = [NSString stringWithFormat:@"%@.%@",
@@ -84,7 +79,7 @@
     if (self) {
         
         // cache passed parameters into readonly properties
-        _requestSerializers = [self createRequestSerializerMap];
+        _requestSerializers = createRequestSerializerMap();
         _responseSerializer = [AFHTTPResponseSerializer serializer];
         _reqOpManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseURL];
     }

@@ -20,7 +20,7 @@
 -(NSString*)subdomain { return @"bootstrap"; }
 
 - (id)initWithEnvironment:(NSString *)environment
-                            network:(NSString *)network
+                  network:(NSString *)network
 {
     self = [super initWithNetwork:network environment:environment];
     if (self) {

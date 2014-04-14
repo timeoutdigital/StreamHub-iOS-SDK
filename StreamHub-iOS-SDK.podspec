@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "StreamHub-iOS-SDK"
-  s.version      = "0.3.0"
+  s.version      = "0.3.1"
   s.summary      = "A client library for Livefyre's API"
   s.description  = <<-DESC
 StreamHub-iOS is the official Livefyre SDK for building real-time native iOS apps that interact with Livefyre services. With it, you can easily create apps that obtain user-generated content sourced by Livefye, poll for updates, and create or modify content.
