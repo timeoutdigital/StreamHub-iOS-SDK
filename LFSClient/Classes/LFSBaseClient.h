@@ -41,17 +41,17 @@ typedef NS_ENUM(NSUInteger, AFHTTPClientParameterEncoding) {
 @property (nonatomic, readonly) NSString *subdomain;
 
 /*!
- @abstract abstract (to be overriden) subdomain of the baseURL
+ @abstract Request operation manager
  */
 @property (nonatomic, readonly) AFHTTPRequestOperationManager *reqOpManager;
 
 /*!
- @abstract request serializer
+ @abstract Request serializer
  */
 @property (nonatomic, strong) NSDictionary *requestSerializers;
 
 /*!
- @abstract response serializer
+ @abstract Response serializer
  */
 @property (nonatomic, strong) AFHTTPResponseSerializer *responseSerializer;
 
