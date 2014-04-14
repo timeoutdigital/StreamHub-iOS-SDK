@@ -19,6 +19,5 @@ target :test, :exclusive => true do
     pod 'NSString-Hashes', '~> 1.2.0'
     pod 'AFHTTPRequestOperationLogger', '~> 2.0.0'
     pod 'LFJSONKit', '~> 1.6a'
-    pod 'OCMock', '~> 2.1.1' # mock objects
     pod 'Expecta', '~> 0.2.1' # readable pass conditions
 end
