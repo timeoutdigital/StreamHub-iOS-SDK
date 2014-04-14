@@ -112,23 +112,25 @@
     expect(op0.isFinished).will.beTruthy();
     expect(op0).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op0.error).notTo.equal(NSURLErrorTimedOut);
-    // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
     expect(bootstrapInitInfo).to.beTruthy();
     if (bootstrapInitInfo) {
         expect(bootstrapInitInfo).to.beKindOf([NSDictionary class]);
+        // Collection dictionary should have 4 keys:
+        // headDocument, collectionSettings, networkSettings, siteSettings
         expect(bootstrapInitInfo).to.haveCountOf(4);
     }
     
     // Get Page 1
+    // (note that returned operation can be an instance of NSBlockOperation)
     __block NSDictionary *contentInfo1 = nil;
-    __block AFHTTPRequestOperation *op1 = nil;
+    __block id op1 = nil;
     [client getContentForPage:0
-                    onSuccess:^(NSOperation *operation, id JSON){
-                        op1 = (AFHTTPRequestOperation*)operation;
+                    onSuccess:^(id operation, id JSON){
+                        op1 = operation;
                         contentInfo1 = JSON;
                     }
-                    onFailure:^(NSOperation *operation, NSError *error) {
-                        op1 = (AFHTTPRequestOperation*)operation;
+                    onFailure:^(id operation, NSError *error) {
+                        op1 = operation;
                         NSLog(@"Error code %zd, with description %@",
                               error.code,
                               [error localizedDescription]);
@@ -136,9 +138,7 @@
     
     // Wait 'til done and then verify that everything is OK
     expect(op1).will.beTruthy();
-    expect(op1.isFinished).will.beTruthy();
-    //expect(op1).to.beInstanceOf([LFJSONRequestOperation class]);
-    //expect(op1.error).notTo.equal(NSURLErrorTimedOut);
+    expect([op1 isFinished]).will.beTruthy();
     expect(contentInfo1).to.beTruthy();
     
     // Get Page 2
@@ -478,10 +478,10 @@
     }
 
     // Wait 'til done and then verify that everything is OK
-    //expect(op).will.beTruthy();
-    //expect(op.isFinished).will.beTruthy();
-    //expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
-    //expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(op).will.beTruthy();
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
     expect(result).will.beTruthy();
 }
 
