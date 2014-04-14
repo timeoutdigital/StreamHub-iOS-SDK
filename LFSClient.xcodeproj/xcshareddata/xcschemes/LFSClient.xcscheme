@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1C4CC89116A48B3800C33DEC"
-               BuildableName = "LFSClientTests.octest"
+               BuildableName = "LFSClientTests.xctest"
                BlueprintName = "LFSClientTests"
                ReferencedContainer = "container:LFSClient.xcodeproj">
             </BuildableReference>

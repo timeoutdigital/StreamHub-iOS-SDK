@@ -27,11 +27,11 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #import "LFSClient.h"
 
-@interface LFSRC4Tests : SenTestCase
+@interface LFSRC4Tests : XCTestCase
 @end
 
 @implementation LFSRC4Tests
@@ -46,6 +46,6 @@
     }
 
     NSString *decrypted = [cipherText decryptRC4WithKey:key];
-    STAssertEqualObjects(decrypted, plainText, nil);
+    XCTAssertEqualObjects(decrypted, plainText);
 }
 @end

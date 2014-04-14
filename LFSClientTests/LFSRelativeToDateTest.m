@@ -6,14 +6,14 @@
 //  Copyright (c) 2013 Livefyre. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #import "NSDateFormatter+RelativeTo.h"
 
 #define EXP_SHORTHAND YES
 #import <Expecta/Expecta.h>
 
-@interface LFSRelativeToDateTest : SenTestCase
+@interface LFSRelativeToDateTest : XCTestCase
 
 @end
 

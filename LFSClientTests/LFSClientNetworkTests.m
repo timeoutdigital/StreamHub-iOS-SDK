@@ -29,7 +29,7 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <Base64/MF_Base64Additions.h>
 #import <AFHTTPRequestOperationLogger/AFHTTPRequestOperationLogger.h>
 
@@ -43,7 +43,7 @@
 #define EXP_SHORTHAND YES
 #import <Expecta/Expecta.h>
 
-@interface LFSClientNetworkTests : SenTestCase
+@interface LFSClientNetworkTests : XCTestCase
 @end
 
 @implementation LFSClientNetworkTests
@@ -54,7 +54,7 @@
     
     // Set-up code here.
     if (![LFSConfig objectForKey:@"domain"]) {
-        STFail(@"No test settings");
+        XCTFail(@"No test settings");
     }
     
     [[AFHTTPRequestOperationLogger sharedLogger] startLogging];

@@ -27,10 +27,9 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <AFHTTPRequestOperationLogger/AFHTTPRequestOperationLogger.h>
 
-#import "LFSTestingURLProtocol.h"
 #import "LFSClient.h"
 #import "LFSConfig.h"
 #import "LFSBootstrapClient.h"
@@ -40,8 +39,10 @@
 #define EXP_SHORTHAND YES
 #import <Expecta/Expecta.h>
 
+#import <OHHTTPStubs/OHHTTPStubs.h>
 
-@interface LFSClientSpoofTests : SenTestCase
+
+@interface LFSClientSpoofTests : XCTestCase
 @end
 
 @implementation LFSClientSpoofTests
@@ -50,7 +51,7 @@
     [super setUp];
     
     //These tests are nominal.
-    [NSURLProtocol registerClass:[LFSTestingURLProtocol class]];
+    //[NSURLProtocol registerClass:[LFSTestingURLProtocol class]];
     
     // set timeout to 60 seconds
     [Expecta setAsynchronousTestTimeout:60.0f];
@@ -63,21 +64,35 @@
     [[AFHTTPRequestOperationLogger sharedLogger] stopLogging];
     
     // Tear-down code here.
-    [NSURLProtocol unregisterClass:[LFSTestingURLProtocol class]];
+    //[NSURLProtocol unregisterClass:[LFSTestingURLProtocol class]];
     
     [super tearDown];
 }
 
 #pragma mark - Test Bootstrap Client
+
 - (void)testLFHTTPClient
 {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        NSURL *requestURL = request.URL;
+        return [requestURL.host isEqualToString:@"bootstrap.init-sample"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        // Stub it with our own file
+        NSString *filePath = OHPathForFileInBundle(@"init-sample.json", nil);
+        NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
+        return [OHHTTPStubsResponse responseWithFileAtPath:filePath
+                                                statusCode:200
+                                                   headers:headers];
+    }];
+    
     // Get Init
     __block AFHTTPRequestOperation *op0 = nil;
     
     // This is the easiest way to use LFHTTPClient
     __block NSDictionary *bootstrapInitInfo = nil;
     
-    LFSBootstrapClient *client = [LFSBootstrapClient clientWithNetwork:@"init-sample" environment:nil ];
+    LFSBootstrapClient *client = [LFSBootstrapClient clientWithNetwork:@"init-sample"
+                                                           environment:nil ];
     [client getInitForSite:@"fakeSite"
                    article:@"fakeArticle"
                  onSuccess:^(NSOperation *operation, id JSON){
@@ -93,6 +108,7 @@
      ];
     
     // Wait 'til done and then verify that everything is OK
+    expect(op0).will.beTruthy();
     expect(op0.isFinished).will.beTruthy();
     expect(op0).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op0.error).notTo.equal(NSURLErrorTimedOut);
@@ -119,6 +135,7 @@
                     }];
     
     // Wait 'til done and then verify that everything is OK
+    expect(op1).will.beTruthy();
     expect(op1.isFinished).will.beTruthy();
     //expect(op1).to.beInstanceOf([LFJSONRequestOperation class]);
     //expect(op1.error).notTo.equal(NSURLErrorTimedOut);
@@ -140,6 +157,7 @@
                     }];
     
     // Wait 'til done and then verify that everything is OK
+    expect(op2).will.beTruthy();
     expect(op2.isFinished).will.beTruthy();
     expect(op2).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op2.error).notTo.equal(NSURLErrorTimedOut);
@@ -148,6 +166,18 @@
 
 - (void)testHeatAPIWithGetHottestCollections
 {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        NSURL *requestURL = request.URL;
+        return [requestURL.host isEqualToString:@"bootstrap.hottest-sample"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        // Stub it with our own file
+        NSString *filePath = OHPathForFileInBundle(@"hottest-sample.json", nil);
+        NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
+        return [OHHTTPStubsResponse responseWithFileAtPath:filePath
+                                                statusCode:200
+                                                   headers:headers];
+    }];
+    
     __block AFHTTPRequestOperation *op = nil;
     __block NSArray *result = nil;
     
@@ -168,6 +198,7 @@
                                       }];
     
     // Wait 'til done and then verify that everything is OK
+    expect(op).will.beTruthy();
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
@@ -180,6 +211,18 @@
 
 - (void)testUserDataWithGetContentForUser
 {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        NSURL *requestURL = request.URL;
+        return [requestURL.host isEqualToString:@"bootstrap.usercontent-sample"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        // Stub it with our own file
+        NSString *filePath = OHPathForFileInBundle(@"usercontent-sample.json", nil);
+        NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
+        return [OHHTTPStubsResponse responseWithFileAtPath:filePath
+                                                statusCode:200
+                                                   headers:headers];
+    }];
+    
     __block AFHTTPRequestOperation *op = nil;
     __block NSArray *result = nil;
     
@@ -200,6 +243,7 @@
                         }];
     
     // Wait 'til done and then verify that everything is OK
+    expect(op).will.beTruthy();
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
@@ -213,6 +257,18 @@
 #pragma mark - Test Admin Client
 - (void)testUserAuthenticationCollection
 {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        NSURL *requestURL = request.URL;
+        return [requestURL.host isEqualToString:@"admin.usercontent-sample"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        // Stub it with our own file
+        NSString *filePath = OHPathForFileInBundle(@"usercontent-sample.json", nil);
+        NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
+        return [OHHTTPStubsResponse responseWithFileAtPath:filePath
+                                                statusCode:200
+                                                   headers:headers];
+    }];
+    
     __block AFHTTPRequestOperation *op = nil;
     __block id result = nil;
     
@@ -232,6 +288,7 @@
                                  }];
     
     // Wait 'til done and then verify that everything is OK
+    expect(op).will.beTruthy();
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
@@ -240,6 +297,18 @@
 
 - (void)testUserAuthenticationSiteArticle
 {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        NSURL *requestURL = request.URL;
+        return [requestURL.host isEqualToString:@"admin.usercontent-sample"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        // Stub it with our own file
+        NSString *filePath = OHPathForFileInBundle(@"usercontent-sample.json", nil);
+        NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
+        return [OHHTTPStubsResponse responseWithFileAtPath:filePath
+                                                statusCode:200
+                                                   headers:headers];
+    }];
+    
     __block AFHTTPRequestOperation *op = nil;
     __block id result = nil;
     
@@ -260,6 +329,7 @@
                                  }];
     
     // Wait 'til done and then verify that everything is OK
+    expect(op).will.beTruthy();
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
@@ -269,6 +339,18 @@
 #pragma mark - Test Write Client
 - (void)testLikes
 {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        NSURL *requestURL = request.URL;
+        return [requestURL.host isEqualToString:@"quill.like-sample"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        // Stub it with our own file
+        NSString *filePath = OHPathForFileInBundle(@"like-sample.json", nil);
+        NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
+        return [OHHTTPStubsResponse responseWithFileAtPath:filePath
+                                                statusCode:200
+                                                   headers:headers];
+    }];
+    
     __block AFHTTPRequestOperation *op = nil;
     __block id result = nil;
     
@@ -291,6 +373,7 @@
                   }];
     
     // Wait 'til done and then verify that everything is OK
+    expect(op).will.beTruthy();
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
@@ -299,6 +382,18 @@
 
 - (void)testPost
 {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        NSURL *requestURL = request.URL;
+        return [requestURL.host isEqualToString:@"quill.post-sample"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        // Stub it with our own file
+        NSString *filePath = OHPathForFileInBundle(@"post-sample.json", nil);
+        NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
+        return [OHHTTPStubsResponse responseWithFileAtPath:filePath
+                                                statusCode:200
+                                                   headers:headers];
+    }];
+    
     __block AFHTTPRequestOperation *op = nil;
     __block id result = nil;
     
@@ -326,6 +421,7 @@
                        }];
     
     // Wait 'til done and then verify that everything is OK
+    expect(op).will.beTruthy();
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
@@ -334,6 +430,18 @@
 
 - (void)testFlag
 {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        NSURL *requestURL = request.URL;
+        return [requestURL.host isEqualToString:@"quill.flag-sample"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        // Stub it with our own file
+        NSString *filePath = OHPathForFileInBundle(@"flag-sample.json", nil);
+        NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
+        return [OHHTTPStubsResponse responseWithFileAtPath:filePath
+                                                statusCode:200
+                                                   headers:headers];
+    }];
+    
     __block AFHTTPRequestOperation *op = nil;
     __block id result = nil;
     
@@ -355,11 +463,26 @@
                          [error localizedDescription]);
                }];
     
-    // Wait 'til done and then verify that everything is OK
+    // Wait til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    if (op) {
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+        expect(op.response.statusCode).to.equal(200);
+    }
+
     expect(result).to.beTruthy();
+    if (result) {
+        expect(result).to.beKindOf([NSDictionary class]);
+        // Collection dictionary should have 4 keys: messageId, opinionId
+        expect(result).to.haveCountOf(2);
+    }
+
+    // Wait 'til done and then verify that everything is OK
+    //expect(op).will.beTruthy();
+    //expect(op.isFinished).will.beTruthy();
+    //expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
+    //expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).will.beTruthy();
 }
 
 @end
