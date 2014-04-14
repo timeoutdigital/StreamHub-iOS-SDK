@@ -50,22 +50,14 @@
 {
     [super setUp];
     
-    //These tests are nominal.
-    //[NSURLProtocol registerClass:[LFSTestingURLProtocol class]];
-    
     // set timeout to 60 seconds
     [Expecta setAsynchronousTestTimeout:60.0f];
-    
     [[AFHTTPRequestOperationLogger sharedLogger] startLogging];
 }
 
 - (void)tearDown
 {
     [[AFHTTPRequestOperationLogger sharedLogger] stopLogging];
-    
-    // Tear-down code here.
-    //[NSURLProtocol unregisterClass:[LFSTestingURLProtocol class]];
-    
     [super tearDown];
 }
 
