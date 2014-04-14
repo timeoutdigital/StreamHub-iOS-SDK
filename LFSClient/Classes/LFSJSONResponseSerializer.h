@@ -12,14 +12,15 @@
 @interface LFSJSONResponseSerializer : AFJSONResponseSerializer
 
 /**
- @property readingOptions flags that can be passed to JSON decoder
+ @abstract flags that can be passed to JSON decoder
  */
 @property (nonatomic, assign) JKFlags readingOptions;
 
-/**
- Creates and returns a JSON serializer with specified reading and writing options.
- 
+/*!
+ @abstract Creates and returns a JSON serializer with specified reading and writing options.
+ @discussion Creates and returns a JSON serializer with specified reading and writing options.
  @param readingOptions The specified JSON reading flags.
+ @return LFSJSONResponseSerializer instance
  */
 + (instancetype)serializerWithReadingOptions:(JKFlags)readingOptions;
 

@@ -12,16 +12,15 @@
 
 /** @name User Authentication */
 
-/**
- * Check a user's token against the auth admin.
- *
- * It is necessary to provide either a collectionId or a siteId combined with an articleId.
- *
- * @param userToken A JWT-encoded token representing a user.
- * @param collectionId The Id of the collection to auth against.
- * @param success   Success callback
- * @param failure   Failure callback
- */
+/*!
+@abstract Check a user's token against the auth admin.
+@discussion Check a user's token against the auth admin. It is necessary to provide either 
+ a collectionId or a siteId combined with an articleId.
+@param userToken A JWT-encoded token representing a user.
+@param collectionId The Id of the collection to auth against.
+@param success   Success callback
+@param failure   Failure callback
+*/
 
 - (void)authenticateUserWithToken:(NSString *)userToken
                        collection:(NSString *)collectionId
@@ -29,16 +28,15 @@
                         onFailure:(LFSFailureBlock)failure;
 
 
-/**
- * Check a user's token against the auth admin.
- *
- * It is necessary to provide either a collectionId or a siteId combined with an articleId.
- *
- * @param userToken A JWT-encoded token representing a user.
- * @param siteId The Id of the article's site.
- * @param articleId The Id of the collection's article.
- * @param success   Success callback
- * @param failure   Failure callback
+/*!
+ @abstract Check a user's token against the auth admin.
+ @discussion Check a user's token against the auth admin. It is necessary to provide either
+ a collectionId or a siteId combined with an articleId.
+ @param userToken A JWT-encoded token representing a user.
+ @param siteId The Id of the article's site.
+ @param articleId The Id of the collection's article.
+ @param success   Success callback
+ @param failure   Failure callback
  */
 
 - (void)authenticateUserWithToken:(NSString *)userToken

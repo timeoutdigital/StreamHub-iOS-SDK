@@ -10,7 +10,7 @@
 #import "LFSConstants.h"
 #import "JSONKit.h"
 
-/**
+/*!
  @since Available since 0.3.0 and later
  */
 typedef NS_ENUM(NSUInteger, AFHTTPClientParameterEncoding) {
@@ -25,88 +25,90 @@ typedef NS_ENUM(NSUInteger, AFHTTPClientParameterEncoding) {
 
 @interface LFSBaseClient : NSObject
 
-/**
-  @property lfEnvironment Environment with which this class instance was initialized
+/*!
+  @abstract Environment with which this class instance was initialized
  */
 @property (nonatomic, readonly) NSString* lfEnvironment;
 
-/**
- @property lfNetwork Network with which this class instance was initialized
+/*!
+ @abstract Network with which this class instance was initialized
  */
 @property (nonatomic, readonly) NSString* lfNetwork;
 
-/**
- @property subdomain abstract (to be overriden) subdomain of the baseURL
+/*!
+ @abstract abstract (to be overriden) subdomain of the baseURL
  */
 @property (nonatomic, readonly) NSString *subdomain;
 
-/**
- @property subdomain abstract (to be overriden) subdomain of the baseURL
+/*!
+ @abstract abstract (to be overriden) subdomain of the baseURL
  */
 @property (nonatomic, readonly) AFHTTPRequestOperationManager *reqOpManager;
 
-/**
- @property request serializer
+/*!
+ @abstract request serializer
  */
 @property (nonatomic, strong) NSDictionary *requestSerializers;
 
-/**
- @property response serializer
+/*!
+ @abstract response serializer
  */
 @property (nonatomic, strong) AFHTTPResponseSerializer *responseSerializer;
 
-/**
- Returns AFHTTPRequestSerializer-compatible serializer instance
- 
+/*!
+ @abstract Creates AFHTTPRequestSerializer-compatible serializer instance
+ @discussion Creates AFHTTPRequestSerializer-compatible serializer instance
+ @return Object conforming to AFURLRequestSerialization protocol
  @param encoding Which encoding to use for request parameters (form, JSON, or property-list)
  */
 
 -(NSObject<AFURLRequestSerialization>*)requestSerializerWithEncoding:(AFHTTPClientParameterEncoding)encoding;
 
-/**
- * Initialize Livefyre client
- *
- * @param network network as identified by domain, i.e. livefyre.com.
- * @param environment (optional) Where collection(s) are hosted, i.e. t-402.
- *        Used for development/testing purposes.
- * @return LFSClient instance
- * @see -initWithNetwork:environment:
+/*!
+ @abstract Initialize Livefyre client
+ @discussion Initialize Livefyre client
+ @param network network as identified by domain, i.e. livefyre.com.
+ @param environment (optional) Where collection(s) are hosted, i.e. t-402.
+         Used for development/testing purposes.
+ @return LFSClient instance
+ @see -initWithNetwork:environment:
  */
 
 + (instancetype)clientWithNetwork:(NSString *)network
                       environment:(NSString *)environment;
 
-/**
- * Initialize Livefyre client with client and network
- *
- * @param network network as identified by domain, i.e. livefyre.com.
- * @param environment (optional) Where collection(s) are hosted, i.e. t-402.
- *        Used for development/testing purposes.
- * @return LFSClient instance
+/*!
+ @abstract Initialize Livefyre client with client and network
+ @discussion Initialize Livefyre client with client and network
+ @param network network as identified by domain, i.e. livefyre.com.
+ @param environment (optional) Where collection(s) are hosted, i.e. t-402.
+         Used for development/testing purposes.
+ @return LFSClient instance
  */
 - (id)initWithNetwork:(NSString *)network
           environment:(NSString *)environment;
 
 
-/**
- Creates and returns Livefyre client with base URL 
- 
+/*!
+ @abstract Creates and returns Livefyre client with base URL
+ @discussion Creates and returns Livefyre client with base URL
  @param baseURL The base URL
+ @return LFSBaseClient instance
  */
 
 + (instancetype)clientWithBaseURL:(NSURL *)baseURL;
 
-/**
- Initialize Livefyre client with base URL
- 
+/*!
+ @abstract Initialize Livefyre client with base URL
+ @discussion Initialize Livefyre client with base URL
  @param baseURL The base URL
+ @return LFSBaseClient instance
  */
 - (id)initWithBaseURL:(NSURL *)baseURL;
 
-/**
- Creates an `LFSJSONRequestOperation` with a `POST` request, and enqueues it to the HTTP client's operation queue.
- Let developer specify the particular parameter encoding to use.
- 
+/*!
+ @abstract Creates an `LFSJSONRequestOperation` with a `POST` request, and enqueues it to the HTTP client's operation queue
+ @discussion Creates an `LFSJSONRequestOperation` with a `POST` request, and enqueues it to the HTTP client's operation queue. Lets developer specify the particular parameter encoding to use.
  @param path relative path
  @param parameters The parameters to be encoded and set in the request HTTP body.
  @param parameterEncoding The `AFHTTPClientParameterEncoding` value corresponding to how parameters are encoded into a request body
@@ -119,10 +121,9 @@ parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
          success:(AFSuccessBlock)success
          failure:(AFFailureBlock)failure;
 
-/**
- Creates an `LFSJSONRequestOperation` with a `POST` request, and enqueues it to the HTTP client's operation queue.
- Let developer specify the particular parameter encoding to use.
- 
+/*!
+ @abstract Creates an `LFSJSONRequestOperation` with a `POST` request, and enqueues it to the HTTP client's operation queue
+ @discussion Creates an `LFSJSONRequestOperation` with a `POST` request, and enqueues it to the HTTP client's operation queue. Let developer specify the particular parameter encoding to use.
  @param url URL to be used as request URL
  @param parameters The parameters to be encoded and set in the request HTTP body.
  @param parameterEncoding The `AFHTTPClientParameterEncoding` value corresponding to how parameters are encoded into a request body
@@ -135,10 +136,9 @@ parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
         success:(AFSuccessBlock)success
         failure:(AFFailureBlock)failure;
 
-/**
- Creates an `LFSJSONRequestOperation` with a `GET` request, and enqueues it to the HTTP client's operation queue.
- Let developer specify the particular parameter encoding to use.
- 
+/*!
+ @abstract Creates an `LFSJSONRequestOperation` with a `GET` request, and enqueues it to the HTTP client's operation queue
+ @discussion Creates an `LFSJSONRequestOperation` with a `GET` request, and enqueues it to the HTTP client's operation queue. Let developer specify the particular parameter encoding to use.
  @param path relative path
  @param parameters The parameters to be encoded and set in the request HTTP body.
  @param parameterEncoding The `AFHTTPClientParameterEncoding` value corresponding to how parameters are encoded into a request body
