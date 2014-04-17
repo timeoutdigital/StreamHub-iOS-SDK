@@ -56,6 +56,7 @@ NSDictionary* createRequestSerializerMap() {
           environment:(NSString *)environment
 {
     NSParameterAssert(network != nil);
+    self = [super init];
     if (self) {
         _lfEnvironment = environment;
         _lfNetwork = network;
@@ -76,12 +77,14 @@ NSDictionary* createRequestSerializerMap() {
 
 - (id)initWithBaseURL:(NSURL *)baseURL
 {
+    self = [super init];
     if (self) {
         
         // cache passed parameters into readonly properties
         _requestSerializers = createRequestSerializerMap();
         _responseSerializer = [AFHTTPResponseSerializer serializer];
         _reqOpManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseURL];
+        _reqOpManager.responseSerializer = _responseSerializer;
     }
     return self;
 }
