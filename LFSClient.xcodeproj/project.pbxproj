@@ -54,8 +54,6 @@
 		EF860D4618F280EE0015431B /* LFSJSONResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = EF860D4418F280EE0015431B /* LFSJSONResponseSerializer.h */; };
 		EF860D4718F280EE0015431B /* LFSJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = EF860D4518F280EE0015431B /* LFSJSONResponseSerializer.m */; };
 		EF894D7118F315F900D4F2CF /* LFSJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = EF860D4518F280EE0015431B /* LFSJSONResponseSerializer.m */; };
-		EF96CB4C17D15D780019AA82 /* livefyre-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EF96CB4A17D15D780019AA82 /* livefyre-logo.png */; };
-		EF96CB4D17D15D780019AA82 /* livefyre-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF96CB4B17D15D780019AA82 /* livefyre-logo@2x.png */; };
 		EF9FD45217B4476B009FE59D /* LFSClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623416B0A3A900CFA905 /* LFSClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF9FD45417B4476B009FE59D /* LFSConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF0623816B0A3A900CFA905 /* LFSConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EFA0455E17D806130012CD31 /* LFSAdminClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EFA0455217D806130012CD31 /* LFSAdminClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -144,8 +142,6 @@
 		EF56AF8C17C6CEB50086127D /* LFSJSONKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSJSONKitTests.m; sourceTree = "<group>"; };
 		EF860D4418F280EE0015431B /* LFSJSONResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSJSONResponseSerializer.h; path = LFSClient/Classes/LFSJSONResponseSerializer.h; sourceTree = "<group>"; };
 		EF860D4518F280EE0015431B /* LFSJSONResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSJSONResponseSerializer.m; path = LFSClient/Classes/LFSJSONResponseSerializer.m; sourceTree = "<group>"; };
-		EF96CB4A17D15D780019AA82 /* livefyre-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "livefyre-logo.png"; sourceTree = "<group>"; };
-		EF96CB4B17D15D780019AA82 /* livefyre-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "livefyre-logo@2x.png"; sourceTree = "<group>"; };
 		EFA0455217D806130012CD31 /* LFSAdminClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSAdminClient.h; path = LFSClient/Classes/LFSAdminClient.h; sourceTree = "<group>"; };
 		EFA0455317D806130012CD31 /* LFSAdminClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSAdminClient.m; path = LFSClient/Classes/LFSAdminClient.m; sourceTree = "<group>"; };
 		EFA0455417D806130012CD31 /* LFSBaseClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSBaseClient.h; path = LFSClient/Classes/LFSBaseClient.h; sourceTree = "<group>"; };
@@ -246,7 +242,6 @@
 		1C4CC88716A48B3800C33DEC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EF96CB4917D15D780019AA82 /* Resources */,
 				1CF0625216B0A64F00CFA905 /* LFSClient-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -321,15 +316,6 @@
 			);
 			name = Classes;
 			path = ..;
-			sourceTree = "<group>";
-		};
-		EF96CB4917D15D780019AA82 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				EF96CB4A17D15D780019AA82 /* livefyre-logo.png */,
-				EF96CB4B17D15D780019AA82 /* livefyre-logo@2x.png */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,14 +422,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C4CC8A016A48B3800C33DEC /* InfoPlist.strings in Resources */,
-				EF96CB4C17D15D780019AA82 /* livefyre-logo.png in Resources */,
 				1C0ADC3916A6238900ACC0EA /* init-sample.json in Resources */,
 				1CF0625616B1BD5B00CFA905 /* like-sample.json in Resources */,
 				1CF0625716B1BD5B00CFA905 /* post-sample.json in Resources */,
 				EF1AD63D17CC3D71008D157F /* LFSTestConfig.plist in Resources */,
 				1CF0625816B1BD5B00CFA905 /* stream-sample.json in Resources */,
 				1CF0625A16B1BD6900CFA905 /* usercontent-sample.json in Resources */,
-				EF96CB4D17D15D780019AA82 /* livefyre-logo@2x.png in Resources */,
 				1CF0625C16B1BD7100CFA905 /* hottest-sample.json in Resources */,
 				1CF0625E16B1C5E700CFA905 /* auth-sample.json in Resources */,
 				1CF0626916B323D700CFA905 /* number-test.json in Resources */,
