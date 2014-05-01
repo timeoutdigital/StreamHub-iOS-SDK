@@ -7,8 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-
-#import "JSONKit.h"
+#import <LFJSONKit/JSONKit.h>
 
 #define EXP_SHORTHAND YES
 #import <Expecta/Expecta.h>

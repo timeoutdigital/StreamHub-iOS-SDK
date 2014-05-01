@@ -7,8 +7,8 @@
 //
 
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
+#import <LFJSONKit/JSONKit.h>
 #import "LFSConstants.h"
-#import "JSONKit.h"
 
 /*!
  @since Available since 0.3.0 and later
