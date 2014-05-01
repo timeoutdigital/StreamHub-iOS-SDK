@@ -25,7 +25,9 @@ follow these steps:
 
 ### As a Cocoa Pod (recommended)
 
-The most convenient way to add StreamHub-iOS SDK to your project is to use CocoaPods. Here is an example Podfile:
+The most convenient way to add StreamHub-iOS SDK to your project is to use CocoaPods. 
+If you don't have CocoaPods, run `gem install cocoapods` and `pod setup`. 
+Here is an example Podfile:
 
     platform :ios, :deployment_target => '6.0'
 
