@@ -116,8 +116,9 @@
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
         expect(op.response.statusCode).to.equal(200);
     }
+    
     // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
         expect(result).to.haveCountOf(4);
@@ -159,7 +160,7 @@
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
     // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
         expect(result).to.haveCountOf(4);
@@ -195,7 +196,7 @@
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
     // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
         expect(result).to.haveCountOf(4);
@@ -231,7 +232,7 @@
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
     // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
         expect(result).to.haveCountOf(4);
@@ -266,7 +267,7 @@
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
 }
 
 #pragma mark - Retrieve User Data
@@ -298,7 +299,7 @@
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
 }
 
 #pragma mark - Test user authentication
@@ -330,7 +331,7 @@
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
         expect([result valueForKeyPath:@"auth_token.value"]).to.equal(userToken);
@@ -364,7 +365,7 @@
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
         expect([result valueForKeyPath:@"auth_token.value"]).to.equal(userToken);
@@ -402,7 +403,7 @@
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
 }
 
 - (void)testUnlikes {
@@ -435,7 +436,7 @@
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
 }
 
 #pragma mark - test posts
@@ -478,7 +479,7 @@
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
     
     if (result) {
         // check that response body matches the comment we posted
@@ -515,7 +516,7 @@
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
         NSString *idOfDeletedComment = [result objectForKey:@"comment_id"];
@@ -564,7 +565,7 @@
     }
     
     //expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    //expect(result).to.beTruthy();
+    //expect(result).will.beTruthy();
     
     //NSDictionary *message = [[result objectForKey:@"messages"] objectAtIndex:0u];
     //NSString *responseString = [[message objectForKey:@"content"] objectForKey:@"bodyHtml"];
@@ -612,7 +613,7 @@
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
         NSString *parent1 = [[[result objectForKey:@"messages"] objectAtIndex:0]
@@ -657,7 +658,7 @@
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
 }
 
 #pragma mark - test collection creation

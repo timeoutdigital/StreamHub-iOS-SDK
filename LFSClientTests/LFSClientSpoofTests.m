@@ -194,7 +194,7 @@
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSArray class]);
         expect(result).to.haveCountOf(10u);
@@ -239,7 +239,7 @@
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSArray class]);
         expect(result).to.haveCountOf(12u);
@@ -284,7 +284,7 @@
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
 }
 
 - (void)testUserAuthenticationSiteArticle
@@ -325,7 +325,7 @@
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
 }
 
 #pragma mark - Test Write Client
@@ -369,7 +369,7 @@
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
 }
 
 - (void)testPost
@@ -417,7 +417,7 @@
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
 }
 
 - (void)testFlag
@@ -462,7 +462,7 @@
         expect(op.response.statusCode).to.equal(200);
     }
 
-    expect(result).to.beTruthy();
+    expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
         // Collection dictionary should have 4 keys: messageId, opinionId
