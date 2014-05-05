@@ -192,7 +192,6 @@ typedef NS_ENUM(NSUInteger, LFSPermissionScope) {
 };
 
 
-
 // For detailed info, see
 // https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/publishing/models.proto
 typedef NS_ENUM(NSUInteger, LFSContentSource) {
@@ -205,9 +204,6 @@ typedef NS_ENUM(NSUInteger, LFSContentSource) {
     LFSContentSourceRSS,            // 6
     LFSContentSourceInstagram       // 7
 };
-
-#define SOURCE_IMAGE_MAP_LENGTH 8u
-extern const NSString *const kLFSSourceImageMap[SOURCE_IMAGE_MAP_LENGTH];
 
 #define CONTENT_SOURCE_DECODE_LENGTH 20u
 static const NSUInteger kLFSContentSourceDecode[CONTENT_SOURCE_DECODE_LENGTH] =
