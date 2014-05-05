@@ -61,7 +61,7 @@ NSDictionary* createRequestSerializerMap() {
         _lfEnvironment = environment;
         _lfNetwork = network;
         _requestSerializers = createRequestSerializerMap();
-        _responseSerializer = [LFSJSONResponseSerializer serializerWithReadingOptions:0];
+        _responseSerializer = [LFSJSONResponseSerializer serializer];
         
         NSString *hostname = [NSString stringWithFormat:@"%@.%@",
                               [self subdomain],

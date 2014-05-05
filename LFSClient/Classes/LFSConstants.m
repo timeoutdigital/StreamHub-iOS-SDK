@@ -63,6 +63,18 @@ const NSString* const LFSMessageEndpoints[LFS_OPINE_ENDPOINTS_LENGTH] =
     @"vote"             // 13
 };
 
+const NSString* const kLFSSourceImageMap[SOURCE_IMAGE_MAP_LENGTH] =
+{
+    nil,                        // LFSContentSourceDefault      (0)
+    @"SourceTwitter",           // LFSContentSourceTwitter      (1)
+    @"SourceFacebook",          // LFSContentSourceFacebook     (2)
+    nil,                        // LFSContentSourceGooglePlus   (3)
+    nil,                        // LFSContentSourceFlickr       (4)
+    nil,                        // LFSContentSourceYouTube      (5)
+    @"SourceRSS",               // LFSContentSourceRSS          (6)
+    @"SourceInstagram",         // LFSContentSourceInstagram    (7)
+};
+
 // (for internal use):
 // https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L87
 const NSString* const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH] =

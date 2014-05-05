@@ -8,7 +8,7 @@
 
 #import "LFSJSONResponseSerializer.h"
 
-NSError* getErrorFromObject(NSDictionary* object)
+static NSError* LFSErrorFromObject(NSDictionary* object)
 {
     NSInteger errorCode = [[object objectForKey:@"code"] integerValue];
     NSString *errorMessage = [NSString stringWithFormat:@"Error %zd: %@",
@@ -29,16 +29,21 @@ NSError* getErrorFromObject(NSDictionary* object)
     return error;
 }
 
-@interface LFSJSONResponseSerializer ()
-
-@property (nonatomic, strong) JSONDecoder* decoder;
-
-@end
 
 
-@implementation LFSJSONResponseSerializer
-
-@synthesize readingOptions = _readingOptions;
+static NSError* LFSErrorFromResponse(NSUInteger errorCode, NSString* responseString)
+{
+    NSString *errorMessage = responseString;
+    
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    if (errorMessage != nil) {
+        [dictionary setObject:errorMessage forKey:NSLocalizedDescriptionKey];
+    }
+    NSError *error = [NSError errorWithDomain:NSURLErrorDomain
+                                         code:errorCode
+                                     userInfo:dictionary];
+    return error;
+}
 
 static NSError * AFErrorWithUnderlyingError(NSError *error, NSError *underlyingError) {
     if (!error) {
@@ -65,6 +70,21 @@ static BOOL AFErrorOrUnderlyingErrorHasCode(NSError *error, NSInteger code) {
     return NO;
 }
 
+@interface LFSJSONResponseSerializer ()
+
+@property (nonatomic, strong) JSONDecoder* decoder;
+
+@end
+
+
+@implementation LFSJSONResponseSerializer
+
+@synthesize readingOptions = _readingOptions;
+
++ (instancetype)serializer {
+    return [self serializerWithReadingOptions:JKParseOptionTruncateNumbers];
+}
+
 + (instancetype)serializerWithReadingOptions:(JKFlags)readingOptions
 {
     return [(LFSJSONResponseSerializer*)[self alloc] initWithReadingOptions:readingOptions];
@@ -74,13 +94,63 @@ static BOOL AFErrorOrUnderlyingErrorHasCode(NSError *error, NSInteger code) {
     self = [super init];
     if (self) {
         self.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"application/javascript", @"application/x-javascript", @"text/json", @"text/javascript", @"text/x-javascript", nil];
-        self.decoder = [JSONDecoder decoderWithParseOptions:(JKParseOptionTruncateNumbers | jkflags)];
+        self.decoder = [JSONDecoder decoderWithParseOptions:jkflags];
         
         NSMutableSet* acceptableContentTypes = [self.acceptableContentTypes mutableCopy];
         
         self.acceptableContentTypes = acceptableContentTypes;
     }
     return self;
+}
+
+-(id)init {
+    return [self initWithReadingOptions:JKParseOptionTruncateNumbers];
+}
+
+- (BOOL)validateResponse:(NSHTTPURLResponse *)response
+                    data:(NSData *)data
+                   error:(NSError * __autoreleasing *)error
+{
+    BOOL responseIsValid = YES;
+    NSError *validationError = nil;
+    
+    if (response && [response isKindOfClass:[NSHTTPURLResponse class]]) {
+        if (self.acceptableStatusCodes && ![self.acceptableStatusCodes containsIndex:(NSUInteger)response.statusCode])
+        {
+            NSDictionary *userInfo = @{
+                                       NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedStringFromTable(@"Request failed: %@ (%lu)", @"AFNetworking", nil), [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], (unsigned long)response.statusCode],
+                                       NSURLErrorFailingURLErrorKey:[response URL],
+                                       AFNetworkingOperationFailingURLResponseErrorKey: response
+                                       };
+            
+            validationError = AFErrorWithUnderlyingError([NSError errorWithDomain:AFNetworkingErrorDomain code:NSURLErrorBadServerResponse userInfo:userInfo], validationError);
+            
+            responseIsValid = NO;
+        }
+        
+        // only check content types if response is valid
+        
+        if (responseIsValid && self.acceptableContentTypes && ![self.acceptableContentTypes containsObject:[response MIMEType]])
+        {
+            if ([data length] > 0) {
+                NSDictionary *userInfo = @{
+                                           NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedStringFromTable(@"Request failed: unacceptable content-type: %@", @"AFNetworking", nil), [response MIMEType]],
+                                           NSURLErrorFailingURLErrorKey:[response URL],
+                                           AFNetworkingOperationFailingURLResponseErrorKey: response
+                                           };
+                
+                validationError = AFErrorWithUnderlyingError([NSError errorWithDomain:AFNetworkingErrorDomain code:NSURLErrorCannotDecodeContentData userInfo:userInfo], validationError);
+            }
+            
+            responseIsValid = NO;
+        }
+    }
+    
+    if (error && !responseIsValid) {
+        *error = validationError;
+    }
+    
+    return responseIsValid;
 }
 
 - (id)responseObjectForResponse:(NSURLResponse *)response
@@ -110,41 +180,55 @@ static BOOL AFErrorOrUnderlyingErrorHasCode(NSError *error, NSInteger code) {
     NSError *serializationError = nil;
     @autoreleasepool {
         NSString *responseString = [[NSString alloc] initWithData:data encoding:stringEncoding];
-        if (responseString && ![responseString isEqualToString:@" "]) {
-            // Workaround for a bug in NSJSONSerialization when Unicode character escape codes are used instead of the actual character
-            // See http://stackoverflow.com/a/12843465/157142
-            //
-            // TODO: this may not be necessary with JSONKit
-            data = [responseString dataUsingEncoding:NSUTF8StringEncoding];
-            
-            if (data) {
-                if ([data length] > 0) {
-                    // To use NSJSONSerialization instead of JSONKit simply replace
-                    // the line below with (note that this may cause failure on some endpoints
-                    // because of the large numbers problem):
-                    // responseObject = [NSJSONSerialization JSONObjectWithData:data options:self.readingOptions error:&serializationError];
-                    responseObject = [self.decoder objectWithData:data error:&serializationError];
-                } else {
-                    return nil;
-                }
-            } else {
-                NSDictionary *userInfo = @{
-                                           NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Data failed decoding as a UTF-8 string", nil, @"AFNetworking"),
-                                           NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:NSLocalizedStringFromTable(@"Could not decode string: %@", nil, @"AFNetworking"), responseString]
-                                           };
+        
+        if (!self.acceptableContentTypes || [self.acceptableContentTypes containsObject:[response MIMEType]]) {
+            if (responseString && ![responseString isEqualToString:@" "]) {
+                // Workaround for a bug in NSJSONSerialization when Unicode character escape codes are used instead of the actual character
+                // See http://stackoverflow.com/a/12843465/157142
+                //
+                // TODO: this may not be necessary with JSONKit
+                data = [responseString dataUsingEncoding:NSUTF8StringEncoding];
                 
-                serializationError = [NSError errorWithDomain:AFNetworkingErrorDomain code:NSURLErrorCannotDecodeContentData userInfo:userInfo];
+                if (data) {
+                    if ([data length] > 0) {
+                        // To use NSJSONSerialization instead of JSONKit simply replace
+                        // the line below with (note that this may cause failure on some endpoints
+                        // because of the large numbers problem):
+                        // responseObject = [NSJSONSerialization JSONObjectWithData:data options:self.readingOptions error:&serializationError];
+                        responseObject = [self.decoder objectWithData:data error:&serializationError];
+                    }
+                    else {
+                        return nil;
+                    }
+                }
+                else {
+                    NSDictionary *userInfo = @{
+                                               NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Data failed decoding as a UTF-8 string", nil, @"AFNetworking"),
+                                               NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:NSLocalizedStringFromTable(@"Could not decode string: %@", nil, @"AFNetworking"), responseString]
+                                               };
+                    
+                    serializationError = [NSError errorWithDomain:AFNetworkingErrorDomain code:NSURLErrorCannotDecodeContentData userInfo:userInfo];
+                }
             }
         }
+        else {
+            responseObject = responseString;
+        }
     }
-    
+
+    NSUInteger statusCode = [(NSHTTPURLResponse*)response statusCode];
+    if (self.acceptableStatusCodes && ![self.acceptableStatusCodes containsIndex:statusCode]) {
+        *error = LFSErrorFromResponse(statusCode, responseObject);
+        return nil;
+    }
+
     if ([responseObject respondsToSelector:@selector(objectForKey:)]) {
         NSString *status = [responseObject objectForKey:@"status"];
         if ([status isEqualToString:@"ok"]) {
             responseObject = [responseObject objectForKey:@"data"];
         }
         else if ([status isEqualToString:@"error"]) {
-            NSError *lfserror = getErrorFromObject(responseObject);
+            NSError *lfserror = LFSErrorFromObject(responseObject);
             *error = lfserror;
         }
     } else if (error) {
@@ -152,6 +236,35 @@ static BOOL AFErrorOrUnderlyingErrorHasCode(NSError *error, NSInteger code) {
     }
 
     return responseObject;
+}
+
+
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super initWithCoder:decoder];
+    if (!self) {
+        return nil;
+    }
+    
+    self.readingOptions = (JKFlags)[decoder decodeIntegerForKey:NSStringFromSelector(@selector(readingOptions))];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [super encodeWithCoder:coder];
+    
+    [coder encodeInteger:self.readingOptions forKey:NSStringFromSelector(@selector(readingOptions))];
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+    LFSJSONResponseSerializer *serializer = [[[self class] allocWithZone:zone] init];
+    serializer.readingOptions = self.readingOptions;
+    
+    return serializer;
 }
 
 @end
