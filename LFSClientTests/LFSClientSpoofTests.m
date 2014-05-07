@@ -156,6 +156,54 @@
     expect(contentInfo2).to.beTruthy();
 }
 
+- (void)testFeatured
+{
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        NSURL *requestURL = request.URL;
+        return [requestURL.host isEqualToString:@"bootstrap.featured-sample"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        // Stub it with our own file
+        NSString *filePath = OHPathForFileInBundle(@"featured-sample.json", nil);
+        NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
+        return [OHHTTPStubsResponse responseWithFileAtPath:filePath
+                                                statusCode:200
+                                                   headers:headers];
+    }];
+    
+    __block AFHTTPRequestOperation *op = nil;
+    __block NSArray *result = nil;
+    
+    // Actual call would look something like this:
+    LFSBootstrapClient *client = [LFSBootstrapClient clientWithNetwork:@"featured-sample"
+                                                           environment:nil ];
+    [client getFeaturedForSite:@"fakeSite"
+                   article:@"fakeArticle"
+                          head:YES
+                 onSuccess:^(NSOperation *operation, id JSON){
+                     op = (AFHTTPRequestOperation*)operation;
+                     result = JSON;
+                 }
+                 onFailure:^(NSOperation *operation, NSError *error) {
+                     op = (AFHTTPRequestOperation*)operation;
+                     NSLog(@"Error code %zd, with description %@",
+                           error.code,
+                           [error localizedDescription]);
+                 }
+     ];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op).will.beTruthy();
+    expect(op.isFinished).will.beTruthy();
+    expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
+    expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    expect(result).will.beTruthy();
+    if (result) {
+        expect(result).to.beKindOf([NSDictionary class]);
+        expect(result).to.haveCountOf(4u);
+    }
+}
+
+
 - (void)testHeatAPIWithGetHottestCollections
 {
     [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
