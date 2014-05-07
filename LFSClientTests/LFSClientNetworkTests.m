@@ -203,6 +203,44 @@
     }
 }
 
+- (void)testFeaturedWithGetFeaturedForArticle
+{
+    //Note: this test fails when the URL is wrong (the way it's meant to be)
+    __block AFHTTPRequestOperation *op = nil;
+    __block id result = nil;
+    
+    // This is the easiest way to use LFHTTPClient
+    LFSBootstrapClient *client = [LFSBootstrapClient
+                                  clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                  environment:[LFSConfig objectForKey:@"environment"]];
+    
+    [client getFeaturedForSite:[LFSConfig objectForKey:@"site"]
+                       article:[LFSConfig objectForKey:@"article"]
+                          head:YES
+                     onSuccess:^(NSOperation *operation, id JSON){
+                     op = (AFHTTPRequestOperation*)operation;
+                     result = JSON;
+                 }
+                 onFailure:^(NSOperation *operation, NSError *error) {
+                     op = (AFHTTPRequestOperation*)operation;
+                     NSLog(@"Error code %zd, with description %@", error.code, [error localizedDescription]);
+                 }
+     ];
+
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    if (op) {
+        expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
+    expect(result).will.beTruthy();
+    if (result) {
+        expect(result).to.beKindOf([NSDictionary class]);
+        expect(result).to.haveCountOf(4);
+    }
+}
+
 - (void)testReviewInitWithGetInitForArticle
 {
     //Note: this test fails when the URL is wrong (the way it's meant to be)

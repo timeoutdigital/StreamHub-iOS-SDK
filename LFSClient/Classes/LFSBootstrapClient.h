@@ -25,6 +25,7 @@
  @abstract Get the initial bootstrap data for a collection
  @discussion Get the initial bootstrap data for a collection. For more information see:
  https://github.com/Livefyre/livefyre-docs/wiki/StreamHub-API-Reference#wiki-init
+ http://answers.livefyre.com/developers/api-reference/#collection-info-plus
  @param articleId The Id of the collection's article.
  @param siteId    The Id of the article's site.
  @param success   Success callback
@@ -34,6 +35,24 @@
                article:(NSString *)articleId
              onSuccess:(LFSSuccessBlock)success
              onFailure:(LFSFailureBlock)failure;
+
+/*!
+ @abstract Retrieves featured content for a collection
+ @discussion Retrieves featured content for a collection. For more information see:
+ http://answers.livefyre.com/developers/api-reference/#featured-content-head
+ http://answers.livefyre.com/developers/api-reference/#featured-content-all
+ @param articleId The Id of the collection's article.
+ @param siteId    The Id of the article's site.
+ @param headOnly  If true, will only grab featured comments in the top of a collection, 
+                  if false will retrieve all of them
+ @param success   Success callback
+ @param failure   Failure callback
+ */
+- (void)getFeaturedForSite:(NSString *)siteId
+                   article:(NSString *)articleId
+                      head:(BOOL)headOnly
+                 onSuccess:(LFSSuccessBlock)success
+                 onFailure:(LFSFailureBlock)failure;
 
 /*!
  @abstract Get content for page

@@ -52,6 +52,31 @@ parameterEncoding:AFFormURLParameterEncoding
           failure:(AFFailureBlock)failure];
 }
 
+- (void)getFeaturedForSite:(NSString *)siteId
+                   article:(NSString *)articleId
+                      head:(BOOL)headOnly
+                 onSuccess:(LFSSuccessBlock)success
+                 onFailure:(LFSFailureBlock)failure
+{
+    NSParameterAssert(siteId != nil);
+    NSParameterAssert(articleId != nil);
+    
+    NSString *suffix = headOnly ? @"head" : @"all";
+    NSString* path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/featured-%@.json",
+                      self.lfNetwork, siteId, [articleId base64String], suffix];
+    [self getPath:path
+       parameters:nil
+parameterEncoding:AFFormURLParameterEncoding
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              // intercept responseObject and assign it to infoInit
+              self.infoInit = (NSDictionary*)responseObject;
+              if (success) {
+                  success(operation, responseObject);
+              }
+          }
+          failure:(AFFailureBlock)failure];
+}
+
 - (void)getContentForPage:(NSInteger)pageIndex
                 onSuccess:(LFSSuccessBlock)success
                 onFailure:(LFSFailureBlock)failure

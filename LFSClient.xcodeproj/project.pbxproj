@@ -41,6 +41,7 @@
 		1CF7064216C32D5D009BD41D /* content-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF7064116C32D5D009BD41D /* content-sample.json */; };
 		242AF4A5187F4AB2A678F00D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59C0EABAA1D1406582C1062E /* libPods.a */; };
 		80F04E573427492DA62B274F /* libPods-test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ED4A404DF430CB8D560C5 /* libPods-test.a */; };
+		EF02CC16191AAAF9003C28FF /* featured-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = EF02CC15191AAAF9003C28FF /* featured-sample.json */; };
 		EF03D34717C538F20097FDD3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF03D34617C538F20097FDD3 /* CoreGraphics.framework */; };
 		EF03D34917C539060097FDD3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF03D34817C539060097FDD3 /* Security.framework */; };
 		EF03D34A17C5391C0097FDD3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */; };
@@ -131,6 +132,7 @@
 		400C3847B3944FFB8721989F /* Pods-test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.xcconfig"; path = "Pods/Pods-test.xcconfig"; sourceTree = SOURCE_ROOT; };
 		59C0EABAA1D1406582C1062E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E78CF8C1B513498AABE45C8B /* Pods-default.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-default.xcconfig"; path = "Pods/Pods-default.xcconfig"; sourceTree = SOURCE_ROOT; };
+		EF02CC15191AAAF9003C28FF /* featured-sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "featured-sample.json"; sourceTree = "<group>"; };
 		EF03D34617C538F20097FDD3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		EF03D34817C539060097FDD3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		EF03D34C17C53A7D0097FDD3 /* AFNetworkingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkingTests.m; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				1CF0625416B1BD5B00CFA905 /* post-sample.json */,
 				1CF0625516B1BD5B00CFA905 /* stream-sample.json */,
 				1C0ADC3816A6238900ACC0EA /* init-sample.json */,
+				EF02CC15191AAAF9003C28FF /* featured-sample.json */,
 				1C4CC89D16A48B3800C33DEC /* LFSClientTests-Info.plist */,
 				1C4CC89E16A48B3800C33DEC /* InfoPlist.strings */,
 			);
@@ -423,6 +426,7 @@
 			files = (
 				1C4CC8A016A48B3800C33DEC /* InfoPlist.strings in Resources */,
 				1C0ADC3916A6238900ACC0EA /* init-sample.json in Resources */,
+				EF02CC16191AAAF9003C28FF /* featured-sample.json in Resources */,
 				1CF0625616B1BD5B00CFA905 /* like-sample.json in Resources */,
 				1CF0625716B1BD5B00CFA905 /* post-sample.json in Resources */,
 				EF1AD63D17CC3D71008D157F /* LFSTestConfig.plist in Resources */,
