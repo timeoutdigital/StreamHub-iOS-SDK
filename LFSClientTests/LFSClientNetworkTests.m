@@ -119,8 +119,6 @@
     
     expect(result).will.beTruthy();
     if (result) {
-        // Collection dictionary should have at least 4 keys:
-        // headDocument, collectionSettings, networkSettings, siteSettings
         expect(result).to.beKindOf([NSDictionary class]);
         expect([result allKeys]).to.beSupersetOf(@[@"networkSettings", @"headDocument", @"collectionSettings", @"siteSettings"]);
     }
@@ -163,8 +161,6 @@
 
     expect(result).will.beTruthy();
     if (result) {
-        // Collection dictionary should have 4 keys:
-        // headDocument, collectionSettings, networkSettings, siteSettings
         expect(result).to.beKindOf([NSDictionary class]);
         expect([result allKeys]).to.beSupersetOf(@[@"networkSettings", @"headDocument", @"collectionSettings", @"siteSettings"]);
     }
@@ -202,8 +198,6 @@
     expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
-        // Collection dictionary should have 4 keys:
-        // headDocument, collectionSettings, networkSettings, siteSettings
         expect([result allKeys]).to.beSupersetOf(@[@"networkSettings", @"headDocument", @"collectionSettings", @"siteSettings"]);
     }
 }
@@ -277,8 +271,6 @@
 
     expect(result).will.beTruthy();
     if (result) {
-        // Collection dictionary should have 4 keys:
-        // headDocument, collectionSettings, networkSettings, siteSettings
         expect(result).to.beKindOf([NSDictionary class]);
         expect([result allKeys]).to.beSupersetOf(@[@"networkSettings", @"headDocument", @"collectionSettings", @"siteSettings"]);
     }
@@ -860,8 +852,6 @@
     
     expect(bootstrapInitInfo).will.beTruthy();
     if (bootstrapInitInfo) {
-        // Collection dictionary should have 4 keys:
-        // headDocument, collectionSettings, networkSettings, siteSettings
         expect(bootstrapInitInfo).to.beKindOf([NSDictionary class]);
         expect([bootstrapInitInfo allKeys]).to.beSupersetOf(@[@"networkSettings", @"headDocument", @"collectionSettings", @"siteSettings"]);
     }

@@ -104,12 +104,10 @@
     expect(op0.isFinished).will.beTruthy();
     expect(op0).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op0.error).notTo.equal(NSURLErrorTimedOut);
-    expect(bootstrapInitInfo).to.beTruthy();
+    expect(bootstrapInitInfo).will.beTruthy();
     if (bootstrapInitInfo) {
         expect(bootstrapInitInfo).to.beKindOf([NSDictionary class]);
-        // Collection dictionary should have 4 keys:
-        // headDocument, collectionSettings, networkSettings, siteSettings
-        expect(bootstrapInitInfo).to.haveCountOf(4);
+        expect([bootstrapInitInfo allKeys]).to.beSupersetOf(@[@"networkSettings", @"headDocument", @"collectionSettings", @"siteSettings"]);
     }
     
     // Get Page 1
@@ -171,7 +169,7 @@
     }];
     
     __block AFHTTPRequestOperation *op = nil;
-    __block NSArray *result = nil;
+    __block id result = nil;
     
     // Actual call would look something like this:
     LFSBootstrapClient *client = [LFSBootstrapClient clientWithNetwork:@"featured-sample"
@@ -190,7 +188,7 @@
                            [error localizedDescription]);
                  }
      ];
-    
+
     // Wait 'til done and then verify that everything is OK
     expect(op).will.beTruthy();
     expect(op.isFinished).will.beTruthy();
@@ -199,10 +197,9 @@
     expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
-        expect(result).to.haveCountOf(4u);
+        expect([result allKeys]).to.beSupersetOf(@[@"content", @"authors", @"size", @"isComplete"]);
     }
 }
-
 
 - (void)testHeatAPIWithGetHottestCollections
 {
@@ -513,8 +510,7 @@
     expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
-        // Collection dictionary should have 4 keys: messageId, opinionId
-        expect(result).to.haveCountOf(2);
+        expect([result allKeys]).to.beSupersetOf(@[@"messageId", @"opinionId"]);
     }
 
     // Wait 'til done and then verify that everything is OK
