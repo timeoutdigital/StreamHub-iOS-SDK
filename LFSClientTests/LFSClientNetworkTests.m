@@ -117,11 +117,12 @@
         expect(op.response.statusCode).to.equal(200);
     }
     
-    // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
     expect(result).will.beTruthy();
     if (result) {
+        // Collection dictionary should have at least 4 keys:
+        // headDocument, collectionSettings, networkSettings, siteSettings
         expect(result).to.beKindOf([NSDictionary class]);
-        expect(result).to.haveCountOf(4);
+        expect([result allKeys]).to.beSupersetOf(@[@"networkSettings", @"headDocument", @"collectionSettings", @"siteSettings"]);
     }
 }
 
@@ -159,11 +160,13 @@
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
-    // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
+
     expect(result).will.beTruthy();
     if (result) {
+        // Collection dictionary should have 4 keys:
+        // headDocument, collectionSettings, networkSettings, siteSettings
         expect(result).to.beKindOf([NSDictionary class]);
-        expect(result).to.haveCountOf(4);
+        expect([result allKeys]).to.beSupersetOf(@[@"networkSettings", @"headDocument", @"collectionSettings", @"siteSettings"]);
     }
 }
 
@@ -195,11 +198,13 @@
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
-    // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
+
     expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
-        expect(result).to.haveCountOf(4);
+        // Collection dictionary should have 4 keys:
+        // headDocument, collectionSettings, networkSettings, siteSettings
+        expect([result allKeys]).to.beSupersetOf(@[@"networkSettings", @"headDocument", @"collectionSettings", @"siteSettings"]);
     }
 }
 
@@ -233,11 +238,11 @@
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
-    // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
+
     expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
-        expect(result).to.haveCountOf(4);
+        expect([result allKeys]).to.beSupersetOf(@[@"content", @"authors", @"size", @"isComplete"]);
     }
 }
 
@@ -269,11 +274,13 @@
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
-    // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
+
     expect(result).will.beTruthy();
     if (result) {
+        // Collection dictionary should have 4 keys:
+        // headDocument, collectionSettings, networkSettings, siteSettings
         expect(result).to.beKindOf([NSDictionary class]);
-        expect(result).to.haveCountOf(4);
+        expect([result allKeys]).to.beSupersetOf(@[@"networkSettings", @"headDocument", @"collectionSettings", @"siteSettings"]);
     }
 }
 
@@ -850,9 +857,14 @@
     expect(op0.isFinished).will.beTruthy();
     expect(op0).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op0.error).notTo.equal(NSURLErrorTimedOut);
-    // Collection dictionary should have 4 keys: headDocument, collectionSettings, networkSettings, siteSettings
-    expect(bootstrapInitInfo).to.beKindOf([NSDictionary class]);
-    expect(bootstrapInitInfo).to.haveCountOf(4);
+    
+    expect(bootstrapInitInfo).will.beTruthy();
+    if (bootstrapInitInfo) {
+        // Collection dictionary should have 4 keys:
+        // headDocument, collectionSettings, networkSettings, siteSettings
+        expect(bootstrapInitInfo).to.beKindOf([NSDictionary class]);
+        expect([bootstrapInitInfo allKeys]).to.beSupersetOf(@[@"networkSettings", @"headDocument", @"collectionSettings", @"siteSettings"]);
+    }
     
     NSDictionary *collectionSettings = [bootstrapInitInfo objectForKey:@"collectionSettings"];
     NSString *collectionId = [collectionSettings objectForKey:@"collectionId"];

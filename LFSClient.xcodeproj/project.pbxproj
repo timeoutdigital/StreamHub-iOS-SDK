@@ -46,7 +46,6 @@
 		EF03D34917C539060097FDD3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF03D34817C539060097FDD3 /* Security.framework */; };
 		EF03D34A17C5391C0097FDD3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */; };
 		EF03D34B17C539460097FDD3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */; };
-		EF03D34D17C53A7D0097FDD3 /* AFNetworkingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF03D34C17C53A7D0097FDD3 /* AFNetworkingTests.m */; };
 		EF03F9E017DA665D00FE4C23 /* LFSRelativeToDateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EF03F9DF17DA665D00FE4C23 /* LFSRelativeToDateTest.m */; };
 		EF1AD63D17CC3D71008D157F /* LFSTestConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF1AD63C17CC3D71008D157F /* LFSTestConfig.plist */; };
 		EF21AB9D17C3E26500094CC2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */; };
@@ -135,7 +134,6 @@
 		EF02CC15191AAAF9003C28FF /* featured-sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "featured-sample.json"; sourceTree = "<group>"; };
 		EF03D34617C538F20097FDD3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		EF03D34817C539060097FDD3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		EF03D34C17C53A7D0097FDD3 /* AFNetworkingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkingTests.m; sourceTree = "<group>"; };
 		EF03F9DF17DA665D00FE4C23 /* LFSRelativeToDateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSRelativeToDateTest.m; sourceTree = "<group>"; };
 		EF1AD63C17CC3D71008D157F /* LFSTestConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LFSTestConfig.plist; sourceTree = "<group>"; };
 		EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -157,7 +155,6 @@
 		EFDF081617CE756500C7D6C0 /* LFSConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFSConfig.h; sourceTree = "<group>"; };
 		EFDF081717CE756500C7D6C0 /* LFSConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSConfig.m; sourceTree = "<group>"; };
 		EFE0420D17C3154B0011DD6A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		EFE0CB1217C535EF00775C9C /* AFNetworkingTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkingTests.h; sourceTree = "<group>"; };
 		EFF3049017E68961005358F5 /* NSDateFormatter+RelativeTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+RelativeTo.h"; sourceTree = "<group>"; };
 		EFF3049117E68961005358F5 /* NSDateFormatter+RelativeTo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+RelativeTo.m"; sourceTree = "<group>"; };
 		EFF3049217E68961005358F5 /* NSString+LFSEref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LFSEref.h"; sourceTree = "<group>"; };
@@ -260,8 +257,6 @@
 				1C4CC8A216A48B3800C33DEC /* LFSClientNetworkTests.m */,
 				1CF061F516B093B500CFA905 /* LFSClientSpoofTests.m */,
 				EF03F9DF17DA665D00FE4C23 /* LFSRelativeToDateTest.m */,
-				EFE0CB1217C535EF00775C9C /* AFNetworkingTests.h */,
-				EF03D34C17C53A7D0097FDD3 /* AFNetworkingTests.m */,
 				1C4CC89C16A48B3800C33DEC /* Supporting Files */,
 			);
 			path = LFSClientTests;
@@ -555,7 +550,6 @@
 			files = (
 				EF894D7118F315F900D4F2CF /* LFSJSONResponseSerializer.m in Sources */,
 				1C4CC8A316A48B3800C33DEC /* LFSClientNetworkTests.m in Sources */,
-				EF03D34D17C53A7D0097FDD3 /* AFNetworkingTests.m in Sources */,
 				EF03F9E017DA665D00FE4C23 /* LFSRelativeToDateTest.m in Sources */,
 				EF56AF8D17C6CEB50086127D /* LFSJSONKitTests.m in Sources */,
 				EFA0456C17D806130012CD31 /* LFSStreamClient.m in Sources */,
