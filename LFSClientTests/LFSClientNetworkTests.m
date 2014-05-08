@@ -477,6 +477,40 @@
     expect(result).will.beTruthy();
 }
 
+- (void)testFeature {
+    
+    // Requires HTTP request encoding
+    
+    __block AFHTTPRequestOperation *op = nil;
+    __block NSDictionary *result = nil;
+    
+    LFSWriteClient *clientWrite = [LFSWriteClient
+                                   clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                   environment:nil ];
+    
+    [clientWrite feature:YES
+                 comment:[LFSConfig objectForKey:@"content"]
+            inCollection:[LFSConfig objectForKey:@"collection"]
+               userToken:[LFSConfig objectForKey:@"moderator user auth token"]
+               onSuccess:^(NSOperation *operation, id responseObject) {
+                           op = (AFHTTPRequestOperation *)operation;
+                           result = (NSDictionary *)responseObject;
+                       }
+                       onFailure:^(NSOperation *operation, NSError *error) {
+                           op = (AFHTTPRequestOperation *)operation;
+                           NSLog(@"Error code %zd, with description %@", error.code, [error localizedDescription]);
+                       }];
+
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    if (op) {
+        expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    expect(result).will.beTruthy();
+}
+
+
 #pragma mark - test posts
 - (void)testPostAndDelete
 {

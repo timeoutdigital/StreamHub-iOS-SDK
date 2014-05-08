@@ -37,6 +37,23 @@
          onFailure:(LFSFailureBlock)failure;
 
 /*!
+ @abstract Feature (or unfeature) a comment in a collection.
+ @discussion Feature (or unfeature) a comment in a collection. The comment must be in a collection the user is authenticated for, and he user must have moderator-level permissions. Trying to like things other than comments may have odd results.
+ @param feature       One of the following: YES, NO
+ @param messageId    id of content which is being liked/unliked
+ @param collectionId The collection in which the content appears.
+ @param userToken    JWT-encoded user token
+ @param success      Success callback
+ @param failure      Failure callback
+ */
+- (void)feature:(BOOL)feature
+        comment:(NSString*)messageId
+   inCollection:(NSString *)collectionId
+      userToken:(NSDictionary*)userToken
+      onSuccess:(LFSSuccessBlock)success
+      onFailure:(LFSFailureBlock)failure;
+
+/*!
  @abstract Flag content with one of the flag types.
  @discussion Flag content with one of the flag types.
  @param flag         Either one of the following: `LFSFlagSpam | LFSFlagOffensive | LFSFlagDisagree | LFSFlagOfftopic`

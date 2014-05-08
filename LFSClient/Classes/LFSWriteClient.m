@@ -147,6 +147,28 @@
 }
 
 
+- (void)feature:(BOOL)feature
+        comment:(NSString*)messageId
+   inCollection:(NSString *)collectionId
+      userToken:(NSDictionary*)userToken
+      onSuccess:(LFSSuccessBlock)success
+      onFailure:(LFSFailureBlock)failure
+{
+    NSParameterAssert(messageId != nil);
+    NSParameterAssert(userToken != nil);
+    NSParameterAssert(collectionId != nil);
+    
+    NSString *path = [NSString stringWithFormat:@"/api/v3.0/collection/%@/%@/%@/",
+                      collectionId, (feature ? @"feature" : @"unfeature"), messageId];
+    
+    [self postPath:path
+        parameters:@{LFSCollectionPostUserTokenKey:userToken}
+ parameterEncoding:AFFormURLParameterEncoding
+           success:success
+           failure:failure];
+}
+
+
 -(void)postArticleForSite:(NSString*)siteId
               withSiteKey:(NSString*)siteKey
            collectionMeta:(NSDictionary*)collectionMeta
