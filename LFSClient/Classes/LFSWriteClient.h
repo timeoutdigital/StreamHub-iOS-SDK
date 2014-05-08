@@ -38,9 +38,9 @@
 
 /*!
  @abstract Feature (or unfeature) a comment in a collection.
- @discussion Feature (or unfeature) a comment in a collection. The comment must be in a collection the user is authenticated for, and he user must have moderator-level permissions. Trying to like things other than comments may have odd results.
+ @discussion Feature (or unfeature) a comment in a collection. The comment must be in a collection the user is authenticated for, and he user must have moderator-level permissions. Trying to feature things other than comments may have odd results.
  @param feature       One of the following: YES, NO
- @param messageId    id of content which is being liked/unliked
+ @param messageId    id of content which is being featured/unfeatured
  @param collectionId The collection in which the content appears.
  @param userToken    JWT-encoded user token
  @param success      Success callback
