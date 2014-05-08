@@ -100,7 +100,6 @@
      ];
     
     // Wait 'til done and then verify that everything is OK
-    expect(op0).will.beTruthy();
     expect(op0.isFinished).will.beTruthy();
     expect(op0).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op0.error).notTo.equal(NSURLErrorTimedOut);
@@ -190,7 +189,6 @@
      ];
 
     // Wait 'til done and then verify that everything is OK
-    expect(op).will.beTruthy();
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
