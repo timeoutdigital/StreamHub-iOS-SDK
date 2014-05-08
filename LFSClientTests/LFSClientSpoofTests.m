@@ -233,7 +233,6 @@
                                       }];
     
     // Wait 'til done and then verify that everything is OK
-    expect(op).will.beTruthy();
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
@@ -262,7 +261,7 @@
     __block NSArray *result = nil;
     
     // Actual call would look something like this:
-    LFSBootstrapClient *client = [LFSBootstrapClient clientWithNetwork:@"usercontent-sample" environment:nil ];
+    LFSBootstrapClient *client = [LFSBootstrapClient clientWithNetwork:@"usercontent-sample" environment:nil];
     [client getUserContentForUser:@"fakeUser"
                             token:nil
                          statuses:nil
@@ -278,7 +277,6 @@
                         }];
     
     // Wait 'til done and then verify that everything is OK
-    expect(op).will.beTruthy();
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
@@ -323,7 +321,6 @@
                                  }];
     
     // Wait 'til done and then verify that everything is OK
-    expect(op).will.beTruthy();
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
@@ -364,7 +361,6 @@
                                  }];
     
     // Wait 'til done and then verify that everything is OK
-    expect(op).will.beTruthy();
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
@@ -408,7 +404,6 @@
                   }];
     
     // Wait 'til done and then verify that everything is OK
-    expect(op).will.beTruthy();
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
@@ -456,7 +451,6 @@
                        }];
     
     // Wait 'til done and then verify that everything is OK
-    expect(op).will.beTruthy();
     expect(op.isFinished).will.beTruthy();
     expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
     expect(op.error).notTo.equal(NSURLErrorTimedOut);
@@ -501,6 +495,7 @@
     // Wait til done and then verify that everything is OK
     expect(op.isFinished).will.beTruthy();
     if (op) {
+        expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
         expect(op.response.statusCode).to.equal(200);
     }
@@ -510,13 +505,6 @@
         expect(result).to.beKindOf([NSDictionary class]);
         expect([result allKeys]).to.beSupersetOf(@[@"messageId", @"opinionId"]);
     }
-
-    // Wait 'til done and then verify that everything is OK
-    expect(op).will.beTruthy();
-    expect(op.isFinished).will.beTruthy();
-    expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
-    expect(op.error).notTo.equal(NSURLErrorTimedOut);
-    expect(result).will.beTruthy();
 }
 
 @end
