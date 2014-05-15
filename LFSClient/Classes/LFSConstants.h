@@ -194,7 +194,7 @@ typedef NS_ENUM(NSUInteger, LFSPermissionScope) {
 
 // For detailed info, see
 // https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/publishing/models.proto
-typedef NS_ENUM(NSUInteger, LFSContentSource) {
+typedef NS_ENUM(NSUInteger, LFSContentSourceClass) {
     LFSContentSourceDefault = 0u,   // 0
     LFSContentSourceTwitter,        // 1
     LFSContentSourceFacebook,       // 2
@@ -206,30 +206,7 @@ typedef NS_ENUM(NSUInteger, LFSContentSource) {
 };
 
 #define CONTENT_SOURCE_DECODE_LENGTH 20u
-static const NSUInteger kLFSContentSourceDecode[CONTENT_SOURCE_DECODE_LENGTH] =
-{
-    LFSContentSourceDefault,    //  0
-    LFSContentSourceTwitter,    //  1
-    LFSContentSourceTwitter,    //  2
-    LFSContentSourceFacebook,   //  3
-    LFSContentSourceDefault,    //  4
-    LFSContentSourceDefault,    //  5
-    LFSContentSourceFacebook,   //  6
-    LFSContentSourceTwitter,    //  7
-    LFSContentSourceDefault,    //  8
-    LFSContentSourceDefault,    //  9
-    LFSContentSourceGooglePlus, // 10
-    LFSContentSourceFlickr,     // 11
-    LFSContentSourceYouTube,    // 12
-    LFSContentSourceRSS,        // 13
-    LFSContentSourceFacebook,   // 14
-    LFSContentSourceTwitter,    // 15
-    LFSContentSourceYouTube,    // 16
-    LFSContentSourceDefault,    // 17
-    LFSContentSourceDefault,    // 18
-    LFSContentSourceInstagram,  // 19
-};
-
+extern const LFSContentSourceClass LFSContentSourceClasses[CONTENT_SOURCE_DECODE_LENGTH];
 
 @interface LFSConstants : NSObject
 
