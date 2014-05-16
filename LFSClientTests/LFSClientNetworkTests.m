@@ -131,7 +131,7 @@
     __block id result = nil;
     
     // Second easiest way to use LFHTTPClient
-    NSString* path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init",
+    NSString* path = [NSString stringWithFormat:@"bs3/%@/%@/%@/init",
                       [LFSConfig objectForKey:@"domain"],
                       [LFSConfig objectForKey:@"site"],
                       [[LFSConfig objectForKey:@"article"] base64String]];

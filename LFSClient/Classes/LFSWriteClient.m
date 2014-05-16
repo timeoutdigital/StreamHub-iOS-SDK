@@ -42,7 +42,7 @@
     [parameters1 addEntriesFromDictionary:parameters];
     
     NSString *path = [NSString
-                      stringWithFormat:@"/api/v3.0/message/%@/%@/",
+                      stringWithFormat:@"api/v3.0/message/%@/%@/",
                       contentId, actionEndpoint];
     
     [self postPath:path
@@ -74,7 +74,7 @@
     [parameters1 addEntriesFromDictionary:parameters];
     
     NSString *path = [NSString
-                      stringWithFormat:@"/api/v3.0/message/%@/flag/%@/",
+                      stringWithFormat:@"api/v3.0/message/%@/flag/%@/",
                       contentId, LFSContentFlags[flag]];
     
     [self postPath:path
@@ -127,10 +127,10 @@
     
     NSString *path;
     if (postType == LFSPostTypeDefault) {
-        path = [NSString stringWithFormat:@"/api/v3.0/collection/%@/post/",
+        path = [NSString stringWithFormat:@"api/v3.0/collection/%@/post/",
                   collectionId];
     } else {
-        path = [NSString stringWithFormat:@"/api/v3.0/collection/%@/post/%@/",
+        path = [NSString stringWithFormat:@"api/v3.0/collection/%@/post/%@/",
            collectionId, LFSPostTypes[postType]];
     }
     NSMutableDictionary *mutableParameters = [parameters mutableCopy];
@@ -158,7 +158,7 @@
     NSParameterAssert(userToken != nil);
     NSParameterAssert(collectionId != nil);
     
-    NSString *path = [NSString stringWithFormat:@"/api/v3.0/collection/%@/%@/%@/",
+    NSString *path = [NSString stringWithFormat:@"api/v3.0/collection/%@/%@/%@/",
                       collectionId, (feature ? @"feature" : @"unfeature"), messageId];
     
     [self postPath:path
@@ -210,7 +210,7 @@
         parameters = @{LFSCollectionMetaParameterKey     : mutableMeta};
     }
     
-    NSString *path = [NSString stringWithFormat:@"/api/v3.0/site/%@/collection/create", siteId];
+    NSString *path = [NSString stringWithFormat:@"api/v3.0/site/%@/collection/create", siteId];
     
     [self postPath:path
         parameters:parameters
