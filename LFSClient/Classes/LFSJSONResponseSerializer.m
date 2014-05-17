@@ -8,44 +8,38 @@
 
 #import "LFSJSONResponseSerializer.h"
 
+static NSError* LFSErrorFromResponse(NSUInteger errorCode, id responseObject)
+{
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    if (responseObject != nil) {
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            NSNumber *error_code = [responseObject objectForKey:@"code"];
+            NSString *error_type = [responseObject objectForKey:@"error_type"];
+            NSString *error_msg = [responseObject objectForKey:@"msg"];
+            [dictionary setObject:[NSString stringWithFormat:@"Error %@: %@", error_code, error_type]
+                           forKey:NSLocalizedDescriptionKey];
+            [dictionary setObject:[NSString stringWithFormat:@"%@", error_msg]
+                           forKey:NSLocalizedRecoverySuggestionErrorKey];
+        } else {
+            [dictionary setObject:[NSString stringWithFormat:@"%@", responseObject]
+                           forKey:NSLocalizedDescriptionKey];
+        }
+        [dictionary setObject:responseObject
+                       forKey:NSUnderlyingErrorKey];
+    }
+    NSError *error = [NSError errorWithDomain:NSURLErrorDomain
+                                         code:errorCode
+                                     userInfo:dictionary];
+    return error;
+}
+
 static NSError* LFSErrorFromObject(NSDictionary* object)
 {
     NSInteger errorCode = [[object objectForKey:@"code"] integerValue];
-    NSString *errorMessage = [NSString stringWithFormat:@"Error %zd: %@",
-                              errorCode,
-                              [object objectForKey:@"msg"]];
-    NSString *errorType = [object objectForKey:@"error_type"];
-    
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    if (errorMessage != nil) {
-        [dictionary setObject:errorMessage forKey:NSLocalizedDescriptionKey];
-    }
-    if (errorType != nil) {
-        [dictionary setObject:errorType forKey:NSLocalizedFailureReasonErrorKey];
-    }
-    NSError *error = [NSError errorWithDomain:NSURLErrorDomain
-                                         code:errorCode
-                                     userInfo:dictionary];
-    return error;
+    return LFSErrorFromResponse(errorCode, object);
 }
 
-
-
-static NSError* LFSErrorFromResponse(NSUInteger errorCode, NSString* responseString)
-{
-    NSString *errorMessage = responseString;
-    
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    if (errorMessage != nil) {
-        [dictionary setObject:errorMessage forKey:NSLocalizedDescriptionKey];
-    }
-    NSError *error = [NSError errorWithDomain:NSURLErrorDomain
-                                         code:errorCode
-                                     userInfo:dictionary];
-    return error;
-}
-
-static NSError * AFErrorWithUnderlyingError(NSError *error, NSError *underlyingError) {
+static NSError* AFErrorWithUnderlyingError(NSError *error, NSError *underlyingError) {
     if (!error) {
         return underlyingError;
     }
