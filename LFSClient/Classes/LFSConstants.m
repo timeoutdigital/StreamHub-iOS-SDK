@@ -140,6 +140,7 @@ NSString *const LFSCollectionPostShareTypesKey= @"share_types";
 NSString *const LFSCollectionPostAttachmentsKey = @"attachments";
 NSString *const LFSCollectionPostMediaKey = @"media";
 NSString *const LFSCollectionPostUserTokenKey = @"lftoken";
+NSString *const LFSCollectionPostCollectionIdKey = @"collection_id";
 // }}}
 
 @end

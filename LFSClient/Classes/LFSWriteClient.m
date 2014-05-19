@@ -35,8 +35,8 @@
     
     NSMutableDictionary *parameters1 =
     [NSMutableDictionary
-     dictionaryWithObjects:@[contentId, collectionId, userToken]
-     forKeys:@[@"message_id", @"collection_id", @"lftoken"]];
+     dictionaryWithObjects:@[collectionId, userToken]
+     forKeys:@[LFSCollectionPostCollectionIdKey, LFSCollectionPostUserTokenKey]];
     
     // parameters passed in can be @{ notes: @"...", email: @"..." }
     [parameters1 addEntriesFromDictionary:parameters];
@@ -67,8 +67,8 @@
     
     NSMutableDictionary *parameters1 =
     [NSMutableDictionary
-     dictionaryWithObjects:@[contentId, collectionId, userToken]
-     forKeys:@[@"message_id", @"collection_id", @"lftoken"]];
+     dictionaryWithObjects:@[collectionId, userToken]
+     forKeys:@[LFSCollectionPostCollectionIdKey, LFSCollectionPostUserTokenKey]];
     
     // parameters passed in can be @{ notes: @"...", email: @"..." }
     [parameters1 addEntriesFromDictionary:parameters];
@@ -83,7 +83,6 @@
            success:success
            failure:failure];
 }
-
 
 - (void)postContent:(NSString *)body
        inCollection:(NSString *)collectionId

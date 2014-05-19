@@ -256,6 +256,7 @@ extern NSString *const LFSCollectionPostShareTypesKey;
 extern NSString *const LFSCollectionPostAttachmentsKey;
 extern NSString *const LFSCollectionPostMediaKey;
 extern NSString *const LFSCollectionPostUserTokenKey;
+extern NSString *const LFSCollectionPostCollectionIdKey;
 // }}}
 
 @end
