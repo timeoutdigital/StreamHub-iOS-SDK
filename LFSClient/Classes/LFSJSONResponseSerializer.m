@@ -29,10 +29,9 @@ static NSError* LFSErrorFromResponse(NSUInteger errorCode, id responseObject)
         [dictionary setObject:responseObject
                        forKey:NSUnderlyingErrorKey];
     }
-    NSError *error = [NSError errorWithDomain:NSURLErrorDomain
-                                         code:errorCode
-                                     userInfo:dictionary];
-    return error;
+    return [NSError errorWithDomain:NSURLErrorDomain
+                               code:errorCode
+                           userInfo:dictionary];
 }
 
 static NSError* LFSErrorFromObject(NSDictionary* object)
@@ -214,7 +213,9 @@ static BOOL AFErrorOrUnderlyingErrorHasCode(NSError *error, NSInteger code) {
 
     NSUInteger statusCode = [(NSHTTPURLResponse*)response statusCode];
     if (self.acceptableStatusCodes && ![self.acceptableStatusCodes containsIndex:statusCode]) {
-        *error = LFSErrorFromResponse(statusCode, responseObject);
+        if (error) {
+            *error = LFSErrorFromResponse(statusCode, responseObject);
+        }
         return nil;
     }
 
@@ -223,9 +224,8 @@ static BOOL AFErrorOrUnderlyingErrorHasCode(NSError *error, NSInteger code) {
         if ([status isEqualToString:@"ok"]) {
             responseObject = [responseObject objectForKey:@"data"];
         }
-        else if ([status isEqualToString:@"error"]) {
-            NSError *lfserror = LFSErrorFromObject(responseObject);
-            *error = lfserror;
+        else if (error && [status isEqualToString:@"error"]) {
+            *error = LFSErrorFromObject(responseObject);
         }
     } else if (error) {
         *error = AFErrorWithUnderlyingError(serializationError, *error);
