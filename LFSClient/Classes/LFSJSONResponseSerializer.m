@@ -21,8 +21,10 @@ static NSError* LFSErrorFromResponse(NSUInteger errorCode, id responseObject)
             [dictionary setObject:[NSString stringWithFormat:@"%@", error_msg]
                            forKey:NSLocalizedRecoverySuggestionErrorKey];
         } else {
-            [dictionary setObject:[NSString stringWithFormat:@"%@", responseObject]
+            [dictionary setObject:[NSString stringWithFormat:@"Error %zd", errorCode]
                            forKey:NSLocalizedDescriptionKey];
+            [dictionary setObject:[NSString stringWithFormat:@"%@", responseObject]
+                           forKey:NSLocalizedRecoverySuggestionErrorKey];
         }
         [dictionary setObject:responseObject
                        forKey:NSUnderlyingErrorKey];
