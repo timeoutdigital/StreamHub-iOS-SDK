@@ -97,6 +97,16 @@ const NSString* const LFSContentFlags[LFS_CONTENT_FLAGS_LENGTH] =
     @"off-topic"        // 3
 };
 
+// Actions that can be used on /user/ path
+const NSString* const LFSAuthorActions[LFS_USER_ACTIONS_LENGTH] =
+{
+    @"ban",             // 0
+    @"unban",           // 1
+    @"whitelist",       // 2
+    @"unwhitelist"      // 3
+};
+
+
 // {{{ types of content that can be posted
 // https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L68
 const NSString *const LFSPostTypes[LFS_POST_TYPE_LENGTH] =
@@ -140,6 +150,13 @@ NSString *const LFSCollectionPostShareTypesKey= @"share_types";
 NSString *const LFSCollectionPostAttachmentsKey = @"attachments";
 NSString *const LFSCollectionPostMediaKey = @"media";
 NSString *const LFSCollectionPostUserTokenKey = @"lftoken";
+NSString *const LFSCollectionPostCollectionIdKey = @"collection_id";
+
+NSString *const LFSPostNetworkKey = @"network";
+NSString *const LFSPostSitesKey = @"sites";
+NSString *const LFSPostRetroactiveKey = @"retroactive";
+
 // }}}
+
 
 @end

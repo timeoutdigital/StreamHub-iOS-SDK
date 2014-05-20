@@ -37,7 +37,7 @@
 {
     NSParameterAssert(siteId != nil);
     NSParameterAssert(articleId != nil);
-    NSString* path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init",
+    NSString* path = [NSString stringWithFormat:@"bs3/%@/%@/%@/init",
                       self.lfNetwork, siteId, [articleId base64String]];
     [self getPath:path
        parameters:nil
@@ -62,7 +62,7 @@ parameterEncoding:AFFormURLParameterEncoding
     NSParameterAssert(articleId != nil);
     
     NSString *suffix = headOnly ? @"head" : @"all";
-    NSString* path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/featured-%@.json",
+    NSString* path = [NSString stringWithFormat:@"bs3/%@/%@/%@/featured-%@.json",
                       self.lfNetwork, siteId, [articleId base64String], suffix];
     [self getPath:path
        parameters:nil
@@ -125,7 +125,7 @@ parameterEncoding:AFFormURLParameterEncoding
     }
     
     NSString *pathBase = [archiveInfo objectForKey:@"pathBase"];
-    NSString *path = [NSString stringWithFormat:@"/bs3%@%zd.json", pathBase, pageIndex];
+    NSString *path = [NSString stringWithFormat:@"bs3%@%zd.json", pathBase, pageIndex];
     [self getPath:path
        parameters:nil
 parameterEncoding:AFFormURLParameterEncoding
@@ -154,7 +154,7 @@ parameterEncoding:AFFormURLParameterEncoding
         [parameters setObject:[NSNumber numberWithInteger:offset]
                        forKey:@"offset"];
     }
-    [self getPath:[NSString stringWithFormat:@"/api/v3.0/author/%@/comments/", userId]
+    [self getPath:[NSString stringWithFormat:@"api/v3.0/author/%@/comments/", userId]
        parameters:parameters
 parameterEncoding:AFFormURLParameterEncoding
           success:(AFSuccessBlock)success
@@ -179,7 +179,7 @@ parameterEncoding:AFFormURLParameterEncoding
         [parameters setObject:[NSNumber numberWithUnsignedInteger:number]
                        forKey:@"number"];
     }
-    [self getPath:@"/api/v3.0/hottest/"
+    [self getPath:@"api/v3.0/hottest/"
        parameters:parameters
 parameterEncoding:AFFormURLParameterEncoding
           success:(AFSuccessBlock)success

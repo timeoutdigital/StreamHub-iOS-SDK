@@ -37,6 +37,25 @@
          onFailure:(LFSFailureBlock)failure;
 
 /*!
+ @abstract Flag a user (either ban or whitelist or undo)
+ @discussion Send a command to flag a user. The following actions can be performed
+             with this method: banning/unbanning a user, and white-/unwhitelisting a user.
+ @param action       A LFSAuthorAction type
+ @param sites        (optional) a site (string) or a list of sites (array)
+ @param retroactive  (Boolean) A value that indicates whether to apply unban to previously posted content
+ @param userToken    JWT-encoded user token
+ @param success      Success callback
+ @param failure      Failure callback
+ */
+- (void)flagAuthor:(NSString *)userId
+            action:(LFSAuthorAction)userAction
+          forSites:(id)sites
+       retroactive:(BOOL)retroactive
+         userToken:(NSString*)userToken
+         onSuccess:(LFSSuccessBlock)success
+         onFailure:(LFSFailureBlock)failure;
+
+/*!
  @abstract Feature (or unfeature) a comment in a collection.
  @discussion Feature (or unfeature) a comment in a collection. The comment must be in a collection the user is authenticated for, and he user must have moderator-level permissions. Trying to feature things other than comments may have odd results.
  @param feature       One of the following: YES, NO
@@ -48,8 +67,8 @@
  */
 - (void)feature:(BOOL)feature
         comment:(NSString*)messageId
-   inCollection:(NSString *)collectionId
-      userToken:(NSDictionary*)userToken
+   inCollection:(NSString*)collectionId
+      userToken:(NSString*)userToken
       onSuccess:(LFSSuccessBlock)success
       onFailure:(LFSFailureBlock)failure;
 

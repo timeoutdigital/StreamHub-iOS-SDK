@@ -35,15 +35,62 @@
     
     NSMutableDictionary *parameters1 =
     [NSMutableDictionary
-     dictionaryWithObjects:@[contentId, collectionId, userToken]
-     forKeys:@[@"message_id", @"collection_id", @"lftoken"]];
+     dictionaryWithObjects:@[collectionId, userToken]
+     forKeys:@[LFSCollectionPostCollectionIdKey, LFSCollectionPostUserTokenKey]];
     
     // parameters passed in can be @{ notes: @"...", email: @"..." }
     [parameters1 addEntriesFromDictionary:parameters];
     
     NSString *path = [NSString
-                      stringWithFormat:@"/api/v3.0/message/%@/%@/",
+                      stringWithFormat:@"api/v3.0/message/%@/%@/",
                       contentId, actionEndpoint];
+    
+    [self postPath:path
+        parameters:parameters1
+ parameterEncoding:AFFormURLParameterEncoding
+           success:success
+           failure:failure];
+}
+
+- (void)flagAuthor:(NSString *)userId
+            action:(LFSAuthorAction)userAction
+          forSites:(id)sites
+       retroactive:(BOOL)retroactive
+         userToken:(NSString*)userToken
+         onSuccess:(LFSSuccessBlock)success
+         onFailure:(LFSFailureBlock)failure
+{
+    // must include either network or sites parameter(s)
+    NSParameterAssert(userId != nil);
+    NSParameterAssert(userToken != nil);
+    NSParameterAssert((NSUInteger)userAction < LFS_USER_ACTIONS_LENGTH);
+    
+    NSNumber *retroactiveNumber = [NSNumber numberWithBool:retroactive];
+    
+    NSMutableDictionary *parameters1 =
+    [NSMutableDictionary
+     dictionaryWithObjects:@[retroactiveNumber, userToken]
+     forKeys:@[LFSPostRetroactiveKey, LFSCollectionPostUserTokenKey]];
+    
+    
+    NSString *fullUserId = [NSString stringWithFormat:@"%@@%@", userId, self.lfNetwork];
+    [parameters1 setObject:self.lfNetwork forKey:LFSPostNetworkKey];
+    if (sites != nil) {
+        // sites parameter can be either NSArray or NSString
+        if ([sites respondsToSelector:@selector(componentsJoinedByString:)]) {
+            [parameters1 setObject:[sites componentsJoinedByString:@","]
+                            forKey:LFSPostSitesKey];
+        } else {
+            assert([sites isKindOfClass:[NSString class]]);
+            [parameters1 setObject:sites
+                            forKey:LFSPostSitesKey];
+        }
+    }
+    
+    const NSString* const actionString = LFSAuthorActions[userAction];
+    NSString *path = [NSString
+                      stringWithFormat:@"api/v3.0/author/%@/%@/",
+                      fullUserId, actionString];
     
     [self postPath:path
         parameters:parameters1
@@ -67,14 +114,14 @@
     
     NSMutableDictionary *parameters1 =
     [NSMutableDictionary
-     dictionaryWithObjects:@[contentId, collectionId, userToken]
-     forKeys:@[@"message_id", @"collection_id", @"lftoken"]];
+     dictionaryWithObjects:@[collectionId, userToken]
+     forKeys:@[LFSCollectionPostCollectionIdKey, LFSCollectionPostUserTokenKey]];
     
     // parameters passed in can be @{ notes: @"...", email: @"..." }
     [parameters1 addEntriesFromDictionary:parameters];
     
     NSString *path = [NSString
-                      stringWithFormat:@"/api/v3.0/message/%@/flag/%@/",
+                      stringWithFormat:@"api/v3.0/message/%@/flag/%@/",
                       contentId, LFSContentFlags[flag]];
     
     [self postPath:path
@@ -83,7 +130,6 @@
            success:success
            failure:failure];
 }
-
 
 - (void)postContent:(NSString *)body
        inCollection:(NSString *)collectionId
@@ -127,10 +173,10 @@
     
     NSString *path;
     if (postType == LFSPostTypeDefault) {
-        path = [NSString stringWithFormat:@"/api/v3.0/collection/%@/post/",
+        path = [NSString stringWithFormat:@"api/v3.0/collection/%@/post/",
                   collectionId];
     } else {
-        path = [NSString stringWithFormat:@"/api/v3.0/collection/%@/post/%@/",
+        path = [NSString stringWithFormat:@"api/v3.0/collection/%@/post/%@/",
            collectionId, LFSPostTypes[postType]];
     }
     NSMutableDictionary *mutableParameters = [parameters mutableCopy];
@@ -150,7 +196,7 @@
 - (void)feature:(BOOL)feature
         comment:(NSString*)messageId
    inCollection:(NSString *)collectionId
-      userToken:(NSDictionary*)userToken
+      userToken:(NSString*)userToken
       onSuccess:(LFSSuccessBlock)success
       onFailure:(LFSFailureBlock)failure
 {
@@ -158,7 +204,7 @@
     NSParameterAssert(userToken != nil);
     NSParameterAssert(collectionId != nil);
     
-    NSString *path = [NSString stringWithFormat:@"/api/v3.0/collection/%@/%@/%@/",
+    NSString *path = [NSString stringWithFormat:@"api/v3.0/collection/%@/%@/%@/",
                       collectionId, (feature ? @"feature" : @"unfeature"), messageId];
     
     [self postPath:path
@@ -210,7 +256,7 @@
         parameters = @{LFSCollectionMetaParameterKey     : mutableMeta};
     }
     
-    NSString *path = [NSString stringWithFormat:@"/api/v3.0/site/%@/collection/create", siteId];
+    NSString *path = [NSString stringWithFormat:@"api/v3.0/site/%@/collection/create", siteId];
     
     [self postPath:path
         parameters:parameters
