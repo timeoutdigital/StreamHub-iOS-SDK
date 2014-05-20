@@ -65,7 +65,7 @@
     NSParameterAssert(userToken != nil);
     NSParameterAssert((NSUInteger)userAction < LFS_USER_ACTIONS_LENGTH);
     
-    NSNumber *retroactiveNumber = retroactive ? @1 : @0;
+    NSNumber *retroactiveNumber = [NSNumber numberWithBool:retroactive];
     
     NSMutableDictionary *parameters1 =
     [NSMutableDictionary
