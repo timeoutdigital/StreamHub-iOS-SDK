@@ -67,8 +67,8 @@
  */
 - (void)feature:(BOOL)feature
         comment:(NSString*)messageId
-   inCollection:(NSString *)collectionId
-      userToken:(NSDictionary*)userToken
+   inCollection:(NSString*)collectionId
+      userToken:(NSString*)userToken
       onSuccess:(LFSSuccessBlock)success
       onFailure:(LFSFailureBlock)failure;
 

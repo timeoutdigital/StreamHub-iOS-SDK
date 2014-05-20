@@ -196,7 +196,7 @@
 - (void)feature:(BOOL)feature
         comment:(NSString*)messageId
    inCollection:(NSString *)collectionId
-      userToken:(NSDictionary*)userToken
+      userToken:(NSString*)userToken
       onSuccess:(LFSSuccessBlock)success
       onFailure:(LFSFailureBlock)failure
 {
