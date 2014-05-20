@@ -52,6 +52,53 @@
            failure:failure];
 }
 
+- (void)flagAuthor:(NSString *)userId
+            action:(LFSAuthorAction)userAction
+          forSites:(id)sites
+       retroactive:(BOOL)retroactive
+         userToken:(NSString*)userToken
+         onSuccess:(LFSSuccessBlock)success
+         onFailure:(LFSFailureBlock)failure
+{
+    // must include either network or sites parameter(s)
+    NSParameterAssert(userId != nil);
+    NSParameterAssert(userToken != nil);
+    NSParameterAssert((NSUInteger)userAction < LFS_USER_ACTIONS_LENGTH);
+    
+    NSNumber *retroactiveNumber = retroactive ? @1 : @0;
+    
+    NSMutableDictionary *parameters1 =
+    [NSMutableDictionary
+     dictionaryWithObjects:@[retroactiveNumber, userToken]
+     forKeys:@[LFSPostRetroactiveKey, LFSCollectionPostUserTokenKey]];
+    
+    
+    NSString *fullUserId = [NSString stringWithFormat:@"%@@%@", userId, self.lfNetwork];
+    [parameters1 setObject:self.lfNetwork forKey:LFSPostNetworkKey];
+    if (sites != nil) {
+        // sites parameter can be either NSArray or NSString
+        if ([sites respondsToSelector:@selector(componentsJoinedByString:)]) {
+            [parameters1 setObject:[sites componentsJoinedByString:@","]
+                            forKey:LFSPostSitesKey];
+        } else {
+            assert([sites isKindOfClass:[NSString class]]);
+            [parameters1 setObject:sites
+                            forKey:LFSPostSitesKey];
+        }
+    }
+    
+    const NSString* const actionString = LFSAuthorActions[userAction];
+    NSString *path = [NSString
+                      stringWithFormat:@"api/v3.0/author/%@/%@/",
+                      fullUserId, actionString];
+    
+    [self postPath:path
+        parameters:parameters1
+ parameterEncoding:AFFormURLParameterEncoding
+           success:success
+           failure:failure];
+}
+
 - (void)postFlag:(LFSContentFlag)flag
       forContent:(NSString *)contentId
     inCollection:(NSString *)collectionId

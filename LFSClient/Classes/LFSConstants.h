@@ -123,6 +123,27 @@ typedef NS_ENUM(NSUInteger, LFSPostType) {
 };
 // }}}
 
+
+// {{{ types of content that can be posted
+// https://github.com/Livefyre/lfdj/blob/production/lfwrite/lfwrite/api/v3_0/urls.py#L68
+#define LFS_USER_ACTIONS_LENGTH 4u
+extern const NSString *const LFSAuthorActions[LFS_POST_TYPE_LENGTH];
+/**
+ @since Available since 0.3.5 and later
+ */
+typedef NS_ENUM(NSUInteger, LFSAuthorAction) {
+    /*! ban user (bozoes all content) */
+    LFSAuthorActionBan = 0u,     // 0
+    /*! unban user */
+    LFSAuthorActionUnban,        // 1
+    /*! add user to a whitelist */
+    LFSAuthorActionWhitelist,    // 2
+    /*! remvoe user from whitelist */
+    LFSAuthorActionUnwhitelist,  // 3
+};
+// }}}
+
+
 // https://github.com/Livefyre/lfdj/blob/production/lfcore/lfcore/v2/publishing/models.proto#L74
 /**
  @since Available since 0.2.0 and later
@@ -257,6 +278,10 @@ extern NSString *const LFSCollectionPostAttachmentsKey;
 extern NSString *const LFSCollectionPostMediaKey;
 extern NSString *const LFSCollectionPostUserTokenKey;
 extern NSString *const LFSCollectionPostCollectionIdKey;
+
+extern NSString *const LFSPostNetworkKey;
+extern NSString *const LFSPostSitesKey;
+extern NSString *const LFSPostRetroactiveKey;
 // }}}
 
 @end

@@ -106,7 +106,8 @@
     }
                               failure:^(AFHTTPRequestOperation *operation, NSError *error)
     {
-        NSLog(@"Error code %zd, with description %@", error.code, [error localizedDescription]);
+        NSLog(@"Error code %zd, with recovery suggestion: %@",
+              error.code, [error localizedRecoverySuggestion]);
     }];
     [client.reqOpManager.operationQueue addOperation:op];
     
@@ -117,6 +118,9 @@
         expect(op.response.statusCode).to.equal(200);
     }
     
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
+    }
     expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
@@ -149,7 +153,8 @@
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 op = operation;
-                NSLog(@"Error code %zd, with description %@", error.code, [error localizedDescription]);
+                NSLog(@"Error code %zd, with recovery suggestion: %@",
+                      error.code, [error localizedRecoverySuggestion]);
             }];
     
     // Wait 'til done and then verify that everything is OK
@@ -159,6 +164,9 @@
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
 
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
+    }
     expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
@@ -184,7 +192,8 @@
                  }
                  onFailure:^(NSOperation *operation, NSError *error) {
                      op = (AFHTTPRequestOperation*)operation;
-                     NSLog(@"Error code %zd, with description %@", error.code, [error localizedDescription]);
+                     NSLog(@"Error code %zd, with recovery suggestion: %@",
+                           error.code, [error localizedRecoverySuggestion]);
                  }
      ];
     
@@ -195,6 +204,9 @@
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
 
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
+    }
     expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
@@ -222,7 +234,8 @@
                  }
                  onFailure:^(NSOperation *operation, NSError *error) {
                      op = (AFHTTPRequestOperation*)operation;
-                     NSLog(@"Error code %zd, with description %@", error.code, [error localizedDescription]);
+                     NSLog(@"Error code %zd, with recovery suggestion: %@",
+                           error.code, [error localizedRecoverySuggestion]);
                  }
      ];
 
@@ -233,6 +246,9 @@
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
 
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
+    }
     expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
@@ -258,7 +274,8 @@
                  }
                  onFailure:^(NSOperation *operation, NSError *error) {
                      op = (AFHTTPRequestOperation*)operation;
-                     NSLog(@"Error code %zd, with description %@", error.code, [error localizedDescription]);
+                     NSLog(@"Error code %zd, with recovery suggestion: %@",
+                           error.code, [error localizedRecoverySuggestion]);
                  }
      ];
     
@@ -269,6 +286,9 @@
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
 
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
+    }
     expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
@@ -295,7 +315,8 @@
                                    result = (NSArray *)responseObject;
                                } onFailure:^(NSOperation *operation, NSError *error) {
                                    op = (AFHTTPRequestOperation *)operation;
-                                   NSLog(@"Error code %zd, with description %@", error.code, [error localizedDescription]);
+                                   NSLog(@"Error code %zd, with recovery suggestion: %@",
+                                         error.code, [error localizedRecoverySuggestion]);
                                }];
     
     // Wait 'til done and then verify that everything is OK
@@ -303,6 +324,9 @@
     if (op) {
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
     }
     expect(result).will.beTruthy();
 }
@@ -327,7 +351,8 @@
                                 result = (NSArray *)responseObject;
                             } onFailure:^(NSOperation *operation, NSError *error) {
                                 op = (AFHTTPRequestOperation *)operation;
-                                NSLog(@"Error code %zd, with description %@", error.code, [error localizedDescription]);
+                                NSLog(@"Error code %zd, with recovery suggestion: %@",
+                                      error.code, [error localizedRecoverySuggestion]);
                             }];
     
     // Wait 'til done and then verify that everything is OK
@@ -335,6 +360,9 @@
     if (op) {
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
     }
     expect(result).will.beTruthy();
 }
@@ -359,7 +387,8 @@
                                  }
                                  onFailure:^(NSOperation *operation, NSError *error) {
                                      op = (AFHTTPRequestOperation *)operation;
-                                     NSLog(@"Error code %zd, with description %@", error.code, [error localizedDescription]);
+                                     NSLog(@"Error code %zd, with recovery suggestion: %@",
+                                           error.code, [error localizedRecoverySuggestion]);
                                  }];
     
     // Wait 'til done and then verify that everything is OK
@@ -367,6 +396,9 @@
     if (op) {
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
     }
     expect(result).will.beTruthy();
     if (result) {
@@ -393,7 +425,8 @@
                                  }
                                  onFailure:^(NSOperation *operation, NSError *error) {
                                      op = (AFHTTPRequestOperation *)operation;
-                                     NSLog(@"Error code %zd, with description %@", error.code, [error localizedDescription]);
+                                     NSLog(@"Error code %zd, with recovery suggestion: %@",
+                                           error.code, [error localizedRecoverySuggestion]);
                                  }];
     
     // Wait 'til done and then verify that everything is OK
@@ -402,10 +435,93 @@
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
     }
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
+    }
     expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
         expect([result valueForKeyPath:@"auth_token.value"]).to.equal(userToken);
+    }
+}
+
+#pragma mark -
+- (void)testFlagAuthor {
+    //with collection id
+    __block AFHTTPRequestOperation *op = nil;
+    __block NSDictionary *result = nil;
+    
+    LFSWriteClient *clientWrite = [LFSWriteClient
+                                   clientWithNetwork:[LFSConfig objectForKey:@"domain"]
+                                   environment:nil ];
+    
+    NSString *userId = [LFSConfig objectForKey:@"domain user id"];
+    NSString *site = [LFSConfig objectForKey:@"site"];
+    NSString *moderatorToken = [LFSConfig objectForKey:@"moderator user auth token"];
+    
+    // Step 1: ban user
+    [clientWrite flagAuthor:userId
+                     action:LFSAuthorActionBan
+                   forSites:site
+                retroactive:NO
+                  userToken:moderatorToken
+                  onSuccess:^(NSOperation *operation, id responseObject) {
+                      op = (AFHTTPRequestOperation *)operation;
+                      result = (NSDictionary *)responseObject;
+                  }
+                  onFailure:^(NSOperation *operation, NSError *error) {
+                      op = (AFHTTPRequestOperation *)operation;
+                      NSLog(@"Error code %zd, with recovery suggestion: %@",
+                            error.code, [error localizedRecoverySuggestion]);
+                  }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    if (op) {
+        expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
+    }
+    expect(result).will.beTruthy();
+    if (result) {
+        expect(result).to.beKindOf([NSDictionary class]);
+        expect([result objectForKey:@"message"]).to.equal(@"Success");
+    }
+    
+    op = nil;
+    result = nil;
+    
+    // Step 2: unban user
+    [clientWrite flagAuthor:userId
+                     action:LFSAuthorActionUnban
+                   forSites:site
+                retroactive:NO
+                  userToken:moderatorToken
+                  onSuccess:^(NSOperation *operation, id responseObject) {
+                      op = (AFHTTPRequestOperation *)operation;
+                      result = (NSDictionary *)responseObject;
+                  }
+                  onFailure:^(NSOperation *operation, NSError *error) {
+                      op = (AFHTTPRequestOperation *)operation;
+                      NSLog(@"Error code %zd, with recovery suggestion: %@",
+                            error.code, [error localizedRecoverySuggestion]);
+                  }];
+    
+    // Wait 'til done and then verify that everything is OK
+    expect(op.isFinished).will.beTruthy();
+    if (op) {
+        expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
+        expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
+    }
+    expect(result).will.beTruthy();
+    if (result) {
+        expect(result).to.beKindOf([NSDictionary class]);
+        expect([result objectForKey:@"message"]).to.equal(@"Success");
     }
 }
 
@@ -431,7 +547,8 @@
                    }
                    onFailure:^(NSOperation *operation, NSError *error) {
                        op = (AFHTTPRequestOperation *)operation;
-                       NSLog(@"Error code %zd, with description %@", error.code, [error localizedDescription]);
+                       NSLog(@"Error code %zd, with recovery suggestion: %@",
+                             error.code, [error localizedRecoverySuggestion]);
                    }];
     
     // Wait 'til done and then verify that everything is OK
@@ -439,6 +556,9 @@
     if (op) {
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
     }
     expect(result).will.beTruthy();
 }
@@ -464,7 +584,8 @@
                    }
                    onFailure:^(NSOperation *operation, NSError *error) {
                        op = (AFHTTPRequestOperation *)operation;
-                       NSLog(@"Error code %zd, with description %@", error.code, [error localizedDescription]);
+                       NSLog(@"Error code %zd, with recovery suggestion: %@",
+                             error.code, [error localizedRecoverySuggestion]);
                    }];
     
     // Wait 'til done and then verify that everything is OK
@@ -472,6 +593,9 @@
     if (op) {
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
     }
     expect(result).will.beTruthy();
 }
@@ -497,7 +621,8 @@
                        }
                        onFailure:^(NSOperation *operation, NSError *error) {
                            op = (AFHTTPRequestOperation *)operation;
-                           NSLog(@"Error code %zd, with description %@", error.code, [error localizedDescription]);
+                           NSLog(@"Error code %zd, with recovery suggestion: %@",
+                                 error.code, [error localizedRecoverySuggestion]);
                        }];
 
     // Wait 'til done and then verify that everything is OK
@@ -505,6 +630,9 @@
     if (op) {
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
     }
     expect(result).will.beTruthy();
 }
@@ -539,9 +667,8 @@
                        }
                        onFailure:^(NSOperation *operation, NSError *error) {
                            op = (AFHTTPRequestOperation*)operation;
-                           NSLog(@"Error code %zd, with description %@",
-                                 error.code,
-                                 [error localizedDescription]);
+                           NSLog(@"Error code %zd, with recovery suggestion: %@",
+                                 error.code, [error localizedRecoverySuggestion]);
                        }];
 
     // Wait 'til done and then verify that everything is OK
@@ -549,6 +676,9 @@
     if (op) {
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
     }
     expect(result).will.beTruthy();
     
@@ -576,9 +706,8 @@
                    }
                    onFailure:^(NSOperation *operation, NSError *error) {
                        op = (AFHTTPRequestOperation*)operation;
-                       NSLog(@"Error code %zd, with description %@",
-                             error.code,
-                             [error localizedDescription]);
+                       NSLog(@"Error code %zd, with recovery suggestion: %@",
+                             error.code, [error localizedRecoverySuggestion]);
                    }];
 
     // Wait 'til done and then verify that everything is OK
@@ -586,6 +715,9 @@
     if (op) {
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
     }
     expect(result).will.beTruthy();
     if (result) {
@@ -623,9 +755,8 @@
                        }
                        onFailure:^(NSOperation *operation, NSError *error) {
                            op = (AFHTTPRequestOperation*)operation;
-                           NSLog(@"Error code %zd, with description %@",
-                                 error.code,
-                                 [error localizedDescription]);
+                           NSLog(@"Error code %zd, with recovery suggestion: %@",
+                                 error.code, [error localizedRecoverySuggestion]);
                        }];
     
     // Wait 'til done and then verify that everything is OK
@@ -673,9 +804,8 @@
                        }
                        onFailure:^(NSOperation *operation, NSError *error) {
                            op = (AFHTTPRequestOperation*)operation;
-                           NSLog(@"Error code %zd, with description %@",
-                                 error.code,
-                                 [error localizedDescription]);
+                           NSLog(@"Error code %zd, with recovery suggestion: %@",
+                                 error.code, [error localizedRecoverySuggestion]);
                        }];
     
     // Wait 'til done and then verify that everything is OK
@@ -683,6 +813,9 @@
     if (op) {
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
     }
     expect(result).will.beTruthy();
     if (result) {
@@ -718,9 +851,8 @@
                 }
                 onFailure:^(NSOperation *operation, NSError *error) {
                     op = (AFHTTPRequestOperation*)operation;
-                    NSLog(@"Error code %zd, with description %@",
-                          error.code,
-                          [error localizedDescription]);
+                    NSLog(@"Error code %zd, with recovery suggestion: %@",
+                          error.code, [error localizedRecoverySuggestion]);
                 }];
     
     // Wait 'til done and then verify that everything is OK
@@ -728,6 +860,9 @@
     if (op) {
         expect(op).to.beInstanceOf([AFHTTPRequestOperation class]);
         expect(op.error).notTo.equal(NSURLErrorTimedOut);
+    }
+    if (op.error != nil) {
+        XCTFail(@"%@: %@", [op.error localizedDescription], [op.error localizedRecoverySuggestion]);
     }
     expect(result).will.beTruthy();
 }
@@ -756,10 +891,8 @@
                           }
                           onFailure:^(NSOperation *operation, NSError *error) {
                               op = (AFHTTPRequestOperation*)operation;
-                              NSLog(@"Error code %zd. Description: %@. Recovery Suggestion: %@",
-                                    error.code,
-                                    [error localizedDescription],
-                                    [error localizedRecoverySuggestion]);
+                              NSLog(@"Error code %zd, with recovery suggestion: %@",
+                                    error.code, [error localizedRecoverySuggestion]);
                           }];
     
     // Wait 'til done and then verify that everything is OK
@@ -800,10 +933,8 @@
                           }
                           onFailure:^(NSOperation *operation, NSError *error) {
                               op = (AFHTTPRequestOperation*)operation;
-                              NSLog(@"Error code %zd. Description: %@. Recovery Suggestion: %@",
-                                    error.code,
-                                    [error localizedDescription],
-                                    [error localizedRecoverySuggestion]);
+                              NSLog(@"Error code %zd, with recovery suggestion: %@",
+                                    error.code, [error localizedRecoverySuggestion]);
                           }];
 
     // Wait 'til done and then verify that everything is OK
@@ -839,9 +970,8 @@
                                 }
                                 onFailure:^(NSOperation *operation, NSError *error) {
                                     op0 = (AFHTTPRequestOperation*)operation;
-                                    NSLog(@"Error code %zd, with description %@",
-                                          error.code,
-                                          [error localizedDescription]);
+                                    NSLog(@"Error code %zd, with recovery suggestion: %@",
+                                          error.code, [error localizedRecoverySuggestion]);
                                 }
      ];
     
@@ -901,9 +1031,8 @@
                        }
                        onFailure:^(NSOperation *operation, NSError *error) {
                            op = (AFHTTPRequestOperation*)operation;
-                           NSLog(@"Error code %zd, with description %@",
-                                 error.code,
-                                 [error localizedDescription]);
+                           NSLog(@"Error code %zd, with recovery suggestion: %@",
+                                 error.code, [error localizedRecoverySuggestion]);
                        }];
     
     expect(resultPost).will.beTruthy();
