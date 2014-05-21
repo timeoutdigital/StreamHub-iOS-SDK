@@ -163,11 +163,15 @@
               onSuccess:(LFSSuccessBlock)success
               onFailure:(LFSFailureBlock)failure
 {
+#ifdef NS_BLOCK_ASSERTIONS
     NSString *contentBody = [parameters objectForKey:LFSCollectionPostBodyKey];
-    NSString *userToken = [parameters objectForKey:LFSCollectionPostUserTokenKey];
-    
     NSParameterAssert(contentBody != nil);
+
+    NSString *userToken = [parameters objectForKey:LFSCollectionPostUserTokenKey];
     NSParameterAssert(userToken != nil);
+
+#endif
+
     NSParameterAssert(collectionId != nil);
     NSParameterAssert((NSUInteger)postType < LFS_POST_TYPE_LENGTH);
     
@@ -226,15 +230,20 @@
     //
     static NSString *const LFSCollectionMetaParameterKey = @"collectionMeta";
     static NSString *const LFSCollectionChecksumParameterKey = @"checksum";
-    
+   
+#ifdef NS_BLOCK_ASSERTIONS
     NSString *articleId = [collectionMeta objectForKey:LFSCollectionMetaArticleIdKey];
-    NSString *urlString = [collectionMeta objectForKey:LFSCollectionMetaURLKey];
-    NSString *title = [collectionMeta objectForKey:LFSCollectionMetaTitleKey];
-
     NSParameterAssert(articleId != nil && [articleId length] <= 255);
+
+    NSString *urlString = [collectionMeta objectForKey:LFSCollectionMetaURLKey];
     NSParameterAssert(urlString != nil);
-    NSParameterAssert(siteId != nil);
+
+    NSString *title = [collectionMeta objectForKey:LFSCollectionMetaTitleKey];
     NSParameterAssert(siteKey == nil || (title != nil && [title length] <= 255));
+
+#endif
+
+    NSParameterAssert(siteId != nil);
 
     NSMutableDictionary *mutableMeta = [collectionMeta mutableCopy];
     
