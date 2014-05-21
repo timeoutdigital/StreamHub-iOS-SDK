@@ -163,7 +163,7 @@
               onSuccess:(LFSSuccessBlock)success
               onFailure:(LFSFailureBlock)failure
 {
-#ifdef NS_BLOCK_ASSERTIONS
+#ifndef NS_BLOCK_ASSERTIONS
     NSString *contentBody = [parameters objectForKey:LFSCollectionPostBodyKey];
     NSParameterAssert(contentBody != nil);
 
@@ -231,7 +231,7 @@
     static NSString *const LFSCollectionMetaParameterKey = @"collectionMeta";
     static NSString *const LFSCollectionChecksumParameterKey = @"checksum";
    
-#ifdef NS_BLOCK_ASSERTIONS
+#ifndef NS_BLOCK_ASSERTIONS
     NSString *articleId = [collectionMeta objectForKey:LFSCollectionMetaArticleIdKey];
     NSParameterAssert(articleId != nil && [articleId length] <= 255);
 
