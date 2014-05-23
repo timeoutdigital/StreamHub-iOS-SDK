@@ -29,10 +29,11 @@ The most convenient way to add StreamHub-iOS SDK to your project is to use Cocoa
 If you don't have CocoaPods, run `gem install cocoapods` and `pod setup`. 
 Here is an example Podfile:
 
-    platform :ios, :deployment_target => '6.0'
+```ruby
+platform :ios, :deployment_target => '6.0'
 
-    pod 'StreamHub-iOS-SDK', '~> 0.3.0'
-
+pod 'StreamHub-iOS-SDK', '~> 0.3.0'
+```
 You will also need to add a Specs repository to your CocoaPod installation (this will clone it to `~/.cocoapods/repos` directory):
 
     pod repo add escherba git@github.com:escherba/Specs.git
