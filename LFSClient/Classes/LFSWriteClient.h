@@ -115,6 +115,26 @@
           onFailure:(LFSFailureBlock)failure;
 
 /*!
+ @abstract Convenience method to create a new comment in a collection.
+ @discussion Convenience method to create a new comment in a collection.
+ Creating new posts requires that the user has permission to post in the collection.
+ @param attachments array of attachments
+ @param body HTML body of the new post.
+ @param userToken JWT-encoded user token
+ @param collectionId Collection to add the post to.
+ @param parentId (optional) The post that this is a response to, if applicable.
+ @param success Success callback
+ @param failure Failure callback
+ */
+- (void)postContent:(NSString *)body
+    withAttachments:(NSArray  *)attachments
+       inCollection:(NSString *)collectionId
+          userToken:(NSString *)userToken
+          inReplyTo:(NSString *)parentId
+          onSuccess:(LFSSuccessBlock)success
+          onFailure:(LFSFailureBlock)failure;
+
+/*!
  @abstract Post new content (comments, reviews, tweets, etc) to a collection
  @discussion Post new content (comments, reviews, tweets, etc) to a collection.
   Creating new posts requires that the user has permission to post in the collection.

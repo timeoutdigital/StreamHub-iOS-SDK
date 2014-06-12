@@ -138,6 +138,17 @@
           onSuccess:(LFSSuccessBlock)success
           onFailure:(LFSFailureBlock)failure
 {
+    [self postContent:body withAttachments:nil inCollection:collectionId userToken:userToken inReplyTo:parentId onSuccess:success onFailure:failure];
+}
+
+- (void)postContent:(NSString *)body
+    withAttachments:(NSArray  *)attachments
+       inCollection:(NSString *)collectionId
+          userToken:(NSString *)userToken
+          inReplyTo:(NSString *)parentId
+          onSuccess:(LFSSuccessBlock)success
+          onFailure:(LFSFailureBlock)failure
+{
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     if (body != nil) {
@@ -148,6 +159,11 @@
     }
     if (parentId != nil) {
         [parameters setObject:parentId forKey:LFSCollectionPostParentIdKey];
+    }
+    if (attachments != nil) {
+        NSString *jsonString = [attachments JSONString];
+        NSAssert(jsonString != nil, @"cannot be nil");
+        [parameters setObject:jsonString forKey:LFSCollectionPostAttachmentsKey];
     }
     
     [self postContentType:LFSPostTypeDefault
