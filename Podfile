@@ -2,7 +2,7 @@ platform :ios, '6.0'
 xcodeproj 'LFSClient.xcodeproj'
 
 link_with 'LFSClient'
-pod 'AFNetworking', '~> 2.2.1'
+pod 'AFNetworking', '~> 2.3.0'
 pod 'JWT', '~> 1.0.3'
 pod 'Base64', '~> 1.0.1'
 pod 'NSString-Hashes', '~> 1.2.0'
