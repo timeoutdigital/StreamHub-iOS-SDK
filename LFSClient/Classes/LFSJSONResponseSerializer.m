@@ -190,7 +190,14 @@ static BOOL AFErrorOrUnderlyingErrorHasCode(NSError *error, NSInteger code) {
                         // the line below with (note that this may cause failure on some endpoints
                         // because of the large numbers problem):
                         // responseObject = [NSJSONSerialization JSONObjectWithData:data options:self.readingOptions error:&serializationError];
-                        responseObject = [self.decoder objectWithData:data error:&serializationError];
+                        @try {
+                            responseObject = [self.decoder objectWithData:data error:&serializationError];
+                        }
+                        @catch (NSException *e) {
+                            // TODO: again, verify that the call in the try block above is
+                            // needed at all (might be able to get away with just objectFromJSONString).
+                            responseObject = [responseString objectFromJSONString];
+                        }
                     }
                     else {
                         return nil;
