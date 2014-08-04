@@ -11,7 +11,7 @@ pod 'LFJSONKit', '~> 1.6a'
 target :test, :exclusive => true do
     link_with 'LFSClientTests'
     platform :ios, '7.0'
-    pod 'Kiwi/XCTest'
+    #pod 'Kiwi/XCTest'
     pod 'OHHTTPStubs'
     pod 'XCTest+OHHTTPStubSuiteCleanUp'
     pod 'JWT', '~> 1.0.3'
