@@ -15,7 +15,7 @@ follow these steps:
     cd StreamHub-iOS-SDK
     git submodule init
     git submodule update
-    pod repo add escherba https://github.com/escherba/Specs.git
+    pod repo add livefyre https://github.com/Livefyre/cocoapods.git
     pod install
     cd examples/CommentStream
     pod install
