@@ -1,3 +1,6 @@
 [submodule "examples/CommentStream"]
     path = "examples/CommentStream"
-    url = git@github.com:Livefyre/StreamHub-iOS-Example-App
+    url = https://github.com/Livefyre/StreamHub-iOS-Example-App
+[submodule "examples/Reviews"]
+    path = "examples/Reviews"
+    url = https://github.com/Livefyre/StreamHub-iOS-Reviews-App
