@@ -36,7 +36,7 @@ pod 'StreamHub-iOS-SDK', '~> 0.3.0'
 ```
 You will also need to add a Specs repository to your CocoaPod installation (this will clone it to `~/.cocoapods/repos` directory):
 
-    pod repo add escherba https://github.com/escherba/Specs.git
+    pod repo add livefyre https://github.com/Livefyre/cocoapods.git
 
 Once your Podfile is created in your app project root and the repository above added, run:
 
