@@ -38,6 +38,19 @@ Next, add the Xcode project (LFSClient.xcodeproj) to your app as a subproject (e
 
 You will also need to do the same with any of the dependencies (AFNetworking [[3]], JSONKit [[4]]).
 
+## Download everything at once (not recommended)
+
+    cd ~/dev
+    git clone https://github.com/Livefyre/StreamHub-iOS-SDK.git
+    cd StreamHub-iOS-SDK
+    git submodule init
+    git submodule update
+    pod repo add escherba https://github.com/escherba/Specs.git
+    pod install
+    cd examples/CommentStream
+    pod install
+    open CommentStream.xcworkspace
+
 ## Xcode Documentation
 
 You can browse the documentation online [[5]] or you can build the "Documentation" target in your Xcode (requires `appledoc` to be installed) on your system.
