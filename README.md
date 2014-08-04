@@ -5,22 +5,6 @@ Use this open-source library to integrate Livefyre services into your native iOS
 
 For more information, please see the CommentStream sample app [[1]] or Livefyre HTTP API documentation [[2]].
 
-## Getting Started
-
-If you just want to download the SDK and take a look at the sample app(s),
-follow these steps:
-
-    cd ~/dev
-    git clone https://github.com/Livefyre/StreamHub-iOS-SDK.git
-    cd StreamHub-iOS-SDK
-    git submodule init
-    git submodule update
-    pod repo add livefyre https://github.com/Livefyre/cocoapods.git
-    pod install
-    cd examples/CommentStream
-    pod install
-    open CommentStream.xcworkspace
-
 ## Integrating the SDK into your project
 
 ### As a Cocoa Pod (recommended)
