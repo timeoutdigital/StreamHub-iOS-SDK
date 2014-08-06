@@ -5,22 +5,6 @@ Use this open-source library to integrate Livefyre services into your native iOS
 
 For more information, please see the CommentStream sample app [[1]] or Livefyre HTTP API documentation [[2]].
 
-## Getting Started
-
-If you just want to download the SDK and take a look at the sample app(s),
-follow these steps:
-
-    cd ~/dev
-    git clone https://github.com/Livefyre/StreamHub-iOS-SDK.git
-    cd StreamHub-iOS-SDK
-    git submodule init
-    git submodule update
-    pod repo add escherba https://github.com/escherba/Specs.git
-    pod install
-    cd examples/CommentStream
-    pod install
-    open CommentStream.xcworkspace
-
 ## Integrating the SDK into your project
 
 ### As a Cocoa Pod (recommended)
@@ -36,7 +20,7 @@ pod 'StreamHub-iOS-SDK', '~> 0.3.0'
 ```
 You will also need to add a Specs repository to your CocoaPod installation (this will clone it to `~/.cocoapods/repos` directory):
 
-    pod repo add escherba https://github.com/escherba/Specs.git
+    pod repo add livefyre https://github.com/Livefyre/cocoapods.git
 
 Once your Podfile is created in your app project root and the repository above added, run:
 
@@ -53,6 +37,19 @@ Alternatively, clone the repository:
 Next, add the Xcode project (LFSClient.xcodeproj) to your app as a subproject (easily done by simply dragging the LFSClient.xcodeproj file into Project Navigator pane in Xcode).
 
 You will also need to do the same with any of the dependencies (AFNetworking [[3]], JSONKit [[4]]).
+
+## Download everything at once (not recommended)
+
+    cd ~/dev
+    git clone https://github.com/Livefyre/StreamHub-iOS-SDK.git
+    cd StreamHub-iOS-SDK
+    git submodule init
+    git submodule update
+    pod repo add livefyre https://github.com/Livefyre/cocoapods.git
+    pod install
+    cd examples/CommentStream
+    pod install
+    open CommentStream.xcworkspace
 
 ## Xcode Documentation
 
