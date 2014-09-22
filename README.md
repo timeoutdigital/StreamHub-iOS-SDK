@@ -51,9 +51,13 @@ You will also need to do the same with any of the dependencies (AFNetworking [[3
     pod install
     open CommentStream.xcworkspace
 
+Note: to run tests in Xcode 6, you will need to add `$(PLATFORM_DIR)/Developer/Library/Frameworks` to `FRAMEWORK_SEARCH_PATHS` in `Pods-test-XCTest+OHHTTPStubSuiteCleanUp` pod [[5]].
+
+You will also need `LFSTestConfig.plist` file from Livefyre which we can provide you.
+
 ## Xcode Documentation
 
-You can browse the documentation online [[5]] or you can build the "Documentation" target in your Xcode (requires `appledoc` to be installed) on your system.
+You can browse the documentation online [[6]] or you can build the "Documentation" target in your Xcode (requires `appledoc` to be installed) on your system.
 
 ## Requirements
 
@@ -94,4 +98,5 @@ SOFTWARE.
 [2]: http://answers.livefyre.com/developers/reference/http-reference/
 [3]: https://github.com/mattt/AFNetworking
 [4]: https://github.com/escherba/JSONKit
-[5]: http://livefyre.github.com/StreamHub-iOS-SDK/
+[5]: http://stackoverflow.com/a/24651704
+[6]: http://livefyre.github.com/StreamHub-iOS-SDK/
