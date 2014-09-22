@@ -53,7 +53,7 @@ You will also need to do the same with any of the dependencies (AFNetworking [[3
 
 Note: to run tests in Xcode 6, you will need to add `$(PLATFORM_DIR)/Developer/Library/Frameworks` to `FRAMEWORK_SEARCH_PATHS` in `Pods-test-XCTest+OHHTTPStubSuiteCleanUp` pod [[5]].
 
-You will also need `LFSTestConfig.plist` file from Livefyre which we can provide you.
+You will also need `LFSTestConfig.plist` file from Livefyre which we will provide upon request.
 
 ## Xcode Documentation
 
