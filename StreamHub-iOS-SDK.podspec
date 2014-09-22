@@ -11,7 +11,7 @@ StreamHub-iOS is the official Livefyre SDK for building real-time native iOS app
   s.platform     = :ios
   s.ios.deployment_target = '6.0'
   s.ios.prefix_header_file = 'LFSClient/LFSClient-Prefix.pch'
-  s.source       = { :git => 'https://github.com/Livefyre/StreamHub-iOS-SDK.git', :tag => "0.3.6" }
+  s.source       = { :git => 'https://github.com/Livefyre/StreamHub-iOS-SDK.git', :tag => "0.3.7" }
   #s.resources    = 'LFSClient/Resources/*'
   s.subspec 'core' do |sp|
     sp.source_files = 'LFSClient/**/*.{h,m}'
