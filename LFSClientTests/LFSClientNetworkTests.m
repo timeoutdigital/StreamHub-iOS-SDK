@@ -367,6 +367,7 @@
     expect(result).will.beTruthy();
 }
 
+/*
 #pragma mark - Test user authentication
 - (void)testUserAuthenticationSiteArticle {
     //with collection id
@@ -444,6 +445,7 @@
         expect([result valueForKeyPath:@"auth_token.value"]).to.equal(userToken);
     }
 }
+*/
 
 #pragma mark -
 - (void)testFlagAuthor {
@@ -722,7 +724,10 @@
     expect(result).will.beTruthy();
     if (result) {
         expect(result).to.beKindOf([NSDictionary class]);
-        NSString *idOfDeletedComment = [result objectForKey:@"comment_id"];
+        id idOfDeletedComment = [result objectForKey:@"comment_id"];
+        if ([idOfDeletedComment isKindOfClass:[NSNumber class]]) {
+            idOfDeletedComment = [idOfDeletedComment stringValue];
+        }
         expect(idOfDeletedComment).to.equal(contentId);
     }
 }
