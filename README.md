@@ -14,19 +14,19 @@ If you don't have CocoaPods, run `gem install cocoapods` and `pod setup`.
 Here is an example Podfile:
 
 ```ruby
+source 'https://github.com/Livefyre/cocoapods.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
 platform :ios, :deployment_target => '6.0'
 
 pod 'StreamHub-iOS-SDK', '~> 0.3.0'
 ```
-You will also need to add a Specs repository to your CocoaPod installation (this will clone it to `~/.cocoapods/repos` directory):
 
-    pod repo add livefyre https://github.com/Livefyre/cocoapods.git
-
-Once your Podfile is created in your app project root and the repository above added, run:
+Then simply:
 
     pod install
 
-This will download all the dependencies and create a file `MyApp.xcworkspace`, which you should use from now on to open your app project in Xcode.
+This will download all the dependencies and create a file `MyApp.xcworkspace`, which you should use from now on to open your app project in Xcode. Note running `pod install` will clone `Livefyre/cocoapods.git` repo to `~/.cocoapods/repos/livefyre` directory.
 
 ### As an Xcode subproject
 
@@ -45,7 +45,6 @@ You will also need to do the same with any of the dependencies (AFNetworking [[3
     cd StreamHub-iOS-SDK
     git submodule init
     git submodule update
-    pod repo add livefyre https://github.com/Livefyre/cocoapods.git
     pod install
     cd examples/CommentStream
     pod install
