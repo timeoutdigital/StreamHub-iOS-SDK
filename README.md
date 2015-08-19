@@ -9,8 +9,8 @@ For more information, please see the CommentStream sample app [[1]] or Livefyre 
 
 ### As a Cocoa Pod (recommended)
 
-The most convenient way to add StreamHub-iOS SDK to your project is to use CocoaPods. 
-If you don't have CocoaPods, run `gem install cocoapods` and `pod setup`. 
+The most convenient way to add StreamHub-iOS SDK to your project is to use CocoaPods.
+If you don't have CocoaPods, run `gem install cocoapods` and `pod setup`.
 Here is an example Podfile:
 
 ```ruby
@@ -68,11 +68,9 @@ For those looking at StreamHub-iOS SDK internals, please note that we use a modi
 
 ## License
 
-This software is licensed under the MIT License.
+Copyright (c) 2015 Livefyre, Inc.
 
-The MIT License (MIT)
-
-Copyright (c) 2013 Livefyre
+Licensed under the MIT License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
