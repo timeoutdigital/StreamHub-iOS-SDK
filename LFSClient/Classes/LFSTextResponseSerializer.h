@@ -7,7 +7,7 @@
 //
 
 #import "LFSBaseClient.h"
-#import "AFURLResponseSerialization.h"
+#import <AFNetworking/AFURLResponseSerialization.h>
 
 @interface LFSTextResponseSerializer: AFHTTPResponseSerializer
 /**
