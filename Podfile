@@ -10,6 +10,8 @@ pod 'JWT', '~> 1.0.3'
 pod 'Base64', '~> 1.0.1'
 pod 'NSString-Hashes', '~> 1.2.0'
 pod 'LFJSONKit', '~> 1.6a'
+pod 'MBProgressHUD', '~> 0.9.2'
+
 end
 
 target :'LFSClientTests' do
