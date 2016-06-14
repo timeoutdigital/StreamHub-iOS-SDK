@@ -30,7 +30,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Do any additional setup after loading the view.
+
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSHTTPCookie *cookie;
+    
+    NSString *domain = [NSString stringWithFormat:@"identity.%@",self.environment];
+    for(cookie in [storage cookies])
+    {
+        if([cookie.domain isEqualToString:domain] || [cookie.name isEqualToString:@"lfsp-profile"]){
+            NSLog(@"cookie is :%@", cookie);
+            [storage deleteCookie:cookie];
+        }
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];  //Change self.view.bounds to a smaller CGRect if you don't want it to take up the whole screen
     NSString *encodedURLParamString = [self escapeValueForURLParameter:[NSString stringWithFormat:@"https://identity.%@/%@",self.environment,self.network]];
     NSString *urlString = [NSString stringWithFormat:@"https://identity.%@/%@/pages/auth/engage/?app=%@&next=%@",self.environment,self.network,encodedURLParamString,self.next];
@@ -89,15 +102,15 @@
     NSHTTPCookie *cookie;
     for(cookie in [storage cookies])
     {
-        if([cookie.name isEqualToString:@"lfsp-profile"]){
+        if([cookie.name isEqualToString:@"lfsp-profile"] && cookie.value.length>0){
             NSLog(@"cookie is :%@", cookie);
+            
             [self dismissViewControllerAnimated:YES completion:^{
                 if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
                     [self.delegate didReceiveLFAuthToken:cookie.value];
-                    [storage deleteCookie:cookie];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
                 }
             }];
+            break;
         }
     }
 }
