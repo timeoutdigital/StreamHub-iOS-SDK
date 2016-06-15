@@ -44,7 +44,7 @@
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];  //Change self.view.bounds to a smaller CGRect if you don't want it to take up the whole screen
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];  
     NSString *encodedURLParamString = [self escapeValueForURLParameter:[NSString stringWithFormat:@"https://identity.%@/%@",self.environment,self.network]];
     NSString *urlString = [NSString stringWithFormat:@"https://identity.%@/%@/pages/auth/engage/?app=%@&next=%@",self.environment,self.network,encodedURLParamString,self.next];
     
@@ -62,15 +62,7 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
         NSLog(@"%@",request);
     [self getDataFromCookie];
-//    NSString *urlString = [request.URL absoluteString];
-//    NSLog(@"%@",urlString);
-//    if([urlString containsString:@"jwtProfileToken"]){
-//        [self successLWithJWT:request.URL];
-//        return NO;
-//    }else if([urlString containsString:@"lftoken"]){
-//        [self successWithLFToken:request.URL];
-//        return NO;
-//    }else
+
     if([[request.URL absoluteString] containsString:@"AuthCanceled"]){
         [self failAuth];
         return NO;
@@ -121,37 +113,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)successLWithJWT:(NSURL*)url{
-    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url
-                                                resolvingAgainstBaseURL:NO];
-    
-    NSArray *queryItems = urlComponents.queryItems;
-    NSString *jwtToken =[self  valueForKey:@"jwtProfileToken" fromQueryItems:queryItems];
-    
-    
-    [self dismissViewControllerAnimated:YES completion:^{
-        if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
-            [self.delegate didReceiveLFAuthToken:jwtToken];
-        }
-    }];
-}
--(void)successWithLFToken:(NSURL*)url{
-    
-    NSArray* fragmentArray = [url.fragment componentsSeparatedByString: @":"];
-    if(fragmentArray.count>1){
-        NSString* token = [fragmentArray objectAtIndex: 1];
-        
-        
-        [self dismissViewControllerAnimated:YES completion:^{
-            if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
-                [self.delegate didReceiveLFAuthToken:token];
-            }
-        }];
-    }else{
-        [self failAuth];
-    }
 }
 
 -(void)failAuth{
