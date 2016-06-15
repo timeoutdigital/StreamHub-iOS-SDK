@@ -1,10 +1,3 @@
-//
-//  LFAuthViewController.m
-//  LFToken
-//
-//  Created by Narendra Kumar on 5/1/16.
-//  Copyright Â© 2016 Narendra. All rights reserved.
-//
 
 #import "LFAuthViewController.h"
 #import "LFHUD.h"
