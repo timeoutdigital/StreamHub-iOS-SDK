@@ -2,17 +2,20 @@ source 'https://github.com/Livefyre/cocoapods.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, '6.0'
-xcodeproj 'LFSClient.xcodeproj'
+#xcodeproj 'LFSClient.xcodeproj'
 
-link_with 'LFSClient'
+target :'LFSClient' do
 pod 'AFNetworking', '~> 2.3.0'
 pod 'JWT', '~> 1.0.3'
 pod 'Base64', '~> 1.0.1'
 pod 'NSString-Hashes', '~> 1.2.0'
 pod 'LFJSONKit', '~> 1.6a'
+pod 'MBProgressHUD', '~> 0.9.2'
 
-target :test, :exclusive => true do
-    link_with 'LFSClientTests'
+end
+
+target :'LFSClientTests' do
+    #link_with 'LFSClientTests'
     platform :ios, '7.0'
     #pod 'Kiwi/XCTest'
     pod 'OHHTTPStubs'

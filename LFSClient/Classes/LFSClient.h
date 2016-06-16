@@ -39,3 +39,4 @@
 #import "LFSAdminClient.h"
 #import "LFSWriteClient.h"
 #import "LFSStreamClient.h"
+#import "LFAuthViewController.h"
