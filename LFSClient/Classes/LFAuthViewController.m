@@ -26,14 +26,10 @@
 
     NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSHTTPCookie *cookie;
-    
-    NSString *domain = [NSString stringWithFormat:@"identity.%@",self.environment];
     for(cookie in [storage cookies])
     {
-        if([cookie.domain isEqualToString:domain] || [cookie.name isEqualToString:@"lfsp-profile"]){
-            NSLog(@"cookie is :%@", cookie);
-            [storage deleteCookie:cookie];
-        }
+        NSLog(@"cookie is :%@", cookie);
+        [storage deleteCookie:cookie];
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
     
