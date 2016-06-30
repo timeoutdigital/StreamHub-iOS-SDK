@@ -10,6 +10,7 @@
 static const NSString* kLFSPCookie = @"lfsp-profile";
 static const NSString* kCancelPath = @"AuthCanceled";
 static const NSString* kIdentityPath = @"identity.qa-ext.livefyre.com";
+static const NSString* kCommentsUrl =@"http://livefyre-cdn-dev.s3.amazonaws.com/demos/lfep2-comments.html";
 
 @implementation LFAuthViewController{
     UIWebView *webView;
@@ -53,7 +54,7 @@ static const NSString* kIdentityPath = @"identity.qa-ext.livefyre.com";
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     
     if([LFAuthViewController isLoggedin]){
-        NSString *baseUrl = @"http://livefyre-cdn-dev.s3.amazonaws.com/demos/lfep2-comments.html";
+        NSString *baseUrl = kCommentsUrl;
         NSString *webUrl = [webView.request.URL absoluteString];
         if ([webUrl containsString:baseUrl] ) {
             [self dismissViewControllerAnimated:YES completion:^{
@@ -63,7 +64,7 @@ static const NSString* kIdentityPath = @"identity.qa-ext.livefyre.com";
             }];
             return;
         }else{
-            NSString *urlString =@"https://identity.qa-ext.livefyre.com/qa-blank.fyre.co/pages/profile/complete/?next=aHR0cDovL2xpdmVmeXJlLWNkbi1kZXYuczMuYW1hem9uYXdzLmNvbS9kZW1vcy9sZmVwMi1jb21tZW50cy5odG1s";
+            NSString *urlString =[NSString stringWithFormat:@"https://identity.%@/%@/pages/profile/complete/?next=%@",self.environment,self.network,self.next ];
             NSString *currentURL = webView.request.URL.absoluteString;
             
             if ([currentURL isEqualToString:urlString]) {
