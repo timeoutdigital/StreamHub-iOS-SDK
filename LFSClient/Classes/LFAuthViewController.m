@@ -55,21 +55,22 @@ static const NSString* kIdentityPath = @"identity.qa-ext.livefyre.com";
     if([LFAuthViewController isLoggedin]){
         NSString *baseUrl = @"http://livefyre-cdn-dev.s3.amazonaws.com/demos/lfep2-comments.html";
         NSString *webUrl = [webView.request.URL absoluteString];
-        if ([baseUrl isEqualToString:webUrl]) {
-                    [self dismissViewControllerAnimated:YES completion:^{
-                        if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
-                            [self.delegate didReceiveLFAuthToken:[LFAuthViewController getLFSPCookie]];
-                        }
-                    }];
-        }else{
-        NSString *urlString =@"https://identity.qa-ext.livefyre.com/qa-blank.fyre.co/pages/profile/complete/?next=aHR0cDovL2xpdmVmeXJlLWNkbi1kZXYuczMuYW1hem9uYXdzLmNvbS9kZW1vcy9sZmVwMi1jb21tZW50cy5odG1s";
-        NSString *currentURL = webView.request.URL.absoluteString;
-        
-        if ([currentURL isEqualToString:urlString]) {
-            [LFHUD hideHud:self.view];
+        if ([webUrl containsString:baseUrl] ) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
+                    [self.delegate didReceiveLFAuthToken:[LFAuthViewController getLFSPCookie]];
+                }
+            }];
             return;
-        }
-        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+        }else{
+            NSString *urlString =@"https://identity.qa-ext.livefyre.com/qa-blank.fyre.co/pages/profile/complete/?next=aHR0cDovL2xpdmVmeXJlLWNkbi1kZXYuczMuYW1hem9uYXdzLmNvbS9kZW1vcy9sZmVwMi1jb21tZW50cy5odG1s";
+            NSString *currentURL = webView.request.URL.absoluteString;
+            
+            if ([currentURL isEqualToString:urlString]) {
+                [LFHUD hideHud:self.view];
+                return;
+            }
+            [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
         }
     }
     [LFHUD hideHud:self.view];
