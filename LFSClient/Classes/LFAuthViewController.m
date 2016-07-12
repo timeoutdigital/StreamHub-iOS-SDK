@@ -1,16 +1,20 @@
-
 #import "LFAuthViewController.h"
 #import "LFHUD.h"
 @interface LFAuthViewController ()<UIWebViewDelegate>
 @property(nonatomic,strong) NSString* environment;
 @property(nonatomic,strong) NSString* network;
 @property(nonatomic,strong) NSString *next;
+
 @end
 
 static const NSString* kLFSPCookie = @"lfsp-profile";
 static const NSString* kCancelPath = @"AuthCanceled";
+static const NSString* kIdentityPath = @"identity.qa-ext.livefyre.com";
+static const NSString* kCommentsUrl =@"http://livefyre-cdn-dev.s3.amazonaws.com/demos/lfep2-comments.html";
 
-@implementation LFAuthViewController
+@implementation LFAuthViewController{
+    UIWebView *webView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,7 +32,7 @@ static const NSString* kCancelPath = @"AuthCanceled";
     [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
     [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height-50)];
+    webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height-50)];
     NSString *encodedURLParamString = [self escapeValueForURLParameter:[NSString stringWithFormat:@"https://identity.%@/%@",self.environment,self.network]];
     NSString *urlString = [NSString stringWithFormat:@"https://identity.%@/%@/pages/auth/engage/?app=%@&next=%@",self.environment,self.network,encodedURLParamString,self.next];
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
@@ -48,14 +52,35 @@ static const NSString* kCancelPath = @"AuthCanceled";
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
-    [self getDataFromCookie];
+    
+    if([LFAuthViewController isLoggedin]){
+        NSString *baseUrl = kCommentsUrl;
+        NSString *webUrl = [webView.request.URL absoluteString];
+        if ([webUrl containsString:baseUrl] ) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
+                    [self.delegate didReceiveLFAuthToken:[LFAuthViewController getLFSPCookie]];
+                }
+            }];
+            return;
+        }else{
+            NSString *urlString =[NSString stringWithFormat:@"https://identity.%@/%@/pages/profile/complete/?next=%@",self.environment,self.network,self.next ];
+            NSString *currentURL = webView.request.URL.absoluteString;
+            
+            if ([currentURL isEqualToString:urlString]) {
+                [LFHUD hideHud:self.view];
+                return;
+            }
+            [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+        }
+    }
     [LFHUD hideHud:self.view];
+    
+    //    [self getDataFromCookie];
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSLog(@"%@",request);
-    [self getDataFromCookie];
-    
     if([[request.URL absoluteString] containsString:kCancelPath]){
         [self failAuth];
         return NO;
@@ -105,11 +130,13 @@ static const NSString* kCancelPath = @"AuthCanceled";
 
 -(void)getDataFromCookie{
     if([LFAuthViewController isLoggedin]){
-        [self dismissViewControllerAnimated:YES completion:^{
-            if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
-                [self.delegate didReceiveLFAuthToken:[LFAuthViewController getLFSPCookie]];
-            }
-        }];
+        
+        
+        //        [self dismissViewControllerAnimated:YES completion:^{
+        //            if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
+        //                [self.delegate didReceiveLFAuthToken:[LFAuthViewController getLFSPCookie]];
+        //            }
+        //        }];
     }
 }
 
@@ -143,7 +170,7 @@ static const NSString* kCancelPath = @"AuthCanceled";
     return (__bridge_transfer NSString *) CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef) valueToEscape,
                                                                                   NULL, (CFStringRef) @"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8);
 }
-- (NSString *)valueForKey:(NSString *)key fromQueryItems:(NSArray *)queryItems{
+- (NSString* )valueForKey:(NSString* )key fromQueryItems:(NSArray *)queryItems{
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name=%@", key];
     NSURLQueryItem *queryItem = [[queryItems
                                   filteredArrayUsingPredicate:predicate]
