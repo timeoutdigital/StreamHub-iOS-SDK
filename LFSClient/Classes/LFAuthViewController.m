@@ -8,6 +8,7 @@
 @property(nonatomic,strong) NSString* environment;
 @property(nonatomic,strong) NSString* network;
 @property(nonatomic,strong) NSString *next;
+@property(nonatomic,assign) BOOL verifiedEmail;
 
 @end
 
@@ -43,6 +44,7 @@ static const NSString* kCommentsUrl =@"http://livefyre-cdn-dev.s3.amazonaws.com/
     webView.delegate=self;
     [self.view addSubview:webView];
     
+    
 }
 
 -(void)cancelAuthSelected{
@@ -57,61 +59,22 @@ static const NSString* kCommentsUrl =@"http://livefyre-cdn-dev.s3.amazonaws.com/
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     
-    if([LFAuthViewController isLoggedin]){
-        NSString *baseUrl = kCommentsUrl;
-        NSString *webUrl = [webView.request.URL absoluteString];
-        if ([webUrl containsString:baseUrl] ) {
-//            [self dismissViewControllerAnimated:YES completion:^{
-//                if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
-//                    [self.delegate didReceiveLFAuthToken:[LFAuthViewController getLFSPCookie]];
-//                }
-//            }];
-            return;
-        }else{
-            
-//            [self profieRequest];
-//            NSString *urlString =[NSString stringWithFormat:@"https://identity.%@/%@/pages/profile/",self.environment,self.network,self.next ];
-//            NSString *currentURL = webView.request.URL.absoluteString;
-//            
-//            if ([currentURL isEqualToString:urlString]) {
-//                [LFHUD hideHud:self.view];
-//                return;
-//            }
-//            
-//            
-//            NSMutableURLRequest *re = [[NSMutableURLRequest alloc] init];//alloc init      not required
-//            re = (NSMutableURLRequest *) webView.request.mutableCopy;
-//            [re setValue:@"http://livefyre-cdn-dev.s3.amazonaws.com" forHTTPHeaderField:@"Origin"];
-//            [re setValue:@"http://livefyre-cdn-dev.s3.amazonaws.com/demos/lfep2-comments.html" forHTTPHeaderField:@"Referer"];
-//
-//            re.URL = [NSURL URLWithString:urlString];
-//            if([LFAuthViewController isLoggedin]){
-//                
-//            }
-//            [webView loadRequest:re];
-        }
-    }
+
     [LFHUD hideHud:self.view];
     
-    //    [self getDataFromCookie];
 }
 
 
 -(void)profieRequest{
     NSString *urlString =[NSString stringWithFormat:@"https://identity.%@/%@/api/v1.0/public/profile/",self.environment,self.network ];
-//    NSString *currentURL = webView.request.URL.absoluteString;
-//
-//    NSMutableURLRequest *re = [[NSMutableURLRequest alloc] init];//alloc init      not required
-//    re = (NSMutableURLRequest *) webView.request.mutableCopy;
-//    [re setValue:@"http://livefyre-cdn-dev.s3.amazonaws.com" forHTTPHeaderField:@"Origin"];
-//    [re setValue:@"http://livefyre-cdn-dev.s3.amazonaws.com/demos/lfep2-comments.html" forHTTPHeaderField:@"Referer"];
-//    
-    NSURL *url = [NSURL URLWithString:urlString];
-    
+
+    NSURL *url = [NSURL URLWithString:self.next];
+    NSString *origin = [NSString stringWithFormat:@"http://%@",url.host];
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"http://livefyre-cdn-dev.s3.amazonaws.com/demos/lfep2-comments.html" forHTTPHeaderField:@"Referer"];
-    [manager.requestSerializer setValue:@"http://livefyre-cdn-dev.s3.amazonaws.com" forHTTPHeaderField:@"Origin"];
+    [manager.requestSerializer setValue:self.next forHTTPHeaderField:@"Referer"];
+    [manager.requestSerializer setValue:origin forHTTPHeaderField:@"Origin"];
     [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"*/*"];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
@@ -121,17 +84,25 @@ static const NSString* kCommentsUrl =@"http://livefyre-cdn-dev.s3.amazonaws.com/
     for (NSString *key in cookieHeaders) {
         [manager.requestSerializer setValue:cookieHeaders[key] forHTTPHeaderField:key];
     }
-    [manager GET:@"https://identity.qa-ext.livefyre.com/qa-blank.fyre.co/api/v1.0/public/profile/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *baseString = [NSString stringWithFormat:@"https://identity.%@/%@/api/v1.0/public/profile/",self.environment,self.network];
+    [manager GET:baseString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSError *error;
         if(responseObject!=nil){
             NSDictionary* jsonFromData = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&error];
-
+            self.verifiedEmail = YES;
             if(!error && [[jsonFromData valueForKey:@"code"] integerValue] == 200){
                 NSDictionary *data = [jsonFromData valueForKey:@"data"];
-                if(data[@"email"] !=nil){
+                if(data[@"email"] !=[NSNull null]){
                     NSLog(@"%@",data[@"email"]);
-                }else{
                     
+                    [self dismissViewControllerAnimated:YES completion:^{
+                                        if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
+                                            [self.delegate didReceiveLFAuthToken:[LFAuthViewController getLFSPCookie]];
+                                        }
+                                    }];
+                }else{
+                    NSString *urlString =[NSString stringWithFormat:@"https://identity.%@/%@/pages/profile/complete/?next=%@",self.environment,self.network,self.next ];
+                    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
                     NSLog(@"User email not registerd");
                 }
             }
@@ -140,11 +111,6 @@ static const NSString* kCommentsUrl =@"http://livefyre-cdn-dev.s3.amazonaws.com/
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
-    
-    
-    
-    
-    
 
 }
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
@@ -152,11 +118,18 @@ static const NSString* kCommentsUrl =@"http://livefyre-cdn-dev.s3.amazonaws.com/
     if([[request.URL absoluteString] containsString:kCancelPath]){
         [self failAuth];
         return NO;
-    }else if([LFAuthViewController isLoggedin]){
+    }else if([LFAuthViewController isLoggedin] && !self.verifiedEmail){
         [self profieRequest];
         return NO;
     }
-    
+    NSString *profileCompleteUrl = [webView.request.URL absoluteString];
+    if ([profileCompleteUrl containsString:@"lftoken"]) {
+                [self dismissViewControllerAnimated:YES completion:^{
+                    if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
+                        [self.delegate didReceiveLFAuthToken:[LFAuthViewController getLFSPCookie]];
+                    }
+            }];
+    }
     return YES;
 }
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
@@ -196,6 +169,8 @@ static const NSString* kCommentsUrl =@"http://livefyre-cdn-dev.s3.amazonaws.com/
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+
 
 #pragma mark - private
 
