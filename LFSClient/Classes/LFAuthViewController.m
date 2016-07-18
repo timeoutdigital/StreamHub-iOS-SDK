@@ -14,8 +14,7 @@
 
 static const NSString* kLFSPCookie = @"lfsp-profile";
 static const NSString* kCancelPath = @"AuthCanceled";
-static const NSString* kIdentityPath = @"identity.qa-ext.livefyre.com";
-static const NSString* kCommentsUrl =@"http://livefyre-cdn-dev.s3.amazonaws.com/demos/lfep2-comments.html";
+
 
 @implementation LFAuthViewController{
     UIWebView *webView;
@@ -59,9 +58,7 @@ static const NSString* kCommentsUrl =@"http://livefyre-cdn-dev.s3.amazonaws.com/
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     
-
     [LFHUD hideHud:self.view];
-    
 }
 
 
@@ -93,8 +90,6 @@ static const NSString* kCommentsUrl =@"http://livefyre-cdn-dev.s3.amazonaws.com/
             if(!error && [[jsonFromData valueForKey:@"code"] integerValue] == 200){
                 NSDictionary *data = [jsonFromData valueForKey:@"data"];
                 if(data[@"email"] !=[NSNull null]){
-                    NSLog(@"%@",data[@"email"]);
-                    
                     [self dismissViewControllerAnimated:YES completion:^{
                                         if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
                                             [self.delegate didReceiveLFAuthToken:[LFAuthViewController getLFSPCookie]];
@@ -103,7 +98,6 @@ static const NSString* kCommentsUrl =@"http://livefyre-cdn-dev.s3.amazonaws.com/
                 }else{
                     NSString *urlString =[NSString stringWithFormat:@"https://identity.%@/%@/pages/profile/complete/?next=%@",self.environment,self.network,self.next ];
                     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
-                    NSLog(@"User email not registerd");
                 }
             }
         }
@@ -114,7 +108,6 @@ static const NSString* kCommentsUrl =@"http://livefyre-cdn-dev.s3.amazonaws.com/
 
 }
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    NSLog(@"%@",request);
     if([[request.URL absoluteString] containsString:kCancelPath]){
         [self failAuth];
         return NO;
@@ -176,13 +169,7 @@ static const NSString* kCommentsUrl =@"http://livefyre-cdn-dev.s3.amazonaws.com/
 
 -(void)getDataFromCookie{
     if([LFAuthViewController isLoggedin]){
-        
-        
-        //        [self dismissViewControllerAnimated:YES completion:^{
-        //            if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
-        //                [self.delegate didReceiveLFAuthToken:[LFAuthViewController getLFSPCookie]];
-        //            }
-        //        }];
+
     }
 }
 
