@@ -113,7 +113,7 @@ static const NSString* kCancelPath = @"AuthCanceled";
         return NO;
     }else if([LFAuthViewController isLoggedin] && !self.verifiedEmail){
         [self profieRequest];
-        return NO;
+        return YES;
     }
     NSString *profileCompleteUrl = [webView.request.URL absoluteString];
     if ([profileCompleteUrl containsString:@"lftoken"]) {
