@@ -8,12 +8,12 @@
 @property(nonatomic,strong) NSString* environment;
 @property(nonatomic,strong) NSString* network;
 @property(nonatomic,strong) NSString *next;
-@property(nonatomic,assign) BOOL verifiedEmail;
 
 @end
 
 static const NSString* kLFSPCookie = @"lfsp-profile";
 static const NSString* kCancelPath = @"AuthCanceled";
+static NSString *token = nil;
 
 
 @implementation LFAuthViewController{
@@ -38,7 +38,7 @@ static const NSString* kCancelPath = @"AuthCanceled";
     
     webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height-50)];
     NSString *encodedURLParamString = [self escapeValueForURLParameter:[NSString stringWithFormat:@"https://identity.%@/%@",self.environment,self.network]];
-    NSString *urlString = [NSString stringWithFormat:@"https://identity.%@/%@/pages/auth/engage/?app=%@&next=%@",self.environment,self.network,encodedURLParamString,[self.next base64String]];
+    NSString *urlString = [NSString stringWithFormat:@"https://identity.%@/%@/pages/auth/engage/?app=%@&next=%@",self.environment,self.network,encodedURLParamString, [self escapeValueForURLParameter:self.next]];
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
     webView.delegate=self;
     [self.view addSubview:webView];
@@ -86,19 +86,14 @@ static const NSString* kCancelPath = @"AuthCanceled";
         NSError *error;
         if(responseObject!=nil){
             NSDictionary* jsonFromData = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&error];
-            self.verifiedEmail = YES;
             if(!error && [[jsonFromData valueForKey:@"code"] integerValue] == 200){
                 NSDictionary *data = [jsonFromData valueForKey:@"data"];
-                if(data[@"email"] !=[NSNull null]){
-                    [self dismissViewControllerAnimated:YES completion:^{
-                                        if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
-                                            [self.delegate didReceiveLFAuthToken:[LFAuthViewController getLFSPCookie]];
-                                        }
-                                    }];
-                }else{
-                    NSString *urlString =[NSString stringWithFormat:@"https://identity.%@/%@/pages/profile/complete/?next=%@",self.environment,self.network,self.next ];
-                    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
-                }
+                [self dismissViewControllerAnimated:YES completion:^{
+                                    if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
+                                        token = data[@"token"];
+                                        [self.delegate didReceiveLFAuthToken:data[@"token"]];
+                                    }
+                                }];
             }
         }
 
@@ -111,18 +106,8 @@ static const NSString* kCancelPath = @"AuthCanceled";
     if([[request.URL absoluteString] containsString:kCancelPath]){
         [self failAuth];
         return NO;
-    }else if([LFAuthViewController isLoggedin] && !self.verifiedEmail){
-        [self profieRequest];
-        return YES;
     }
-    NSString *profileCompleteUrl = [webView.request.URL absoluteString];
-    if ([profileCompleteUrl containsString:@"lftoken"]) {
-                [self dismissViewControllerAnimated:YES completion:^{
-                    if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
-                        [self.delegate didReceiveLFAuthToken:[LFAuthViewController getLFSPCookie]];
-                    }
-            }];
-    }
+    [self profieRequest];
     return YES;
 }
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
@@ -142,36 +127,16 @@ static const NSString* kCancelPath = @"AuthCanceled";
     return self;
 }
 
-+(id)getLFProfile{
-    return [LFAuthViewController getLFSPCookie];
-}
-
-+(BOOL)isLoggedin{
-    if([LFAuthViewController getLFSPCookie] != nil){
-        return YES;
-    }
-    return NO;
++(NSString*)getToken{
+    return token;
 }
 
 +(void)logout{
-    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSHTTPCookie *cookie;
-    for(cookie in [storage cookies]) {
-        NSLog(@"cookie deleted is :%@", cookie);
-        [storage deleteCookie:cookie];
-    }
+    token = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-
-
 #pragma mark - private
-
--(void)getDataFromCookie{
-    if([LFAuthViewController isLoggedin]){
-
-    }
-}
 
 +(NSString*)getLFSPCookie{
     NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];

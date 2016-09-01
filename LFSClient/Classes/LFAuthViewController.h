@@ -6,7 +6,7 @@
 
 - (instancetype)initWithEnvironment:(NSString*)environment network:(NSString*)network next:(NSString*)next;
 +(id)getLFProfile;
-+(BOOL)isLoggedin;
++(NSString*)getToken;
 +(void)logout;
 @end
 
