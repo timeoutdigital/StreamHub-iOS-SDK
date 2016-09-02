@@ -103,11 +103,13 @@ static NSString *token = nil;
 
 }
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    NSString *getProfileAccount = [NSString stringWithFormat:@"https://identity.%@/accounts/profile/",self.network];
     if([[request.URL absoluteString] containsString:kCancelPath]){
         [self failAuth];
         return NO;
+    }else if([[request.URL absoluteString] containsString:getProfileAccount]){
+        [self profieRequest];
     }
-    [self profieRequest];
     return YES;
 }
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
