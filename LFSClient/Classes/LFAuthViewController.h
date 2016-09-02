@@ -8,6 +8,7 @@
 +(id)getLFProfile;
 +(NSString*)getToken;
 +(void)logout;
++(void)clearCokiee;
 @end
 
 @protocol LFAuthenticationDelegate <NSObject>

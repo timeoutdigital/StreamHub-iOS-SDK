@@ -133,6 +133,7 @@ static NSString *token = nil;
 
 +(void)logout{
     token = nil;
+    [self clearCokiee];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -148,6 +149,15 @@ static NSString *token = nil;
         }
     }
     return nil;
+}
+
++(void)clearCokiee{
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSHTTPCookie *cookie;
+    for(cookie in [storage cookies]) {
+        NSLog(@"cookie deleted is :%@", cookie);
+        [storage deleteCookie:cookie];
+    }
 }
 
 -(void)failAuth{
