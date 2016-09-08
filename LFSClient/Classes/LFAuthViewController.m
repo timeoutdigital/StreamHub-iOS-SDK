@@ -70,7 +70,7 @@ static NSString *token = nil;
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:self.next forHTTPHeaderField:@"Referer"];
+    [manager.requestSerializer setValue:[self escapeValueForURLParameter:self.next] forHTTPHeaderField:@"Referer"];
     [manager.requestSerializer setValue:origin forHTTPHeaderField:@"Origin"];
     [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"*/*"];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -103,7 +103,7 @@ static NSString *token = nil;
 
 }
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    NSString *getProfileAccount = [NSString stringWithFormat:@"https://identity.%@/accounts/profile/",self.network];
+    NSString *getProfileAccount = [NSString stringWithFormat:@"https://identity.%@/accounts/profile/",self.environment];
     if([[request.URL absoluteString] containsString:kCancelPath]){
         [self failAuth];
         return NO;
