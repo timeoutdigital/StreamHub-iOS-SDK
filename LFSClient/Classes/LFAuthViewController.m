@@ -70,7 +70,7 @@ static NSString *token = nil;
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:[self escapeValueForURLParameter:self.next] forHTTPHeaderField:@"Referer"];
+    [manager.requestSerializer setValue:self.next forHTTPHeaderField:@"Referer"];
     [manager.requestSerializer setValue:origin forHTTPHeaderField:@"Origin"];
     [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"*/*"];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
