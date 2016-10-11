@@ -20,7 +20,7 @@ target :'LFSClientTests' do
     #pod 'Kiwi/XCTest'
     pod 'OHHTTPStubs'
     pod 'XCTest+OHHTTPStubSuiteCleanUp'
-    pod 'JWT', '~> 1.0.3'
+    pod 'JWT', '1.0.3'
     pod 'Base64', '~> 1.0.1'
     pod 'NSString-Hashes', '~> 1.2.0'
     pod 'AFHTTPRequestOperationLogger', '~> 2.0.0'
