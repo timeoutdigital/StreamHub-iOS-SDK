@@ -699,7 +699,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8E0D5D5EC2EDAA54D52C3F87 /* Pods-LFSClient.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				DSTROOT = /tmp/LFSClient.dst;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LFSClient/LFSClient-Prefix.pch";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -713,7 +715,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 467CF6C1D96ACA3560E27347 /* Pods-LFSClient.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				DSTROOT = /tmp/LFSClient.dst;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LFSClient/LFSClient-Prefix.pch";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -727,10 +731,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1DD039849A48707755869834 /* Pods-LFSClientTests.debug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LFSClient/LFSClient-Prefix.pch";
 				INFOPLIST_FILE = "LFSClientTests/LFSClientTests-Info.plist";
@@ -743,10 +744,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 06C30450EA1336C7C0C4E5DA /* Pods-LFSClientTests.release.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LFSClient/LFSClient-Prefix.pch";
 				INFOPLIST_FILE = "LFSClientTests/LFSClientTests-Info.plist";
