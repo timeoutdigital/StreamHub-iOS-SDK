@@ -3,7 +3,6 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, '6.0'
 #xcodeproj 'LFSClient.xcodeproj'
-
 target :'LFSClient' do
 pod 'AFNetworking', '~> 2.3.0'
 pod 'JWT', '~> 1.0.3'
@@ -15,7 +14,7 @@ pod 'MBProgressHUD', '~> 0.9.2'
 end
 
 target :'LFSClientTests' do
-    #link_with 'LFSClientTests'
+#    link_with 'LFSClientTests'
     platform :ios, '7.0'
     #pod 'Kiwi/XCTest'
     pod 'OHHTTPStubs'
