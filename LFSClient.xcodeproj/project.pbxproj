@@ -40,7 +40,6 @@
 		1CF0626916B323D700CFA905 /* number-test.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0626816B323D700CFA905 /* number-test.json */; };
 		1CF7064216C32D5D009BD41D /* content-sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 1CF7064116C32D5D009BD41D /* content-sample.json */; };
 		72F67B1CFF41A0DD3AE29C17 /* libPods-LFSClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB67478FD7D4B467193F64A /* libPods-LFSClient.a */; };
-		80F04E573427492DA62B274F /* libPods-test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ED4A404DF430CB8D560C5 /* libPods-test.a */; };
 		8411D2B8606A9C35610FEEDC /* libPods-LFSClientTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37DDA0DA2907287D1310B575 /* libPods-LFSClientTests.a */; };
 		9BB333951DB504D5007F0BB8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB333941DB504D5007F0BB8 /* XCTest.framework */; };
 		D9F69E5B1D1C357D006BD38E /* LFAuthViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D9F69E571D1C357D006BD38E /* LFAuthViewController.h */; };
@@ -53,7 +52,6 @@
 		EF03D34A17C5391C0097FDD3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */; };
 		EF03D34B17C539460097FDD3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */; };
 		EF03F9E017DA665D00FE4C23 /* LFSRelativeToDateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EF03F9DF17DA665D00FE4C23 /* LFSRelativeToDateTest.m */; };
-		EF1AD63D17CC3D71008D157F /* LFSTestConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF1AD63C17CC3D71008D157F /* LFSTestConfig.plist */; };
 		EF21AB9D17C3E26500094CC2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */; };
 		EF21AB9E17C3E26B00094CC2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */; };
 		EF56AF8D17C6CEB50086127D /* LFSJSONKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF56AF8C17C6CEB50086127D /* LFSJSONKitTests.m */; };
@@ -153,7 +151,6 @@
 		EF03D34617C538F20097FDD3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		EF03D34817C539060097FDD3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		EF03F9DF17DA665D00FE4C23 /* LFSRelativeToDateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSRelativeToDateTest.m; sourceTree = "<group>"; };
-		EF1AD63C17CC3D71008D157F /* LFSTestConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LFSTestConfig.plist; sourceTree = "<group>"; };
 		EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EF56AF8C17C6CEB50086127D /* LFSJSONKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSJSONKitTests.m; sourceTree = "<group>"; };
@@ -195,7 +192,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BB333951DB504D5007F0BB8 /* XCTest.framework in Frameworks */,
-				80F04E573427492DA62B274F /* libPods-test.a in Frameworks */,
 				EF03D34A17C5391C0097FDD3 /* SystemConfiguration.framework in Frameworks */,
 				EF03D34B17C539460097FDD3 /* MobileCoreServices.framework in Frameworks */,
 				EF03D34917C539060097FDD3 /* Security.framework in Frameworks */,
@@ -268,7 +264,6 @@
 		1C4CC89B16A48B3800C33DEC /* LFSClientTests */ = {
 			isa = PBXGroup;
 			children = (
-				EF1AD63C17CC3D71008D157F /* LFSTestConfig.plist */,
 				EFDF081617CE756500C7D6C0 /* LFSConfig.h */,
 				EFDF081717CE756500C7D6C0 /* LFSConfig.m */,
 				1CF061FB16B098C500CFA905 /* LFSRC4Tests.m */,
@@ -465,7 +460,6 @@
 				EF02CC16191AAAF9003C28FF /* featured-sample.json in Resources */,
 				1CF0625616B1BD5B00CFA905 /* like-sample.json in Resources */,
 				1CF0625716B1BD5B00CFA905 /* post-sample.json in Resources */,
-				EF1AD63D17CC3D71008D157F /* LFSTestConfig.plist in Resources */,
 				1CF0625816B1BD5B00CFA905 /* stream-sample.json in Resources */,
 				1CF0625A16B1BD6900CFA905 /* usercontent-sample.json in Resources */,
 				1CF0625C16B1BD7100CFA905 /* hottest-sample.json in Resources */,
@@ -481,7 +475,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		1C4CC89016A48B3800C33DEC /* Test Script */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
@@ -489,9 +483,9 @@
 			name = "Test Script";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\" ";
 		};
 		65851C307EB8522FA46F7CDC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
