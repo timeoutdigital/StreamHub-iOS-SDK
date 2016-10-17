@@ -42,6 +42,7 @@
 		72F67B1CFF41A0DD3AE29C17 /* libPods-LFSClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB67478FD7D4B467193F64A /* libPods-LFSClient.a */; };
 		80F04E573427492DA62B274F /* libPods-test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 093ED4A404DF430CB8D560C5 /* libPods-test.a */; };
 		8411D2B8606A9C35610FEEDC /* libPods-LFSClientTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37DDA0DA2907287D1310B575 /* libPods-LFSClientTests.a */; };
+		9BB333951DB504D5007F0BB8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB333941DB504D5007F0BB8 /* XCTest.framework */; };
 		D9F69E5B1D1C357D006BD38E /* LFAuthViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D9F69E571D1C357D006BD38E /* LFAuthViewController.h */; };
 		D9F69E5C1D1C357D006BD38E /* LFAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F69E581D1C357D006BD38E /* LFAuthViewController.m */; };
 		D9F69E5D1D1C357D006BD38E /* LFHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = D9F69E591D1C357D006BD38E /* LFHUD.h */; };
@@ -142,6 +143,7 @@
 		59C0EABAA1D1406582C1062E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DB67478FD7D4B467193F64A /* libPods-LFSClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LFSClient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E0D5D5EC2EDAA54D52C3F87 /* Pods-LFSClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LFSClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LFSClient/Pods-LFSClient.debug.xcconfig"; sourceTree = "<group>"; };
+		9BB333941DB504D5007F0BB8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		BFE79D056598ECF7C7091D77 /* Pods-test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-test/Pods-test.debug.xcconfig"; sourceTree = "<group>"; };
 		D9F69E571D1C357D006BD38E /* LFAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFAuthViewController.h; path = LFSClient/Classes/LFAuthViewController.h; sourceTree = "<group>"; };
 		D9F69E581D1C357D006BD38E /* LFAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFAuthViewController.m; path = LFSClient/Classes/LFAuthViewController.m; sourceTree = "<group>"; };
@@ -154,7 +156,6 @@
 		EF1AD63C17CC3D71008D157F /* LFSTestConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LFSTestConfig.plist; sourceTree = "<group>"; };
 		EF21AB9717C3E19200094CC2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		EF2F994318F8A1D5002D83FF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		EF56AF8C17C6CEB50086127D /* LFSJSONKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSJSONKitTests.m; sourceTree = "<group>"; };
 		EF860D4418F280EE0015431B /* LFSJSONResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSJSONResponseSerializer.h; path = LFSClient/Classes/LFSJSONResponseSerializer.h; sourceTree = "<group>"; };
 		EF860D4518F280EE0015431B /* LFSJSONResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSJSONResponseSerializer.m; path = LFSClient/Classes/LFSJSONResponseSerializer.m; sourceTree = "<group>"; };
@@ -193,6 +194,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BB333951DB504D5007F0BB8 /* XCTest.framework in Frameworks */,
 				80F04E573427492DA62B274F /* libPods-test.a in Frameworks */,
 				EF03D34A17C5391C0097FDD3 /* SystemConfiguration.framework in Frameworks */,
 				EF03D34B17C539460097FDD3 /* MobileCoreServices.framework in Frameworks */,
@@ -230,7 +232,7 @@
 		1C4CC88316A48B3800C33DEC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EF2F994318F8A1D5002D83FF /* XCTest.framework */,
+				9BB333941DB504D5007F0BB8 /* XCTest.framework */,
 				EF03D34817C539060097FDD3 /* Security.framework */,
 				EF03D34617C538F20097FDD3 /* CoreGraphics.framework */,
 				EF21AB9917C3E19900094CC2 /* SystemConfiguration.framework */,
