@@ -70,7 +70,8 @@
         return [requestURL.host isEqualToString:@"bootstrap.init-sample"];
     } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
         // Stub it with our own file
-        NSString *filePath = OHPathForFileInBundle(@"init-sample.json", nil);
+        NSString *filePath = [NSString stringWithFormat:@"init-sample.json",nil];
+//        NSString *filePath = OHPathForFileInBundle(@"init-sample.json", nil);
         NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
         return [OHHTTPStubsResponse responseWithFileAtPath:filePath
                                                 statusCode:200
@@ -160,7 +161,8 @@
         return [requestURL.host isEqualToString:@"bootstrap.featured-sample"];
     } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
         // Stub it with our own file
-        NSString *filePath = OHPathForFileInBundle(@"featured-sample.json", nil);
+        NSString *filePath = [NSString stringWithFormat:@"featured-sample.json",nil];
+//        NSString *filePath = OHPathForFileInBundle(@"featured-sample.json", nil);
         NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
         return [OHHTTPStubsResponse responseWithFileAtPath:filePath
                                                 statusCode:200
@@ -206,7 +208,8 @@
         return [requestURL.host isEqualToString:@"bootstrap.hottest-sample"];
     } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
         // Stub it with our own file
-        NSString *filePath = OHPathForFileInBundle(@"hottest-sample.json", nil);
+        NSString *filePath = [NSString stringWithFormat:@"hottest-sample.json",nil];
+//        NSString *filePath = OHPathForFileInBundle(@"hottest-sample.json", nil);
         NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
         return [OHHTTPStubsResponse responseWithFileAtPath:filePath
                                                 statusCode:200
@@ -250,7 +253,8 @@
         return [requestURL.host isEqualToString:@"bootstrap.usercontent-sample"];
     } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
         // Stub it with our own file
-        NSString *filePath = OHPathForFileInBundle(@"usercontent-sample.json", nil);
+        NSString *filePath = [NSString stringWithFormat:@"usercontent-sample.json",nil];
+//        NSString *filePath = OHPathForFileInBundle(@"usercontent-sample.json", nil);
         NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
         return [OHHTTPStubsResponse responseWithFileAtPath:filePath
                                                 statusCode:200
@@ -295,7 +299,8 @@
         return [requestURL.host isEqualToString:@"admin.usercontent-sample"];
     } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
         // Stub it with our own file
-        NSString *filePath = OHPathForFileInBundle(@"usercontent-sample.json", nil);
+        NSString *filePath = [NSString stringWithFormat:@"usercontent-sample.json",nil];
+//        NSString *filePath = OHPathForFileInBundle(@"usercontent-sample.json", nil);
         NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
         return [OHHTTPStubsResponse responseWithFileAtPath:filePath
                                                 statusCode:200
@@ -334,7 +339,8 @@
         return [requestURL.host isEqualToString:@"admin.usercontent-sample"];
     } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
         // Stub it with our own file
-        NSString *filePath = OHPathForFileInBundle(@"usercontent-sample.json", nil);
+        NSString *filePath = [NSString stringWithFormat:@"usercontent-sample.json",nil];
+//        NSString *filePath = OHPathForFileInBundle(@"usercontent-sample.json", nil);
         NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
         return [OHHTTPStubsResponse responseWithFileAtPath:filePath
                                                 statusCode:200
@@ -375,7 +381,8 @@
         return [requestURL.host isEqualToString:@"quill.like-sample"];
     } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
         // Stub it with our own file
-        NSString *filePath = OHPathForFileInBundle(@"like-sample.json", nil);
+        NSString *filePath = [NSString stringWithFormat:@"like-sample.json",nil];
+//        NSString *filePath = OHPathForFileInBundle(@"like-sample.json", nil);
         NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
         return [OHHTTPStubsResponse responseWithFileAtPath:filePath
                                                 statusCode:200
@@ -417,7 +424,8 @@
         return [requestURL.host isEqualToString:@"quill.post-sample"];
     } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
         // Stub it with our own file
-        NSString *filePath = OHPathForFileInBundle(@"post-sample.json", nil);
+        NSString *filePath = [NSString stringWithFormat:@"post-sample.json",nil];
+//        NSString *filePath = OHPathForFileInBundle(@"post-sample.json", nil);
         NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
         return [OHHTTPStubsResponse responseWithFileAtPath:filePath
                                                 statusCode:200
@@ -464,7 +472,8 @@
         return [requestURL.host isEqualToString:@"quill.flag-sample"];
     } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
         // Stub it with our own file
-        NSString *filePath = OHPathForFileInBundle(@"flag-sample.json", nil);
+        NSString *filePath = [NSString stringWithFormat:@"flag-sample.json",nil];
+//        NSString *filePath = OHPathForFileInBundle(@"flag-sample.json", nil);
         NSDictionary *headers = @{@"Content-Type": @"application/x-javascript"};
         return [OHHTTPStubsResponse responseWithFileAtPath:filePath
                                                 statusCode:200
