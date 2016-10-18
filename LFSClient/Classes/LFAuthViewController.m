@@ -8,12 +8,12 @@
 @property(nonatomic,strong) NSString* environment;
 @property(nonatomic,strong) NSString* network;
 @property(nonatomic,strong) NSString *next;
+@property(nonatomic,assign) BOOL verifiedEmail;
 
 @end
 
 static const NSString* kLFSPCookie = @"lfsp-profile";
 static const NSString* kCancelPath = @"AuthCanceled";
-static NSString *token = nil;
 
 
 @implementation LFAuthViewController{
@@ -38,7 +38,7 @@ static NSString *token = nil;
     
     webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height-50)];
     NSString *encodedURLParamString = [self escapeValueForURLParameter:[NSString stringWithFormat:@"https://identity.%@/%@",self.environment,self.network]];
-    NSString *urlString = [NSString stringWithFormat:@"https://identity.%@/%@/pages/auth/engage/?app=%@&next=%@",self.environment,self.network,encodedURLParamString, [self escapeValueForURLParameter:self.next]];
+    NSString *urlString = [NSString stringWithFormat:@"https://identity.%@/%@/pages/auth/engage/?app=%@&next=%@",self.environment,self.network,encodedURLParamString,[self escapeValueForURLParameter:self.next]];
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
     webView.delegate=self;
     [self.view addSubview:webView];
@@ -64,17 +64,17 @@ static NSString *token = nil;
 
 -(void)profieRequest{
     NSString *urlString =[NSString stringWithFormat:@"https://identity.%@/%@/api/v1.0/public/profile/",self.environment,self.network ];
-
+    
     NSURL *url = [NSURL URLWithString:self.next];
     NSString *origin = [NSString stringWithFormat:@"http://%@",url.host];
-
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:self.next forHTTPHeaderField:@"Referer"];
     [manager.requestSerializer setValue:origin forHTTPHeaderField:@"Origin"];
     [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"*/*"];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-
+    
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
     NSDictionary *cookieHeaders = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
@@ -86,29 +86,42 @@ static NSString *token = nil;
         NSError *error;
         if(responseObject!=nil){
             NSDictionary* jsonFromData = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&error];
+            self.verifiedEmail = YES;
             if(!error && [[jsonFromData valueForKey:@"code"] integerValue] == 200){
                 NSDictionary *data = [jsonFromData valueForKey:@"data"];
-                [self dismissViewControllerAnimated:YES completion:^{
-                                    if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
-                                        token = data[@"token"];
-                                        [self.delegate didReceiveLFAuthToken:data[@"token"]];
-                                    }
-                                }];
+                if(data[@"email"] !=[NSNull null]){
+                    [self dismissViewControllerAnimated:YES completion:^{
+                        if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
+                            [self.delegate didReceiveLFAuthToken:[LFAuthViewController getLFSPCookie]];
+                        }
+                    }];
+                }else{
+                    NSString *urlString =[NSString stringWithFormat:@"https://identity.%@/%@/pages/profile/complete/?next=%@",self.environment,self.network,self.next ];
+                    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+                }
             }
         }
-
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
-
+    
 }
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    NSString *getProfileAccount = [NSString stringWithFormat:@"https://identity.%@/accounts/profile/",self.environment];
     if([[request.URL absoluteString] containsString:kCancelPath]){
         [self failAuth];
         return NO;
-    }else if([[request.URL absoluteString] containsString:getProfileAccount]){
+    }else if([LFAuthViewController isLoggedin] && !self.verifiedEmail){
         [self profieRequest];
+        return YES;
+    }
+    NSString *profileCompleteUrl = [webView.request.URL absoluteString];
+    if ([profileCompleteUrl containsString:@"lftoken"]) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            if([self.delegate respondsToSelector:@selector(didReceiveLFAuthToken:)]){
+                [self.delegate didReceiveLFAuthToken:[LFAuthViewController getLFSPCookie]];
+            }
+        }];
     }
     return YES;
 }
@@ -129,17 +142,36 @@ static NSString *token = nil;
     return self;
 }
 
-+(NSString*)getToken{
-    return token;
++(id)getLFProfile{
+    return [LFAuthViewController getLFSPCookie];
+}
+
++(BOOL)isLoggedin{
+    if([LFAuthViewController getLFSPCookie] != nil){
+        return YES;
+    }
+    return NO;
 }
 
 +(void)logout{
-    token = nil;
-    [self clearCokiee];
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSHTTPCookie *cookie;
+    for(cookie in [storage cookies]) {
+        NSLog(@"cookie deleted is :%@", cookie);
+        [storage deleteCookie:cookie];
+    }
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+
+
 #pragma mark - private
+
+-(void)getDataFromCookie{
+    if([LFAuthViewController isLoggedin]){
+        
+    }
+}
 
 +(NSString*)getLFSPCookie{
     NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -151,15 +183,6 @@ static NSString *token = nil;
         }
     }
     return nil;
-}
-
-+(void)clearCokiee{
-    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSHTTPCookie *cookie;
-    for(cookie in [storage cookies]) {
-        NSLog(@"cookie deleted is :%@", cookie);
-        [storage deleteCookie:cookie];
-    }
 }
 
 -(void)failAuth{

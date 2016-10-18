@@ -6,9 +6,8 @@
 
 - (instancetype)initWithEnvironment:(NSString*)environment network:(NSString*)network next:(NSString*)next;
 +(id)getLFProfile;
-+(NSString*)getToken;
++(BOOL)isLoggedin;
 +(void)logout;
-+(void)clearCokiee;
 @end
 
 @protocol LFAuthenticationDelegate <NSObject>
