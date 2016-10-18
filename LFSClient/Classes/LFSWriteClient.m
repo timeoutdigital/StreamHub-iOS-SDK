@@ -8,7 +8,8 @@
 
 #import "LFSWriteClient.h"
 #import <JWT/JWT.h>
-#import <NSString-Hashes/NSString+Hashes.h>
+#import "NSString+Hashes.h"   
+//<NSString-Hashes/NSString+Hashes.h>
 
 // Requires HTTP request encoding
 @implementation LFSWriteClient
