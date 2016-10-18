@@ -33,7 +33,7 @@
 
 NSString* const LFSSystemVersion70 = @"7.0";
 
-NSString *const LFSScheme = @"http";
+NSString *const LFSScheme = @"https";
 NSString *const LFSErrorDomain = @"LFSErrorDomain";
 
 // Various constants to help with parsing JSON files

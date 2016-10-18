@@ -70,6 +70,8 @@ NSDictionary* createRequestSerializerMap() {
                                                   host:hostname
                                                   path:@"/"];
         _reqOpManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseURL];
+        _reqOpManager.securityPolicy.allowInvalidCertificates = YES;
+        _reqOpManager.securityPolicy.validatesDomainName = NO;
         _reqOpManager.responseSerializer = _responseSerializer;
     }
     return self;
@@ -80,10 +82,13 @@ NSDictionary* createRequestSerializerMap() {
     self = [super init];
     if (self) {
         
+        
         // cache passed parameters into readonly properties
         _requestSerializers = createRequestSerializerMap();
         _responseSerializer = [AFHTTPResponseSerializer serializer];
         _reqOpManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseURL];
+        _reqOpManager.securityPolicy.allowInvalidCertificates = YES;
+        _reqOpManager.securityPolicy.validatesDomainName = NO;
         _reqOpManager.responseSerializer = _responseSerializer;
     }
     return self;
@@ -121,6 +126,7 @@ parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
          success:(AFSuccessBlock)success
          failure:(AFFailureBlock)failure
 {
+    
     AFHTTPRequestSerializer* requestSerializer =
     [self.requestSerializers objectForKey:[NSNumber numberWithInteger:parameterEncoding]];
     
