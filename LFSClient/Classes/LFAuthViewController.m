@@ -66,7 +66,7 @@ static const NSString* kCancelPath = @"AuthCanceled";
     NSString *urlString =[NSString stringWithFormat:@"https://identity.%@/%@/api/v1.0/public/profile/",self.environment,self.network ];
     
     NSURL *url = [NSURL URLWithString:self.next];
-    NSString *origin = [NSString stringWithFormat:@"http://%@",url.host];
+    NSString *origin = [NSString stringWithFormat:@"https://%@",url.host];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
