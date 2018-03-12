@@ -19,7 +19,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, :deployment_target => '6.0'
 
-pod 'StreamHub-iOS-SDK', '~> 0.3.0'
+pod 'StreamHub-iOS-SDK', '~> 1.3.0'
 ```
 
 Then simply:
