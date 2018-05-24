@@ -91,7 +91,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 [1]: https://github.com/Livefyre/StreamHub-iOS-CommentStream-App
-[2]: https://answers.livefyre.com/developers/reference/http-reference/
+[2]: https://api.livefyre.com
 [3]: https://github.com/mattt/AFNetworking
 [4]: https://github.com/escherba/JSONKit
 [5]: http://stackoverflow.com/a/24651704
