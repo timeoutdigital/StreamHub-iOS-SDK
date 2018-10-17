@@ -3,9 +3,9 @@
 //  LFSClientTests
 //
 //  Created by zjj on 1/14/13.
-//  Copyright (c) 2013 Livefyre. All rights reserved.
+//  Copyright (c) 2013 Adobe. All rights reserved.
 //
-//  Copyright (c) 2013 Livefyre
+//  Copyright (c) 2013 Adobe
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation
