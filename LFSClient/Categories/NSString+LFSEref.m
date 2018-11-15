@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Goyne on 5/17/12.
 //
-//  Copyright (c) 2013 Livefyre
+//  Copyright (c) 2013 Adobe
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation

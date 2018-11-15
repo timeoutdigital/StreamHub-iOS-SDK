@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Goyne on 5/17/12.
 //
-//  Copyright (c) 2013 Livefyre
+//  Copyright (c) 2013 Adobe
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation
@@ -36,7 +36,7 @@
 /** @name eref decoding. */
 
 /**
- * A method to assist with decoding content erefs using a Livefyre user's key or keys.
+ * A method to assist with decoding content erefs using a Adobe user's key or keys.
  * Invoked on the eref one attempts to decode.
  *
  * @param  keys The keys to apply to the encoded content.
@@ -45,7 +45,7 @@
 - (NSString *)decodeErefWithKeys:(NSArray *)keys;
 
 /**
- * A method to assist with decoding Livefyre content ciphers.
+ * A method to assist with decoding Adobe content ciphers.
  * Invoked on the cipher text.
  *
  * @param  key The secret key.

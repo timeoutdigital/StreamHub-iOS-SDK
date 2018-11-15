@@ -4,7 +4,7 @@
 //
 //  Created by zjj on 1/9/13.
 //
-//  Copyright (c) 2013 Livefyre
+//  Copyright (c) 2013 Adobe
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation

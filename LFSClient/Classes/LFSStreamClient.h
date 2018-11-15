@@ -3,7 +3,7 @@
 //  LFSClient
 //
 //  Created by Eugene Scherba on 9/3/13.
-//  Copyright (c) 2013 Livefyre. All rights reserved.
+//  Copyright (c) 2013 Adobe. All rights reserved.
 //
 
 #import "LFSBaseClient.h"

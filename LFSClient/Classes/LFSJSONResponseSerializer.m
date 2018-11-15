@@ -3,7 +3,7 @@
 //  LFSClient
 //
 //  Created by Eugene Scherba on 4/6/14.
-//  Copyright (c) 2014 Livefyre. All rights reserved.
+//  Copyright (c) 2014 Adobe. All rights reserved.
 //
 
 #import "LFSJSONResponseSerializer.h"
@@ -161,7 +161,7 @@ static BOOL AFErrorOrUnderlyingErrorHasCode(NSError *error, NSInteger code) {
     // Workaround for behavior of Rails to return a single space for `head :ok` (a workaround for a bug in Safari), which is not interpreted as valid input by NSJSONSerialization.
     // See https://github.com/rails/rails/issues/1742
     //
-    // TODO: this is most certainly not necessary for Livefyre API
+    // TODO: this is most certainly not necessary for Adobe API
     //
     NSStringEncoding stringEncoding = self.stringEncoding;
     if (response.textEncodingName) {

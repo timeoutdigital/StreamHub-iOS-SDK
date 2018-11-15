@@ -1,9 +1,9 @@
 StreamHub-iOS-SDK
 =================
 
-Use this open-source library to integrate Livefyre services into your native iOS app.  This SDK provides a thin layer for common API mechanisms and endpoints on top of the excellent AFNetworking stack.
+Use this open-source library to integrate Adobe services into your native iOS app.  This SDK provides a thin layer for common API mechanisms and endpoints on top of the excellent AFNetworking stack.
 
-For more information, please see the CommentStream sample app [[1]] or Livefyre HTTP API documentation [[2]].
+For more information, please see the CommentStream sample app [[1]] or Adobe HTTP API documentation [[2]].
 
 ## Integrating the SDK into your project
 
@@ -19,7 +19,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, :deployment_target => '6.0'
 
-pod 'StreamHub-iOS-SDK', '~> 1.3'
+pod 'StreamHub-iOS-SDK', :git => 'https://github.com/Livefyre/StreamHub-iOS-SDK.git'
+
 ```
 
 Then simply:
@@ -52,7 +53,7 @@ You will also need to do the same with any of the dependencies (AFNetworking [[3
 
 Note: to run tests in Xcode 6, you will need to add `$(PLATFORM_DIR)/Developer/Library/Frameworks` to `FRAMEWORK_SEARCH_PATHS` in `Pods-test-XCTest+OHHTTPStubSuiteCleanUp` pod [[5]].
 
-You will also need `LFSTestConfig.plist` file from Livefyre which we will provide upon request.
+You will also need `LFSTestConfig.plist` file from Adobe which we will provide upon request.
 
 ## Xcode Documentation
 
@@ -81,7 +82,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, :deployment_target => '8.0'
 
-pod 'StreamHub-iOS-SDK', '~> 1.3'
+pod 'StreamHub-iOS-SDK', :git => 'https://github.com/Livefyre/StreamHub-iOS-SDK.git'
 ```
 
 Then simply:
