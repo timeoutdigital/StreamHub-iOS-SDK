@@ -29,7 +29,7 @@ Podfile.lock
 tags
 
 # Vim
-*.swp
+*.sw[po]
 
 # Python
 *.pyc
@@ -46,3 +46,4 @@ examples/exp_*
 #apppledoc directory
 AppleDoc/
 gh-pages/
+docs

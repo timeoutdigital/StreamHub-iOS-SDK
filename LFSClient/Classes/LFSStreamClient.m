@@ -3,7 +3,7 @@
 //  LFSClient
 //
 //  Created by Eugene Scherba on 9/3/13.
-//  Copyright (c) 2013 Livefyre. All rights reserved.
+//  Copyright (c) 2013 Adobe. All rights reserved.
 //
 
 #import "LFSStreamClient.h"
@@ -21,8 +21,6 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 
 @implementation LFSStreamClient
 
-@synthesize collectionId = _collectionId;
-@synthesize collectionStreamURLString = _collectionStreamURLString;
 @synthesize successBlock = _successBlock;
 @synthesize failureBlock = _failureBlock;
 @synthesize resultHandler = _resultHandler;
@@ -32,13 +30,13 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 // TODO: implement ring with consistent hashing for managing streams
 -(NSString*)subdomain { return @"stream1"; }
 
-- (instancetype)initWithEnvironment:(NSString *)environment
-                            network:(NSString *)network
+- (id)initWithEnvironment:(NSString *)environment
+                  network:(NSString *)network
 {
     self = [super initWithNetwork:network environment:environment];
     if (self) {
         _collectionId = nil;
-        _collectionStreamURLString = nil;
+        _collectionStreamURL = nil;
         _successBlock = nil;
         _failureBlock = nil;
         _resultHandler = nil;
@@ -49,21 +47,24 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 
 #pragma mark - Properties
 
+@synthesize collectionId = _collectionId;
 - (void)setCollectionId:(NSString *)collectionId
 {
     _collectionId = collectionId;
-    _collectionStreamURLString = nil;
+    _collectionStreamURL = nil;
 }
 
-- (NSURL*)collectionStreamURLString
+#pragma mark -
+@synthesize collectionStreamURL = _collectionStreamURL;
+- (NSURL*)collectionStreamURL
 {
-    if (_collectionStreamURLString != nil) {
-        return _collectionStreamURLString;
-    } else {
+    if (_collectionStreamURL == nil)
+    {
         NSString *component = [NSString stringWithFormat:@"v3.0/collection/%@", self.collectionId];
-        _collectionStreamURLString = [self.baseURL URLByAppendingPathComponent:component];
-        return _collectionStreamURLString;
+        _collectionStreamURL = [self.reqOpManager.baseURL URLByAppendingPathComponent:component];
+        
     }
+    return _collectionStreamURL;
 }
 
 #pragma mark - Public methods
@@ -78,17 +79,17 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 
 - (void)stopStream
 {
-    [self.operationQueue cancelAllOperations];
+    [self.reqOpManager.operationQueue cancelAllOperations];
 }
 
 - (void)pauseStream
 {
-    [self.operationQueue setSuspended:YES];
+    [self.reqOpManager.operationQueue setSuspended:YES];
 }
 
 -(void)resumeStream
 {
-    [self.operationQueue setSuspended:NO];
+    [self.reqOpManager.operationQueue setSuspended:NO];
     [self startStreamWithEventId:nil];
 }
 
@@ -99,11 +100,12 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
 
 - (void)startStreamWithEventId:(NSNumber*)eventId
 {
-    if ([self.operationQueue isSuspended]) {
+    if ([self.reqOpManager.operationQueue isSuspended]) {
         return;
     }
-    LFSJSONRequestOperation *op =
-    (LFSJSONRequestOperation *)[self HTTPRequestOperationWithRequest:
+    
+    AFHTTPRequestOperation *op =
+    (AFHTTPRequestOperation *)[self.reqOpManager HTTPRequestOperationWithRequest:
                                 [self buildRequestWithEventId:eventId]
                                                              success:
                                 ^(AFHTTPRequestOperation *operation, id responseObject)
@@ -140,27 +142,34 @@ static const NSString *const kLFSMaxEventId = @"maxEventId";
                                                    afterDelay:2.0];
                                     }
                                 }];
-    
-    [self enqueueHTTPRequestOperation:op];
+    op.responseSerializer = self.responseSerializer;
+    [self.reqOpManager.operationQueue addOperation:op];
 }
 
 #pragma mark - Private methods
 
-- (NSURLRequest*)buildRequestWithEventId:(NSNumber*)eventId
+- (NSMutableURLRequest*)buildRequestWithEventId:(NSNumber*)eventId
 {
-    if (eventId != nil) {
-        // cache current value
-        self.eventId = eventId;
-    } else {
+    if (eventId == nil) {
         // try using cached event id if nil
         eventId = self.eventId;
+    } else {
+        // cache current value
+        self.eventId = eventId;
     }
-    NSURL *streamURL = (eventId == nil)
-    ? self.collectionStreamURLString
-    : [self.collectionStreamURLString URLByAppendingPathComponent:[eventId stringValue]];
-    return [self requestWithMethod:@"GET"
-                              path:[streamURL absoluteString]
-                        parameters:nil];
+    NSAssert(eventId != nil, @"eventId cannot be nil");
+    NSURL *streamURL = [self.collectionStreamURL URLByAppendingPathComponent:[eventId stringValue]];
+    
+    AFHTTPRequestSerializer* requestSerializer =
+    [self.requestSerializers objectForKey:[NSNumber numberWithInteger:AFFormURLParameterEncoding]];
+    
+    NSMutableURLRequest *request = [requestSerializer
+                                    requestWithMethod:@"GET"
+                                    URLString:[streamURL absoluteString]
+                                    parameters:nil
+                                    error:nil];
+    [request setTimeoutInterval:50.0];
+    return request;
 }
 
 

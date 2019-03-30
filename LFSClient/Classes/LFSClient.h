@@ -4,7 +4,7 @@
 //
 //  Created by zjj on 1/14/13.
 //
-//  Copyright (c) 2013 Livefyre
+//  Copyright (c) 2013 Adobe
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation
@@ -34,9 +34,9 @@
 #import "NSString+LFSEref.h"
 
 #import "LFSConstants.h"
-#import "LFSJSONRequestOperation.h"
 #import "LFSBaseClient.h"
 #import "LFSBootstrapClient.h"
 #import "LFSAdminClient.h"
 #import "LFSWriteClient.h"
 #import "LFSStreamClient.h"
+#import "LFAuthViewController.h"

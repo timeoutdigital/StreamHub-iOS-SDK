@@ -19,8 +19,8 @@
 #pragma mark - Overrides
 -(NSString*)subdomain { return @"bootstrap"; }
 
-- (instancetype)initWithEnvironment:(NSString *)environment
-                            network:(NSString *)network
+- (id)initWithEnvironment:(NSString *)environment
+                  network:(NSString *)network
 {
     self = [super initWithNetwork:network environment:environment];
     if (self) {
@@ -37,10 +37,36 @@
 {
     NSParameterAssert(siteId != nil);
     NSParameterAssert(articleId != nil);
-    NSString* path = [NSString stringWithFormat:@"/bs3/%@/%@/%@/init",
+    NSString* path = [NSString stringWithFormat:@"bs3/%@/%@/%@/init",
                       self.lfNetwork, siteId, [articleId base64String]];
     [self getPath:path
        parameters:nil
+parameterEncoding:AFFormURLParameterEncoding
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              // intercept responseObject and assign it to infoInit
+              self.infoInit = (NSDictionary*)responseObject;
+              if (success) {
+                  success(operation, responseObject);
+              }
+          }
+          failure:(AFFailureBlock)failure];
+}
+
+- (void)getFeaturedForSite:(NSString *)siteId
+                   article:(NSString *)articleId
+                      head:(BOOL)headOnly
+                 onSuccess:(LFSSuccessBlock)success
+                 onFailure:(LFSFailureBlock)failure
+{
+    NSParameterAssert(siteId != nil);
+    NSParameterAssert(articleId != nil);
+    
+    NSString *suffix = headOnly ? @"head" : @"all";
+    NSString* path = [NSString stringWithFormat:@"bs3/%@/%@/%@/featured-%@.json",
+                      self.lfNetwork, siteId, [articleId base64String], suffix];
+    [self getPath:path
+       parameters:nil
+parameterEncoding:AFFormURLParameterEncoding
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               // intercept responseObject and assign it to infoInit
               self.infoInit = (NSDictionary*)responseObject;
@@ -76,7 +102,7 @@
                         [self.infoInit objectForKey:LFSHeadDocument]
                         );
             }];
-            [self.operationQueue addOperation:opSuccess];
+            [self.reqOpManager.operationQueue addOperation:opSuccess];
         }
         return;
     }
@@ -93,15 +119,16 @@
                                         userInfo:@{NSLocalizedDescriptionKey:@"Page index outside of collection page bounds."}]
                         );
             }];
-            [self.operationQueue addOperation:opFailure];
+            [self.reqOpManager.operationQueue addOperation:opFailure];
         }
         return;
     }
     
     NSString *pathBase = [archiveInfo objectForKey:@"pathBase"];
-    NSString *path = [NSString stringWithFormat:@"/bs3%@%d.json", pathBase, pageIndex];
+    NSString *path = [NSString stringWithFormat:@"bs3%@%zd.json", pathBase, pageIndex];
     [self getPath:path
        parameters:nil
+parameterEncoding:AFFormURLParameterEncoding
           success:(AFSuccessBlock)success
           failure:(AFFailureBlock)failure];
 }
@@ -127,8 +154,9 @@
         [parameters setObject:[NSNumber numberWithInteger:offset]
                        forKey:@"offset"];
     }
-    [self getPath:[NSString stringWithFormat:@"/api/v3.0/author/%@/comments/", userId]
+    [self getPath:[NSString stringWithFormat:@"api/v3.0/author/%@/comments/", userId]
        parameters:parameters
+parameterEncoding:AFFormURLParameterEncoding
           success:(AFSuccessBlock)success
           failure:(AFFailureBlock)failure];
 }
@@ -151,8 +179,9 @@
         [parameters setObject:[NSNumber numberWithUnsignedInteger:number]
                        forKey:@"number"];
     }
-    [self getPath:@"/api/v3.0/hottest/"
+    [self getPath:@"api/v3.0/hottest/"
        parameters:parameters
+parameterEncoding:AFFormURLParameterEncoding
           success:(AFSuccessBlock)success
           failure:(AFFailureBlock)failure];
 }

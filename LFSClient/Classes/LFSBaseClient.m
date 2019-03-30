@@ -3,21 +3,33 @@
 //  LFSClient
 //
 //  Created by Eugene Scherba on 8/27/13.
-//  Copyright (c) 2013 Livefyre. All rights reserved.
+//  Copyright (c) 2013 Adobe. All rights reserved.
 //
 
+#import <AFNetworking/AFURLRequestSerialization.h>
 #import "LFSBaseClient.h"
+#import "LFSJSONResponseSerializer.h"
 
-@interface LFSBaseClient ()
-@property (readwrite, nonatomic, strong) NSMutableDictionary *defaultHeaders;
-@end
+NSDictionary* createRequestSerializerMap() {
+    // Map AFN-v1 encoding parameters to serializer objects
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setObject:[AFHTTPRequestSerializer serializer]
+             forKey:[NSNumber numberWithInteger:AFFormURLParameterEncoding]];
+    [dict setObject:[AFJSONRequestSerializer serializer]
+             forKey:[NSNumber numberWithInteger:AFJSONParameterEncoding]];
+    [dict setObject:[AFPropertyListRequestSerializer serializer]
+             forKey:[NSNumber numberWithInteger:AFPropertyListParameterEncoding]];
+    return [dict copy];
+}
 
 @implementation LFSBaseClient
 
 @synthesize lfEnvironment = _lfEnvironment;
 @synthesize lfNetwork = _lfNetwork;
+@synthesize requestSerializers = _requestSerializers;
+@synthesize responseSerializer = _responseSerializer;
+
 @dynamic subdomain; // implemented by subclass
-@dynamic defaultHeaders; // implemented by superclass
 
 #pragma mark - Initialization
 
@@ -33,35 +45,102 @@
                                  userInfo:nil];
 }
 
+-(NSObject<AFURLRequestSerialization>*)requestSerializerWithEncoding:(AFHTTPClientParameterEncoding)encoding
+{
+    NSNumber *key = [NSNumber numberWithInteger:encoding];
+    return [_requestSerializers objectForKey:key];
+}
+
 // this is the designated initializer
 - (id)initWithNetwork:(NSString *)network
           environment:(NSString *)environment
 {
     NSParameterAssert(network != nil);
-    
-    // cache passed parameters into readonly properties
-    _lfEnvironment = environment;
-    _lfNetwork = network;
-    
-    NSString *urlString = [NSString stringWithFormat:@"%@://%@.%@/",
-                           LFSScheme, 
-                           [self subdomain], 
-                           ((environment && [network isEqualToString:@"livefyre.com"]) ? environment : network)];
-
-    self = [super initWithBaseURL:[NSURL URLWithString:urlString]];
-    if (!self) {
-        return nil;
+    self = [super init];
+    if (self) {
+        _lfEnvironment = environment;
+        _lfNetwork = network;
+        _requestSerializers = createRequestSerializerMap();
+        _responseSerializer = [LFSJSONResponseSerializer serializer];
+        
+        NSString *hostname = [NSString stringWithFormat:@"%@.%@",
+                              [self subdomain],
+                              ((environment && [network isEqualToString:@"livefyre.com"]) ? environment : network)];
+        NSURL *baseURL = [[NSURL alloc] initWithScheme:LFSScheme
+                                                  host:hostname
+                                                  path:@"/"];
+        _reqOpManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseURL];
+        _reqOpManager.securityPolicy.allowInvalidCertificates = YES;
+        _reqOpManager.securityPolicy.validatesDomainName = NO;
+        _reqOpManager.responseSerializer = _responseSerializer;
     }
-    
-    [self registerHTTPOperationClass:[LFSJSONRequestOperation class]];
-    
-    // Accept HTTP Header;
-    // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
-    [self setDefaultHeader:@"Accept" value:@"application/json"];
-    [self setParameterEncoding:AFFormURLParameterEncoding];
     return self;
 }
 
+- (id)initWithBaseURL:(NSURL *)baseURL
+{
+    self = [super init];
+    if (self) {
+        
+        
+        // cache passed parameters into readonly properties
+        _requestSerializers = createRequestSerializerMap();
+        _responseSerializer = [AFHTTPResponseSerializer serializer];
+        _reqOpManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseURL];
+        _reqOpManager.securityPolicy.allowInvalidCertificates = YES;
+        _reqOpManager.securityPolicy.validatesDomainName = NO;
+        _reqOpManager.responseSerializer = _responseSerializer;
+    }
+    return self;
+}
+
++ (instancetype)clientWithBaseURL:(NSURL *)baseURL
+{
+    return [[self alloc] initWithBaseURL:baseURL];
+}
+
+- (void)postPath:(NSString *)path
+      parameters:(NSDictionary *)parameters
+parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
+         success:(AFSuccessBlock)success
+         failure:(AFFailureBlock)failure
+{
+    AFHTTPRequestSerializer* requestSerializer =
+    [self.requestSerializers objectForKey:[NSNumber numberWithInteger:parameterEncoding]];
+    
+    NSURLRequest *request = [requestSerializer
+                             requestWithMethod:@"POST"
+                             URLString:[[self.reqOpManager.baseURL URLByAppendingPathComponent:path] absoluteString]
+                             parameters:parameters error:nil];
+    
+    AFHTTPRequestOperation *operation = [self.reqOpManager HTTPRequestOperationWithRequest:request
+                                                                                   success:success
+                                                                                   failure:failure];
+    operation.responseSerializer = self.responseSerializer;
+    [self.reqOpManager.operationQueue addOperation:operation];
+}
+
+- (void)getPath:(NSString *)path
+      parameters:(NSDictionary *)parameters
+parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
+         success:(AFSuccessBlock)success
+         failure:(AFFailureBlock)failure
+{
+    
+    AFHTTPRequestSerializer* requestSerializer =
+    [self.requestSerializers objectForKey:[NSNumber numberWithInteger:parameterEncoding]];
+    
+    NSURLRequest *request = [requestSerializer
+                             requestWithMethod:@"GET"
+                             URLString:[[self.reqOpManager.baseURL URLByAppendingPathComponent:path] absoluteString]
+                             parameters:parameters error:nil];
+    
+    AFHTTPRequestOperation *operation = [self.reqOpManager HTTPRequestOperationWithRequest:request
+                                                                                   success:success
+                                                                                   failure:failure];
+    operation.responseSerializer = self.responseSerializer;
+    [self.reqOpManager.operationQueue addOperation:operation];
+}
 
 - (void)postURL:(NSURL *)url
      parameters:(NSDictionary *)parameters
@@ -69,61 +148,20 @@ parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
         success:(AFSuccessBlock)success
         failure:(AFFailureBlock)failure
 {
+    AFHTTPRequestSerializer* requestSerializer =
+    [self.requestSerializers objectForKey:[NSNumber numberWithInteger:parameterEncoding]];
     
-    NSURLRequest *request = [self requestWithMethod:@"POST"
-                                                url:url
-                                         parameters:parameters
-                                  parameterEncoding:parameterEncoding];
+    NSURLRequest *request = [requestSerializer
+                             requestWithMethod:@"POST"
+                             URLString:[url absoluteString]
+                             parameters:parameters error:nil];
     
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:success failure:failure];
-    [self enqueueHTTPRequestOperation:operation];
+    AFHTTPRequestOperation *operation = [self.reqOpManager HTTPRequestOperationWithRequest:request
+                                                                                   success:success
+                                                                                   failure:failure];
+    operation.responseSerializer = self.responseSerializer;
+    [self.reqOpManager.operationQueue addOperation:operation];
 }
 
 
-- (NSMutableURLRequest *)requestWithMethod:(NSString *)method
-                                       url:(NSURL *)url
-                                parameters:(NSDictionary *)parameters
-                         parameterEncoding:(AFHTTPClientParameterEncoding)parameterEncoding
-{
-    NSParameterAssert(method);
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    [request setHTTPMethod:method];
-    [request setAllHTTPHeaderFields:self.defaultHeaders];
-    
-    if (parameters) {
-        if ([method isEqualToString:@"GET"] || [method isEqualToString:@"HEAD"] || [method isEqualToString:@"DELETE"]) {
-            url = [url URLByAppendingPathComponent:[NSString stringWithFormat:
-                                                    ([[url absoluteString] rangeOfString:@"?"].location == NSNotFound ? @"?%@" : @"&%@"),
-                                                    AFQueryStringFromParametersWithEncoding(parameters, self.stringEncoding)]];
-            [request setURL:url];
-        } else {
-            NSString *charset = (__bridge NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(self.stringEncoding));
-            NSError *error = nil;
-            
-            switch (parameterEncoding) {
-                case AFFormURLParameterEncoding:;
-                    [request setValue:[NSString stringWithFormat:@"application/x-www-form-urlencoded; charset=%@", charset] forHTTPHeaderField:@"Content-Type"];
-                    [request setHTTPBody:[AFQueryStringFromParametersWithEncoding(parameters, self.stringEncoding) dataUsingEncoding:self.stringEncoding]];
-                    break;
-                case AFJSONParameterEncoding:;
-                    [request setValue:[NSString stringWithFormat:@"application/json; charset=%@", charset] forHTTPHeaderField:@"Content-Type"];
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wassign-enum"
-                    [request setHTTPBody:[parameters JSONDataWithOptions:JKSerializeOptionNone error:&error]];
-#pragma clang diagnostic pop
-                    break;
-                case AFPropertyListParameterEncoding:;
-                    [request setValue:[NSString stringWithFormat:@"application/x-plist; charset=%@", charset] forHTTPHeaderField:@"Content-Type"];
-                    [request setHTTPBody:[NSPropertyListSerialization dataWithPropertyList:parameters format:NSPropertyListXMLFormat_v1_0 options:0 error:&error]];
-                    break;
-            }
-            
-            if (error) {
-                NSLog(@"%@ %@: %@", [self class], NSStringFromSelector(_cmd), error);
-            }
-        }
-    }
-    return request;
-}
 @end

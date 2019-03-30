@@ -3,7 +3,7 @@
 //  LFSClient
 //
 //  Created by Eugene Scherba on 8/22/13.
-//  Copyright (c) 2013 Livefyre. All rights reserved.
+//  Copyright (c) 2013 Adobe. All rights reserved.
 //
 
 #import "LFSAdminClient.h"
@@ -24,7 +24,7 @@
     NSParameterAssert(userToken != nil);
     NSParameterAssert(collectionId != nil);
     
-    [self getPath:@"/api/v3.0/auth/"
+    [self.reqOpManager GET:@"api/v3.0/auth/"
        parameters:@{@"lftoken": userToken,
                     @"collectionId": collectionId}
           success:(AFSuccessBlock)success
@@ -41,7 +41,7 @@
     NSParameterAssert(siteId != nil);
     NSParameterAssert(articleId != nil);
     
-    [self getPath:@"/api/v3.0/auth/"
+    [self.reqOpManager GET:@"api/v3.0/auth/"
        parameters:@{@"lftoken": userToken,
                     @"siteId": siteId,
                     @"articleId":[articleId base64String]}

@@ -3,17 +3,16 @@
 //  LFSClient
 //
 //  Created by Eugene Scherba on 8/22/13.
-//  Copyright (c) 2013 Livefyre. All rights reserved.
+//  Copyright (c) 2013 Adobe. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
-
-#import "JSONKit.h"
+#import <XCTest/XCTest.h>
+#import <LFJSONKit/JSONKit.h>
 
 #define EXP_SHORTHAND YES
 #import <Expecta/Expecta.h>
 
-@interface LFSJSONKitTests : SenTestCase
+@interface LFSJSONKitTests : XCTestCase
 @end
 
 @interface LFSJSONKitTests ()

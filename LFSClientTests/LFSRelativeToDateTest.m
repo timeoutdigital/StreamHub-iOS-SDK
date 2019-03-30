@@ -3,17 +3,17 @@
 //  LFSClient
 //
 //  Created by Eugene Scherba on 9/6/13.
-//  Copyright (c) 2013 Livefyre. All rights reserved.
+//  Copyright (c) 2013 Adobe. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #import "NSDateFormatter+RelativeTo.h"
 
 #define EXP_SHORTHAND YES
 #import <Expecta/Expecta.h>
 
-@interface LFSRelativeToDateTest : SenTestCase
+@interface LFSRelativeToDateTest : XCTestCase
 
 @end
 
