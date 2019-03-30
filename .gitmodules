@@ -1,6 +1,0 @@
-[submodule "examples/CommentStream"]
-    path = "examples/CommentStream"
-    url = https://github.com/Livefyre/StreamHub-iOS-CommentStream-App
-[submodule "examples/Reviews"]
-    path = "examples/Reviews"
-    url = https://github.com/Livefyre/StreamHub-iOS-Reviews-App
